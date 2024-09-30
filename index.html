@@ -47,6 +47,432 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-12-13" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/30/12-13/" class="article-date">
+  <time class="dt-published" datetime="2024-09-30T10:00:55.000Z" itemprop="datePublished">2024-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/30/12-13/">北大肖臻老师《区块链技术与应用》笔记12-13</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程12：比特币的匿名性（Bitcoin-and-anonymity）"><a href="#课程12：比特币的匿名性（Bitcoin-and-anonymity）" class="headerlink" title="课程12：比特币的匿名性（Bitcoin and anonymity）"></a>课程12：比特币的匿名性（Bitcoin and anonymity）</h1><p>privacy</p>
+<p>不要求真名，不是完全没有名字，用的 是化名，pseudonymity。</p>
+<p>好处：匿名性没有现金好，比银行好。以前银行用的是化名。拿存折取</p>
+<p>从某种意义上说，如果银行允许使用化名。他的匿名性要比比特币好，比特币的账本公开，而银行的不是。</p>
+<p>即使每一次交易都使用一个新的账户和地址，但实际上地址也可以关联起来</p>
+<p>为了更强的隐私保护，可以人为地产生一些没必要的输出</p>
+<p>现在很少人手工地生成转账交易，常用的比特币钱包就那么几种，所以把常用的钱包生成交易的方式搞清楚，那么就可以把区块链很大一部分转账交易分析出来</p>
+<p>常用的钱包一般没有固定生成这些不必要的输出地址</p>
+<p>有可能破坏比特币的方面：</p>
+<p>1.这个人可以生成很多的地址账户，但是这些地址账户是有可能被关联起来的</p>
+<p>2.这个地址账户和在社会现实世界中的真实身份也可能产生关联。而任何让比特币系统中的比特币，虚拟货币与实体世界发生联系的时候，都有可能泄露身份。只是虚拟世界系统内，是没有问题的，一旦与实体世界有联系，就有可能泄露真实身份。</p>
+<p>泄露身份最明显的是资金的转入和转出。</p>
+<p>场外交易：两个人私下交易不经过交易所</p>
+<p><strong>怎么防范用比特币进行洗钱：</strong></p>
+<p>法定货币（英语：Fiat Currency , Legal Tender），简称法币，是由政府铸造与发行的货币，价值来自政府的信用担保。以政府的法令使其成为合法通货的货币，任何金钱债权人均不得拒收法定货币。法定货币的材质可能为金属、纸张</p>
+<h3 id="隐私"><a href="#隐私" class="headerlink" title="隐私"></a>隐私</h3><p>1.盯住资金的转入转出链。很大资金转入与转出很难不引起司法部门的注意。</p>
+<p>资金的转入与转出也是比特币隐私有可能被破坏很重要的点</p>
+<p>2.用比特币进行支付，白板idea，交易费很贵，延迟很长。但是收比特币的时候就会引起隐私泄露，因为用于支付的这个账户和真实身份是建立联系的，并且这个账户和其他本人创建的账户也是很容易有联系的，这个其实不光是接受交易的商家会知道，其他人其实也会知道</p>
+<p>有信用卡例子可以推测出账户。</p>
+<p>例子2：silk road ，ebay for illegal drugs，底下的网络层用的是洋葱路由，tor，被抓据说是有几次不小心在同一台电脑同时登录真实账户和虚拟非法账户</p>
+<p>比特币的匿名性没有想象的那么好。</p>
+<p><strong>hide your identity from whom？</strong></p>
+<p>假设是一名比特币用户，能采取什么样的方法，尽量地提高匿名性？</p>
+<p>application layer：</p>
+<p>network layer：</p>
+<p>网吧-&gt; ip -&gt; ID card</p>
+<p>网络层的匿名性方案：</p>
+<p>多路径转发比如TOR，经过很多次节点传输，只要中间有一个节点是诚实的，就能把最初发现人的身份隐藏起来</p>
+<p>application：</p>
+<p>把各个不同人的币混合在一起，coin mixing。有些专门做coin mixing的网站，有一定的复杂性，设计不好会有一些side channel。有点风险，因为coin mixing的网站也是需要保持一定的匿名性的，如果卷款跑路也是没有办法的。美国西部，法律鞭长莫及。</p>
+<p>有一些应用本身也带有coin mixing 的性质，比如在线钱包，但在线钱包不保证要履行这个功能。交易所也天然有一种coin mixing的性质，前提是交易所不会泄露相关的记录。</p>
+<p>为什么保护隐私性难度大？本质上是因为比特币的账本是公开并且不可篡改的。</p>
+<h2 id="零知识证明"><a href="#零知识证明" class="headerlink" title="零知识证明"></a>零知识证明</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>零知识证明是指一方(证明者)向另一方（验证者）证明一个陈述是正确的，而无需透露该陈述是正确的之外的任何信息。</p>
+<p>比如：证明某个比特币账户是自己的，需要证明有它的私钥，但可以提供签名。但这个例子是不是零知识证明是有争议的，因为要提供私钥的签名。</p>
+<h3 id="同态隐藏"><a href="#同态隐藏" class="headerlink" title="同态隐藏"></a>同态隐藏</h3><ol>
+<li>如果x，y不同，那么它们的加密函数值E（x）和E（y）也不相同</li>
+<li>给定E（x）的值，很难反推出x的值</li>
+<li>给定E（x）和E（y）的值，我们可以很容易地计算出某些关于x，y的加密函数值</li>
+</ol>
+<p>比如：</p>
+<p>同态加法：通过E（x）和E（y）计算出E（x+y）的值</p>
+<p>同态乘法：通过E（x）和E（y）计算出E（xy）的值</p>
+<p>扩展到多项式</p>
+<p>解释：</p>
+<ol>
+<li><p>加密函数值不会发生碰撞，反过来说明，如果两个加密函数值是相等的，那么它们的输入也是相等的</p>
+</li>
+<li><p>说明加密函数是不可逆的，类似哈希函数的hideing property</p>
+</li>
+<li><p>对这些加密之后的函数值进行某些代数运算等价于对这些输入直接进行代数运算然后再加密</p>
+</li>
+</ol>
+<p>例子：</p>
+<p>图片上，第一个性质是没有碰表现在第三点，E（x+y）&#x3D; 7</p>
+<p>这个例子有缺陷，因为被证明者可以用蛮力算法去拆除原始的x和y是多少。所以在更复杂的解法中，证明者在把输入给输出者之前，要对x和y的值做一些随机化处理，这种随机化处理的方法是保证x和y加起来是不变的</p>
+<p>例子2：盲签方法</p>
+<p>设计目的，不知道币是哪来的，无法把a和b的联系起来</p>
+<h2 id="零币和零钞（零知识证明）"><a href="#零币和零钞（零知识证明）" class="headerlink" title="零币和零钞（零知识证明）"></a>零币和零钞（零知识证明）</h2><p>motivation</p>
+<p>比特币在一定程度上或者说在很大程度上提供了匿名性，sudo limit，但是它不能够完全消除关联性，link limit。</p>
+<p>新的加密货币？从一开始的体系结构设计上就用了密码学原理保证匿名性，这就是零币和零钞的motivation，专门为了匿名性设计的加密货币。基础币是不能花的？零币只需要用零知识证明证明花掉的币是系统中存在的某一个合法的币就行了，但是不用透露花的具体是系统中的哪一个币。这个就是和比特币的本质区别。</p>
+<p>比特币每一笔交易都要说明币的来源，但是零币和零钞是证明的时候从数学上可以保证花的币是以前区块链上的某个合法的币，但是不知道具体是哪一个，把关联性给去掉了，就没法追溯了。</p>
+<p>零钞就完全没有基础币，完全是zerocoin</p>
+<p>设计比较复杂，设计到比较深的密码学和数学的知识。</p>
+<p>2018，这些专门为匿名性设计的新的加密货币，到现在也不是很主流。原因1：这些加密货币为了匿名性付出了一定的代价，在性能上有一定的损失，并且在数学原理上对初始化有比较严格的要求：初始的时候用的随机源要能够销毁掉，没有销毁掉则会有一定的安全漏洞。</p>
+<p>原因2：可能需要强匿名性的用户也不是很多。</p>
+<p>原因3：不是百分百的匿名安全，与实体发生交互的时候仍然暴露身份。</p>
+<h1 id="课程13：比特币引发的思考"><a href="#课程13：比特币引发的思考" class="headerlink" title="课程13：比特币引发的思考"></a>课程13：比特币引发的思考</h1><h2 id="1-哈希指针"><a href="#1-哈希指针" class="headerlink" title="1.哈希指针"></a>1.哈希指针</h2><p>区块的块头就有指向前一个区块的哈希指针，指针保存的是本地内存的地址，那么只是在本地这台计算机上才有意义，发送到其他的计算机上就没有意义了。那么在发布区块时，哈希指针是怎么通过网络进行传输的呢？</p>
+<p>所谓的哈希指针只是一种形象的说法，实际系统中用的时候只有哈希没有指针。</p>
+<p>那么怎么找到前一个区块的内容？全节点一般是把这些区块，存储在一个（key，value）数据库里。<br>key -&gt; haxi  ,  value -&gt; content</p>
+<p>一个常用的key，value数据库是 level DB。区块链所谓的链表，实际上是在level DB中用哈希指针串起来的。只要知道最后一个区块的哈希值，那么可以一个一个地吧所有的内容取出来。</p>
+<p>所以说在实际系统中，所谓的哈希指针只有哈希，没有指针或者也可以认为所谓的哈希值就是指针。哈希指针的性质保证了整个区块的内容是不可篡改的。</p>
+<h2 id="2-区块恋"><a href="#2-区块恋" class="headerlink" title="2.区块恋"></a>2.区块恋</h2><p>私钥截断，各拿一部分。用blockchain的不可篡改性作为两人爱情的见证。n个人的账户，任何人私钥丢取不出钱来，并且会降低私钥的安全性。比特币系统中每个账户的安全性和所用的私钥的长度是相关的。而用256位的私钥，是因为这样的私钥用暴力破解的方法是不可行的。减少位数的私钥安全性以指数级降低。</p>
+<p>对于多个人的共享账户用多重签名，其中的每一个私钥都是独立产生的，还有其他的灵活性。</p>
+<p>UTXO会永久保持没有使用过的币，对矿工是不友好的。很多人私钥不重视丢失。</p>
+<h2 id="3-分布式共识"><a href="#3-分布式共识" class="headerlink" title="3.分布式共识"></a>3.分布式共识</h2><p>很多不可能的结论，各种impossibility result，从理论上说，分布式系统中取得共识是不可能的。</p>
+<p>为什么比特币系统能够绕过分布式共识中的那些不可能结论？</p>
+<p>严格意义上，比特币并没有取得真正意义下的共识，因为取得的共识随时有可能被推翻。按照分布式系统理论的要求，共识一旦达成之后就不应该再改了，所以从这个方面上说，比特币并没有绕过分布式系统中的哪些不可能的结论，因为它并没有达到真正意义上的共识。</p>
+<p>而且理论和实际往往是有距离的，很多理论上的不可能结论，对于实际上是不适用的，因为这个不可能结论只是对某种特定模型下的不可能，实际当中修改一些模型，这个结论就不成立了。</p>
+<p>例子：死机<br>分布式系统已经证明了，在异步（通讯传输的延迟是没有上限的）的环境中，不可能区分某台远程的服务器是垮掉了还是运行缓慢。给人打电话。这种理论上的不可能，现实又变成了可能。服务器插一个电话线。</p>
+<p>知识改变命运，但是对知识的一知半解，有可能会使命运变得更差。</p>
+<h2 id="4-比特币的稀缺性"><a href="#4-比特币的稀缺性" class="headerlink" title="4.比特币的稀缺性"></a>4.比特币的稀缺性</h2><p>任何新发行的加密货币，都有启动的问题。</p>
+<p>比特币：</p>
+<p>1.早期的挖矿难度比较低，很容易就挖到</p>
+<p>2.早期的出块奖励也是比较高的</p>
+<p>其实总量固定的是不适合用来做货币的，以太坊就没有出块奖励定期减半的方法，有些加密货币甚至自带一些加密的功能。</p>
+<p>稀缺的东西是不适合用来做货币的，但是一个好的货币是应该有通货膨胀的功能。比如黄金，如果继续金本位，黄金会越来越值钱。比如房地产（货币金融学的相关知识）</p>
+<h2 id="量子计算"><a href="#量子计算" class="headerlink" title="量子计算"></a>量子计算</h2><p>将来量子计算技术发展起来之后，这些基于密码学的货币会不会变得不安全了？</p>
+<p>不必要的</p>
+<p>首先量子计算机的技术离实用还有很长一段距离，在比特币的有生之年，不一定能够产生实质性的威胁。而等量子计算能够破坏现有的加密体系的话，首先冲击到的是传统金融业，网上支付不安全了。与其担心对加密货币的冲击，不如担心对传统金融业的冲击，因为大多数的钱还是放在传统金融业里。加密货币的总市值只占据了现在金融业的很小一部分，而且将来还有量子加密算法。</p>
+<p>第二方面，比特币并没有把账户的公钥直接暴露出来，而是用公钥取哈希之后得到一个地址，比特币中用的非对称加密体系从私钥可以推导出公钥，所以只要把私钥保存好，公钥丢了也没有关系。而如果将来量子计算机可以从公钥推出私钥，比特币在设计上又加了一层保护，是没有用公钥的本身，而是用公钥的哈希。</p>
+<p>所以要偷钱的话，地址 -&gt; 公钥，相当于把公钥的哈希值逆运算，而这一点，即使是用量子计算机也是没有办法完成的。加密和取哈希是两个不同性质的操作，加密的目的是为了未来可以解密，所以加密算法要保证信息的完整性，加密过程是不能够丢失信息的。但是取哈希的过程一般来说是会造成信息的损失的，哈希函数一般都是不可逆的。</p>
+<p>所以比特币系统中，只是为了收钱，没有必要把公钥暴露出来，只要暴露一个公钥生成的哈希地址就可以了，取钱才需要提供公钥，取钱 &#x3D; 公钥 + 签名。要实时地破解公钥，再产生一个竞争的交易。即使量子计算机，也很难在几分钟之内把私钥破解，而且破解的交易还要在前面。安全性方面，地址用过了就不要再用的。即使是公钥也不要随便泄露。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/30/12-13/" data-id="cm1oubm1r0000z0u7211f1if4" data-title="北大肖臻老师《区块链技术与应用》笔记12-13" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖笔记9-11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:24:04.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/">北大肖臻老师《区块链技术与应用》笔记9-11</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程9：-比特币脚本（the-bitcoin-scripting-language）"><a href="#课程9：-比特币脚本（the-bitcoin-scripting-language）" class="headerlink" title="课程9： 比特币脚本（the bitcoin scripting language）"></a>课程9： 比特币脚本（the bitcoin scripting language）</h1><h1 id="交易实例"><a href="#交易实例" class="headerlink" title="交易实例"></a>交易实例</h1><p>左：output -&gt; input (币来自前面那个交易的输出)</p>
+<p>右：output</p>
+<p>比特币使用的脚本语言非常简单，唯一能访问的内存空间就是一个堆栈，基于栈的语言stock based languege.</p>
+<p>input script：两个操作，分别把两个很长的数压入栈里</p>
+<p>output script:有两行，分别对应上面的两个输出，每个输出都有自己单独对应的脚本</p>
+<h2 id="交易结构"><a href="#交易结构" class="headerlink" title="交易结构"></a>交易结构</h2><p>宏观信息，metadata。</p>
+<p>txid：transaction id</p>
+<p>hash：这个交易的哈希值</p>
+<p>version：比特币协议的版本号</p>
+<p>size：交易的大小</p>
+<p>locktime：交易的生效时间，非零值要过一段时间才会生效</p>
+<p>vin和vout分别是输入输出部分</p>
+<p>bloakhash：这个交易所在的区块的哈希值，由一长串0开头，挖矿的难度要求</p>
+<p>confirmation:有多少个交易信息</p>
+<p>time:这个交易产生的时间，s</p>
+<p>blocktime：这个区块产生的时间，s</p>
+<h2 id="交易的输入结构"><a href="#交易的输入结构" class="headerlink" title="交易的输入结构"></a>交易的输入结构</h2><p>是个数组，一个交易可以有多个输入和输出<br>例子中只有一个输入</p>
+<p>scriptsig -&gt; input script</p>
+<p>每个输入都要说明这个输入花的币是来自之前哪个交易的输出，所以前两行就是给的币的来源。</p>
+<p>txid：之前这个交易的哈希值</p>
+<p>vout：是这个交易的第几个输出</p>
+<p>scriptsig: 输入脚本，最简单的形式是给出一个signature,证明有权力花这个钱。如果一个交易有多个输入，每个输入都要说明币的来源，并且给出签名。比特币中的一个交易可能需要多个签名。</p>
+<p>其中的asm和hex是什么？</p>
+<h2 id="交易的输出结构"><a href="#交易的输出结构" class="headerlink" title="交易的输出结构"></a>交易的输出结构</h2><p>scriptpubkey -&gt; output script</p>
+<p>也是一个数组结构</p>
+<p>value:输出的金额，也有的是satotion：比特币最小的计数单位</p>
+<p>n:序号，表示是这个交易里的第几个输出</p>
+<p>scriptpubkey:输出脚本，输出脚本最简单的形式就是给出一个public key</p>
+<p>asm：输出脚本的内容，里面包含一系列的操作</p>
+<p>hex：？</p>
+<p>reqsigs：这个输出需要多少个签名来实现，require signature。multick多重签名</p>
+<p>type：输出的类型</p>
+<p>address：输出的地址</p>
+<h2 id="输入和输出脚本的执行"><a href="#输入和输出脚本的执行" class="headerlink" title="输入和输出脚本的执行"></a>输入和输出脚本的执行</h2><p>验证交易的合法性，是要把b转给c的这个交易的输入脚本和a转给b的交易的输出脚本拼接在一起执行的。这时有个交叉。</p>
+<p>前面的交易的输出脚本放在后面，后面的交易的输入脚本放在前面，在早期的比特币实现中，这两个脚本是拼接在一起的，从头到尾执行一遍，后来出于安全因素的考虑，这两个脚本改为分别执行。首先执行输入脚本，如果没有出错，后面再执行输出脚本。如果能顺利执行，最后占领的结果为非零值，也就是true，那么验证通过这个交易合法。如果执行过程中出现任何错误，那么这个交易就是非法的。</p>
+<p>如果一个交易有多个输入的话，那么每一个输入脚本都要和所对应的交易的输出脚本匹配之后来进行验证。全都验证通过这个交易才是合法的。</p>
+<h2 id="输入输出脚本的几种形式"><a href="#输入输出脚本的几种形式" class="headerlink" title="输入输出脚本的几种形式"></a>输入输出脚本的几种形式</h2><h3 id="1-P2PK（Pay-to-Public-Key）"><a href="#1-P2PK（Pay-to-Public-Key）" class="headerlink" title="1. P2PK（Pay to Public Key）"></a>1. P2PK（Pay to Public Key）</h3><p>最简单的形式</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>output script:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>输出脚本直接给出收款人的公钥，第二行的checksig是检查签名的操作。在输入脚本中直接给出签名就行了，这个签名是用私钥对这个输入脚本所在的整个交易的签名。</p>
+<p>这种形式是最简单的，因为pubkey是在输出脚本里给出的。</p>
+<p><strong>实际执行情况</strong></p>
+<p>PUSHDATA(Sig)（压入栈）</p>
+<p>PUSHDATA(PubKey)（压入栈）</p>
+<p>CHECKSIG（把栈顶的两个元素弹出来，用公钥检查这个签名是否正确，如果正确的话，返回处说明验证通过，否则执行出错，交易非法）</p>
+<p>这三行是把输入脚本和输出脚本拼接之后的结果，第一行来自输入脚本，后两行来自输出脚本。在实际代码中，出于安全考虑，这两个脚本实际上是分别执行。</p>
+<p><strong>实例</strong></p>
+<p>上面交易的输入脚本就是把签名压入栈，下面这个交易是上面的输入的币的来源，输出有两行，第一行把公钥压入栈，第二行就是checksig</p>
+<h3 id="2-P2PKH-Pay-to-Public-Key-Hash"><a href="#2-P2PKH-Pay-to-Public-Key-Hash" class="headerlink" title="2.P2PKH(Pay to Public Key Hash)"></a>2.P2PKH(Pay to Public Key Hash)</h3><p><strong>input script：</strong></p>
+<p>PUSHDATA(SIG)</p>
+<p>PUSHDATA(PubKey)</p>
+<p><strong>output script：</strong></p>
+<p>DUP</p>
+<p>HASH160</p>
+<p>PUSHDATA(PubKeyHash)</p>
+<p>EQUALVERIFY</p>
+<p>CHECKSIG</p>
+<p>与第一个形式区别在于：输出脚本里没有直接给出收款人的公钥，给出的是公钥的哈希，公钥是在输入脚本里给出的。</p>
+<p>输入脚本里既要给出签名，也要给出公钥。</p>
+<p>输出脚本里，还有其他的一些操作，DUP和HASH160都是为了验证交易的正确性，这种形式实际上是最常用的。</p>
+<p><strong>脚本执行：</strong></p>
+<p>签名-&gt;pubkey压入栈</p>
+<p>DUP：把栈顶的元素复制一遍，所以栈顶又多了一个公钥。</p>
+<p>HASH160：把栈顶的元素弹出来取哈希然后把得到的哈希值再加入栈，PUBKEYHASH。所以栈顶变成了公钥的哈希值。要花这个钱的时候，输入脚本里给出的公钥</p>
+<p>下一条语句是把输出脚本里提供的公钥的哈希值压入栈。收款人公钥的哈希</p>
+<p>EQUALVERIFY:弹出栈顶的两个元素，比较他们是否相等，就是比较栈顶的两个哈希值是否相等。防止有人冒名顶替，如果这两个相等，那么就从栈里消失了。</p>
+<p>CHECKSIG：弹出栈顶的两个元素，用公钥检查这个签名是否正确，假设这个签名是正确的，那么整个脚本顺利运行结束占领留下的是true。</p>
+<p>任何一个环节对不上，那么这个交易就是非法的。</p>
+<p><strong>实例：</strong></p>
+<h3 id="3-P2SH-Pay-to-Script-Hash"><a href="#3-P2SH-Pay-to-Script-Hash" class="headerlink" title="3.P2SH(Pay to Script Hash)"></a>3.P2SH(Pay to Script Hash)</h3><p>采用BIP16的方案</p>
+<p><strong>input script：</strong></p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(seriallized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<p>这种形式的输出脚本给出的不是收款人公钥的哈希，而是收款人提供了一个脚本的哈希，这个脚本叫redeem script赎回脚本，将来花这个钱的时候，输入脚本里要给出这个redeem script这个赎回脚本的具体内容，同时还要给出让这个赎回脚本能够正常运行所需要的签名</p>
+<p>验证的时候分为两步：</p>
+<p>第一步验证输入脚本里给出的这个赎回脚本是否与输出脚本里给出的哈希值匹配。不匹配的话说明给出的赎回脚本是不对的，类似与P2PKH给出的公钥不对，</p>
+<p>第二步验证，如果赎回的脚本是正确的，把赎回脚本的内容当作操作指令来执行一遍，看看最后能不能顺利执行。</p>
+<p>两步验证通过，最后才是合法的。</p>
+<h4 id="redeemScript的形式："><a href="#redeemScript的形式：" class="headerlink" title="redeemScript的形式："></a>redeemScript的形式：</h4><p>1.P2PK的形式</p>
+<p>2.P2PKH的形式</p>
+<p>3.多重签名形式</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><strong>redeemScript:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(serialized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="第一阶段的验证"><a href="#第一阶段的验证" class="headerlink" title="第一阶段的验证"></a>第一阶段的验证</h4><p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(seriRS)</p>
+<p>HASH160得到RSH，赎回脚本的哈希值</p>
+<p>PUSHDATA(RSH)：输出脚本给出的哈希值</p>
+<p>EQUAL，如果相等，两个哈希值消失，剩下Sig</p>
+<p>操作中RSH是指redeem script hash赎回脚本的哈希值</p>
+<h4 id="第二阶段的验证"><a href="#第二阶段的验证" class="headerlink" title="第二阶段的验证"></a>第二阶段的验证</h4><p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>首先把输入脚本里提供的序列化的赎回脚本进行反序列化，在ppt上没有展现，是每个节点自己要完成的。</p>
+<p>然后执行赎回脚本，把PucKey压入栈，然后由CHECKSIG验证一下输入脚本里给出的Signature的正确性，验证通过之后，整个的pay to script hash才算执行完成</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>这个功能在最初版本的比特币里是没有的，后来通过软分叉的形式加进去了，其中一个常见的应用场景就是对多重签名的支持</p>
+<p>比特币系统中一个输出可能要求多个签名才能把钱取出来，比如公司账户中合伙人签名，需要多个私钥才能签名。</p>
+<p>最早的多重签名是通过CHECKMULTISIG实现的，输出脚本给出n个公钥，同时指定一个阈值M。输入脚本只要提供这n个公钥对应的签名中任意M个合法的签名就能通过验证。输入脚本第一行的红叉，比特币中CHECKMULTISIG的实现有一个BUG，执行的时候会从堆栈上多弹出一个元素，没办法改，因为是一个去中心化的系统，软件升级的方法要改的话需要硬分叉。所以实际解决方案是在输入脚本栈上多压进去一个没用的元素。</p>
+<p>给出的M个签名的相对顺序，要与他们在n个公钥中的相对顺序是一致的才行</p>
+<p>这种问题是：网上购物，某个电商用多重签名，要求5个人中3人的签名才能取钱，这就要求用户在支付的时候生成的转账交易里给出5个合伙人的公钥，同时给出n和m的值。用户根据网站的多重签名的规则填入。这就把复杂性都暴露给用户了。</p>
+<p>P2SH实现多重签名的本质是把复杂度从输出脚本转移到了输入脚本，输出脚本变得非常简单。输出脚本只要给出赎回脚本的哈希值就可以了，赎回脚本是在输入脚本里提供的，由收款人提供的。像之前，只要在网站上公布这个赎回脚本的哈希值，然后用户生成转账交易的时候，把这个哈希值包含在输入脚本就可以了。而其中的规则，对用户是不可见的。输入脚本是电商在花掉这笔输出的时候提供的，其中包含赎回脚本的序列化版本，还有让这个赎回脚本验证通过的M个签名。将来2电商改变了所采用的多重签名规则，只要改变输入脚本和赎回脚本的内容，然后把新的哈希值公布出去就行了，对用户来说只是要包含的哈希值发生变化</p>
+<p>现在的多重签名一般采用的都是P2SH的形式</p>
+<h2 id="Proof-of-Burn"><a href="#Proof-of-Burn" class="headerlink" title="Proof of Burn"></a>Proof of Burn</h2><p>output script开头是return，后面可以跟任意内容，作用是无条件地返回错误，包含这个操作的脚本永远不可能通过验证，执行到return语句就出错终止。</p>
+<p>作用：证明销毁比特币的一种方法</p>
+<p>销毁比特币的应用场景：</p>
+<p>1.有些小的币种要求销毁一定数量的比特币，才能够得到这个币，有时管这种小币叫altcoin ：alternative coin。</p>
+<p>2.往区块链中写入一些内容，不可篡改的系统，可以利用这个特性往里面添加一些需要永久保存的内容。digital commitment，取个哈希值放入，知识产权，把哈希值的输入公布，证明之前就已经知道了。coinbase transaction里的coinbase，域里写的内容同样没人管，这种方法只有获得记账权的节点才可以用。而这个方法所有节点都可以使用。发布交易不需要有记账权，发布区块需要记账权。任何用户都可以用这种方法销毁很少一点比特币换取写入一些内容。</p>
+<p>有些交易没有销毁比特币，只不过支付了交易费</p>
+<p>第一个实例：第一个输出正常输出，第二个输出return记录内容</p>
+<p>第二个实例：输出脚本以return开头，收入是个比特币，输出金额是0，输入金额全部用来支付交易费，把交易费给矿工了。矿工看到这种脚本时，知道这种输出永远不可能兑现，就没有必要把这个保存在utxo里，这样对全节点比较友好。</p>
+<p>里面的比特币脚本操作，为了简便，都没有加上OP前缀。OP——CHECKSIG,OP_DUP</p>
+<p>像以太坊中的智能合约的语言是图灵完备的，所以需要靠gas费的机制来防止程序陷入死循环。而栈语言输入功能有限，但是和密码学相关的功能是很强大的</p>
+<h1 id="课程10：比特币分叉"><a href="#课程10：比特币分叉" class="headerlink" title="课程10：比特币分叉"></a>课程10：比特币分叉</h1><p>原因：</p>
+<p>1.几乎同时挖到矿，state fork</p>
+<p>2.forking attack,也属于state fork, it’s deliberate fork</p>
+<p>3.比特币的协议发生了改变，在一个去中心化的系统里，没有保证所有的节点同时都升级软件，少部分没有升级，形成分叉。protocd fork.因为协议发生分叉，根据其内容不同，分为hard frok and soft fork</p>
+<h2 id="hard-fork"><a href="#hard-fork" class="headerlink" title="hard fork"></a>hard fork</h2><p>增加一些特性，new feature，扩展一些功能，一些节点不认同，任何分叉。</p>
+<p>例子：</p>
+<p>比特币中的区块大小限制，1M，一百万个字节，1个交易大概为250个字节，4000个交易要摊到10分钟，每秒大概7笔交易，这个through food是非常低的，所以有些要提高blog size limit</p>
+<p>假设增加到4M，按算力大部分节点更新了软件，系统运行结果，旧节点因为没超过4M，新节点是认可的，但是没有达成共识。这个分叉是永久性的，所以是hard fork。</p>
+<p>社区分类，下一条链，这个社区的人认</p>
+<p>ETH（回滚之后）分叉完有个ETC（原来），有人攻击THE DAO，然后进行硬分叉回滚把他偷盗的钱退回给当初的投资者。分叉后这个节点两个链都可以花，因为私钥一样，但是两条链互相之间一定会有一定影响，比如在一条链上转，结果另一条也进行了同一笔交易，C就是收到2笔，会回放。所以两条链会加一条chain id分开。</p>
+<h2 id="soft-fork"><a href="#soft-fork" class="headerlink" title="soft fork"></a>soft fork</h2><p>对比特币的协议加一些限制，原先有的合法的变成不合法了。比如1M变成0.5M，新节点的链，旧节点是认的，旧节点看到新节点变成最小合法链之后，会回到新节点上，这个分叉是临时性的，旧节点可能经常白挖。</p>
+<p>实际当中出现软分叉的情况</p>
+<p>1.给某些目前协议中没有规定的域增加一些协议或规则，coinbase挖矿难度里前8个字节可以用来调extra nonse，使得原先4个字节的难度变成了个字节，变成的96次方。有人提出coinbase剩下的字节作为utxo集合的根哈希值，merkle proof证明某个交易是不是在某个区块。A的账户余额通过算UTXO集合可以算出，轻节点问全节点可以问出，但是不确定正确性。新节点发布的区块，旧节点认为是合法的</p>
+<p>pay to script hush（P2SH）：这个功能在比特币原本里是没有的，通过软分叉加入。旧节点只做第一阶段的验证，旧节点认为的新节点是合法的。</p>
+<p>soft fork只要一半以上的算力更新软件，系统就不会分叉</p>
+<p>hard fork系统所有的算力更新，系统才不会出现分叉</p>
+<h1 id="课程11：课程问答"><a href="#课程11：课程问答" class="headerlink" title="课程11：课程问答"></a>课程11：课程问答</h1><h2 id="1-转账交易时如果接收者不在线怎么办？"><a href="#1-转账交易时如果接收者不在线怎么办？" class="headerlink" title="1.转账交易时如果接收者不在线怎么办？"></a>1.转账交易时如果接收者不在线怎么办？</h2><p>不需要接收者在线交易，转账交易是在区块链记录一下，把账户转钱</p>
+<h2 id="2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"><a href="#2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的" class="headerlink" title="2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"></a>2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的</h2><p>可能，比特币节点不需要通知任何人，只一转账交易收到钱时，其他节点才知道这个账户的存在。</p>
+<h2 id="3-账户的私钥丢失怎么办？"><a href="#3-账户的私钥丢失怎么办？" class="headerlink" title="3.账户的私钥丢失怎么办？"></a>3.账户的私钥丢失怎么办？</h2><p>钱没了，死钱。有些交易所是中心化结构，提供身份证，保存在交易所密码丢失可以再获得密码。缺乏监管的情况。Mt.Gox,曾经最大交易所70%，黑客攻击丢失了大量比特币，有的监管自盗。硬件钱包比较安全</p>
+<h2 id="4-私钥泄露怎么办"><a href="#4-私钥泄露怎么办" class="headerlink" title="4.私钥泄露怎么办"></a>4.私钥泄露怎么办</h2><p>转移钱到安全账户</p>
+<h2 id="5-转账的时候写错地址怎么办"><a href="#5-转账的时候写错地址怎么办" class="headerlink" title="5.转账的时候写错地址怎么办"></a>5.转账的时候写错地址怎么办</h2><p>没有办法取消已经发布的交易，只能和对方商量，或者转到不存在的地址。转到私钥不存在的，地址return。用很少一点钱换取到写入比特币的机会，但是不提倡，会永远写在utxo里。proof of burn 和 return 的操作。</p>
+<h2 id="6-挖矿"><a href="#6-挖矿" class="headerlink" title="6.挖矿"></a>6.挖矿</h2><p>偷区块，偷nonse，发布的区块coinbase transaction里有一个地址是挖到这个矿的矿工的地址，coinbase transaction变化merkle root会变化，这样nonse就变化。</p>
+<h2 id="7-交易费给矿工的小费"><a href="#7-交易费给矿工的小费" class="headerlink" title="7.交易费给矿工的小费"></a>7.交易费给矿工的小费</h2><p>事先不知道哪个矿工挖到nonse，只要 total inputs - total outputs &#x3D;交易费，哪个矿工挖到，就可以把差额作为自己的交易费。</p>
+<h2 id="8-比特币上的一些统计数据"><a href="#8-比特币上的一些统计数据" class="headerlink" title="8.比特币上的一些统计数据"></a>8.比特币上的一些统计数据</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" data-id="cm1oubm220004z0u72yamfvor" data-title="北大肖臻老师《区块链技术与应用》笔记9-11" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖笔记6-8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:23:47.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/">北大肖臻老师《区块链技术与应用》笔记6-8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程6：比特币网络（The-Bitcoin-Network）"><a href="#课程6：比特币网络（The-Bitcoin-Network）" class="headerlink" title="课程6：比特币网络（The Bitcoin Network）"></a>课程6：比特币网络（The Bitcoin Network）</h1><p>用户把交易发布到比特币网络上，节点，区块，比特币网络。</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>比特币工作在应用层，底层是b2b overlay network</p>
+<p>application layer: Bitcoin Block chain</p>
+<p>netwrok layer： p2p overlay network</p>
+<p>比特币网络：所有节点都是对等的，没有super node or master node（超级节点和主节点）</p>
+<p>要加入网络，至少知道一个种子节点，seed node,通信后告诉网络上的其他节点，节点间通过tcp通信，有利于通过防火墙。</p>
+<p>退出节点不需要做其他操作，只要退出应用程序就可以了，其他节点没有收到信息过段时间就会删除这个节点</p>
+<p>比特币网络的设计原则：简单、可靠simple 、robust,but not efficient ，而不是高效。</p>
+<p>每个节点维护一个凝聚节点的集合，消息传播在网络钟采取flooding的方式。</p>
+<p>节点听到消息 -&gt; 其他所有凝聚节点，同时记录已收到过消息。</p>
+<p>凝聚节点的选取是随机的，没有考虑拓朴结构。</p>
+<p>好处是增强鲁棒性，鲁棒性非常强，但是牺牲的是效率。</p>
+<p>“鲁棒性”（robustness），这个词和“robust”发音相近。鲁棒性强调系统在面对各种挑战和不确定性时的稳定性和可靠性。这样，句子的意思是：凝聚节点的选取是随机的，虽然增强了鲁棒性，但牺牲了效率。</p>
+<p>比特币系统中的每个节点要维护一个等待上面交易的集合。</p>
+<p>race condition。</p>
+<p>新发布的区块在网络上的传播方式跟新发布的交易是类似的，每个节点要检查内容和法性，和是否在最长合法链上。</p>
+<p>越是大的区块，在网络上的传播速度就越慢。<br>比特币协议对区块的大小有一个限制，1M.因为传播方式非常消耗带宽，一个新发布的区块可能要几十秒才能发布到网络的绝大数区块中。</p>
+<p>比特币网络是属于best effort，一个交易发布到网络上不一定所有节点都能收到，而且不同节点收到交易的顺序也不一样，网络传输存在延迟，并且有的节点不一定根据比特币协议进行转发。</p>
+<p>线上的系统不能解决线下的问题。回稳交易。</p>
+<h1 id="课程7：比特币的挖矿难度调整"><a href="#课程7：比特币的挖矿难度调整" class="headerlink" title="课程7：比特币的挖矿难度调整"></a>课程7：比特币的挖矿难度调整</h1><h2 id="为什么要调整挖矿难度"><a href="#为什么要调整挖矿难度" class="headerlink" title="为什么要调整挖矿难度"></a>为什么要调整挖矿难度</h2><p>H（block header）&lt;&#x3D; target，nonse<br>哈希算法：SHA-256，所有整个的输出空间是2的256次方</p>
+<p>difficulty&#x3D;difficulty_1_target&#x2F;target<br>(挖矿难度为1的时候所对应的目标阈值)，最小为1</p>
+<p>出块时间太短的的问题：分叉可能变成常态，一次很多分叉。</p>
+<p>恶意攻击需要51%的算力，多个分叉，有恶意的节点就可以集中算力就获得其中一个分叉。</p>
+<p>不一定10分钟出块就是最优的，但是一定需要一个常数的波动范围。以太坊的出块时间为15秒，新的共识协议，叫ghost.在ghost协议中这些分叉叫orphan block，不能简单地丢弃，需要给一些奖励，叫yncle reward.以太坊同样需要保持出块时间</p>
+<h2 id="怎么调整挖矿难度"><a href="#怎么调整挖矿难度" class="headerlink" title="怎么调整挖矿难度"></a>怎么调整挖矿难度</h2><p>比特币每隔2016个区块，要调整目标阈值target，大概是2个星期左右。</p>
+<p>具体调整公式，target &#x3D; target*（actual time&#x2F;expected time） </p>
+<p>expected time &#x3D; 2016 * 10min</p>
+<p>time spent mining the last 2016 blocks &#x3D; actual time</p>
+<p>实际代码中上调和下调都是有4倍的线，即最多增大或缩小4倍，主要避免意外情况导致target变化。</p>
+<p>怎么让所有矿工调整目标阈值，代码开源。如果不调，诚实的miner不会认可</p>
+<p>nbits： target的编码的一个版本，block header里面没有直接存储target，target的域是256位，32个字节。nbits 在header里只有4个字节，可以人为是它的一个压缩编码。不调target，那么区块合法性不通过，每个节点要独立验证发布的区块的合法性，检查的内容就包括nbits：即目标阈值发布的对不对。</p>
+<p>以太坊就不是隔一个固定的区块，而是每个新出的区块都有可能进行调整，调整的方法也更复杂。</p>
+<p>比特币的成功从某种意义上来说是因为他更不实用，比特币没有任何法币背书，没有任何保证金。比特币的设计是很保守的，但还算笔记合理</p>
+<h2 id="比特币系统中的一些实际情况"><a href="#比特币系统中的一些实际情况" class="headerlink" title="比特币系统中的一些实际情况"></a>比特币系统中的一些实际情况</h2><p>总算力的变化情况，算力在指数级增大，虽然有波动。如果某个币挖矿难度越来越小，说明热情减少，慢慢不行了</p>
+<p>实际比特币代码里用的是目标阈值。</p>
+<h1 id="课程8：比特币挖矿"><a href="#课程8：比特币挖矿" class="headerlink" title="课程8：比特币挖矿"></a>课程8：比特币挖矿</h1><p>先总结以前的基础知识。如果只是交易不需要挖矿的话，只需要轻节点，不需要全节点。</p>
+<p>memoryless(progress free)无论是挖原区块还是新区块，可能性都是一样的，所以不可惜。</p>
+<p>比特币安全性的保证：</p>
+<p>1.密码学上的保证：别人没有私钥，就没有办法伪造签名，前提是系统中拥有大多数算力的矿工是好的，不会接受那些没有合法签名的交易</p>
+<p>2.共识机制的保证</p>
+<h2 id="挖矿相关"><a href="#挖矿相关" class="headerlink" title="挖矿相关"></a>挖矿相关</h2><h3 id="挖矿设备"><a href="#挖矿设备" class="headerlink" title="挖矿设备"></a>挖矿设备</h3><p>越来越专业化，普通cpu（挖矿只用到很少一部分内存和cpu的指令，硬盘和其他也都是闲置的） -&gt; gpu挖矿（效率提高，主要用于大部分的并行计算，大量的矩阵乘法）-&gt; asic芯片</p>
+<p>“GPU”是指“图形处理单元”，主要用于加速图形渲染和并行计算。它在深度学习、科学计算和游戏等领域有广泛应用。为了通用并行计算设计的</p>
+<p>ASIC： Application specific integrated circle,专为挖矿设计，有些甚至只能挖一种加密货币，除非这些加密货币用同一种mining puzzle，有些为了启动问题，用同一种mining puzzle 这种叫做：merge mining，除了这种之外，其他都是一个芯片只能为一个加密货币挖矿。asic研发周期很长，比特币可能是1年，但是已经很奇迹了。定制的asic芯片可能用不了几个月就过时了，大部分利润在前两个月产生的，一般提前预定，比特币算力突然有一个很大的提高，新的矿机产生出来了。过时即作废</p>
+<p>有些加密货币，alternative mining puzzle，出发点有resistance抗asic化，让通用计算机也能挖矿。</p>
+<p>单个矿工，概率很小，还要承担全节点的其他责任</p>
+<h3 id="矿池"><a href="#矿池" class="headerlink" title="矿池"></a>矿池</h3><p>所谓的矿石就是把矿工组织起来作为整体，矿石的架构一般来说是一个全节点会驱动很多矿机</p>
+<p>pool manager -&gt; many miner,miner只负责计算哈希值，其他职责都由 pool manager承担，asic只能负责计算哈希值。</p>
+<p>矿石的出现也有为了解决收入不稳定的问题</p>
+<p>矿石一般有两种组织形式：</p>
+<p>1.大型数据中心</p>
+<p>2.分布式的，来自不同机构，矿工和矿主不在同一个地方，miner根据矿池规定的通讯协议联系矿主，矿主分配要计算的哈希值的任务，计算完之后结果返回矿主。利益分配，按贡献大小分配，按工作量分配。</p>
+<p>share: almost valid block，差不多符合难度就可以，发给矿主，证明工作量</p>
+<p>工作量证明可行性分析：概率取决于尝试数，share数越多，尝试的数量越多。</p>
+<p>问题：</p>
+<p>1.挖到区块后不提交给矿主，上交share，但是区块不上交。矿主分配任务，miner只负责计算nonse，其他还需要调整coinbase transaction，分配nonse范围，并且coinbase transaction上收款人的地址写的是矿主的地址（poor manager），取不出来钱来</p>
+<p>2.不管矿主任务，自己组装区块，改收款地址。那么share是不认的，里面的交易列表改变，coinbase transaction的内容发生变化，merkle tree的根哈希值也不一样。</p>
+<p>3.捣乱，挖到合法区块丢弃，可以但是没有经济好处，可以矿池打压竞争对手。</p>
+<p>目前矿池算力是分散的，但是几个大型的矿池占据了大的比例。</p>
+<p>一般来说poor manager收取一定比例出块奖励作为管理费，也有的是交易费</p>
+<h3 id="51-的攻击"><a href="#51-的攻击" class="headerlink" title="51%的攻击"></a>51%的攻击</h3><p>管理费低或者赔本吸引足够多的矿工，然后攻击。</p>
+<p>矿池使得51%攻击更容易了（on demand computing, it’s on demand mining），但是使得矿工的收益更均匀稳定了，降低风险了，减轻负担。</p>
+<p>1.分叉攻击，forking attack，平均增长速度会快于链，可以追赶然后回滚。不到51%也能发动攻击，只是一个概率的区别。</p>
+<p>2.boycott，封锁禁阈，产生不包含某个账户的区块，那么不需要等6个确认，一上链就可以分叉</p>
+<p>3.转别人账户的钱，不行因为没有私钥进行签名，把没有合法签名的交易写入链上，会造成分叉，诚实的矿工会沿着另一种链去挖</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" data-id="cm1oubm1v0001z0u713ughodl" data-title="北大肖臻老师《区块链技术与应用》笔记6-8" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-肖课程笔记5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" class="article-date">
@@ -61,7 +487,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记4</a>
+      <a class="p-name article-title" href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记5</a>
     </h1>
   
 
@@ -113,7 +539,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://auo578.github.io/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" data-id="cm1isykrs0000m4u7bscoge9y" data-title="北大肖臻老师《区块链技术与应用》笔记4" class="article-share-link">分享</a>
+      <a data-url="https://auo578.github.io/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" data-id="cm1isykrs0000m4u7bscoge9y" data-title="北大肖臻老师《区块链技术与应用》笔记5" class="article-share-link">分享</a>
       
       
       
@@ -520,19 +946,23 @@
       <ul>
         
           <li>
-            <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记4</a>
+            <a href="/2024/09/30/12-13/">北大肖臻老师《区块链技术与应用》笔记12-13</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/">北大肖臻老师《区块链技术与应用》笔记9-11</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/">北大肖臻老师《区块链技术与应用》笔记6-8</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记5</a>
           </li>
         
           <li>
             <a href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/">北大肖臻老师《区块链技术与应用》笔记4</a>
-          </li>
-        
-          <li>
-            <a href="/2024/09/24/web3%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B1/">北大肖臻老师《区块链技术与应用》笔记1-3</a>
-          </li>
-        
-          <li>
-            <a href="/2024/09/12/hello-world/">Hello World</a>
           </li>
         
       </ul>
