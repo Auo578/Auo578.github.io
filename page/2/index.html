@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-肖笔记6-8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:23:47.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/">北大肖臻老师《区块链技术与应用》笔记6-8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程6：比特币网络（The-Bitcoin-Network）"><a href="#课程6：比特币网络（The-Bitcoin-Network）" class="headerlink" title="课程6：比特币网络（The Bitcoin Network）"></a>课程6：比特币网络（The Bitcoin Network）</h1><p>用户把交易发布到比特币网络上，节点，区块，比特币网络。</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>比特币工作在应用层，底层是b2b overlay network</p>
+<p>application layer: Bitcoin Block chain</p>
+<p>netwrok layer： p2p overlay network</p>
+<p>比特币网络：所有节点都是对等的，没有super node or master node（超级节点和主节点）</p>
+<p>要加入网络，至少知道一个种子节点，seed node,通信后告诉网络上的其他节点，节点间通过tcp通信，有利于通过防火墙。</p>
+<p>退出节点不需要做其他操作，只要退出应用程序就可以了，其他节点没有收到信息过段时间就会删除这个节点</p>
+<p>比特币网络的设计原则：简单、可靠simple 、robust,but not efficient ，而不是高效。</p>
+<p>每个节点维护一个凝聚节点的集合，消息传播在网络钟采取flooding的方式。</p>
+<p>节点听到消息 -&gt; 其他所有凝聚节点，同时记录已收到过消息。</p>
+<p>凝聚节点的选取是随机的，没有考虑拓朴结构。</p>
+<p>好处是增强鲁棒性，鲁棒性非常强，但是牺牲的是效率。</p>
+<p>“鲁棒性”（robustness），这个词和“robust”发音相近。鲁棒性强调系统在面对各种挑战和不确定性时的稳定性和可靠性。这样，句子的意思是：凝聚节点的选取是随机的，虽然增强了鲁棒性，但牺牲了效率。</p>
+<p>比特币系统中的每个节点要维护一个等待上面交易的集合。</p>
+<p>race condition。</p>
+<p>新发布的区块在网络上的传播方式跟新发布的交易是类似的，每个节点要检查内容和法性，和是否在最长合法链上。</p>
+<p>越是大的区块，在网络上的传播速度就越慢。<br>比特币协议对区块的大小有一个限制，1M.因为传播方式非常消耗带宽，一个新发布的区块可能要几十秒才能发布到网络的绝大数区块中。</p>
+<p>比特币网络是属于best effort，一个交易发布到网络上不一定所有节点都能收到，而且不同节点收到交易的顺序也不一样，网络传输存在延迟，并且有的节点不一定根据比特币协议进行转发。</p>
+<p>线上的系统不能解决线下的问题。回稳交易。</p>
+<h1 id="课程7：比特币的挖矿难度调整"><a href="#课程7：比特币的挖矿难度调整" class="headerlink" title="课程7：比特币的挖矿难度调整"></a>课程7：比特币的挖矿难度调整</h1><h2 id="为什么要调整挖矿难度"><a href="#为什么要调整挖矿难度" class="headerlink" title="为什么要调整挖矿难度"></a>为什么要调整挖矿难度</h2><p>H（block header）&lt;&#x3D; target，nonse<br>哈希算法：SHA-256，所有整个的输出空间是2的256次方</p>
+<p>difficulty&#x3D;difficulty_1_target&#x2F;target<br>(挖矿难度为1的时候所对应的目标阈值)，最小为1</p>
+<p>出块时间太短的的问题：分叉可能变成常态，一次很多分叉。</p>
+<p>恶意攻击需要51%的算力，多个分叉，有恶意的节点就可以集中算力就获得其中一个分叉。</p>
+<p>不一定10分钟出块就是最优的，但是一定需要一个常数的波动范围。以太坊的出块时间为15秒，新的共识协议，叫ghost.在ghost协议中这些分叉叫orphan block，不能简单地丢弃，需要给一些奖励，叫yncle reward.以太坊同样需要保持出块时间</p>
+<h2 id="怎么调整挖矿难度"><a href="#怎么调整挖矿难度" class="headerlink" title="怎么调整挖矿难度"></a>怎么调整挖矿难度</h2><p>比特币每隔2016个区块，要调整目标阈值target，大概是2个星期左右。</p>
+<p>具体调整公式，target &#x3D; target*（actual time&#x2F;expected time） </p>
+<p>expected time &#x3D; 2016 * 10min</p>
+<p>time spent mining the last 2016 blocks &#x3D; actual time</p>
+<p>实际代码中上调和下调都是有4倍的线，即最多增大或缩小4倍，主要避免意外情况导致target变化。</p>
+<p>怎么让所有矿工调整目标阈值，代码开源。如果不调，诚实的miner不会认可</p>
+<p>nbits： target的编码的一个版本，block header里面没有直接存储target，target的域是256位，32个字节。nbits 在header里只有4个字节，可以人为是它的一个压缩编码。不调target，那么区块合法性不通过，每个节点要独立验证发布的区块的合法性，检查的内容就包括nbits：即目标阈值发布的对不对。</p>
+<p>以太坊就不是隔一个固定的区块，而是每个新出的区块都有可能进行调整，调整的方法也更复杂。</p>
+<p>比特币的成功从某种意义上来说是因为他更不实用，比特币没有任何法币背书，没有任何保证金。比特币的设计是很保守的，但还算笔记合理</p>
+<h2 id="比特币系统中的一些实际情况"><a href="#比特币系统中的一些实际情况" class="headerlink" title="比特币系统中的一些实际情况"></a>比特币系统中的一些实际情况</h2><p>总算力的变化情况，算力在指数级增大，虽然有波动。如果某个币挖矿难度越来越小，说明热情减少，慢慢不行了</p>
+<p>实际比特币代码里用的是目标阈值。</p>
+<h1 id="课程8：比特币挖矿"><a href="#课程8：比特币挖矿" class="headerlink" title="课程8：比特币挖矿"></a>课程8：比特币挖矿</h1><p>先总结以前的基础知识。如果只是交易不需要挖矿的话，只需要轻节点，不需要全节点。</p>
+<p>memoryless(progress free)无论是挖原区块还是新区块，可能性都是一样的，所以不可惜。</p>
+<p>比特币安全性的保证：</p>
+<p>1.密码学上的保证：别人没有私钥，就没有办法伪造签名，前提是系统中拥有大多数算力的矿工是好的，不会接受那些没有合法签名的交易</p>
+<p>2.共识机制的保证</p>
+<h2 id="挖矿相关"><a href="#挖矿相关" class="headerlink" title="挖矿相关"></a>挖矿相关</h2><h3 id="挖矿设备"><a href="#挖矿设备" class="headerlink" title="挖矿设备"></a>挖矿设备</h3><p>越来越专业化，普通cpu（挖矿只用到很少一部分内存和cpu的指令，硬盘和其他也都是闲置的） -&gt; gpu挖矿（效率提高，主要用于大部分的并行计算，大量的矩阵乘法）-&gt; asic芯片</p>
+<p>“GPU”是指“图形处理单元”，主要用于加速图形渲染和并行计算。它在深度学习、科学计算和游戏等领域有广泛应用。为了通用并行计算设计的</p>
+<p>ASIC： Application specific integrated circle,专为挖矿设计，有些甚至只能挖一种加密货币，除非这些加密货币用同一种mining puzzle，有些为了启动问题，用同一种mining puzzle 这种叫做：merge mining，除了这种之外，其他都是一个芯片只能为一个加密货币挖矿。asic研发周期很长，比特币可能是1年，但是已经很奇迹了。定制的asic芯片可能用不了几个月就过时了，大部分利润在前两个月产生的，一般提前预定，比特币算力突然有一个很大的提高，新的矿机产生出来了。过时即作废</p>
+<p>有些加密货币，alternative mining puzzle，出发点有resistance抗asic化，让通用计算机也能挖矿。</p>
+<p>单个矿工，概率很小，还要承担全节点的其他责任</p>
+<h3 id="矿池"><a href="#矿池" class="headerlink" title="矿池"></a>矿池</h3><p>所谓的矿石就是把矿工组织起来作为整体，矿石的架构一般来说是一个全节点会驱动很多矿机</p>
+<p>pool manager -&gt; many miner,miner只负责计算哈希值，其他职责都由 pool manager承担，asic只能负责计算哈希值。</p>
+<p>矿石的出现也有为了解决收入不稳定的问题</p>
+<p>矿石一般有两种组织形式：</p>
+<p>1.大型数据中心</p>
+<p>2.分布式的，来自不同机构，矿工和矿主不在同一个地方，miner根据矿池规定的通讯协议联系矿主，矿主分配要计算的哈希值的任务，计算完之后结果返回矿主。利益分配，按贡献大小分配，按工作量分配。</p>
+<p>share: almost valid block，差不多符合难度就可以，发给矿主，证明工作量</p>
+<p>工作量证明可行性分析：概率取决于尝试数，share数越多，尝试的数量越多。</p>
+<p>问题：</p>
+<p>1.挖到区块后不提交给矿主，上交share，但是区块不上交。矿主分配任务，miner只负责计算nonse，其他还需要调整coinbase transaction，分配nonse范围，并且coinbase transaction上收款人的地址写的是矿主的地址（poor manager），取不出来钱来</p>
+<p>2.不管矿主任务，自己组装区块，改收款地址。那么share是不认的，里面的交易列表改变，coinbase transaction的内容发生变化，merkle tree的根哈希值也不一样。</p>
+<p>3.捣乱，挖到合法区块丢弃，可以但是没有经济好处，可以矿池打压竞争对手。</p>
+<p>目前矿池算力是分散的，但是几个大型的矿池占据了大的比例。</p>
+<p>一般来说poor manager收取一定比例出块奖励作为管理费，也有的是交易费</p>
+<h3 id="51-的攻击"><a href="#51-的攻击" class="headerlink" title="51%的攻击"></a>51%的攻击</h3><p>管理费低或者赔本吸引足够多的矿工，然后攻击。</p>
+<p>矿池使得51%攻击更容易了（on demand computing, it’s on demand mining），但是使得矿工的收益更均匀稳定了，降低风险了，减轻负担。</p>
+<p>1.分叉攻击，forking attack，平均增长速度会快于链，可以追赶然后回滚。不到51%也能发动攻击，只是一个概率的区别。</p>
+<p>2.boycott，封锁禁阈，产生不包含某个账户的区块，那么不需要等6个确认，一上链就可以分叉</p>
+<p>3.转别人账户的钱，不行因为没有私钥进行签名，把没有合法签名的交易写入链上，会造成分叉，诚实的矿工会沿着另一种链去挖</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" data-id="cm1oubm1v0001z0u713ughodl" data-title="北大肖臻老师《区块链技术与应用》笔记6-8" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖课程笔记5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" class="article-date">
+  <time class="dt-published" datetime="2024-09-26T04:38:25.000Z" itemprop="datePublished">2024-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记5</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程5：比特币系统的实现"><a href="#课程5：比特币系统的实现" class="headerlink" title="课程5：比特币系统的实现"></a>课程5：比特币系统的实现</h1><p>比特币采用的是基于交易的账本模式（transaction -based ledger）,每个区块记录的是交易信息，但是没有地方显式地记录哪个地方有多少钱，需要通过交易记录推算。</p>
+<h2 id="UTXO数据结构"><a href="#UTXO数据结构" class="headerlink" title="UTXO数据结构"></a>UTXO数据结构</h2><p>比特币系统的全节点要维护 UTXO：unspent transaction output  的数据结构</p>
+<p>UTXO: 所有还没有被花掉的交易的输出组成的集合</p>
+<p>一个交易可能有多个输出和输入，UTXO集合里的每个元素要给出产生的输出的交易的哈希值，以及在交易里是第几个输出，通过这两个信息可以定位到在UTXO里的输出。每个输入地址要提供对应的签名。</p>
+<p>作用：检测double spending。</p>
+<p>每个交易会消耗输出也会产生输出，UTXO的集合会逐渐增大但目前装在一个普通内存器里仍然没有问题（2018）.</p>
+<h2 id="比特币的第二个激励机制：交易费（transaction-fee）"><a href="#比特币的第二个激励机制：交易费（transaction-fee）" class="headerlink" title="比特币的第二个激励机制：交易费（transaction fee）"></a>比特币的第二个激励机制：交易费（transaction fee）</h2><p>total inputs &#x3D; total outputs</p>
+<p>有些交易可能total inputs略微大于total outputs，里面的差额作为交易费给获得记账权发布区块的那个节点。</p>
+<p>发布区块，可以有一个特殊的coinbase traction, block reward,所以为什么要把你的交易加进去，要验证交易的合法性，占用带宽，传输速度。防止有的节点不管别的交易，只打造自己的交易。</p>
+<p>目前比特币的系统中，交易费的金额都很小，0.01个比特币算比较大的交易费了，2024现在平均交易费 | 0.000013 BTC ($0.832) 6.4 sats&#x2F;vB，也有一些简单的交易没有交易费。主要目的还是为了出块奖励。</p>
+<p>21万个区块，平均出块时间是10分钟，差不多是4年的时间。因为出块奖励减半，若干年后交易费可能就变成主要的了</p>
+<p>比特币：transaction-based ledger的模式，基于交易的模式，隐私保护性较好，所以转账交易要说明币的来源，因为没有地方证明你有这些比特币，需要说明来源<br>另一种模式：基于账户的模式，account-based ledger，系统要显式的得记录账户上有多少币，不需要显式地说明币的来源</p>
+<h2 id="比特币具体的区块信息，例子（可以再看一遍）"><a href="#比特币具体的区块信息，例子（可以再看一遍）" class="headerlink" title="比特币具体的区块信息，例子（可以再看一遍）"></a>比特币具体的区块信息，例子（可以再看一遍）</h2><p>目标阈值表示成16进制</p>
+<p>改变coinbase里的内容，可以随便写，改变会对根哈希值产生的影响：会对merkle root产生变化。所以可以把这个域当作extra nonse，块头里四个字节的nonse不够用，这里还有很多字节自己用，比如把coinbase里的前八个字节当作extra nonse使用，搜索空间一下子增加到了2的96次方。</p>
+<p>所以真正挖矿的时候有两层循环，外层循环调整coin base域的extra nonse，算出block header里的根哈希值之后</p>
+<p>比特币中验证交易的合法性技术把input script 和output script配对后执行来完成，即这个交易的输入脚本和前面提供币的来源的输出脚本配对，拼接后顺利执行则合法</p>
+<h2 id="对挖矿的过程做一些概率分析"><a href="#对挖矿的过程做一些概率分析" class="headerlink" title="对挖矿的过程做一些概率分析"></a>对挖矿的过程做一些概率分析</h2><p>挖矿就是不断地尝试各种nonse来求解这个puzzle，每次尝试nonse可以看作一个bernoulli trial: a random experiment with binary output(bernoulli trial)。比如丢硬币。做大量的bernoulli trial,这些就变成了bernoulli process: a sequence of independent bernoulli trial（性质有：无记忆性memoryless,前面的实验对后面的实验没有影响）</p>
+<p>这种情况下，这个bernouill process可以用poisson process</p>
+<p>Poisson过程是一种随机过程，常用于描述在固定时间间隔内发生的稀疏事件。这些事件独立且以恒定的平均速率发生，适用于模型化如电话呼叫、客户到达或自然事件等场景。其关键特征是事件发生的数量在每个时间间隔内服从泊松分布。</p>
+<p>出块时间服从指数分布，exponential distribution</p>
+<p>对于miner他能挖到下一次区块的时间，取决于这个矿工的算力占系统总算力的百分比，其中的指数分布也是无记忆的，比特币会调整出块难度使其稳定在平均出块时间十分钟。</p>
+<p>progress free:过去的process是不算数的</p>
+<p>如果progress不free算力强的miner会有不成比例的优势</p>
+<h2 id="比特币的总量"><a href="#比特币的总量" class="headerlink" title="比特币的总量"></a>比特币的总量</h2><p>因为出块奖励每隔四年减半，产生的比特币数量构成了集合序列，所有比特币的总量2100万</p>
+<p>比特币求解的puzzle没有实际意义，比特币的稀缺性是人为造成的，但是挖矿的过程对于维护比特币系统的安全性是至关重要的</p>
+<p>bitcoin is secured by mining.挖矿提供了一种凭借算力投票的有效手段。</p>
+<p>虽然出块奖励减少，但价格上升了，越来越多人去挖矿。</p>
+<h2 id="比特币安全性的一些分析"><a href="#比特币安全性的一些分析" class="headerlink" title="比特币安全性的一些分析"></a>比特币安全性的一些分析</h2><p>假设大部分算力在安全的矿工手里，只能说大概率在好的矿工手里</p>
+<p>第一个问题：偷币，把其他账户的节点转给自己</p>
+<p>如果在恶意手里，写入一个不好的区块，那么其他的节点不会接受这个区块。恶意的攻击是否成功的标准要看它能不能让诚实的节点接受这个交易。</p>
+<p>第二个问题：恶意节点把已经花出的币再花一笔，double spending。区块插入的位置要在刚开始挖矿的时候就要决定，因为设置的block header里要填上上一个区块的哈希值，fork attack。如果不是最后一个区块，那么很难，恶意节点需要不断获得记账权，所以简单的防范方法：多等几个区块（确认、缺省）confirmaction</p>
+<p>比特币协议当中的确认的是要等六个区块confirmation,差不多等1个小时</p>
+<p>区块链是不可篡改的账本，irrevocable ledger,这种不可篡改性只是一种概率的保证</p>
+<h2 id="zero-confirmation"><a href="#zero-confirmation" class="headerlink" title="zero confirmation"></a>zero confirmation</h2><p>转账交易发布出去了，但还没有写到区块链</p>
+<p>原因：</p>
+<p>1.比特币协议缺省的设置是节点接收最先听到的交易</p>
+<p>2.比特币之后，购物天然有一定的处理时间</p>
+<h2 id="恶意的节点故意不把合法的区块写入"><a href="#恶意的节点故意不把合法的区块写入" class="headerlink" title="恶意的节点故意不把合法的区块写入"></a>恶意的节点故意不把合法的区块写入</h2><p>可以写到下一个区块里，总有诚实的节点愿意发布这些交易，正常情况下也可能不包括合法的节点，比如一段时间内交易数量过多。</p>
+<p>比特币协议规定每个区块的大小有限制，最多不超过一兆字节。</p>
+<p>一种攻击方法自己存储6个区块，盖过合法区块链。<br>selfish mining。前提是有恶意的节点占据很大一部分算力。每一个区块的算出必须要有前一个区块的哈希。正常挖矿self mining的好处：不发布，然后等两个发布，使得其他的区块，风险就是别人先发布。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" data-id="cm1isykrs0000m4u7bscoge9y" data-title="北大肖臻老师《区块链技术与应用》笔记5" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖课程笔记4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" class="article-date">
+  <time class="dt-published" datetime="2024-09-24T10:10:25.464Z" itemprop="datePublished">2024-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/">北大肖臻老师《区块链技术与应用》笔记4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程4：比特币的共识协议"><a href="#课程4：比特币的共识协议" class="headerlink" title="课程4：比特币的共识协议"></a>课程4：比特币的共识协议</h1><h2 id="一个中心化银行如何发行数字货币"><a href="#一个中心化银行如何发行数字货币" class="headerlink" title="一个中心化银行如何发行数字货币"></a>一个中心化银行如何发行数字货币</h2><p>例如央行发行数字货币，只是数字签名可以复制，double spending attack。<br>如果加上编号，要与银行核实，但太麻烦了，是一个中心化的方案，要让银行确认。</p>
+<p>一个去中心化的货币要解决两个问题，</p>
+<p>1.数字货币的发行，谁来发行数字货币<br>2.怎么验证交易的有效性</p>
+<p>数据结构由所有用户共同维护。</p>
+<p>CreatCoin(铸币交易)（Coinbase transaction） -&gt; A -&gt; B,C(signed by A)</p>
+<p>输入部分：币的来源和A的公钥。 输出部分：输出部分收款人公钥的哈希。 付款人的数字签名和收款人的地址，地址通过公钥推算（某个地方公开公钥，b要知道A的公钥，知道币的来源，所有节点都需要知道A的公钥，需要验证签名，转账交易合法。</p>
+<p>这时有两种哈希指针</p>
+<p>1.连接各个区块的，串联成链表<br>2.指向前面某个交易，说明币的来源。（防止伪造和double spending attack）</p>
+<p>避免B’用自己的公钥伪造A的公钥说是A转的，转账交易要说明A的公钥要和币的来源里说明的公钥的哈希对的上，因此假的公钥会与输出里指定的A的公钥的哈希对不上，与币的来源里的哈希值对不上，有查的币的来源的问题。这些都是<br>脚本，验证交易加上把当前这个交易的输入脚本跟提供币的来源的那个交易的输出脚本拼在一起，看看能不能顺利执行。（Bition script）</p>
+<p>实际系统中每个区块包括很多个交易，这些交易组成merkle tree，每个区块分成块头和块体（Block header and block body）.</p>
+<p>block head: version + hash of previous block header + merkle root hash + taeget（目标阈值的编码） + nonce</p>
+<p>block body: transaction list +</p>
+<p>full node(所有信息：fully validating node) and light node (lightweight node)只保存block header中的信息，一般来说轻节点无法独立验证交易的合法性。系统中大多数节点是轻节点，全节点的数目不是很多。轻节点没有参与区块链的构造和维护，只是利用了区块链的信息做一些查询。</p>
+<p>每个账户都可以发布交易，这个交易是广播给所有节点的，交易可能合法与非法。谁来决定哪些交易可以写到下一个区块中？按怎样的顺序写呢？每个用户自己决定的话一致性得不到保证，区块链-&gt;去中心化的账本，得统一。</p>
+<p>所以账本的内容要取得分布式的共识（distribued consensus），比如distributed hash table,有很多机器共同维护一个全局的哈希表,需要取得的共识的内容是</p>
+<p>在分布式账本系统中，通过分布式共识（distributed consensus）来维护一个全局的哈希表时，需要取得的共识内容主要包括pwk（准入型密钥）。</p>
+<h3 id="impossibiliyu-result"><a href="#impossibiliyu-result" class="headerlink" title="impossibiliyu result"></a>impossibiliyu result</h3><p>FLP impossibiliyu result<br>asynchronous(异步系统：网络传输时延没有上限)，即使一个成员传输是有问题的（faulty），那么也不可能取得共识。</p>
+<p>CAP theorem</p>
+<p>C： Consistency<br>A：Availability<br>P:partition tolerance</p>
+<p>任何一个分布式系统，这三个性质当中最多满足两个，不可能满足三个。</p>
+<p>分布式共识一个比较著名的协议：Paxos<br>可以保证consistency，但是某些情况下可能一直没有办法达成共识。可能性比较小，但是客观存在。</p>
+<h2 id="比特币中的共识协议（Consensus-in-bitcoin）"><a href="#比特币中的共识协议（Consensus-in-bitcoin）" class="headerlink" title="比特币中的共识协议（Consensus in bitcoin）"></a>比特币中的共识协议（Consensus in bitcoin）</h2><p>假设系统中大部分节点是好的无恶意的</p>
+<p>构造共识协议</p>
+<p>1.投票，半数赞成则区块接受，问题：membership，决定投票权，恶意节点超过一半则具有控制权（即sybil attack）女巫攻击</p>
+<p>bitcoin实际解决方法：根据计算力投票而不是通过账户数目投票。每个节点都可以在本地组装一个候选区块，把合法交易放在区块中，然后尝试各种nonse值。<br>computational puddle。nonse：4 bytes。</p>
+<h3 id="分叉攻击（forking-attack）"><a href="#分叉攻击（forking-attack）" class="headerlink" title="分叉攻击（forking attack）"></a>分叉攻击（forking attack）</h3><p>某个节点找到了符合要求的nonse，那么获得了记账权，可以往比特币这个去中心化账本里写入下一个区块的权力。其他节点验证这个区块的合法性。n Bits：目标阈值（targets）的编码,blocker header and blocker body(交易列表中)符合要求，但插在区块链中间则不符合要求，hash of previous block.这样区块就有两个分支，一个交易者就可以把钱转给2个人，而这两者分别在不同的分支里，两个交易都是合法的，因为交易不会查询到另一个分支里的内容。所以虽然交易合法，但不在最长合法链上，longest valid chain，即比特币协议中规定接受的区块应该是在扩展最长合法链。</p>
+<p>区块链在正常情况下也可能获得分叉，两个节点同时获得记账权，会出现两个等长的分叉。每个节点接受他最早收到的那一个，不同节点根据在网络上位置的不同，不同节点接受的区块不同。</p>
+<h3 id="判断是否接收一个区块"><a href="#判断是否接收一个区块" class="headerlink" title="判断是否接收一个区块"></a>判断是否接收一个区块</h3><p>implicit concern,沿着这个区块往下继续扩展，则是认可这个区块。所以这两种等长的临时性的分叉会维持一段时间，直到其中某一个分叉胜出。而另一个链则叫orphan block（舍弃）</p>
+<h3 id="所以为什么争夺记账权"><a href="#所以为什么争夺记账权" class="headerlink" title="所以为什么争夺记账权"></a>所以为什么争夺记账权</h3><p>获得记账权的节点可以选择接受哪些交易被写到下一个区块里，但是设置协议时不应该让这个成为争夺记账权的主要动力，因为我们希望凡是合法的交易都应该被写入区块链中。</p>
+<p><strong>比特币解决办法：出块奖励（block reward</strong>）<br>即获得记账权的节点，在发布的区块里可以有一个特殊的交易：铸币交易（coinbase transaction），在这个交易里可以发布一定数量的比特币，比特币系统中发布新的货币的唯一方法，其他所有的交易只是把比特币从一个账户转移到另一个账户。</p>
+<p>比特币刚上线时每一个发布的区块可以产生50个比特币，21万个区块以后，出块奖励少一半（截至2024 年7 月5 日，流通中的比特币数量为1972 万。 随着新区块的开采和新比特币的产生，这一数字大约每10 分钟就会发生变化。目前，比特币已经进行了三次减半，分别发生在2012年11月、2016年7月和2020年5月。第四次比特币减半时间预计将发生在2024年5月。届时，比特币产量将会由现在的6.25个减半到3.125个。）</p>
+<h3 id="共识机制要取得的共识是什么"><a href="#共识机制要取得的共识是什么" class="headerlink" title="共识机制要取得的共识是什么"></a>共识机制要取得的共识是什么</h3><p>之前例子中哈希表的内容，包含哪些pwk【PermissionWithKey（准入型公钥）】。</p>
+<p>比特币中的共识是这个去中心化账本中所取得的共识，获得记账权的节点决定账本内容，而取得记账权则是解得H（block header） &lt;&#x3D; target 这个power。所以比特币的共识机制是靠算力来投票的。</p>
+<p>puzzle friendly决定求解puzzle的过程没有捷径，只能一个一个试nonse。（hash rate越高，获得记账权的概率越大）</p>
+<p>怎么防范sybil attack（女巫攻击），不管创建多少个账户，投票的权重没有改变。</p>
+<h3 id="挖矿（mining）"><a href="#挖矿（mining）" class="headerlink" title="挖矿（mining）"></a>挖矿（mining）</h3><p>争夺记账权的过程</p>
+<p>比特币： digital gold</p>
+<p>争夺记账权的节点：miner</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" data-id="cm1ga05co0000nou745gf28bk" data-title="北大肖臻老师《区块链技术与应用》笔记4" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-web3肖老师课程1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/24/web3%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B1/" class="article-date">
+  <time class="dt-published" datetime="2024-09-24T04:00:00.000Z" itemprop="datePublished">2024-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/24/web3%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B1/">北大肖臻老师《区块链技术与应用》笔记1-3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="2019年课程——北大肖臻老师《区块链技术与应用》公开课笔记"><a href="#2019年课程——北大肖臻老师《区块链技术与应用》公开课笔记" class="headerlink" title="2019年课程——北大肖臻老师《区块链技术与应用》公开课笔记"></a>2019年课程——北大肖臻老师《区块链技术与应用》公开课笔记</h1><h2 id="课程1-简介"><a href="#课程1-简介" class="headerlink" title="课程1 简介"></a>课程1 简介</h2><p>下一代的价值互联网？</p>
+<p>最慢的数据库？</p>
+<p>区块链 ！&#x3D;  比特币，比特币是基于区块链的一种加密货币</p>
+<p>课程内容<br>本课程主要讲解区块链的基本概念和实现原理，面向广大对区块链技术和应用感兴趣的同学。通过这门课的学习，能够掌握比特币、以太坊等区块链技术的设计思路并有效解决实际问题。课程资料详见 </p>
+<p><a target="_blank" rel="noopener" href="http://zhenxiao.com/">http://zhenxiao.com/</a></p>
+<h3 id="课程基础"><a href="#课程基础" class="headerlink" title="课程基础"></a>课程基础</h3><p>假设已在本科阶段学过基本的数据结构和算法掌握编程的基本技能-数组、链表、二叉树、哈希函数</p>
+<p>参考资料</p>
+<p>BitCoin and Cryptocurrency(较为过时) </p>
+<p>TechnologiesA Comprehensive Introduction</p>
+<p>-以太坊白皮书、黄皮书、源代码-Solidity文档</p>
+<p>假设大家在本科的时候已经有了一定的计算机基础</p>
+<p>以代码为准的原则</p>
+<h3 id="课程大纲-比特币"><a href="#课程大纲-比特币" class="headerlink" title="课程大纲:比特币"></a>课程大纲:比特币</h3><p>1.比特币</p>
+<p>2.密码学基础</p>
+<p>3.比特币的数据结构</p>
+<p>4.共识协议和系统实现</p>
+<p>5.挖矿算法和难度调整</p>
+<p>6.比特币脚本</p>
+<p>7.软分叉和硬分叉</p>
+<p>8.匿名和隐私保护</p>
+<h3 id="课程大纲-以太坊"><a href="#课程大纲-以太坊" class="headerlink" title="课程大纲:以太坊"></a>课程大纲:以太坊</h3><p>以太坊</p>
+<p>1.概述:基于帐户的分布式账本</p>
+<p>2.数据结构:状态树、交易树、收据树</p>
+<p>3.ghost协议</p>
+<p>4.挖矿:</p>
+<blockquote>
+<p>memory-hard mining puzzle</p>
+</blockquote>
+<p>5.挖矿难度调整</p>
+<p>6.权益证明<br>—Casper the Friendly Finality Gadget(FFG)</p>
+<p>7.智能合约</p>
+<h2 id="课程2-比特币中的密码学原理"><a href="#课程2-比特币中的密码学原理" class="headerlink" title="课程2 比特币中的密码学原理"></a>课程2 比特币中的密码学原理</h2><p>crypto - curerency</p>
+<p>比特币主要运用到密码学的两个原理，分别是哈希和签名</p>
+<h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><p>哈希函数</p>
+<blockquote>
+<p>cryptographic hash function</p>
+</blockquote>
+<h3 id="两个重要性质"><a href="#两个重要性质" class="headerlink" title="两个重要性质"></a>两个重要性质</h3><h3 id="1-collision-哈希碰撞-resistance"><a href="#1-collision-哈希碰撞-resistance" class="headerlink" title="1. collision(哈希碰撞) resistance"></a>1. collision(哈希碰撞) resistance</h3><blockquote>
+<p>if x ！&#x3D; y ，but H（x）&#x3D; H （y），那么这个函数就叫哈希碰撞，两个不同的输入算出来的哈希值是相等的，例如哈希表，一般来说哈希碰撞是不可避免的，因为输入空间一般是远远大于输出空间的。</p>
+</blockquote>
+<p>有的书上也叫collision free， 哈希碰撞是客观上会发生的。而这个原理的实际意思是没有什么高效的方法人为地去制造哈希碰撞。</p>
+<p>brute - force :遍历，暴力破解。由于哈希函数的输出空间有限，暴力破解的成功概率随着输入空间的增大而增加，但对于强大的哈希函数，所需的尝试次数通常是巨大的，因此在理论上仍然很难实现。</p>
+<p><strong>鸽巢原理</strong></p>
+<blockquote>
+<p>鸽巢原理在哈希碰撞的上下文中是指：如果你有 ( n ) 个鸽子和 ( m ) 个鸽巢，当 ( n &gt; m ) 时，必然会有至少一个鸽巢里有两个鸽子。</p>
+</blockquote>
+<blockquote>
+<p>在哈希函数的情况下，输入数据（鸽子）被映射到输出哈希值（鸽巢）。如果哈希函数的输出空间（即可能的哈希值数量）小于输入空间（即可能的输入数据数量），那么根据戈农原理，就会出现两个不同的输入映射到同一个哈希值（即发生哈希碰撞）。</p>
+</blockquote>
+<blockquote>
+<p>例如，假设一个哈希函数输出的哈希值只有 256 位（即 ( 2^{256} ) 种可能的哈希值），但我们有大量的输入数据（比如所有可能的文件）。随着输入数据数量的增加，最终会有多个输入被映射到同一个哈希值，这就是哈希碰撞。</p>
+</blockquote>
+<blockquote>
+<p>总结一下，戈农原理在哈希碰撞中的应用是因为输出空间有限，而输入空间相对无限，导致无法避免地出现重复的输出。</p>
+</blockquote>
+<p><strong>作用</strong></p>
+<p>可以对一个message求digest</p>
+<p>m的 H(m)，找不到一个m’ 使得H（m’）&#x3D; H(m),所以没有办法篡改内容不被检测出来。例如上传文件，先算哈希值在本地，接着下载，哈希值比较，如果一样，那么文件没有被篡改。</p>
+<p><strong>注意</strong>：没有那个哈希函数在数学上被证明是collsion resistance的。即无法从理论上是证明出来的，但是是从实践经验上被证明出来的</p>
+<p>但是有的后来被找到制造哈希碰撞的方法，例如MD5</p>
+<blockquote>
+<p>MD5 的不安全性主要源于其算法结构的弱点和碰撞攻击的成功实现。以下是详细的解释：</p>
+</blockquote>
+<ol>
+<li><strong>算法结构弱点</strong>：MD5 采用了 Merkle-Damgård 结构，这种结构在处理数据块时易受特定类型的攻击。其内部的压缩函数设计存在缺陷，使得可以通过对输入进行细微的修改来影响输出。</li>
+<li><strong>研究突破</strong>：在 2004 年，研究人员提出了一种有效的碰撞攻击方法。他们利用了 MD5 的内部结构，通过构造两组特定的输入，使得经过 MD5 处理后，产生相同的哈希值。这种方法称为“差分攻击”。</li>
+<li><strong>具体过程</strong>：<ul>
+<li><strong>差分路径</strong>：攻击者识别出 MD5 处理过程中的差分路径，找到能通过特定输入差异来控制输出差异的方法。</li>
+<li><strong>输入构造</strong>：攻击者设计出两个不同的输入，这两个输入在大部分位上是相同的，只有少数几位不同。通过巧妙地选择这些位的变化，攻击者能够确保这两个输入在哈希处理后产生相同的哈希值。</li>
+</ul>
+</li>
+<li><strong>影响</strong>：一旦成功实现了碰撞，攻击者就可以用伪造的数据替换合法数据，而不被检测到。这使得 MD5 不再适用于需要高安全性的场合，比如数字签名、证书和完整性验证。</li>
+<li><strong>替代方案</strong>：由于 MD5 的不安全性，许多应用和系统逐渐转向更安全的哈希函数，如 SHA-256 或 SHA-3，这些算法设计上更复杂，更难以产生碰撞。<br>总结来说，MD5 的不安全性主要是由于其算法结构中的缺陷，加上研究人员成功找到了有效的碰撞攻击方法，导致它不再适合安全应用。</li>
+</ol>
+<h3 id="2-hiding-隐藏"><a href="#2-hiding-隐藏" class="headerlink" title="2. hiding(隐藏)"></a>2. hiding(隐藏)</h3><p>解释：哈希函数的计算过程是单向的，是不可逆的。给定x可以算出H（x），但无法从H（x）反推出x。但仍然可以brute - force，所以要求输入空间足够大，各种取值的可能性比较均匀。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这两个性质结合可用来实现digital commitment（也叫：digital equivalent of sealed envelope）（翻译：数字承诺（又称：密封信封的数字等价物）</p>
+<p>sealed envelope：例如预测股市，提前公布预测结果，收盘验证。预测结果提前公布，会影响股票。先写在密封纸张上，交给第三方保存第二天开封验证。</p>
+<p>用在digital上，即把预测结果作为x，再把H（x）公布，后面再把预测结果x公布。这就起到sealed envelope的功能</p>
+<p>如果输入空间不足够大，那么在x后面加一个随机数，<br>即H(x||nonce)，nonce是选取的随机数，保证输入是足够随机的，均匀的。</p>
+<h3 id="比特币要求的第三个性质（puzzle-friendly）"><a href="#比特币要求的第三个性质（puzzle-friendly）" class="headerlink" title="比特币要求的第三个性质（puzzle friendly）"></a>比特币要求的第三个性质（puzzle friendly）</h3><p><strong>解释</strong>：哈希值的计算事先是不可预测的。要想使得计算得到的hash值在某一个范围之内，则只能够一个一个的输入去尝试，很难直接找到某个值使得其hash值在某一个范围内。挖矿也是就是这个意思。挖矿就是把区块中的一些信息+随机数进行hash，使得其结果前K位数为0，才能够满足要求。挖矿无捷径，只能够去大量的试。所以也就产生了 工作量证明（POW）。</p>
+<p>挖矿找nonce（随机数），与区块块头的其他信息共同作为输入，取出哈希（要&lt;&#x3D;某个指定的目标阈值）。</p>
+<p>H(black header) &lt;&#x3D; target,挖矿就是不停地去尝试各种随机数，使其在target space。而puzzle friendly也是指挖矿的过程没有捷径，只能不停地去试不同的nonce。所以这个过程才可以用来作为<strong>工作量证明</strong>。（proof of work），而验证nonce只需要验证H（x）就行。（difficult to solve, but easy to verify）。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>比特币中使用的哈希函数为：SHA——256（secure Hash Algorithm）</p>
+<p>哈希碰撞抗性（collision resistance）和“难解谜题”（puzzle friendly）是两个不同的概念，主要体现在以下几个方面：</p>
+<ol>
+<li><p><strong>哈希碰撞抗性</strong>：</p>
+<ul>
+<li>定义：哈希碰撞抗性指的是在给定的哈希函数中，找到两个不同的输入，使它们产生相同的哈希值是计算上不可行的。这一特性确保了数据的完整性和真实性，防止伪造和篡改。</li>
+<li>应用：用于密码学、数字签名和数据完整性验证等安全性要求高的场合。</li>
+</ul>
+</li>
+<li><p><strong>难解谜题（Puzzle Friendly）</strong>：</p>
+<ul>
+<li>定义：难解谜题通常指的是一个需要消耗计算资源的挑战，目的是为了证明计算能力。这种特性常见于工作量证明（Proof of Work）系统，比如比特币。用户需要通过解决特定的数学问题来获得奖励。</li>
+<li>应用：主要用于区块链和加密货币中，以防止垃圾邮件和网络攻击，确保网络的安全性和去中心化。</li>
+</ul>
+</li>
+</ol>
+<p>总结而言，哈希碰撞抗性关注的是防止攻击者找到两个相同哈希值的输入，而难解谜题则侧重于通过计算挑战来确保网络的安全和稳定。两者虽然都涉及哈希函数，但应用场景和目的不同。</p>
+<h2 id="第二个：签名"><a href="#第二个：签名" class="headerlink" title="第二个：签名"></a>第二个：签名</h2><h3 id="1-比特币系统中的账户管理"><a href="#1-比特币系统中的账户管理" class="headerlink" title="1.比特币系统中的账户管理"></a>1.比特币系统中的账户管理</h3><p>中心化系统的账户管理方式：例如去银行开户</p>
+<p>去中心化的账户管理方式：自己开户，本地创立一个公钥和私钥的对（public key, private key），这个在比特币中就代表了一个账户。</p>
+<p>公私钥的概念来源与非对称的加密体系，（asymmetric encryption algorithm）</p>
+<p>最早的加密体系是对称的，encyption key,信息发过去，用同一个密钥加密和解密。假设有一个安全的密钥分发给加密的双方。</p>
+<p>非对称加密体系，使用接收方的公私钥对，加密使用公钥，解密使用私钥。公钥不用保密，私钥解密只需要保存在本地，解决了密钥分发不方便的问题。</p>
+<p>比特币系统是不加密的，信息公开，公私钥作为签名，交易发起时，发送方用私钥对交易签名，其他人则用公钥验证签名的正确性</p>
+<p>公私钥相同怎么办：256的哈希值，产生相同公私钥的可能性很小，无先例。假设：a good source of randomness。比特币要求，生成公私钥和每次签名时要有好的随机源，随机源不好时则可能泄露私钥。</p>
+<p>先对一个message取一个哈希，再对哈希值签名。</p>
+<p>密码学中的签名原理主要涉及使用数学算法来确保消息的真实性和完整性。以下是签名原理的基本概念及其在比特币中的应用：</p>
+<h3 id="签名原理"><a href="#签名原理" class="headerlink" title="签名原理"></a>签名原理</h3><ol>
+<li><p><strong>公钥加密</strong>：</p>
+<ul>
+<li>使用一对密钥：私钥和公钥。私钥是保密的，而公钥是公开的。</li>
+<li>发送者使用自己的私钥对消息进行签名，生成一个数字签名。</li>
+</ul>
+</li>
+<li><p><strong>数字签名</strong>：</p>
+<ul>
+<li>数字签名是对消息的唯一标识，它可以通过哈希函数生成哈希值，并用私钥加密这个哈希值。</li>
+<li>数字签名保证了消息的完整性：任何对消息的篡改都会导致签名失效。</li>
+</ul>
+</li>
+<li><p><strong>验证</strong>：</p>
+<ul>
+<li>接收者使用发送者的公钥来验证数字签名。验证的过程包括解密签名并与接收到的消息的哈希值进行比较。</li>
+<li>如果两者相符，则证明消息是由持有相应私钥的发送者签署的，且内容未被篡改。</li>
+</ul>
+</li>
+</ol>
+<h3 id="在比特币中的应用"><a href="#在比特币中的应用" class="headerlink" title="在比特币中的应用"></a>在比特币中的应用</h3><ol>
+<li><p><strong>交易签名</strong>：</p>
+<ul>
+<li>每个比特币交易都需要发送者使用其私钥对交易信息进行签名，生成交易的数字签名。</li>
+<li>这个签名附加在交易数据中，确保交易的发起者是合法的。</li>
+</ul>
+</li>
+<li><p><strong>验证交易</strong>：</p>
+<ul>
+<li>当网络中的节点接收到一个交易时，它们会使用发送者的公钥来验证签名。</li>
+<li>如果签名有效，节点就会接受该交易，并将其加入到区块链中。</li>
+</ul>
+</li>
+<li><p><strong>防止双重消费</strong>：</p>
+<ul>
+<li>签名机制确保每个比特币只能被合法持有者消费，防止了双重消费的问题。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>通过使用公钥加密和数字签名，比特币能够确保交易的真实性和完整性，使网络中的每个参与者能够信任交易的合法性。这一机制是比特币和其他加密货币安全性和去中心化的基础。</p>
+<h2 id="课程2-比特币的数据结构"><a href="#课程2-比特币的数据结构" class="headerlink" title="课程2 比特币的数据结构"></a>课程2 比特币的数据结构</h2><p>介绍 区块链和merkle tree 这两种数据结构</p>
+<h3 id="1-hash-pointers"><a href="#1-hash-pointers" class="headerlink" title="1.hash pointers"></a>1.hash pointers</h3><p>普通指针存储的是某个结构体在内存中的地址。</p>
+<p>哈希指针H（）除了要保存地址之外，还要保存结构体的哈希值。不光找到结果体的位置，还可以分辨是否被<br>篡改。</p>
+<p>比特币最基础的数据结构就是区块链，即一个一个区块组成的链表，区块链与普通链表的区别：1.用哈希指针取代了普通指针（Block chain is linked list using hash pointers）</p>
+<p>第一个区块-&gt; 创世纪块（genesis block）<br>最后一个区块 -&gt; 最近产生的区块（most recent block）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/1.png">https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/1.png</a></p>
+<p>实现tamper - evident log</p>
+<blockquote>
+<p><strong>tamper-evident log</strong>（防篡改日志）是一种记录系统，设计用来确保数据的完整性，使得任何对日志内容的篡改都能被检测到。这种日志通常用于安全关键的应用中，比如区块链、审计日志和其他需要确保数据不可篡改的场景。<br>关键特点</p>
+</blockquote>
+<ol>
+<li><strong>不可篡改性</strong>：<ul>
+<li>一旦记录在日志中的信息被创建，就无法被修改或删除。任何试图更改日志条目的操作都会留下明显的痕迹。</li>
+</ul>
+</li>
+<li><strong>审计能力</strong>：<ul>
+<li>允许对日志进行审计，以检查数据的完整性和真实性。通过审计，用户可以验证日志内容是否被篡改。</li>
+</ul>
+</li>
+<li><strong>安全性</strong>：<ul>
+<li>常结合加密技术，确保日志数据在存储和传输过程中的安全性。日志条目通常会被加密，以防止未授权访问。</li>
+</ul>
+</li>
+<li><strong>时间戳</strong>：<ul>
+<li>日志条目通常会附带时间戳，以确保记录的顺序和时间一致性。<br>工作原理</li>
+</ul>
+</li>
+<li><strong>数据记录</strong>：<ul>
+<li>系统在每次事件发生时生成一个日志条目，包含事件详情和时间戳。</li>
+</ul>
+</li>
+<li><strong>哈希链</strong>：<ul>
+<li>每个日志条目都会被计算哈希值，并且通常会包含前一个条目的哈希值，形成一个链条结构。这样，任何对前一个条目的修改都会导致后续条目的哈希值改变，从而能被检测到。</li>
+</ul>
+</li>
+<li><strong>存储与备份</strong>：<ul>
+<li>日志可以存储在安全的地方，可能使用分布式存储或区块链技术，以进一步提高安全性和可靠性。<br>应用场景</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><strong>区块链</strong>：每个区块包含上一个区块的哈希，形成链条，确保数据不可篡改。</li>
+<li><strong>审计日志</strong>：企业系统中的日志记录用户活动、交易等，保证审计过程的透明性和可靠性。</li>
+<li><strong>金融系统</strong>：记录所有交易，确保交易的合法性和追溯能力。<br>防篡改日志是确保数据完整性和安全性的重要工具，通过技术手段使得任何篡改行为都能被及时检测，为用户提供了信任基础。</li>
+</ul>
+<p>这种数据结构的好处是，只要记住最后一个哈希值，就可以检测出对区块链任何部位的修改。区块链，只要改变一个区块，则后面任何一个区块都得改。</p>
+<h3 id="2-Merkle-tree（binary-tree）"><a href="#2-Merkle-tree（binary-tree）" class="headerlink" title="2.Merkle tree（binary tree）"></a>2.Merkle tree（binary tree）</h3><p>一个区块下的merkle tree</p>
+<p>Merkle tree 和 binary tree 区别：1.用哈希指针代替了普通指针<br><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/2.png"></p>
+<p>实际上底下的数据块是一个交易transaction<br>每个区块分为两个部分，块头和块深（block head，block body）,block head has root hash, and block body has transaction list.</p>
+<p>merkle proof,比特币中的节点分为两类，一类是全节点，一类是轻节点。全节点保存整个区块的内容，has block header and block body. 轻节点：比如手机上比特币钱包的应用，只保存一个block header.</p>
+<p>merkle proof:找到交易所存在的位置，从交易往上一直到根节点存在的路径就是merkle proof.<br>证明交易只要，只要把merkle proof中的哈希值发给轻节点，一步步算出根哈希值，最后轻节点对比根哈希值和block header里的哈希值。查找只能查找merkle proof 上的哈希值</p>
+<p>merkle proof can prove merkle tree has the transaction, so the proof is also called proof od membership or proof of inclusion.时间和空间的复杂度上，merble proof 的复杂度是对数级别<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>θ</mi><mo>（</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo>（</mo><mi>n</mi><mo>））</mo></math>比较高效。</p>
+<p>proof of non-memberships,1.把全节点传给轻节点<br>复杂度为线性的，<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>θ</mi><mo>（</mo><mi>n</mi><mo>）</mo></math>.。如果不对叶节点的排列顺序做任何假设的话，那么没有更高效的方法。如果对叶节点的排列顺序做要求，例如对哈希值的大小进行排序，算出交易的哈希值，判断范围，得出merkle proof再查看其哈希值是否出现，排好序的叫做Sorted merkle tree.</p>
+<p>比特币中并没有排序，即对叶节点的排序作出要求，因为不存在证明，没有这种硬性需求。</p>
+<p>只要数据结构是无环的，都可以用哈希指针替代普通指针，无环的话会变成循环依赖。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/24/web3%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B1/" data-id="cm1g5hpl50000iwu76yjvauyc" data-title="北大肖臻老师《区块链技术与应用》笔记1-3" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/12/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2024-09-12T13:03:52.959Z" itemprop="datePublished">2024-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/12/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/12/hello-world/" data-id="cm0zfgd3h0003rku7103519ba" data-title="Hello World" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/10/12/22/">北大肖臻老师《区块链技术与应用》笔记22</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/12/%E6%89%80%E6%9C%89%E6%9D%83%E7%BB%93%E6%9E%84%E4%BD%93%E6%9E%9A%E4%B8%BE%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/">Rust复习-所有权到模式匹配</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/10/Rust/">Rust复习-入门</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/">Rust复习-常见编程概念</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/04/20-21/">北大肖臻老师《区块链技术与应用》笔记20-21</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
