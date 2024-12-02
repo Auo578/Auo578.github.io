@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Rust复习-所有权到模式匹配 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-所有权结构体枚举模式匹配" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/12/%E6%89%80%E6%9C%89%E6%9D%83%E7%BB%93%E6%9E%84%E4%BD%93%E6%9E%9A%E4%B8%BE%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="article-date">
+  <time class="dt-published" datetime="2024-10-12T14:42:34.000Z" itemprop="datePublished">2024-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Rust复习-所有权到模式匹配
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>#所有权和结构体和枚举、模式匹配</p>
+<h2 id="字符串切片"><a href="#字符串切片" class="headerlink" title="字符串切片"></a>字符串切片</h2><h3 id="1-String和-str的区别"><a href="#1-String和-str的区别" class="headerlink" title="1.&amp;String和&amp;str的区别"></a>1.&amp;String和&amp;str的区别</h3><p>在 Rust 中，<code>&amp;String</code> 和 <code>&amp;str</code> 之间的区别主要在于它们的存储方式和用法。以下是详细的解释：</p>
+<ol>
+<li><p><strong><code>&amp;str</code>（字符串切片）</strong>：</p>
+<ul>
+<li><code>&amp;str</code> 是一个对字符串的<strong>引用切片</strong>，也就是对某个字符串的一部分的不可变引用。</li>
+<li>它存储的是<strong>指向字符串数据的引用</strong>，而不是实际的数据本身。这个字符串可能是保存在二进制数据中、静态字符串中（比如字面值字符串），或者是动态分配的字符串的一部分。</li>
+<li><code>&amp;str</code> 是一个<strong>不可变的切片</strong>，它的内容是只读的，不能改变。</li>
+<li><code>&amp;str</code> 是较为高效的，因为它不涉及堆分配，只是指向已有的字符串数据。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;Hello, world!&quot;</span>;  <span class="comment">// 这是一个静态的&amp;str</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">slice</span>: &amp;<span class="type">str</span> = &amp;s[<span class="number">0</span>..<span class="number">5</span>];  <span class="comment">// 这是对s的一个切片</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>**<code>&amp;String</code>**：</p>
+<ul>
+<li><code>String</code> 是 Rust 标准库提供的一个动态分配的、可变的字符串类型，它可以在堆上存储和管理字符串数据。</li>
+<li><code>&amp;String</code> 是对一个 <code>String</code> 对象的不可变引用，因此，它可以指向一个动态字符串，但不能改变该字符串的内容。</li>
+<li>尽管 <code>&amp;String</code> 和 <code>&amp;str</code> 都可以用于引用字符串，但 <code>&amp;String</code> 是对堆分配数据的引用，而 <code>&amp;str</code> 则可能是对堆数据或其他类型数据（例如静态字符串）的引用。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> <span class="variable">slice</span>: &amp;<span class="type">str</span> = &amp;s;  <span class="comment">// 可以将&amp;String自动转换为&amp;str</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="区别总结："><a href="#区别总结：" class="headerlink" title="区别总结："></a>区别总结：</h3><ul>
+<li><strong>存储方式</strong>：<code>String</code> 是一个动态分配的可变字符串，而 <code>&amp;str</code> 是对字符串数据的不可变引用。</li>
+<li><strong>转换关系</strong>：<code>&amp;String</code> 可以<strong>自动地转换为</strong> <code>&amp;str</code>，因为 <code>String</code> 是 <code>&amp;str</code> 的一个超集。但反之不能自动转换。</li>
+<li><strong>使用场景</strong>：如果你需要一个字符串的不可变引用，使用 <code>&amp;str</code> 更加通用；如果你有一个 <code>String</code>，并且需要传递给一个接受 <code>&amp;str</code> 的函数时，可以直接传 <code>&amp;String</code>，因为 Rust 会自动地将其转换为 <code>&amp;str</code>。</li>
+</ul>
+<h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">print_str</span>(s: &amp;<span class="type">str</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">string_data</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, Rust!&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">str_data</span> = <span class="string">&quot;Hello, Rust!&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">print_str</span>(&amp;string_data);  <span class="comment">// &amp;String 自动转换为 &amp;str</span></span><br><span class="line">    <span class="title function_ invoke__">print_str</span>(str_data);      <span class="comment">// 直接是 &amp;str</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总的来说，<code>&amp;str</code> 用于引用已有的字符串片段，而 <code>&amp;String</code> 是对 <code>String</code> 类型的引用，在需要时可以自动转换为 <code>&amp;str</code>。</p>
+<h2 id="2-使用字段初始化简写语法"><a href="#2-使用字段初始化简写语法" class="headerlink" title="2.使用字段初始化简写语法"></a>2.使用字段初始化简写语法</h2><p>在 Rust 中，当你构造结构体时，如果结构体字段的名称和你要赋给它们的变量名相同，可以使用字段初始化简写语法来简化代码。这样你就不必重复字段名和变量名，从而让代码更加简洁和易读。字段初始化简写语法允许你在结构体初始化时，省略字段名，直接使用与字段同名的变量进行赋值。</p>
+<pre><code>fn build_user(email: String, username: String) -&gt; User &#123;
+User &#123;
+active: true,
+username: username,
+email: email,
+sign_in_count: 1,
+&#125;
+&#125;
+</code></pre>
+<p>到</p>
+<pre><code>fn build_user(email: String, username: String) -&gt; User &#123;
+User &#123;
+active: true,
+username,
+email,
+sign_in_count: 1,
+&#125;
+&#125;
+</code></pre>
+<p>因为 email 字段与 email 参数有着相同的名称，则只需编写 email 而不是 email: email。</p>
+<h2 id="3-使用结构体更新语法从其他实例创建实例"><a href="#3-使用结构体更新语法从其他实例创建实例" class="headerlink" title="3.使用结构体更新语法从其他实例创建实例"></a>3.使用结构体更新语法从其他实例创建实例</h2><pre><code>fn main() &#123;
+// --snip--
+
+let user2 = User &#123;
+active: user1.active,
+username: user1.username,
+email: String::from(&quot;another@example.com&quot;),
+sign_in_count: user1.sign_in_count,
+&#125;;
+&#125;
+</code></pre>
+<p>等同于</p>
+<pre><code>fn main() &#123;
+// --snip--
+
+let user2 = User &#123;
+email: String::from(&quot;another@example.com&quot;),
+..user1
+&#125;;
+&#125;
+</code></pre>
+<p>..user1 必须放在最后，以指定其余的字段应从 user1 的相应字段中获取其值，但我们可以选择以任何顺序为任意字段指定值，而不用考虑结构体定义中字段的顺序。结构更新语法就像带有 &#x3D; 的赋值，因为它移动了数据结构更新语法就像带有 &#x3D; 的赋值，因为它移动了数据</p>
+<h2 id="4-dbg！"><a href="#4-dbg！" class="headerlink" title="4.dbg！"></a>4.dbg！</h2><p>在 Rust 中，<code>dbg!</code> 宏是一个非常有用的<strong>调试工具</strong>，它可以快速打印表达式的值及其发生的位置。<code>dbg!</code> 宏的主要目的是帮助开发者在调试过程中查看代码中某个表达式的值，而不需要手动写 <code>println!</code> 或类似的输出语句。</p>
+<h3 id="dbg-的特点："><a href="#dbg-的特点：" class="headerlink" title="dbg! 的特点："></a><code>dbg!</code> 的特点：</h3><ol>
+<li><strong>调试输出格式</strong>：<code>dbg!</code> 会打印表达式的值以及它所在的文件、行号。这样你可以快速定位输出的位置。</li>
+<li><strong>不影响表达式的正常工作</strong>：<code>dbg!</code> 会返回表达式的值本身，所以它不会改变程序的行为。</li>
+<li><strong>方便的临时调试工具</strong>：<code>dbg!</code> 非常适合用于临时调试，帮助你查看某个表达式的结果，且可以很容易在调试完毕后移除。</li>
+</ol>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p><code>dbg!</code> 可以包装任何表达式，并且会将这个表达式的值输出到标准错误输出 (<code>stderr</code>)，而不是标准输出 (<code>stdout</code>)。它不仅仅打印值，还会打印文件名和行号，帮助快速找到输出信息的来源。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>以下是一个简单的使用 <code>dbg!</code> 的例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = dbg!(x * <span class="number">2</span>) + <span class="number">1</span>;</span><br><span class="line">    dbg!(y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出结果："><a href="#输出结果：" class="headerlink" title="输出结果："></a>输出结果：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[src/main.rs:3] x * 2 = 10</span><br><span class="line">[src/main.rs:4] y = 11</span><br></pre></td></tr></table></figure>
+
+<h4 id="解释："><a href="#解释：" class="headerlink" title="解释："></a>解释：</h4><ul>
+<li><code>dbg!(x * 2)</code> 会打印出 <code>x * 2</code> 的值，以及它所在的文件 (<code>src/main.rs</code>) 和行号 (第 3 行)。</li>
+<li>然后它将表达式的值返回，<code>y</code> 的值就等于 <code>10 + 1 = 11</code>。</li>
+<li>接着，<code>dbg!(y)</code> 打印出 <code>y</code> 的值及其位置。</li>
+</ul>
+<h3 id="dbg-的行为："><a href="#dbg-的行为：" class="headerlink" title="dbg! 的行为："></a><code>dbg!</code> 的行为：</h3><ul>
+<li><p><strong>返回值</strong>：<code>dbg!</code> 宏不仅仅是为了打印，它还会返回传递给它的表达式的值。例如，在上面 <code>y = dbg!(x * 2) + 1</code> 中，<code>dbg!(x * 2)</code> 返回的是 <code>10</code>，因此 <code>y</code> 的值就是 <code>11</code>。</p>
+</li>
+<li><p><strong>标准错误输出</strong>：<code>dbg!</code> 默认将输出信息打印到标准错误输出 (<code>stderr</code>)，这与 <code>println!</code> 打印到标准输出 (<code>stdout</code>) 不同。调试信息通常不会作为程序的最终输出，因此将其发送到 <code>stderr</code> 更加合理。</p>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li><strong>临时调试</strong>：当你需要快速查看某个表达式的值时，可以使用 <code>dbg!</code>，它非常方便，不需要像 <code>println!</code> 那样手动编写输出信息。</li>
+<li><strong>定位问题</strong>：<code>dbg!</code> 会输出代码所在的行号和文件路径，可以帮助你快速定位问题，特别是在调试复杂的逻辑时。</li>
+</ul>
+<h3 id="与-println-的比较"><a href="#与-println-的比较" class="headerlink" title="与 println! 的比较"></a>与 <code>println!</code> 的比较</h3><p><code>dbg!</code> 和 <code>println!</code> 虽然都能输出值，但它们的用法和目的略有不同：</p>
+<ul>
+<li><code>println!</code> 更适合用于程序的最终输出，或者当你需要自定义格式输出时。</li>
+<li><code>dbg!</code> 主要用于临时调试，自动包含上下文信息（文件和行号），并且不会影响程序的执行。</li>
+</ul>
+<h3 id="示例：调试复杂表达式"><a href="#示例：调试复杂表达式" class="headerlink" title="示例：调试复杂表达式"></a>示例：调试复杂表达式</h3><p>如果你有一个更复杂的表达式，也可以使用 <code>dbg!</code> 轻松调试各个部分：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = dbg!(a * b) + dbg!(a + b);</span><br><span class="line">    dbg!(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出结果：-1"><a href="#输出结果：-1" class="headerlink" title="输出结果："></a>输出结果：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[src/main.rs:4] a * b = 6</span><br><span class="line">[src/main.rs:4] a + b = 5</span><br><span class="line">[src/main.rs:5] result = 11</span><br></pre></td></tr></table></figure>
+
+<p>在调试过程中，<code>dbg!</code> 会帮助你清楚地查看每个步骤的结果，避免手动写很多 <code>println!</code> 语句。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>dbg!</code> 是一个用于调试的宏，帮助快速查看表达式的值，并且返回这个值。</li>
+<li>它输出到标准错误流 (<code>stderr</code>)，同时附带文件名和行号，便于跟踪。</li>
+<li><code>dbg!</code> 可以用于任何表达式，并且不会改变程序的正常行为，是一个非常方便的临时调试工具。</li>
+</ul>
+<p>它简化了调试流程，尤其适合在开发过程中快速检查代码逻辑。</p>
+<h2 id="5-标准输出（stdout）和标准错误（stderr）？"><a href="#5-标准输出（stdout）和标准错误（stderr）？" class="headerlink" title="5.标准输出（stdout）和标准错误（stderr）？"></a>5.标准输出（stdout）和标准错误（stderr）？</h2><p>标准输出（stdout）：用于输出正常的信息和结果，可以重定向和处理。<br>标准错误（stderr）：专门用于输出错误和警告信息，通常不会被重定向，确保用户能够及时看到。</p>
+<p>标准输出（stdout）：用于输出正常的信息和结果，可以重定向和处理。<br>标准错误（stderr）：专门用于输出错误和警告信息，通常不会被重定向，确保用户能够及时看到。</p>
+<p>在计算机编程和操作系统中，标准输出（stdout）和标准错误（stderr）是两种不同的输出流，用于传递程序的输出信息。它们各自的用途和特点如下：</p>
+<h3 id="标准输出（stdout）"><a href="#标准输出（stdout）" class="headerlink" title="标准输出（stdout）"></a>标准输出（stdout）</h3><ul>
+<li><strong>用途</strong>：用于输出程序的正常信息或结果。例如，程序的计算结果、日志信息或其他需要呈现给用户的内容。</li>
+<li><strong>流向</strong>：通常，标准输出的内容会显示在终端（命令行）或可以重定向到文件。</li>
+<li><strong>特点</strong>：用户可以选择将标准输出重定向到文件或管道，以便进一步处理。</li>
+</ul>
+<h3 id="标准错误（stderr）"><a href="#标准错误（stderr）" class="headerlink" title="标准错误（stderr）"></a>标准错误（stderr）</h3><ul>
+<li><strong>用途</strong>：专门用于输出错误信息或警告。当程序发生错误或需要通知用户发生了某些问题时，使用标准错误输出。</li>
+<li><strong>流向</strong>：标准错误的信息通常也显示在终端，但与标准输出分开。用户也可以选择将其重定向到不同的地方。</li>
+<li><strong>特点</strong>：即使标准输出被重定向，标准错误仍然会输出到终端，这样可以确保用户及时看到错误信息。</li>
+</ul>
+<h3 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h3><p>这种分离的设计有助于用户在运行程序时更好地管理输出信息。例如：</p>
+<ol>
+<li><p><strong>重定向</strong>：用户可以将标准输出重定向到文件以保存结果，同时仍然可以在终端看到错误信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./my_program &gt; output.txt</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，正常的信息会保存到 <code>output.txt</code> 文件中，而错误信息会显示在终端。</p>
+</li>
+<li><p><strong>调试</strong>：当程序出现错误时，使用标准错误输出可以确保错误信息被优先注意到。这对于调试和故障排查非常有帮助。</p>
+</li>
+</ol>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p>假设有一个简单的程序，它执行一些计算并可能发生错误：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = <span class="title function_ invoke__">divide</span>(<span class="number">10</span>, <span class="number">0</span>); <span class="comment">// 这将导致错误</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Result: &#123;&#125;&quot;</span>, result); <span class="comment">// 输出正常信息到标准输出</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">divide</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="built_in">eprintln!</span>(<span class="string">&quot;Error: Division by zero!&quot;</span>); <span class="comment">// 输出错误信息到标准错误</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 返回默认值</span></span><br><span class="line">    &#125;</span><br><span class="line">    a / b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中：</p>
+<ul>
+<li><code>println!</code> 将结果输出到标准输出（stdout）。</li>
+<li><code>eprintln!</code> 将错误信息输出到标准错误（stderr）。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>标准输出（stdout）</strong>：用于输出正常的信息和结果，可以重定向和处理。</li>
+<li><strong>标准错误（stderr）</strong>：专门用于输出错误和警告信息，通常不会被重定向，确保用户能够及时看到。</li>
+</ul>
+<p>这种设计使得程序的输出管理更加灵活和高效，帮助开发者和用户更好地处理程序的执行结果。</p>
+<p>当然可以！以下是一个简单的示例，展示如何使用标准输出（stdout）和标准错误（stderr）。</p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = <span class="title function_ invoke__">divide</span>(<span class="number">10</span>, <span class="number">2</span>); <span class="comment">// 正常情况</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Result: &#123;&#125;&quot;</span>, result); <span class="comment">// 输出到标准输出</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">result</span> = <span class="title function_ invoke__">divide</span>(<span class="number">10</span>, <span class="number">0</span>); <span class="comment">// 错误情况</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Result: &#123;&#125;&quot;</span>, result); <span class="comment">// 输出到标准输出</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">divide</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="built_in">eprintln!</span>(<span class="string">&quot;Error: Division by zero!&quot;</span>); <span class="comment">// 输出错误信息到标准错误</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 返回默认值</span></span><br><span class="line">    &#125;</span><br><span class="line">    a / b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出解释"><a href="#输出解释" class="headerlink" title="输出解释"></a>输出解释</h3><p>当运行这段代码时，输出将如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Result: 5</span><br><span class="line">Error: Division by zero!</span><br><span class="line">Result: 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出流分析"><a href="#输出流分析" class="headerlink" title="输出流分析"></a>输出流分析</h3><ol>
+<li><p><strong>正常输出</strong>：</p>
+<ul>
+<li><code>Result: 5</code> 是通过 <code>println!</code> 输出到标准输出（stdout），表示正常计算的结果。</li>
+</ul>
+</li>
+<li><p><strong>错误信息</strong>：</p>
+<ul>
+<li><code>Error: Division by zero!</code> 是通过 <code>eprintln!</code> 输出到标准错误（stderr），用于报告错误。当分母为 0 时，程序会输出这个错误信息，确保用户能及时看到。</li>
+</ul>
+</li>
+</ol>
+<h3 id="重定向示例"><a href="#重定向示例" class="headerlink" title="重定向示例"></a>重定向示例</h3><p>你可以通过重定向将这些输出分开。例如，运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo run &gt; output.txt 2&gt; error.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong><code>output.txt</code></strong> 将包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Result: 5</span><br><span class="line">Result: 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>error.log</code></strong> 将包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Division by zero!</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>通过这个例子，你可以看到标准输出和标准错误的不同用途，以及如何在实际应用中有效利用这两种输出流。这样可以使程序的输出更清晰，便于调试和信息管理。</p>
+<h2 id="6-默认值的-Default"><a href="#6-默认值的-Default" class="headerlink" title="6.默认值的 Default"></a>6.默认值的 Default</h2><p>在 Rust 中，<code>Default</code> 是一个 trait，它为类型提供了一个默认值。实现了 <code>Default</code> trait 的类型可以通过调用 <code>Default::default()</code> 方法来获得该类型的默认值。这在初始化变量时非常有用，尤其是当你想要使用一些类型，但不想手动指定所有字段的值时。</p>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><p>以下是一个简单的例子，展示如何使用 <code>Default</code> trait：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug, Default)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    x: <span class="type">i32</span>,</span><br><span class="line">    y: <span class="type">i32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">p1</span> = Point &#123; x: <span class="number">10</span>, y: <span class="number">20</span> &#125;; <span class="comment">// 自定义值</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">p2</span> = Point::<span class="title function_ invoke__">default</span>(); <span class="comment">// 使用默认值</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;p1: &#123;:?&#125;&quot;</span>, p1); <span class="comment">// 输出: p1: Point &#123; x: 10, y: 20 &#125;</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;p2: &#123;:?&#125;&quot;</span>, p2); <span class="comment">// 输出: p2: Point &#123; x: 0, y: 0 &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h3><ol>
+<li><p><strong>定义结构体</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug, Default)]</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    x: <span class="type">i32</span>,</span><br><span class="line">    y: <span class="type">i32</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里定义了一个 <code>Point</code> 结构体，包含 <code>x</code> 和 <code>y</code> 两个字段。<code>#[derive(Default)]</code> 宏自动为 <code>Point</code> 实现了 <code>Default</code> trait，使得可以调用 <code>Point::default()</code>。</p>
+</li>
+<li><p><strong>使用自定义值</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">p1</span> = Point &#123; x: <span class="number">10</span>, y: <span class="number">20</span> &#125;; <span class="comment">// 自定义值</span></span><br></pre></td></tr></table></figure>
+<p>创建了一个 <code>Point</code> 实例 <code>p1</code>，并手动指定了 <code>x</code> 和 <code>y</code> 的值。</p>
+</li>
+<li><p><strong>使用默认值</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">p2</span> = Point::<span class="title function_ invoke__">default</span>(); <span class="comment">// 使用默认值</span></span><br></pre></td></tr></table></figure>
+<p>创建了一个 <code>Point</code> 实例 <code>p2</code>，使用 <code>Default::default()</code> 方法。由于 <code>Point</code> 的 <code>Default</code> 实现会将所有字段初始化为其类型的默认值，<code>i32</code> 的默认值是 <code>0</code>，因此 <code>p2</code> 的值为 <code>Point &#123; x: 0, y: 0 &#125;</code>。</p>
+</li>
+<li><p><strong>输出结果</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;p1: &#123;:?&#125;&quot;</span>, p1); <span class="comment">// 输出: p1: Point &#123; x: 10, y: 20 &#125;</span></span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;p2: &#123;:?&#125;&quot;</span>, p2); <span class="comment">// 输出: p2: Point &#123; x: 0, y: 0 &#125;</span></span><br></pre></td></tr></table></figure>
+<p>使用 <code>println!</code> 宏输出 <code>p1</code> 和 <code>p2</code> 的值，分别显示自定义值和默认值。</p>
+</li>
+</ol>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong><code>Default</code> trait</strong>：提供了一个获取默认值的方法。</li>
+<li><strong>方便性</strong>：使得在创建实例时可以避免重复指定所有字段的初始值，特别是当字段较多时。</li>
+<li><strong>常用场景</strong>：在配置结构体或其他需要初始化的复杂类型时非常有用。</li>
+</ul>
+<p>通过使用 <code>Default</code> trait，可以更简洁地处理结构体和其他类型的初始化。如果还有其他问题或者需要更深入的解释，请告诉我！</p>
+<h2 id="7-枚举介绍"><a href="#7-枚举介绍" class="headerlink" title="7.枚举介绍"></a>7.枚举介绍</h2><p>IpAddr 枚举的新定义表明了 V4 和 V6 成员都关联了 String 值：</p>
+<pre><code>enum IpAddr &#123;
+    V4(String),
+    V6(String),
+&#125;
+
+let home = IpAddr::V4(String::from(&quot;127.0.0.1&quot;));
+
+let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
+</code></pre>
+<p>IpAddr::V4() 是一个获取 String 参数并返回 IpAddr 类型实例的函数调用。</p>
+<p>用枚举替代结构体还有另一个优势：每个成员可以处理不同类型和数量的数据。</p>
+<p>结构体：适用于字段数量和类型固定的情况，不能处理同一类型的不同情况。<br>枚举：可以处理不同类型和数量的数据，适合用来表示一组相关的不同情况，如 IPv4 和 IPv6 地址。</p>
+<p>无法在同一个结构体中定义可变的字段类型和数量。<br>结构体：可以处理多种不同类型的数据，但每个字段的类型在定义时固定且不可变，无法动态组合。<br>枚举：可以在一个类型中灵活地定义多种情况，支持不同字段类型和数量。</p>
+<h2 id="8-option"><a href="#8-option" class="headerlink" title="8.option"></a>8.option</h2><pre><code>enum Option&lt;T&gt; &#123;
+None,
+Some(T),
+&#125;
+</code></pre>
+<h2 id="9-match"><a href="#9-match" class="headerlink" title="9.match"></a>9.match</h2><pre><code>enum Coin &#123;
+Penny,
+Nickel,
+Dime,
+Quarter,
+&#125;
+
+fn value_in_cents(coin: Coin) -&gt; u8 &#123;
+match coin &#123;
+Coin::Penny =&gt; 1,
+Coin::Nickel =&gt; 5,
+Coin::Dime =&gt; 10,
+Coin::Quarter =&gt; 25,
+&#125;
+&#125;
+</code></pre>
+<h2 id="10-if-let-简洁控制流"><a href="#10-if-let-简洁控制流" class="headerlink" title="10.if let 简洁控制流"></a>10.if let 简洁控制流</h2><pre><code>let config_max = Some(3u8);
+match config_max &#123;
+    Some(max) =&gt; println!(&quot;The maximum is configured to be &#123;max&#125;&quot;),
+    _ =&gt; (),
+&#125;
+</code></pre>
+<p>等于</p>
+<pre><code>let config_max = Some(3u8);
+if let Some(max) = config_max &#123;
+println!(&quot;The maximum is configured to be &#123;max&#125;&quot;);
+&#125;
+</code></pre>
+<p>并且</p>
+<pre><code>let mut count = 0;
+match coin &#123;
+    Coin::Quarter(state) =&gt; println!(&quot;State quarter from &#123;state:?&#125;!&quot;),
+    _ =&gt; count += 1,
+&#125;
+</code></pre>
+<p>等于</p>
+<pre><code>let mut count = 0;
+if let Coin::Quarter(state) = coin &#123;
+    println!(&quot;State quarter from &#123;state:?&#125;!&quot;);
+&#125; else &#123;
+    count += 1;
+&#125;
+</code></pre>
+<h1 id="所有权和结构体和枚举、模式匹配的作业"><a href="#所有权和结构体和枚举、模式匹配的作业" class="headerlink" title="所有权和结构体和枚举、模式匹配的作业"></a>所有权和结构体和枚举、模式匹配的作业</h1><h2 id="1-into-bytes"><a href="#1-into-bytes" class="headerlink" title="1.into_bytes()"></a>1.into_bytes()</h2><p><code>into_bytes()</code> 是 Rust 中 <code>String</code> 类型的一个方法，它将 <code>String</code> 转换为一个字节向量（<code>Vec&lt;u8&gt;</code>）。这个方法会消耗原始的 <code>String</code>，并返回一个包含其 UTF-8 编码字节的 <code>Vec&lt;u8&gt;</code>。</p>
+<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码"></a>示例代码</h3><p>以下是一个使用 <code>into_bytes()</code> 方法的简单示例：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">my_string</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, Rust!&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">byte_vector</span> = my_string.<span class="title function_ invoke__">into_bytes</span>(); <span class="comment">// 转换为 Vec&lt;u8&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印字节向量</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, byte_vector);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><p>运行上述代码将输出字节向量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[72, 101, 108, 108, 111, 44, 32, 82, 117, 115, 116, 33]</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码解释-1"><a href="#代码解释-1" class="headerlink" title="代码解释"></a>代码解释</h3><ol>
+<li><p><strong>创建字符串</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">my_string</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, Rust!&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>创建一个 <code>String</code> 实例。</p>
+</li>
+<li><p>**调用 <code>into_bytes()</code>**：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">byte_vector</span> = my_string.<span class="title function_ invoke__">into_bytes</span>();</span><br></pre></td></tr></table></figure>
+<p>使用 <code>into_bytes()</code> 方法将 <code>my_string</code> 转换为 <code>Vec&lt;u8&gt;</code>。注意，这里 <code>my_string</code> 的所有权被转移，<code>my_string</code> 不再可用。</p>
+</li>
+<li><p><strong>打印字节向量</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, byte_vector);</span><br></pre></td></tr></table></figure>
+<p>打印字节向量，显示每个字符的 UTF-8 编码值。</p>
+</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><strong>所有权转移</strong>：调用 <code>into_bytes()</code> 会消耗原始字符串，因此原始 <code>String</code> 不再可用。</li>
+<li><strong>UTF-8 编码</strong>：返回的字节向量是原始字符串的 UTF-8 编码字节表示。</li>
+</ul>
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3><p><code>into_bytes()</code> 方法是将字符串转换为字节向量的便捷方式，常用于需要处理字节数据的场景。如果有其他问题或需要更深入的解释，请告诉我！</p>
+<h3 id="as-bytes"><a href="#as-bytes" class="headerlink" title="as_bytes()"></a>as_bytes()</h3><p><code>as_bytes()</code> 是 Rust 中 <code>String</code> 和 <code>&amp;str</code> 类型的一个方法，用于将字符串转换为一个字节切片（<code>&amp;[u8]</code>）。与 <code>into_bytes()</code> 不同的是，<code>as_bytes()</code> 不会消耗原始字符串，而是返回一个对字符串内容的借用视图。</p>
+<h3 id="示例代码-3"><a href="#示例代码-3" class="headerlink" title="示例代码"></a>示例代码</h3><p>以下是一个使用 <code>as_bytes()</code> 方法的简单示例：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">my_string</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, Rust!&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">byte_slice</span> = my_string.<span class="title function_ invoke__">as_bytes</span>(); <span class="comment">// 转换为 &amp;[u8]</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印字节切片</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, byte_slice);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出结果-1"><a href="#输出结果-1" class="headerlink" title="输出结果"></a>输出结果</h3><p>运行上述代码将输出字节切片：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[72, 101, 108, 108, 111, 44, 32, 82, 117, 115, 116, 33]</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码解释-2"><a href="#代码解释-2" class="headerlink" title="代码解释"></a>代码解释</h3><ol>
+<li><p><strong>创建字符串</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">my_string</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Hello, Rust!&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>创建一个 <code>String</code> 实例。</p>
+</li>
+<li><p>**调用 <code>as_bytes()</code>**：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">byte_slice</span> = my_string.<span class="title function_ invoke__">as_bytes</span>();</span><br></pre></td></tr></table></figure>
+<p>使用 <code>as_bytes()</code> 方法将 <code>my_string</code> 转换为字节切片 <code>&amp;[u8]</code>。此时，<code>my_string</code> 仍然可用，因为没有消耗它的所有权。</p>
+</li>
+<li><p><strong>打印字节切片</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, byte_slice);</span><br></pre></td></tr></table></figure>
+<p>打印字节切片，显示每个字符的 UTF-8 编码值。</p>
+</li>
+</ol>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><strong>借用</strong>：<code>as_bytes()</code> 返回的是对字符串内容的借用，因此不会影响原始字符串的所有权。</li>
+<li><strong>UTF-8 编码</strong>：返回的字节切片是原始字符串的 UTF-8 编码字节表示。</li>
+</ul>
+<h3 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h3><p><code>as_bytes()</code> 是一个方便的方法，用于在不消耗字符串的情况下获取其字节表示，适用于需要读取字符串字节数据而不修改原始内容的场景。如果你有其他问题或需要更深入的解释，请告诉我！</p>
+<h2 id="2-ref与-类似的，可以用来获取一个价值，但是它们的引用方式有所不同。"><a href="#2-ref与-类似的，可以用来获取一个价值，但是它们的引用方式有所不同。" class="headerlink" title="2.ref与&amp;类似的，可以用来获取一个价值，但是它们的引用方式有所不同。"></a>2.ref与&amp;类似的，可以用来获取一个价值，但是它们的引用方式有所不同。</h2><p>在 Rust 中，<code>ref</code> 和 <code>&amp;</code> 都用于获取对值的引用，但它们的使用场景和语法略有不同。让我们详细讨论这两者的区别。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="&amp; 语法"></a><code>&amp;</code> 语法</h3><ul>
+<li><p><strong>基本用法</strong>：<code>&amp;</code> 是用于创建对已有值的不可变或可变引用的语法。使用 <code>&amp;</code> 时，你可以从一个值中获取对它的引用，但原始值的所有权不会改变。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = &amp;x; <span class="comment">// 创建一个对 x 的不可变引用</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;x 的值是: &#123;&#125;&quot;</span>, x);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;y 的值是: &#123;&#125;&quot;</span>, y); <span class="comment">// y 仍然可以访问 x 的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="ref-语法"><a href="#ref-语法" class="headerlink" title="ref 语法"></a><code>ref</code> 语法</h3><ul>
+<li><p><strong>模式匹配</strong>：<code>ref</code> 是在模式匹配中使用的关键字，用于在解构时获取对值的引用，而不是值本身。它通常用于函数参数、<code>match</code> 表达式或 <code>if let</code> 语句中。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">match</span> x &#123;</span><br><span class="line">        <span class="keyword">ref</span> s =&gt; <span class="built_in">println!</span>(<span class="string">&quot;s 的引用是: &#123;&#125;&quot;</span>, s), <span class="comment">// 使用 ref 获取对 x 的引用</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这里 x 的所有权已经转移，不再可用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ol>
+<li><p><strong>语法位置</strong>：</p>
+<ul>
+<li><code>&amp;</code> 通常用于创建引用，比如在赋值或函数参数中。</li>
+<li><code>ref</code> 用于模式匹配，以便在解构时获取引用。</li>
+</ul>
+</li>
+<li><p><strong>所有权</strong>：</p>
+<ul>
+<li>使用 <code>&amp;</code> 创建的引用不改变原始值的所有权。</li>
+<li>使用 <code>ref</code> 时，如果模式匹配的值是一个拥有所有权的值（如 <code>String</code>），则引用的变量会引用该值，但不拥有它。</li>
+</ul>
+</li>
+</ol>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li><code>&amp;</code> 和 <code>ref</code> 都用于引用，但它们的用法和语法场景不同。</li>
+<li><code>&amp;</code> 用于创建引用，<code>ref</code> 用于在模式匹配中获取对值的引用。</li>
+</ul>
+<p>如果你还有其他问题或需要更深入的解释，请告诉我！</p>
+<h2 id="3"><a href="#3" class="headerlink" title="3.+&#x3D;"></a>3.+&#x3D;</h2><p>在 Rust 中，<code>s += &quot;!&quot;</code> 是一种用于追加字符串的语法，它可以用于将一个字符串切片（如 <code>&amp;str</code>）追加到一个可变的 <code>String</code> 变量中。让我们详细解释一下这一用法。</p>
+<h3 id="使用-的情况"><a href="#使用-的情况" class="headerlink" title="使用 += 的情况"></a>使用 <code>+=</code> 的情况</h3><ol>
+<li><p><strong>类型要求</strong>：</p>
+<ul>
+<li><code>s</code> 必须是一个可变的 <code>String</code> 类型。</li>
+<li>右侧的 <code>&quot;!&quot;</code> 是一个字符串切片（<code>&amp;str</code>），它可以直接与 <code>String</code> 进行拼接。</li>
+</ul>
+</li>
+<li><p><strong>示例代码</strong>：</p>
+</li>
+</ol>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">s</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    s += <span class="string">&quot;!&quot;</span>; <span class="comment">// 追加字符串切片</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: hello!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h3><ul>
+<li><strong>可变性</strong>：<code>s</code> 被声明为 <code>mut</code>，表示它的值可以被修改。</li>
+<li><strong>拼接</strong>：<code>+=</code> 操作符将 <code>!</code> 追加到 <code>s</code> 的末尾。</li>
+<li><strong>内存管理</strong>：Rust 会自动处理内存分配以适应新的字符串内容。</li>
+</ul>
+<h3 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><code>+=</code> 操作符会消耗右侧的值，如果右侧是一个 <code>String</code> 类型而不是 <code>&amp;str</code>，则该 <code>String</code> 会被移动到 <code>s</code> 中，而原来的 <code>String</code> 将不再可用。</li>
+</ul>
+<h3 id="示例中的类型消耗"><a href="#示例中的类型消耗" class="headerlink" title="示例中的类型消耗"></a>示例中的类型消耗</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">s</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">exclamation</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;!&quot;</span>);</span><br><span class="line"></span><br><span class="line">    s += &amp;exclamation; <span class="comment">// 这里使用了 &amp;exclamation，借用</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: hello!</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// exclamation 仍然可用，因为我们借用了它</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, exclamation); <span class="comment">// 输出: !</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-6"><a href="#总结-6" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>+=</code> 是一个方便的操作符，可以用来将字符串切片（<code>&amp;str</code>）追加到 <code>String</code> 的末尾。</li>
+<li>它对内存管理非常高效，并且符合 Rust 的所有权和借用规则。</li>
+</ul>
+<p>如果你有其他问题或需要进一步的解释，请告诉我！</p>
+<h2 id="4-replace"><a href="#4-replace" class="headerlink" title="4.replace"></a>4.replace</h2><p>在 Rust 中，<code>replace</code> 方法是 <code>String</code> 和 <code>&amp;str</code> 类型的一部分，用于替换字符串中的某些子字符串。这个方法非常有用，可以轻松地进行字符串内容的修改。让我们来详细了解一下它的用法。</p>
+<h3 id="1-String-replace-方法"><a href="#1-String-replace-方法" class="headerlink" title="1. String::replace 方法"></a>1. <code>String::replace</code> 方法</h3><p><code>replace</code> 方法可以用于 <code>String</code> 或 <code>&amp;str</code> 类型，返回一个新的字符串，其中指定的子字符串被替换为另一个子字符串。</p>
+<h3 id="2-方法签名"><a href="#2-方法签名" class="headerlink" title="2. 方法签名"></a>2. 方法签名</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">replace</span>&lt;<span class="symbol">&#x27;a</span>&gt;(</span><br><span class="line">    &amp;<span class="keyword">self</span>, </span><br><span class="line">    from: &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span>, </span><br><span class="line">    to: &amp;<span class="symbol">&#x27;a</span> <span class="type">str</span></span><br><span class="line">) <span class="punctuation">-&gt;</span> <span class="type">String</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-示例代码"><a href="#3-示例代码" class="headerlink" title="3. 示例代码"></a>3. 示例代码</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">original</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hello, world&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">new_string</span> = original.<span class="title function_ invoke__">replace</span>(<span class="string">&quot;world&quot;</span>, <span class="string">&quot;Rust&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Original: &#123;&#125;&quot;</span>, original); <span class="comment">// 输出: Original: hello, world</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;New string: &#123;&#125;&quot;</span>, new_string); <span class="comment">// 输出: New string: hello, Rust</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-详细解释"><a href="#4-详细解释" class="headerlink" title="4. 详细解释"></a>4. 详细解释</h3><ul>
+<li><p><strong>参数</strong>：</p>
+<ul>
+<li><code>from</code> 是要被替换的子字符串。</li>
+<li><code>to</code> 是替换成的新字符串。</li>
+</ul>
+</li>
+<li><p><strong>返回值</strong>：<code>replace</code> 方法返回一个新的 <code>String</code>，原始字符串不受影响。</p>
+</li>
+<li><p><strong>不可变性</strong>：在调用 <code>replace</code> 后，原始字符串 <code>original</code> 仍然保持不变。</p>
+</li>
+</ul>
+<h3 id="5-使用场景"><a href="#5-使用场景" class="headerlink" title="5. 使用场景"></a>5. 使用场景</h3><p><code>replace</code> 方法非常适合在需要替换多个相同内容的情况下，比如文本处理、格式化输出等。</p>
+<h3 id="6-注意事项"><a href="#6-注意事项" class="headerlink" title="6. 注意事项"></a>6. 注意事项</h3><ul>
+<li><code>replace</code> 方法对大小写敏感，因此在进行替换时需要注意匹配的字符。</li>
+<li>如果要进行多个替换，可以链式调用 <code>replace</code> 方法。</li>
+</ul>
+<h3 id="示例：链式调用"><a href="#示例：链式调用" class="headerlink" title="示例：链式调用"></a>示例：链式调用</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">text</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;The quick brown fox jumps over the lazy dog.&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">updated_text</span> = text.<span class="title function_ invoke__">replace</span>(<span class="string">&quot;fox&quot;</span>, <span class="string">&quot;cat&quot;</span>).<span class="title function_ invoke__">replace</span>(<span class="string">&quot;dog&quot;</span>, <span class="string">&quot;hamster&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, updated_text); <span class="comment">// 输出: The quick brown cat jumps over the lazy hamster.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-7"><a href="#总结-7" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>replace</code> 方法是处理字符串替换的一个方便工具，返回一个新的字符串。</li>
+<li>它可以在 <code>String</code> 和 <code>&amp;str</code> 上使用，允许用户轻松替换子字符串而不改变原始字符串的内容。</li>
+</ul>
+<h2 id="5-转义符号和使用符号"><a href="#5-转义符号和使用符号" class="headerlink" title="5.转义符号和使用符号"></a>5.转义符号和使用符号</h2><p>在 Rust 中，处理包含双引号和 # 号的字符串有几种方法。我来详细解释一下：</p>
+<ol>
+<li>使用转义字符：</li>
+</ol>
+<p>对于双引号，你可以使用反斜杠 <code>\\</code> 来转义：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;He said, \\&quot;</span>Hello!\\<span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: He said, &quot;Hello!&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>对于 # 号，通常不需要转义：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;This is a # symbol&quot;</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: This is a # symbol</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>使用原始字符串字面量（Raw string literals）：</li>
+</ol>
+<p>原始字符串字面量使用 <code>r#&quot;&quot;#</code> 语法，可以包含任意字符而不需要转义：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">r#&quot;He said, &quot;Hello!&quot;&quot;#</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: He said, &quot;Hello!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">r#&quot;This is a # symbol&quot;#</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: This is a # symbol</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>使用多重 # 号：</li>
+</ol>
+<p>如果你的字符串中包含 <code>&quot;#</code>，你可以使用更多的 # 号：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">r##&quot;A string with &quot;# in it&quot;##</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s); <span class="comment">// 输出: A string with &quot;# in it</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>多行字符串：</li>
+</ol>
+<p>原始字符串字面量也可以用于多行字符串：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">r#&quot;</span></span><br><span class="line"><span class="string">    This is a multi-line string.</span></span><br><span class="line"><span class="string">    It can contain &quot;quotes&quot; and # symbols.</span></span><br><span class="line"><span class="string">    No need to escape anything!</span></span><br><span class="line"><span class="string">&quot;#</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, s);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>字节字符串：</li>
+</ol>
+<p>如果你需要处理非 UTF-8 数据，可以使用字节字符串：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">bytes</span> = <span class="string">b&quot;This is a byte string with a # symbol&quot;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>普通字符串字面量中，<code>\\</code> 用于转义特殊字符。</li>
+<li>原始字符串字面量 (r#””#) 中，所有字符都按字面意义处理，不需要转义。</li>
+<li>使用原始字符串字面量可以大大简化包含引号或其他特殊字符的字符串的书写。</li>
+<li>字节字符串 (b””) 创建的是 <code>&amp;[u8]</code> 类型，而不是 <code>&amp;str</code>。</li>
+</ul>
+<p>选择哪种方法主要取决于你的具体需求和字符串的复杂性。对于包含大量特殊字符的字符串，原始字符串字面量通常是最简单和最清晰的选择。</p>
+<p>在 Rust 的原始字符串字面量（raw string literals）中，<code>#</code> 号的数量确实遵循一定的规律。这个规律主要与字符串的开始和结束标记有关。让我详细解释一下：</p>
+<ol>
+<li>基本规则：<ul>
+<li>开始标记的 <code>#</code> 号数量必须与结束标记的 <code>#</code> 号数量相同。</li>
+<li>最少可以不使用 <code>#</code> 号，最多可以使用任意数量的 <code>#</code> 号。</li>
+</ul>
+</li>
+<li>选择 <code>#</code> 号数量的原则：<ul>
+<li>使用足够多的 <code>#</code> 号，以确保字符串内容中不会出现相同数量的 <code>&quot;#</code> 组合。</li>
+</ul>
+</li>
+<li>常见模式：<ul>
+<li><code>r&quot;...&quot;</code>: 没有 <code>#</code>，适用于不包含引号的简单字符串。</li>
+<li><code>r#&quot;...&quot;#</code>: 一个 <code>#</code>，最常见的形式，可以包含普通引号。</li>
+<li><code>r##&quot;...&quot;##</code>: 两个 <code>#</code>，用于字符串内容包含 <code>&quot;#</code> 的情况。</li>
+<li>更多 <code>#</code> 用于更复杂的情况。</li>
+</ul>
+</li>
+<li>示例：</li>
+</ol>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s1</span> = <span class="string">r&quot;Hello, world!&quot;</span>;  <span class="comment">// 简单字符串，不需要 #</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">s2</span> = <span class="string">r#&quot;She said &quot;Hello&quot;&quot;#</span>;  <span class="comment">// 包含引号，使用一个 #</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">s3</span> = <span class="string">r##&quot;A raw string with &quot;# inside&quot;##</span>;  <span class="comment">// 包含 &quot;#，使用两个 #</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">s4</span> = <span class="string">r####&quot;Lots of #&quot;##&quot;# here&quot;####</span>;  <span class="comment">// 非常复杂的情况，使用多个 #</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>灵活性：<ul>
+<li>你可以根据需要使用任意数量的 <code>#</code>，只要开始和结束的数量相匹配。</li>
+<li>选择 <code>#</code> 的数量主要是为了避免与字符串内容冲突。</li>
+</ul>
+</li>
+<li>实际应用：<ul>
+<li>在大多数情况下，一个或两个 <code>#</code> 就足够了。</li>
+<li>使用大量 <code>#</code> 的情况很罕见，通常只在特殊情况下出现。</li>
+</ul>
+</li>
+<li>最佳实践：<ul>
+<li>使用最少数量的 <code>#</code> 来满足你的需求。</li>
+<li>如果不确定，可以从一个 <code>#</code> 开始，根据需要增加。</li>
+</ul>
+</li>
+<li>注意事项：<ul>
+<li><code>#</code> 的数量不影响字符串的内容，只影响如何解析字符串的开始和结束。</li>
+</ul>
+</li>
+</ol>
+<p>总结：<code>#</code> 号的数量没有固定的规律，而是根据字符串内容的复杂性灵活选择。关键是要确保开始和结束的 <code>#</code> 数量相同，并且选择的数量能够唯一地标识字符串的开始和结束，而不与内容冲突。这种灵活性允许 Rust 开发者处理几乎任何复杂度的字符串内容</p>
+<h2 id="6-字节数组"><a href="#6-字节数组" class="headerlink" title="6.字节数组"></a>6.字节数组</h2><p>这个代码展示了如何在 Rust 中使用字节数组（byte string），以及它们与字符串（<code>str</code> 类型）之间的区别和相互转换。下面是对代码的解释：</p>
+<h3 id="1-字节数组的定义"><a href="#1-字节数组的定义" class="headerlink" title="1. 字节数组的定义"></a>1. 字节数组的定义</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">bytestring</span>: &amp;[<span class="type">u8</span>; <span class="number">21</span>] = <span class="string">b&quot;this is a byte string&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里定义了一个字节数组 <code>bytestring</code>，类型是 <code>&amp;[u8; 21]</code>，表示长度为 21 的 <code>u8</code> 数组。</li>
+<li>使用 <code>b&quot;...&quot;</code> 语法定义字节数组，其中的内容将被当作原始的字节，而不是 UTF-8 字符串。</li>
+<li><code>b&quot;...&quot;</code> 语法会生成一个字节数组字面量，这在需要处理非 UTF-8 编码数据时很有用。</li>
+</ul>
+<h3 id="2-打印字节数组"><a href="#2-打印字节数组" class="headerlink" title="2. 打印字节数组"></a>2. 打印字节数组</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;A byte string: &#123;:?&#125;&quot;</span>, bytestring);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字节数组没有实现 <code>Display</code> 特征（不能使用 <code>&#123;&#125;</code> 直接打印），因此需要用 <code>&#123;:?&#125;</code> 来进行调试打印（<code>Debug</code> 特征）。</li>
+</ul>
+<h3 id="3-转义字符和字节数组"><a href="#3-转义字符和字节数组" class="headerlink" title="3. 转义字符和字节数组"></a>3. 转义字符和字节数组</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">escaped</span> = <span class="string">b&quot;\x52\x75\x73\x74 as bytes&quot;</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;Some escaped bytes: &#123;:?&#125;&quot;</span>, escaped);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在字节数组中，可以使用 16 进制的转义字符来表示特定的字节，如 <code>\x52</code> 代表 ASCII 字母 ‘R’。</li>
+<li>注意：字节数组不支持 Unicode 转义（<code>\u&#123;&#125;</code> 格式），因为它们不要求是 UTF-8 字符串。</li>
+</ul>
+<h3 id="4-原始字节字符串"><a href="#4-原始字节字符串" class="headerlink" title="4. 原始字节字符串"></a>4. 原始字节字符串</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">raw_bytestring</span> = <span class="string">br&quot;\u&#123;211D&#125; is not escaped here&quot;</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, raw_bytestring);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>br&quot;...&quot;</code> 表示原始的字节字符串（raw byte string），不会对其中的转义字符进行处理。</li>
+<li>输出时会原样显示 <code>\u&#123;211D&#125;</code>。</li>
+</ul>
+<h3 id="5-字节数组到-str-的转换"><a href="#5-字节数组到-str-的转换" class="headerlink" title="5. 字节数组到 str 的转换"></a>5. 字节数组到 <code>str</code> 的转换</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Ok</span>(my_str) = <span class="type">str</span>::<span class="title function_ invoke__">from_utf8</span>(raw_bytestring) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;And the same as text: &#x27;&#123;&#125;&#x27;&quot;</span>, my_str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用 <code>str::from_utf8()</code> 方法可以尝试将字节数组转换为 <code>str</code>。</li>
+<li>如果字节数组内容是有效的 UTF-8，则转换成功，返回 <code>Ok(&amp;str)</code>；否则，返回 <code>Err</code>。</li>
+</ul>
+<h3 id="6-支持更复杂的原始字节字符串格式"><a href="#6-支持更复杂的原始字节字符串格式" class="headerlink" title="6. 支持更复杂的原始字节字符串格式"></a>6. 支持更复杂的原始字节字符串格式</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">_quotes</span> = <span class="string">br#&quot;You can also use &quot;fancier&quot; formatting, \</span></span><br><span class="line"><span class="string">                like with normal raw strings&quot;#</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以使用更复杂的格式，比如 <code>br#&quot;...&quot;#</code>，允许在字符串中包含双引号。</li>
+</ul>
+<h3 id="7-非-UTF-8-字节数组"><a href="#7-非-UTF-8-字节数组" class="headerlink" title="7. 非 UTF-8 字节数组"></a>7. 非 UTF-8 字节数组</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">shift_jis</span> = <span class="string">b&quot;\x82\xe6\x82\xa8\x82\xb1\x82\xbb&quot;</span>; <span class="comment">// &quot;ようこそ&quot; in SHIFT-JIS</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义了一个非 UTF-8 的字节数组，使用的是 SHIFT-JIS 编码的日语“ようこそ”。</li>
+<li>这种字节数组无法转换为 <code>str</code>，因为它不符合 UTF-8 编码。</li>
+</ul>
+<h3 id="8-字节数组到-str-的转换尝试"><a href="#8-字节数组到-str-的转换尝试" class="headerlink" title="8. 字节数组到 str 的转换尝试"></a>8. 字节数组到 <code>str</code> 的转换尝试</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">match</span> <span class="type">str</span>::<span class="title function_ invoke__">from_utf8</span>(shift_jis) &#123;</span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(my_str) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Conversion successful: &#x27;&#123;&#125;&#x27;&quot;</span>, my_str),</span><br><span class="line">    <span class="title function_ invoke__">Err</span>(e) =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Conversion failed: &#123;:?&#125;&quot;</span>, e),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>尝试将 <code>shift_jis</code> 转换为 <code>str</code>，由于它不是有效的 UTF-8 编码，转换会失败，并返回一个错误。</li>
+</ul>
+<h3 id="总结-8"><a href="#总结-8" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>Rust 的字节数组（<code>[u8]</code> 或 <code>Vec&lt;u8&gt;</code>）可以用来处理非 UTF-8 字节数据。</li>
+<li>将字节数组转换为 <code>str</code> 需要确保数据符合 UTF-8 编码，否则转换会失败。</li>
+<li>原始字节字符串（<code>br&quot;...&quot;</code>）可以方便地处理原始数据，不进行转义处理。</li>
+</ul>
+<h2 id="7-汉字字节"><a href="#7-汉字字节" class="headerlink" title="7.汉字字节"></a>7.汉字字节</h2><p>在 Rust 中，字符串是 UTF-8 编码的，而 UTF-8 编码是一种可变长度的字符编码方式。对于汉字来说，它们在 UTF-8 中通常占用 3 个字节，而不是 4 个字节。</p>
+<h3 id="为什么汉字在-UTF-8-中占-3-个字节？"><a href="#为什么汉字在-UTF-8-中占-3-个字节？" class="headerlink" title="为什么汉字在 UTF-8 中占 3 个字节？"></a>为什么汉字在 UTF-8 中占 3 个字节？</h3><ul>
+<li>UTF-8 编码采用一种可变长度的编码方式，字符可以占用 1 到 4 个字节不等。常见的 ASCII 字符（如字母和数字）占用 1 个字节，而汉字通常占用 3 个字节。</li>
+<li>UTF-8 编码的规则是：如果一个字符的 Unicode 码点在 128 以内（即 ASCII 范围内），则占用 1 个字节；而汉字的 Unicode 码点一般超过 2048，所以它们在 UTF-8 中需要 3 个字节来表示。</li>
+</ul>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s1</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;hi,中国&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改当前行来修复错误，提示: `h` 字符在 UTF-8 格式中只需要 1 个字节来表示</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">h</span> = &amp;s1[<span class="number">0</span>..<span class="number">1</span>]; </span><br><span class="line">    <span class="built_in">assert_eq!</span>(h, <span class="string">&quot;h&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改当前行来修复错误，提示: `中` 字符在 UTF-8 格式中需要 3 个字节来表示</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">h1</span> = &amp;s1[<span class="number">3</span>..<span class="number">6</span>]; </span><br><span class="line">    <span class="built_in">assert_eq!</span>(h1, <span class="string">&quot;中&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><code>h = &amp;s1[0..1]</code>：这行代码取的是字符串的第一个字节，由于 <code>h</code> 是 ASCII 字符，占用 1 个字节，因此 <code>&amp;s1[0..1]</code> 能正确地提取到 <code>&quot;h&quot;</code>。</p>
+</li>
+<li><p><code>h1 = &amp;s1[3..6]</code>：这行代码尝试提取 <code>&quot;中&quot;</code>，在 UTF-8 编码中，<code>&quot;中&quot;</code> 占 3 个字节（所以这里是 <code>[3..6]</code>），可以成功提取。</p>
+</li>
+</ol>
+<h3 id="总结-9"><a href="#总结-9" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>汉字在 UTF-8 中通常占 3 个字节。</li>
+<li>Rust 中字符串索引操作需要考虑字符的字节长度，因为 UTF-8 是一种可变长度编码，不同字符的字节长度可能不同。</li>
+</ul>
+<h2 id="8-字符索引"><a href="#8-字符索引" class="headerlink" title="8.字符索引"></a>8.字符索引</h2><p>在这个例子中，<code>utf8_slice::slice(s, 4, 5)</code> 可以从 UTF-8 字符串中正确地提取出 “🚀” 这个字符。让我们逐步解释为什么这个结果是火箭图标：</p>
+<h3 id="1-UTF-8-字符串的字节长度"><a href="#1-UTF-8-字符串的字节长度" class="headerlink" title="1. UTF-8 字符串的字节长度"></a>1. UTF-8 字符串的字节长度</h3><p>首先，<code>s</code> 的内容是 <code>&quot;The 🚀 goes to the 🌑!&quot;</code>。在 UTF-8 编码中，字符串的字节表示如下：</p>
+<ul>
+<li><code>&quot;The &quot;</code>：占用 4 个字节（每个字母和空格 1 个字节）</li>
+<li><code>&quot;🚀&quot;</code>：占用 4 个字节（火箭 emoji 在 UTF-8 中表示为 4 个字节）</li>
+<li><code>&quot; goes to the &quot;</code>：占用 13 个字节</li>
+<li><code>&quot;🌑&quot;</code>：占用 4 个字节（月亮 emoji 也是 4 个字节）</li>
+<li><code>&quot;!&quot;</code>：占用 1 个字节</li>
+</ul>
+<h3 id="2-utf8-slice-slice-s-4-5-的行为"><a href="#2-utf8-slice-slice-s-4-5-的行为" class="headerlink" title="2. utf8_slice::slice(s, 4, 5) 的行为"></a>2. <code>utf8_slice::slice(s, 4, 5)</code> 的行为</h3><ul>
+<li>这里，<code>utf8_slice::slice</code> 按字符索引来操作，而不是字节索引。字符串 <code>&quot;The 🚀 goes to the 🌑!&quot;</code> 的第 4 个字符（从 0 开始计数）就是 <code>&quot;🚀&quot;</code>。</li>
+<li>因此，<code>utf8_slice::slice(s, 4, 5)</code> 提取了从第 4 个字符到第 5 个字符（不包含第 5 个）的内容，这正好是火箭 emoji <code>&quot;🚀&quot;</code>。</li>
+</ul>
+<h3 id="总结-10"><a href="#总结-10" class="headerlink" title="总结"></a>总结</h3><p>尽管火箭 emoji 占用 4 个字节，但 <code>utf8_slice</code> 按字符索引来操作，所以使用 <code>utf8_slice::slice(s, 4, 5)</code> 可以正确地提取到火箭 emoji <code>&quot;🚀&quot;</code>。</p>
+<h2 id="9-为什么可以-let-arr-3-‘a’-‘b’-‘c’-，数组的类型可以一开始不已知吗"><a href="#9-为什么可以-let-arr-3-‘a’-‘b’-‘c’-，数组的类型可以一开始不已知吗" class="headerlink" title="9.为什么可以    let arr: [_; 3] &#x3D; [‘a’, ‘b’, ‘c’];，数组的类型可以一开始不已知吗"></a>9.为什么可以    let arr: [_; 3] &#x3D; [‘a’, ‘b’, ‘c’];，数组的类型可以一开始不已知吗</h2><p>在 Rust 中，数组的类型可以通过类型推断来确定，这使得你可以在声明数组时不显式指定其类型。让我们详细解释一下这个特性以及它的工作原理。</p>
+<h3 id="数组类型推断"><a href="#数组类型推断" class="headerlink" title="数组类型推断"></a>数组类型推断</h3><ol>
+<li><p><strong>声明方式</strong>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">arr</span>: [_; <span class="number">3</span>] = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>];</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>[_; 3]</code> 表示一个长度为 3 的数组，元素的类型由编译器推断而来。<code>_</code> 表示编译器将根据数组的初始化值推断出类型。</p>
+</li>
+<li><p><strong>类型推断</strong>:</p>
+<ul>
+<li>在这个例子中，<code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code> 是一个字符数组。由于 <code>&#39;a&#39;</code>、<code>&#39;b&#39;</code> 和 <code>&#39;c&#39;</code> 都是字符类型 (<code>char</code>)，编译器会推断出 <code>arr</code> 的类型为 <code>char</code> 数组，即 <code>arr: [char; 3]</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么可以不显式指定类型"><a href="#为什么可以不显式指定类型" class="headerlink" title="为什么可以不显式指定类型"></a>为什么可以不显式指定类型</h3><ul>
+<li><p><strong>编译器的智能</strong>: Rust 编译器具有类型推断的能力，可以根据上下文信息推断变量的类型。这使得代码更加简洁，减少了不必要的重复。</p>
+</li>
+<li><p><strong>类型一致性</strong>: 数组的元素必须是同一类型。由于在数组初始化时提供了具体的值，编译器能够确定它们的类型，因此可以有效地进行推断。</p>
+</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>以下是一些示例，展示了如何使用类型推断来声明数组：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 使用类型推断的数组</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">int_arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; <span class="comment">// 类型为 [i32; 3]</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">char_arr</span> = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]; <span class="comment">// 类型为 [char; 3]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 通过显式类型声明数组</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">explicit_arr</span>: [<span class="type">i32</span>; <span class="number">4</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 通过类型推断声明数组</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span>: [_; <span class="number">3</span>] = [<span class="number">10.5</span>, <span class="number">20.5</span>, <span class="number">30.5</span>]; <span class="comment">// 类型为 [f64; 3]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, int_arr);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, char_arr);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, explicit_arr);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, arr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这些例子中，<code>int_arr</code> 和 <code>char_arr</code> 都不需要显式声明类型，Rust 能够根据提供的值自动推断出它们的类型。</p>
+<h2 id="10-越界索引会导致代码的-panic"><a href="#10-越界索引会导致代码的-panic" class="headerlink" title="10. 越界索引会导致代码的 panic."></a>10. 越界索引会导致代码的 panic.</h2><pre><code>// 修复代码中的错误
+fn main() &#123;
+let names = [String::from(&quot;Sunfei&quot;), &quot;Sunface&quot;.to_string()];
+
+// `get` 返回 `Option&lt;T&gt;` 类型，因此它的使用非常安全
+let name0 = names.get(0).unwrap();
+
+// 但是下标索引就存在越界的风险了
+let _name1 = &amp;names[2];
+&#125;
+</code></pre>
+<h2 id="11-切片大小"><a href="#11-切片大小" class="headerlink" title="11. 切片大小"></a>11. 切片大小</h2><p>一个切片引用占用了2个字大小的内存空间( 从现在开始，为了简洁性考虑，如无特殊原因，我们统一使用切片来特指切片引用 )。 该切片的第一个字是指向数据的指针，第二个字是切片的长度。字的大小取决于处理器架构，例如在 x86-64 上，字的大小是 64 位也就是 8 个字节，那么一个切片引用就是 16 个字节大小。</p>
+<pre><code>fn main() &#123;
+let arr: [char; 3] = [&#39;中&#39;, &#39;国&#39;, &#39;人&#39;];
+
+let slice = &amp;arr[..2];
+
+// 修改数字 `8` 让代码工作
+// 小提示: 切片和数组不一样，它是引用。如果是数组的话，那下面的 `assert!` 将会通过： &#39;中&#39;和&#39;国&#39;是char类型，char类型是Unicode编码，大小固定为4字节，两个字符为8字节。
+assert!(std::mem::size_of_val(&amp;slice) == 16);
+&#125;
+</code></pre>
+<h2 id="12-为什么不是元组过长的错误"><a href="#12-为什么不是元组过长的错误" class="headerlink" title="12.为什么不是元组过长的错误"></a>12.为什么不是元组过长的错误</h2><p>元组的元素限制：在 Rust 中，元组的最大元素个数限制在 12 个。当超过这个限制时，编译器不会单独抛出“元组过长”的错误，而是表明它无法实现 Debug trait，这是因为元组的实现实际上是基于其元素数量的。</p>
+<p>Trait 实现的问题：Rust 的错误消息常常反映 trait 实现的失败，而不是元组本身的性质。因此，在这种情况下，编译器选择报告 trait 的缺失，而不是直接指出元组过长。</p>
+<h2 id="13-元组解构"><a href="#13-元组解构" class="headerlink" title="13.元组解构"></a>13.元组解构</h2><pre><code>fn main() &#123;
+let tup = (1, 6.4, &quot;hello&quot;);
+
+// 填空
+let (x,z,y) = tup;
+
+assert_eq!(x, 1);
+assert_eq!(y, &quot;hello&quot;);
+assert_eq!(z, 6.4);
+&#125;
+</code></pre>
+<p>和<br>    fn main() {<br>    let (x, y, z);</p>
+<pre><code>// 填空
+(y,z,x) = (1, 2, 3);
+
+assert_eq!(x, 3);
+assert_eq!(y, 1);
+assert_eq!(z, 2);
+&#125;
+</code></pre>
+<h2 id="14-as"><a href="#14-as" class="headerlink" title="14.as"></a>14.as</h2><p>在 Rust 中，<code>as</code> 运算符用于执行类型转换，允许将一个值转换为另一种类型。例如，它可以用于基本数据类型之间的转换（如整数到浮点数的转换），或者是将引用类型转换为原始指针类型。</p>
+<h3 id="常见的-as-使用场景："><a href="#常见的-as-使用场景：" class="headerlink" title="常见的 as 使用场景："></a>常见的 <code>as</code> 使用场景：</h3><ol>
+<li><p><strong>整数类型转换</strong>：<br>可以用 <code>as</code> 将一个整数类型转换为另一种整数类型。例如，将 <code>i32</code> 转换为 <code>u32</code>，或者将 <code>i64</code> 转换为 <code>f64</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">x</span>: <span class="type">i32</span> = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">y</span>: <span class="type">u32</span> = x <span class="keyword">as</span> <span class="type">u32</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;x: &#123;&#125;, y: &#123;&#125;&quot;</span>, x, y); <span class="comment">// 输出: x: 10, y: 10</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>浮点数到整数的转换</strong>：<br>将 <code>f64</code> 转换为 <code>u32</code> 或 <code>i32</code>。此时会丢弃小数部分，只保留整数部分。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">f</span>: <span class="type">f64</span> = <span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">i</span>: <span class="type">u32</span> = f <span class="keyword">as</span> <span class="type">u32</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;f: &#123;&#125;, i: &#123;&#125;&quot;</span>, f, i); <span class="comment">// 输出: f: 3.14, i: 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>字符到整数的转换</strong>：<br>使用 <code>as</code> 可以将字符转换为对应的 <code>u8</code> 或 <code>u32</code> 值，即其 Unicode 码点值。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">c</span>: <span class="type">char</span> = <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">code</span>: <span class="type">u32</span> = c <span class="keyword">as</span> <span class="type">u32</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#x27;&#123;&#125;&#x27; 的 Unicode 码点是: &#123;&#125;&quot;</span>, c, code); <span class="comment">// 输出: &#x27;A&#x27; 的 Unicode 码点是: 65</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>引用类型到指针的转换</strong>：<br>可以将引用类型转换为原始指针类型（<code>*const T</code> 或 <code>*mut T</code>）。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">ptr</span> = s <span class="keyword">as</span> *<span class="keyword">const</span> <span class="type">str</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;s 的指针地址是: &#123;:?&#125;&quot;</span>, ptr);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>指针之间的转换</strong>：<br>可以用 <code>as</code> 在不同种类的指针之间转换。</p>
+</li>
+</ol>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
+<li>类型转换可能会引起数据丢失或不安全操作，尤其是从浮点数到整数、或者大范围的整数到小范围的整数转换时。</li>
+<li>如果转换涉及到不安全操作（如指针类型之间的转换），需要在 <code>unsafe</code> 块中使用。</li>
+</ul>
+<p><code>as</code> 是一种简单而强大的类型转换工具，适用于多种类型之间的转换需求。</p>
+<h2 id="15-在-Rust-中，枚举类型（enum）的值必须是整数类型（如-i32-u32-isize-usize-等），而不能是浮点数类型（如-f32-f64）。"><a href="#15-在-Rust-中，枚举类型（enum）的值必须是整数类型（如-i32-u32-isize-usize-等），而不能是浮点数类型（如-f32-f64）。" class="headerlink" title="15.在 Rust 中，枚举类型（enum）的值必须是整数类型（如 i32, u32, isize, usize 等），而不能是浮点数类型（如 f32, f64）。"></a>15.在 Rust 中，枚举类型（enum）的值必须是整数类型（如 i32, u32, isize, usize 等），而不能是浮点数类型（如 f32, f64）。</h2><p>在 Rust 中，枚举类型（<code>enum</code>）的值必须是整数类型（如 <code>i32</code>, <code>u32</code>, <code>isize</code>, <code>usize</code> 等），而不能是浮点数类型（如 <code>f32</code>, <code>f64</code>）。这是因为 Rust 的枚举类型要求每个枚举变体有一个离散的整数值，以便可以在编译时进行优化和匹配。</p>
+<p>下面是具体的解释：</p>
+<ol>
+<li><p><strong>枚举的整数值</strong>：<br>枚举中的每个变体可以显式地指定一个整数值（如在 <code>Number1</code> 中的示例），或者隐式地从零开始递增分配。这些整数值可以用来表示每个变体的顺序或某种编码。</p>
+</li>
+<li><p><strong>浮点数不支持</strong>：<br>Rust 不支持将浮点数用作枚举值，因为浮点数不具有整数那样的离散性和确定性。此外，浮点数在表示上可能会有精度问题和不确定性，不适合作为枚举的离散值。</p>
+</li>
+<li><p><strong>示例修正</strong>：<br>如果需要使用枚举来表示类似浮点数的值，可以采用其他方法，例如使用结构体包装浮点数或者使用 <code>match</code> 来进行转换。</p>
+</li>
+</ol>
+<p>要使 <code>Number2</code> 编译通过，可以更改为使用整数类型：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Number2</span> &#123;</span><br><span class="line">    Zero = <span class="number">0</span>,</span><br><span class="line">    One = <span class="number">1</span>,</span><br><span class="line">    Two = <span class="number">2</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果真的需要枚举与浮点数关联，可以使用结构体来间接实现：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Number2</span>(<span class="type">f64</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> <span class="title class_">Number2</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ZERO: Number2 = <span class="title function_ invoke__">Number2</span>(<span class="number">0.0</span>);</span><br><span class="line">    <span class="keyword">const</span> ONE: Number2 = <span class="title function_ invoke__">Number2</span>(<span class="number">1.0</span>);</span><br><span class="line">    <span class="keyword">const</span> TWO: Number2 = <span class="title function_ invoke__">Number2</span>(<span class="number">2.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以通过结构体关联浮点数值来实现类似的功能。</p>
+<h2 id="16-a-iter-enumerate"><a href="#16-a-iter-enumerate" class="headerlink" title="16.a.iter().enumerate()"></a>16.a.iter().enumerate()</h2><p>在这段代码中，<code>a.iter().enumerate()</code> 创建了一个迭代器，用于遍历数组 <code>a</code> 中的元素。让我们逐步解析这个过程，看看迭代器是如何起作用的：</p>
+<ol>
+<li><p>**<code>a.iter()</code>**：</p>
+<ul>
+<li><code>a.iter()</code> 创建一个迭代器，用于遍历数组 <code>a</code> 中的元素。这里的 <code>iter()</code> 方法返回一个对数组元素的不可变引用的迭代器（<code>&amp;[i32]</code>）。</li>
+<li>这个迭代器会逐个生成数组中的元素，每次产生一个引用，比如 <code>&amp;4</code>、<code>&amp;3</code>、<code>&amp;2</code>、<code>&amp;1</code>。</li>
+</ul>
+</li>
+<li><p>**<code>.enumerate()</code>**：</p>
+<ul>
+<li><code>enumerate()</code> 是一个适配器方法，用于为迭代器的每个元素生成一个 <code>(index, value)</code> 的元组。</li>
+<li><code>index</code> 是元素在迭代中的位置，从 <code>0</code> 开始计数。</li>
+<li><code>value</code> 是迭代器生成的当前元素的引用。</li>
+</ul>
+</li>
+<li><p>**<code>for (i, v) in a.iter().enumerate()</code>**：</p>
+<ul>
+<li>这行代码使用 <code>for</code> 循环解构 <code>enumerate()</code> 产生的 <code>(index, value)</code> 元组。</li>
+<li>其中，<code>i</code> 是当前元素的索引（从 <code>0</code> 开始），<code>v</code> 是元素的引用。</li>
+<li>在 <code>println!</code> 中，<code>i+1</code> 表示第 <code>i+1</code> 个元素（从 <code>1</code> 开始计数），<code>v</code> 则是数组中的实际值。</li>
+</ul>
+</li>
+<li><p><strong>输出结果</strong>：</p>
+<ul>
+<li>对于数组 <code>[4, 3, 2, 1]</code>，迭代过程如下：<ul>
+<li>第 1 次迭代：<code>i = 0</code>，<code>v = &amp;4</code>，输出 <code>第1个元素是4</code></li>
+<li>第 2 次迭代：<code>i = 1</code>，<code>v = &amp;3</code>，输出 <code>第2个元素是3</code></li>
+<li>第 3 次迭代：<code>i = 2</code>，<code>v = &amp;2</code>，输出 <code>第3个元素是2</code></li>
+<li>第 4 次迭代：<code>i = 3</code>，<code>v = &amp;1</code>，输出 <code>第4个元素是1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>通过这种方式，<code>enumerate()</code> 提供了数组元素的索引和值，从而可以方便地同时访问元素的位置和内容。</p>
+<h2 id="17-matches"><a href="#17-matches" class="headerlink" title="17.matches!"></a>17.matches!</h2><p><code>matches!</code> 是 Rust 标准库中的一个宏，用于判断一个表达式是否匹配给定的模式。它返回一个布尔值 <code>true</code> 或 <code>false</code>，表示匹配结果。这个宏非常适合用来进行简单的模式匹配检查，而不需要使用完整的 <code>match</code> 表达式。</p>
+<p>基本语法为：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">matches!(表达式, 模式)</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><code>表达式</code> 是你要检查的值。</li>
+<li><code>模式</code> 是你用来匹配表达式的模式。</li>
+</ul>
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><ol>
+<li><strong>基本使用</strong></li>
+</ol>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Direction</span> &#123;</span><br><span class="line">    East,</span><br><span class="line">    West,</span><br><span class="line">    North,</span><br><span class="line">    South,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">dire</span> = Direction::East;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 matches! 检查 dire 是否为 Direction::East</span></span><br><span class="line">    <span class="keyword">if</span> matches!(dire, Direction::East) &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;It&#x27;s East!&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;It&#x27;s not East.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>matches!(dire, Direction::East)</code> 会返回 <code>true</code>，因为 <code>dire</code> 的值是 <code>Direction::East</code>。</p>
+<ol start="2">
+<li><strong>带有条件的模式匹配</strong></li>
+</ol>
+<p>可以在模式后面使用守卫条件进行检查：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">number</span> = <span class="title function_ invoke__">Some</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> matches!(number, <span class="title function_ invoke__">Some</span>(x) <span class="keyword">if</span> x &gt; <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The number is greater than 3.&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The number is 3 or less, or it&#x27;s None.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>matches!(number, Some(x) if x &gt; 3)</code> 会返回 <code>true</code>，因为 <code>number</code> 是 <code>Some(5)</code>，而 <code>5</code> 大于 <code>3</code>。</p>
+<ol start="3">
+<li><strong>匹配多个模式</strong></li>
+</ol>
+<p><code>matches!</code> 宏也支持使用 <code>|</code> 来匹配多个模式：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">dire</span> = Direction::South;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> matches!(dire, Direction::South | Direction::North) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;It&#x27;s either South or North.&quot;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;It&#x27;s East or West.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，<code>matches!(dire, Direction::South | Direction::North)</code> 会返回 <code>true</code>，因为 <code>dire</code> 是 <code>Direction::South</code>，符合匹配条件。</p>
+<h3 id="总结-11"><a href="#总结-11" class="headerlink" title="总结"></a>总结</h3><p><code>matches!</code> 宏是一个简洁的方式来检查表达式是否匹配某个模式，在一些简单的模式匹配检查场景下，比使用 <code>match</code> 更加简便。</p>
+<h2 id="18-操作符"><a href="#18-操作符" class="headerlink" title="18.@ 操作符"></a>18.@ 操作符</h2><p>在 Rust 中，<code>@</code> 操作符可以用来在匹配模式的同时，将匹配的值绑定到一个新的变量上。这种操作叫做“绑定”，它可以让我们同时使用匹配的值和原始数据。</p>
+<h3 id="示例解释"><a href="#示例解释" class="headerlink" title="示例解释"></a>示例解释</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Message</span> &#123;</span><br><span class="line">    Hello &#123; id: <span class="type">i32</span> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">msg</span> = Message::Hello &#123; id: <span class="number">5</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">match</span> msg &#123;</span><br><span class="line">        Message::Hello &#123; id: id_variable @ <span class="number">3</span>..=<span class="number">7</span> &#125; =&gt; &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;Found an id in range: &#123;&#125;&quot;</span>, id_variable);</span><br><span class="line">        &#125;</span><br><span class="line">        Message::Hello &#123; id: <span class="number">10</span>..=<span class="number">12</span> &#125; =&gt; &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;Found an id in another range&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Message::Hello &#123; id &#125; =&gt; &#123;</span><br><span class="line">            <span class="built_in">println!</span>(<span class="string">&quot;Found some other id: &#123;&#125;&quot;</span>, id);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><ul>
+<li><code>id_variable @ 3..=7</code>：这里的 <code>@</code> 操作符将 <code>id</code> 绑定到 <code>id_variable</code>，但是只有当 <code>id</code> 匹配 <code>3..=7</code> 范围内的值时，才会执行这个分支。</li>
+<li><code>id_variable</code> 就是新绑定的变量，它保存了匹配的值（在范围 <code>3..=7</code> 内的值）。</li>
+</ul>
+<p>如果 <code>msg</code> 中的 <code>id</code> 是 5，它就会匹配 <code>id_variable @ 3..=7</code>，并将 <code>id</code> 的值绑定到 <code>id_variable</code>，然后执行 <code>println!(&quot;Found an id in range: &#123;&#125;&quot;, id_variable);</code>。</p>
+<h3 id="使用-操作符的好处"><a href="#使用-操作符的好处" class="headerlink" title="使用 @ 操作符的好处"></a>使用 <code>@</code> 操作符的好处</h3><p>它允许我们在匹配模式的同时，保留对匹配值的访问，而不需要单独再处理匹配到的值。</p>
+<pre><code>enum Message &#123;
+Hello &#123; id: i32 &#125;,
+&#125;
+
+fn main() &#123;
+let msg = Message::Hello &#123; id: 10 &#125;;
+
+match msg &#123;
+Message::Hello &#123;
+id: id@ 3..=7,
+&#125; =&gt; println!(&quot;id 值的范围在 [3, 7] 之间: &#123;&#125;&quot;, id),
+Message::Hello &#123; id: newid@ 10..=12 &#125; =&gt; &#123;
+println!(&quot;id 值的范围在 [10, 12] 之间: &#123;&#125;&quot;, newid)
+&#125;
+Message::Hello &#123; id &#125; =&gt; println!(&quot;Found some other id: &#123;&#125;&quot;, id),
+&#125;
+&#125;
+</code></pre>
+<p>在匹配表达式中，<code>Message::Hello &#123; id: 10 &#125;</code> 中的 <code>id</code> 是一个字段名称，它的值是 <code>10</code>，而不是变量的名称。在 Rust 的匹配语法中，模式匹配时的 <code>id</code> 只是用来检查结构体的字段是否符合某个条件，而不是自动绑定这个值到一个同名的变量。</p>
+<p>因此，虽然结构体的字段名称是 <code>id</code>，但在匹配的过程中，编译器并不会自动将 <code>id</code> 绑定为一个可以使用的变量。要使用匹配到的值，必须显式地将这个值绑定到一个变量上，比如使用 <code>@</code> 语法：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">match</span> msg &#123;</span><br><span class="line">    Message::Hello &#123; id: matched_id @ <span class="number">3</span>..=<span class="number">7</span> &#125; =&gt; &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;id 值的范围在 [3, 7] 之间: &#123;&#125;&quot;</span>, matched_id);</span><br><span class="line">    &#125;</span><br><span class="line">    _ =&gt; &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;id 不在范围内&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>matched_id @ 3..=7</code> 的意思是：如果 <code>msg</code> 中的 <code>id</code> 值在 <code>3..=7</code> 范围内，那么将这个值绑定到变量 <code>matched_id</code> 上。这样，编译器就知道如何使用匹配到的值了。</p>
+<p>编译器不知道如何使用 <code>id</code>，是因为在原来的匹配模式 <code>Message::Hello &#123; id: 3..=7 &#125;</code> 中，<code>3..=7</code> 是一个值范围的模式，而不是一个变量绑定。这种情况下，<code>id</code> 被用作检查条件，而不是将其值绑定到一个变量。编译器只能知道是否匹配成功，但没有一个变量来代表匹配的值。</p>
+<p>为了让编译器在匹配成功后能够使用 <code>id</code> 的值，需要显式地将匹配的值绑定到一个变量上。这就是 <code>@</code> 操作符的作用，它将满足特定条件的值绑定到一个变量：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Message::Hello &#123;</span><br><span class="line">    id: id_variable @ <span class="number">3</span>..=<span class="number">7</span>,</span><br><span class="line">&#125; =&gt; <span class="built_in">println!</span>(<span class="string">&quot;id 值的范围在 [3, 7] 之间: &#123;&#125;&quot;</span>, id_variable),</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>id_variable @ 3..=7</code> 的意思是：如果 <code>id</code> 的值在 <code>3..=7</code> 范围内，匹配成功，并将 <code>id</code> 的值绑定到变量 <code>id_variable</code>。这样，编译器就能在匹配成功的分支中使用 <code>id_variable</code>。</p>
+<h5 id="关于"><a href="#关于" class="headerlink" title="关于 |"></a>关于 |</h5><p>在这个模式匹配中，<code>newid @ 10 | 11 | 12</code> 的语法是不正确的。<code>@</code> 操作符用于将一个匹配的值绑定到一个新的变量上，但在这种情况下，<code>10 | 11 | 12</code> 是一个值的列表，而不是一个范围，因此不能直接与 <code>@</code> 操作符结合使用。</p>
+<p>正确的做法是使用匹配多个值的模式，如下所示：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">match</span> msg &#123;</span><br><span class="line">    Message::Hello &#123; id: <span class="number">10</span> | <span class="number">11</span> | <span class="number">12</span> &#125; =&gt; &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;id 值的范围在 [10, 12] 之间&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    _ =&gt; &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;id 不在范围内&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者，如果想绑定匹配的值到 <code>newid</code> 变量，可以使用这样的语法：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">match</span> msg &#123;</span><br><span class="line">    Message::Hello &#123; id: newid @ <span class="number">10</span>..=<span class="number">12</span> &#125; =&gt; &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;id 值的范围在 [10, 12] 之间: &#123;&#125;&quot;</span>, newid);</span><br><span class="line">    &#125;</span><br><span class="line">    _ =&gt; &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;id 不在范围内&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>newid @ 10..=12</code> 表示如果 <code>id</code> 的值在 <code>10..=12</code> 之间，就将这个值绑定到 <code>newid</code> 上。这样，匹配成功时，<code>newid</code> 会包含 <code>id</code> 的值，并可以在 <code>println!</code> 中使用。</p>
+<h2 id="19-匹配守卫（match-guard）"><a href="#19-匹配守卫（match-guard）" class="headerlink" title="19.匹配守卫（match guard）"></a>19.匹配守卫（match guard）</h2><p>匹配守卫（match guard）是一个用于 <code>match</code> 表达式中的额外 <code>if</code> 条件，位于 <code>match</code> 分支的模式之后。它用于进一步细化分支的匹配条件，使得某个分支在满足特定模式的基础上，还需要满足额外的条件，才能匹配成功并执行相应的代码。</p>
+<p>其语法是将 <code>if</code> 关键字和一个布尔表达式添加在 <code>match</code> 分支的模式之后。示例如下：</p>
+<pre><code><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">number</span> = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">match</span> number &#123;</span><br><span class="line"><span class="comment">// 使用匹配守卫来进一步判断值的范围</span></span><br><span class="line">n <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">0</span> &amp;&amp; n &gt; <span class="number">5</span> =&gt; &#123;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125; 是一个大于 5 的偶数&quot;</span>, n);</span><br><span class="line">&#125;</span><br><span class="line">n <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">0</span> =&gt; &#123;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125; 是一个小于等于 5 的偶数&quot;</span>, n);</span><br><span class="line">&#125;</span><br><span class="line">_ =&gt; &#123;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125; 是一个奇数&quot;</span>, number);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>在上面的例子中，匹配守卫 <code>if n % 2 == 0 &amp;&amp; n &gt; 5</code> 和 <code>if n % 2 == 0</code> 用于进一步细化匹配条件。只有当匹配模式满足的同时，匹配守卫的条件也为 <code>true</code> 时，该分支才会执行。</p>
+<p>匹配守卫使得 <code>match</code> 语句的条件控制更加灵活，可以基于模式匹配的结果进行更复杂的判断。</p>
+<h2 id="20-使用-忽略一部分值"><a href="#20-使用-忽略一部分值" class="headerlink" title="20.使用 .. 忽略一部分值"></a>20.使用 .. 忽略一部分值</h2><pre><code>fn main() &#123;
+let numbers = (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048);
+
+match numbers &#123;
+(first,..,last) =&gt; &#123;
+   assert_eq!(first, 2);
+   assert_eq!(last, 2048);
+&#125;
+&#125;
+&#125;
+</code></pre>
+<h3 id="21-使用模式-mut-V-去匹配一个可变引用时，你需要格外小心，因为匹配出来的-V-是一个值，而不是可变引用"><a href="#21-使用模式-mut-V-去匹配一个可变引用时，你需要格外小心，因为匹配出来的-V-是一个值，而不是可变引用" class="headerlink" title="21.使用模式 &amp;mut V 去匹配一个可变引用时，你需要格外小心，因为匹配出来的 V 是一个值，而不是可变引用"></a>21.使用模式 &amp;mut V 去匹配一个可变引用时，你需要格外小心，因为匹配出来的 V 是一个值，而不是可变引用</h3><p>这个错误的原因在于匹配模式中对 <code>value</code> 的处理。让我们逐步分析发生了什么：</p>
+<ol>
+<li><p><strong>借用与移动</strong>:</p>
+<ul>
+<li>在 <code>let r = &amp;mut v;</code> 中，<code>r</code> 是对 <code>v</code> 的可变引用（<code>&amp;mut String</code>）。因此，<code>r</code> 并没有获得 <code>v</code> 的所有权，只是借用了它。</li>
+<li>当你使用 <code>match r</code> 进行匹配时，Rust 会将 <code>r</code> 的值绑定到 <code>value</code>。在这个情况下，<code>value</code> 也成为了 <code>r</code> 的可变借用。</li>
+</ul>
+</li>
+<li><p><strong>移动发生在模式匹配中</strong>:</p>
+<ul>
+<li>当你在 <code>value</code> 上调用 <code>value.push_str(&quot; world!&quot;);</code> 时，<code>value</code> 试图获得对 <code>r</code> 的所有权（<code>&amp;mut String</code>），而不是对 <code>v</code> 的可变借用。这就导致了一个移动（move）操作，Rust 认为 <code>value</code> 获得了对 <code>r</code>（也就是对 <code>v</code> 的借用）的所有权，<code>r</code> 因此被“移动”了。</li>
+</ul>
+</li>
+<li><p><strong>导致借用出错</strong>:</p>
+<ul>
+<li>由于在匹配过程中，<code>value</code> 获取了 <code>r</code> 的所有权，<code>r</code> 被移动，之后 <code>r</code> 不能再被使用。当你尝试在 <code>println!(&quot;&#123;&#125;&quot;, r);</code> 中使用 <code>r</code> 时，编译器就会报错，提示 <code>r</code> 的值已经被移动，不能再使用。</li>
+</ul>
+</li>
+</ol>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>为了避免这个错误，你可以在匹配模式中使用 <code>ref</code> 关键字来获得对 <code>r</code> 的引用，而不是移动它。修改匹配语句如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">match</span> r &#123;</span><br><span class="line">    <span class="keyword">ref</span> value =&gt; &#123;</span><br><span class="line">        value.<span class="title function_ invoke__">push_str</span>(<span class="string">&quot; world!&quot;</span>); <span class="comment">// 这里不再移动，使用的是对 value 的引用</span></span><br><span class="line">        dbg!(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做会确保 <code>value</code> 是对 <code>r</code> 的一个引用，从而不会导致移动，<code>r</code> 仍然可以在后续代码中使用。</p>
+<h4 id="总结-12"><a href="#总结-12" class="headerlink" title="总结"></a>总结</h4><ul>
+<li><strong>错误原因</strong>: <code>value</code> 在 <code>match</code> 中移动了 <code>r</code> 的所有权，导致后续不能再使用 <code>r</code>。</li>
+<li><strong>解决办法</strong>: 使用 <code>ref</code> 关键字来引用 <code>r</code>，防止移动，保持 <code>r</code> 的有效性。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/12/%E6%89%80%E6%9C%89%E6%9D%83%E7%BB%93%E6%9E%84%E4%BD%93%E6%9E%9A%E4%B8%BE%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" data-id="cm477y2na000yc4u7cs73f4jh" data-title="Rust复习-所有权到模式匹配" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/12/22/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          北大肖臻老师《区块链技术与应用》笔记22
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/10/Rust/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Rust复习-入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

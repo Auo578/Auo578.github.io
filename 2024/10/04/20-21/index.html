@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>北大肖臻老师《区块链技术与应用》笔记20-21 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-20-21" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/04/20-21/" class="article-date">
+  <time class="dt-published" datetime="2024-10-04T06:10:38.000Z" itemprop="datePublished">2024-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      北大肖臻老师《区块链技术与应用》笔记20-21
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程20：以太坊发挖矿难度调整"><a href="#课程20：以太坊发挖矿难度调整" class="headerlink" title="课程20：以太坊发挖矿难度调整"></a>课程20：以太坊发挖矿难度调整</h1><p>比特币是每隔2016个区块调整一下挖矿难度，目标维持出块时间10分钟左右。</p>
+<p>以太坊每个区块都有可能调整挖矿难度，调整的方法也比较复杂。</p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-1.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-2.png"></p>
+<p>这是难度调整公式，H是指当前这个区块，Hi就是区块的序号，D（H）是这个区块当前的难度。</p>
+<p>难度调整公式有2部分，max括号里的是第一部分（基础部分），目的是维持出块时间大概在15秒左右，后面跟的<br><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>ϵ</mi></math><br>是第二部分，也称为难度炸弹，主要是为了向权益证明过渡。</p>
+<p>第一部分调整的方法是在副区块的难度基础上加上一些自调整的部分<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>P</mi><mo>（</mo><mi>H</mi><mo>）</mo><mrow><mstyle mathsize="0.7em"><mi>H</mi></mstyle></mrow><mrow><mstyle mathsize="0.5em"><mi>d</mi></mstyle></mrow></math>这里就是父区块的难度，自调整部分为<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>x</mi><mo>×</mo><mi>ς</mi><mrow><mstyle mathsize="0.5em"><mn>2</mn></mstyle></mrow></math>。所谓的父区块就是当前区块链的最后一个区块。对于我们现在正在挖的区块来说，这是当前区块的父区块。</p>
+<p>第一部分的难度调整有一个下限，就是<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>D</mi><mrow><mstyle mathsize="0.5em"><mn>0</mn></mstyle></mrow><mo>≡</mo><mn>131072</mn></math>.这是为了保证挖矿有一个最低的难度。</p>
+<p>第一部分：自适应难度调整部分<br><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-3.png"></p>
+<p>这里的x是调整的力度，是父区块的难度除以2048，所以不论是上调还是下调，都是按照这个力度的整数倍进行调整的，按照父区块的难度的1&#x2F;2048作为调整的一个单位。</p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-4.png"></p>
+<p>第二行的<br><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>ς</mi><mrow><mstyle mathsize="0.5em"><mn>2</mn></mstyle></mrow></math><br>和两个因素有关，一个是出块时间，另一个是是否有叔父区块。因为当前区块链的最后一个区块，包含有叔父区块的话，这个系统中的货币总供应量是增加的，<br>因为叔父区块要得到出块奖励，包含叔父区块的这个父区块也要得到一定的奖励，这些都会导致货币的总供应量增加，那么为了维持系统的总供应量的稳定，所以当前正在挖这个区块的难度就要提高一个单位。</p>
+<p>后面的-99是指难度调整的这个系数部分有一个下限，最多一次性只能调整99个单位，每个单位是父区块难度的1&#x2F;2048，所以一次性下调难度最多是99&#x2F;2048。</p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-5.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-6.png"></p>
+<p>其中的y就是取决于有没有叔父区块，有叔父区块的话y&#x3D;2，没有叔父区块的话y&#x3D;1，不论是那种情况，都是常数。如果后面那一样比前一项大的话，那么难度下调。</p>
+<p>为什么要除以9，看图。如果更长，下调的幅度也会更大，但不会下调到99以上。</p>
+<h4 id="难度炸弹部分（difficulty-bomb）"><a href="#难度炸弹部分（difficulty-bomb）" class="headerlink" title="难度炸弹部分（difficulty bomb）"></a>难度炸弹部分（difficulty bomb）</h4><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-7.png"></p>
+<p>为了防止矿工抵制，不愿意转入权益证明，硬分叉。当时设置的时候没有Hi第二行。难度炸弹的取值呈指数型增长，刚上线时难度低。等到这个难度炸弹威力发挥出来的时候，也是改pos的时候。减了300000个区块，就是回调难度炸弹的时候。<br><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-8.png"></p>
+<h2 id="以太坊的发展阶段"><a href="#以太坊的发展阶段" class="headerlink" title="以太坊的发展阶段"></a>以太坊的发展阶段</h2><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-9.png"></p>
+<p>拜占庭阶段：难度炸弹的回调</p>
+<p>EIP：Ethereum improvement proposal</p>
+<p>BIP：Bitcoin improvement proposal</p>
+<p>在难度回调的时候同时减少出块奖励，不这样对回调之前的miner是不公平的，同时也要维护系统总供应量的稳定.</p>
+<h3 id="具体代码实现"><a href="#具体代码实现" class="headerlink" title="具体代码实现"></a>具体代码实现</h3><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-10.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-11.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-12.png"><br>为什么只是减少299999个不是300000，因为当前判断的是父区块的时候，而当前正在挖的区块比父区块的序号要多一个。</p>
+<h3 id="以太坊中的一些实际统计情况"><a href="#以太坊中的一些实际统计情况" class="headerlink" title="以太坊中的一些实际统计情况"></a>以太坊中的一些实际统计情况</h3><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-13.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-14.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-15.png"></p>
+<p>早期时候挖矿难度的调整主要是以稳定出块时间为主</p>
+<p>对以太坊来说，最长合法链 &#x3D; 最难合法链，总难度最大的合法链。每个区块的难度反映的是挖出这个区块所需要的工作量。而总难度最大就是挖出这条链上所有区块需要的总工作量最大。</p>
+<h1 id="课程21：权益证明"><a href="#课程21：权益证明" class="headerlink" title="课程21：权益证明"></a>课程21：权益证明</h1><p>POS（poof of stake）</p>
+<p>pow非常浪费电、资源。</p>
+<p>TWH&#x3D; terawatt（10的12次方） hours</p>
+<p>kwh&#x3D; kilowatt（10的3次方） hours</p>
+<p>出块奖励，激励矿工来参与维护</p>
+<p>既然挖矿最终是比拼资金，那么只要直接比拼资金就不用挖矿，消耗电力了 -&gt; 权益证明的基本思想（Virtual mining）</p>
+<p>采用权益证明的加密货币，一般在正式发行之前，会先预留一部分货币给开发者，也会出售一部分货币来换取开发这个加密货币所需要的资金。</p>
+<p>将来按照权益证明的共识机制，每个按照持有货币的数量来进行投票。</p>
+<p>优点在于：1.省去了挖矿的过程，也避免了能耗和带来的影响。2.基于工作量证明的共识系统从某种意义上说，维护这种这个区块链安全的资源不是一个闭环，blockchain is secured by mining，mining的equipment是用法币买来的，是从加密货币的生态系统外面得到的，所以如果有某个组织想要发动恶意攻击，只需要用足够的资金来购买挖矿设备，然后占据到这个加密货币总算力一半以上的算力就可以了。也就是说发动这种攻击所需要的资源是可以从外面得到的。</p>
+<p>altcoin infanticide：把小的加密货币通过这种方式扼杀在摇篮里</p>
+<p>如果采用的是权益证明，所以如果某个人想要发动51%的攻击，首先要设法获得这个币种发行量的一半以上的份额。发动攻击的资源只能从这个加密货币系统内部得到。所以是个闭环。而一旦有人大量买入加密货币，那么价格会大涨，类似于股份制公司遭受恶意收购。</p>
+<p>权益证明和工作量证明并不是互斥的，有的加密货币采用的是一种混合模型，就是仍然挖矿，但是挖矿的难度和持有的权益、币是相关的，持有的币越多挖矿的难度越小。</p>
+<p>如果这样设置，系统中持有币数量最多的那个人，每次挖矿都是最容易的，所以有的加密货币要求投入的币会被锁定一段时间不能够重复使用，proof of deposit。</p>
+<h3 id="权益证明挑战"><a href="#权益证明挑战" class="headerlink" title="权益证明挑战"></a>权益证明挑战</h3><p>早期权益证明的挑战就是两边下注的问题，nothing at stake。挖矿不会两边都挖，但是权益证明可以两边都下注，如果上面那条链成为最长合法链，那么下面那条链锁定的那些币是没有影响的。</p>
+<p>以太坊采用的权益证明协议：casper the friendly finality gadget（FFG）.在过渡阶段也是要和pow混合使用，为工作量提高证明叫finality。finality是一种最终的状态，包含在finality的交易不会被取消，单纯基于pow的交易是有可能被回滚的（分叉），单纯基于挖矿的区块链是缺乏这种finality的。</p>
+<p>casper中引入一种概念，叫validator验证者，要想成为validator必须要投入一定数量的以太币作为保证金，这个保证金会被系统锁定，validator的职责是要推动这个系统达成共识，投票决定哪条链是最长合法链。投票的权重取决于保证金数目大小，类似于数据库中的 two phase commit。混用的时候还是有人挖矿，挖矿的时候每挖出100个区块，就作为epoch，然后决定他能不能成为一个validator要进行一个投票。第一轮投票是一个prepare message，第二轮投票是commit message。casper规定每一轮投票都要得到2&#x2F;3以上的验证者才能通过，按照保证金的金额大小来算。实际系统当中不区分两个message，而且把epoch从原来的100个区块减少为50个区块，每个apoch只要一轮投票就可以了。这一轮投票对于上一个epoch来说，他是commit message，对下一个epoch来说是prepare message。那么要连续两轮投票，两个epoch都得到2&#x2F;3以上的多数才算有效。</p>
+<p>对于验证者，如果验证者履行职责，那么可以得到相应的奖励，类似于miner的block reward。如果验证者有不良行为被发现，要受到相应的处罚。比如行政不作为，不投票，达不成共识，那么这种情况系统要扣掉它的一部分保证金。乱投票，两边下注，那么要没收全部的保证金。而没收的保证金被销毁了，相当于减少了系统中以太币的总供应量，每个验证者有一定的任期，任期满之后要经过一段时间的等待期，等待期是为了让其他的节点可以检举揭发这个验证者有没有什么不良行为进行惩处。如果等待期通过，那么验证者可以取回当初的保证金和应该得到的奖励。</p>
+<p>casper协议可以给挖矿挖出的区块链的某种状态做一个检查点，check point，那么这个check point是不是绝对安全的？即通过验证者投票达成的finality,有没有可能被推翻？一定是大量的验证者两边下注，给有冲突的finality都下注，casper要求每轮投票有2&#x2F;3的验证者通过才算通过，如果出现这种情况，只是有1&#x2F;3的验证者是都投票了，一旦发现，1&#x2F;3验证者的保证金将会没收。</p>
+<p>随着时间推移，pos的奖励越来越多，pow的奖励越来越少。</p>
+<h5 id="为什么不开始就用pos"><a href="#为什么不开始就用pos" class="headerlink" title="为什么不开始就用pos"></a>为什么不开始就用pos</h5><p>因为pos还不成熟，pow很成熟，经过了bug boundy的检验。</p>
+<p>eos使用dpos：delegated proof of stake的协议，先用投票的方法选出21个超级节点，然后再由超级节点产生区块。pos在2018处于探索状态。</p>
+<p>有些人认为挖矿可以有效消耗过度产能，带动当地经济的发展</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/04/20-21/" data-id="cm477y2lp0006c4u7glwohnoz" data-title="北大肖臻老师《区块链技术与应用》笔记20-21" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Rust复习-常见编程概念
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/03/%E8%82%9618/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">北大肖臻老师《区块链技术与应用》笔记18</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

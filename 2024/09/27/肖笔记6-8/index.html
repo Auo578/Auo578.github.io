@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>北大肖臻老师《区块链技术与应用》笔记6-8 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-肖笔记6-8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:23:47.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      北大肖臻老师《区块链技术与应用》笔记6-8
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程6：比特币网络（The-Bitcoin-Network）"><a href="#课程6：比特币网络（The-Bitcoin-Network）" class="headerlink" title="课程6：比特币网络（The Bitcoin Network）"></a>课程6：比特币网络（The Bitcoin Network）</h1><p>用户把交易发布到比特币网络上，节点，区块，比特币网络。</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>比特币工作在应用层，底层是b2b overlay network</p>
+<p>application layer: Bitcoin Block chain</p>
+<p>netwrok layer： p2p overlay network</p>
+<p>比特币网络：所有节点都是对等的，没有super node or master node（超级节点和主节点）</p>
+<p>要加入网络，至少知道一个种子节点，seed node,通信后告诉网络上的其他节点，节点间通过tcp通信，有利于通过防火墙。</p>
+<p>退出节点不需要做其他操作，只要退出应用程序就可以了，其他节点没有收到信息过段时间就会删除这个节点</p>
+<p>比特币网络的设计原则：简单、可靠simple 、robust,but not efficient ，而不是高效。</p>
+<p>每个节点维护一个凝聚节点的集合，消息传播在网络钟采取flooding的方式。</p>
+<p>节点听到消息 -&gt; 其他所有凝聚节点，同时记录已收到过消息。</p>
+<p>凝聚节点的选取是随机的，没有考虑拓朴结构。</p>
+<p>好处是增强鲁棒性，鲁棒性非常强，但是牺牲的是效率。</p>
+<p>“鲁棒性”（robustness），这个词和“robust”发音相近。鲁棒性强调系统在面对各种挑战和不确定性时的稳定性和可靠性。这样，句子的意思是：凝聚节点的选取是随机的，虽然增强了鲁棒性，但牺牲了效率。</p>
+<p>比特币系统中的每个节点要维护一个等待上面交易的集合。</p>
+<p>race condition。</p>
+<p>新发布的区块在网络上的传播方式跟新发布的交易是类似的，每个节点要检查内容和法性，和是否在最长合法链上。</p>
+<p>越是大的区块，在网络上的传播速度就越慢。<br>比特币协议对区块的大小有一个限制，1M.因为传播方式非常消耗带宽，一个新发布的区块可能要几十秒才能发布到网络的绝大数区块中。</p>
+<p>比特币网络是属于best effort，一个交易发布到网络上不一定所有节点都能收到，而且不同节点收到交易的顺序也不一样，网络传输存在延迟，并且有的节点不一定根据比特币协议进行转发。</p>
+<p>线上的系统不能解决线下的问题。回稳交易。</p>
+<h1 id="课程7：比特币的挖矿难度调整"><a href="#课程7：比特币的挖矿难度调整" class="headerlink" title="课程7：比特币的挖矿难度调整"></a>课程7：比特币的挖矿难度调整</h1><h2 id="为什么要调整挖矿难度"><a href="#为什么要调整挖矿难度" class="headerlink" title="为什么要调整挖矿难度"></a>为什么要调整挖矿难度</h2><p>H（block header）&lt;&#x3D; target，nonse<br>哈希算法：SHA-256，所有整个的输出空间是2的256次方</p>
+<p>difficulty&#x3D;difficulty_1_target&#x2F;target<br>(挖矿难度为1的时候所对应的目标阈值)，最小为1</p>
+<p>出块时间太短的的问题：分叉可能变成常态，一次很多分叉。</p>
+<p>恶意攻击需要51%的算力，多个分叉，有恶意的节点就可以集中算力就获得其中一个分叉。</p>
+<p>不一定10分钟出块就是最优的，但是一定需要一个常数的波动范围。以太坊的出块时间为15秒，新的共识协议，叫ghost.在ghost协议中这些分叉叫orphan block，不能简单地丢弃，需要给一些奖励，叫yncle reward.以太坊同样需要保持出块时间</p>
+<h2 id="怎么调整挖矿难度"><a href="#怎么调整挖矿难度" class="headerlink" title="怎么调整挖矿难度"></a>怎么调整挖矿难度</h2><p>比特币每隔2016个区块，要调整目标阈值target，大概是2个星期左右。</p>
+<p>具体调整公式，target &#x3D; target*（actual time&#x2F;expected time） </p>
+<p>expected time &#x3D; 2016 * 10min</p>
+<p>time spent mining the last 2016 blocks &#x3D; actual time</p>
+<p>实际代码中上调和下调都是有4倍的线，即最多增大或缩小4倍，主要避免意外情况导致target变化。</p>
+<p>怎么让所有矿工调整目标阈值，代码开源。如果不调，诚实的miner不会认可</p>
+<p>nbits： target的编码的一个版本，block header里面没有直接存储target，target的域是256位，32个字节。nbits 在header里只有4个字节，可以人为是它的一个压缩编码。不调target，那么区块合法性不通过，每个节点要独立验证发布的区块的合法性，检查的内容就包括nbits：即目标阈值发布的对不对。</p>
+<p>以太坊就不是隔一个固定的区块，而是每个新出的区块都有可能进行调整，调整的方法也更复杂。</p>
+<p>比特币的成功从某种意义上来说是因为他更不实用，比特币没有任何法币背书，没有任何保证金。比特币的设计是很保守的，但还算笔记合理</p>
+<h2 id="比特币系统中的一些实际情况"><a href="#比特币系统中的一些实际情况" class="headerlink" title="比特币系统中的一些实际情况"></a>比特币系统中的一些实际情况</h2><p>总算力的变化情况，算力在指数级增大，虽然有波动。如果某个币挖矿难度越来越小，说明热情减少，慢慢不行了</p>
+<p>实际比特币代码里用的是目标阈值。</p>
+<h1 id="课程8：比特币挖矿"><a href="#课程8：比特币挖矿" class="headerlink" title="课程8：比特币挖矿"></a>课程8：比特币挖矿</h1><p>先总结以前的基础知识。如果只是交易不需要挖矿的话，只需要轻节点，不需要全节点。</p>
+<p>memoryless(progress free)无论是挖原区块还是新区块，可能性都是一样的，所以不可惜。</p>
+<p>比特币安全性的保证：</p>
+<p>1.密码学上的保证：别人没有私钥，就没有办法伪造签名，前提是系统中拥有大多数算力的矿工是好的，不会接受那些没有合法签名的交易</p>
+<p>2.共识机制的保证</p>
+<h2 id="挖矿相关"><a href="#挖矿相关" class="headerlink" title="挖矿相关"></a>挖矿相关</h2><h3 id="挖矿设备"><a href="#挖矿设备" class="headerlink" title="挖矿设备"></a>挖矿设备</h3><p>越来越专业化，普通cpu（挖矿只用到很少一部分内存和cpu的指令，硬盘和其他也都是闲置的） -&gt; gpu挖矿（效率提高，主要用于大部分的并行计算，大量的矩阵乘法）-&gt; asic芯片</p>
+<p>“GPU”是指“图形处理单元”，主要用于加速图形渲染和并行计算。它在深度学习、科学计算和游戏等领域有广泛应用。为了通用并行计算设计的</p>
+<p>ASIC： Application specific integrated circle,专为挖矿设计，有些甚至只能挖一种加密货币，除非这些加密货币用同一种mining puzzle，有些为了启动问题，用同一种mining puzzle 这种叫做：merge mining，除了这种之外，其他都是一个芯片只能为一个加密货币挖矿。asic研发周期很长，比特币可能是1年，但是已经很奇迹了。定制的asic芯片可能用不了几个月就过时了，大部分利润在前两个月产生的，一般提前预定，比特币算力突然有一个很大的提高，新的矿机产生出来了。过时即作废</p>
+<p>有些加密货币，alternative mining puzzle，出发点有resistance抗asic化，让通用计算机也能挖矿。</p>
+<p>单个矿工，概率很小，还要承担全节点的其他责任</p>
+<h3 id="矿池"><a href="#矿池" class="headerlink" title="矿池"></a>矿池</h3><p>所谓的矿石就是把矿工组织起来作为整体，矿石的架构一般来说是一个全节点会驱动很多矿机</p>
+<p>pool manager -&gt; many miner,miner只负责计算哈希值，其他职责都由 pool manager承担，asic只能负责计算哈希值。</p>
+<p>矿石的出现也有为了解决收入不稳定的问题</p>
+<p>矿石一般有两种组织形式：</p>
+<p>1.大型数据中心</p>
+<p>2.分布式的，来自不同机构，矿工和矿主不在同一个地方，miner根据矿池规定的通讯协议联系矿主，矿主分配要计算的哈希值的任务，计算完之后结果返回矿主。利益分配，按贡献大小分配，按工作量分配。</p>
+<p>share: almost valid block，差不多符合难度就可以，发给矿主，证明工作量</p>
+<p>工作量证明可行性分析：概率取决于尝试数，share数越多，尝试的数量越多。</p>
+<p>问题：</p>
+<p>1.挖到区块后不提交给矿主，上交share，但是区块不上交。矿主分配任务，miner只负责计算nonse，其他还需要调整coinbase transaction，分配nonse范围，并且coinbase transaction上收款人的地址写的是矿主的地址（poor manager），取不出来钱来</p>
+<p>2.不管矿主任务，自己组装区块，改收款地址。那么share是不认的，里面的交易列表改变，coinbase transaction的内容发生变化，merkle tree的根哈希值也不一样。</p>
+<p>3.捣乱，挖到合法区块丢弃，可以但是没有经济好处，可以矿池打压竞争对手。</p>
+<p>目前矿池算力是分散的，但是几个大型的矿池占据了大的比例。</p>
+<p>一般来说poor manager收取一定比例出块奖励作为管理费，也有的是交易费</p>
+<h3 id="51-的攻击"><a href="#51-的攻击" class="headerlink" title="51%的攻击"></a>51%的攻击</h3><p>管理费低或者赔本吸引足够多的矿工，然后攻击。</p>
+<p>矿池使得51%攻击更容易了（on demand computing, it’s on demand mining），但是使得矿工的收益更均匀稳定了，降低风险了，减轻负担。</p>
+<p>1.分叉攻击，forking attack，平均增长速度会快于链，可以追赶然后回滚。不到51%也能发动攻击，只是一个概率的区别。</p>
+<p>2.boycott，封锁禁阈，产生不包含某个账户的区块，那么不需要等6个确认，一上链就可以分叉</p>
+<p>3.转别人账户的钱，不行因为没有私钥进行签名，把没有合法签名的交易写入链上，会造成分叉，诚实的矿工会沿着另一种链去挖</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" data-id="cm477y2ny001ac4u7ecd8hxly" data-title="北大肖臻老师《区块链技术与应用》笔记6-8" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          北大肖臻老师《区块链技术与应用》笔记9-11
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">北大肖臻老师《区块链技术与应用》笔记5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

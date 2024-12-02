@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>北大肖臻老师《区块链技术与应用》笔记5 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-肖课程笔记5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" class="article-date">
+  <time class="dt-published" datetime="2024-09-26T04:38:25.000Z" itemprop="datePublished">2024-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      北大肖臻老师《区块链技术与应用》笔记5
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程5：比特币系统的实现"><a href="#课程5：比特币系统的实现" class="headerlink" title="课程5：比特币系统的实现"></a>课程5：比特币系统的实现</h1><p>比特币采用的是基于交易的账本模式（transaction -based ledger）,每个区块记录的是交易信息，但是没有地方显式地记录哪个地方有多少钱，需要通过交易记录推算。</p>
+<h2 id="UTXO数据结构"><a href="#UTXO数据结构" class="headerlink" title="UTXO数据结构"></a>UTXO数据结构</h2><p>比特币系统的全节点要维护 UTXO：unspent transaction output  的数据结构</p>
+<p>UTXO: 所有还没有被花掉的交易的输出组成的集合</p>
+<p>一个交易可能有多个输出和输入，UTXO集合里的每个元素要给出产生的输出的交易的哈希值，以及在交易里是第几个输出，通过这两个信息可以定位到在UTXO里的输出。每个输入地址要提供对应的签名。</p>
+<p>作用：检测double spending。</p>
+<p>每个交易会消耗输出也会产生输出，UTXO的集合会逐渐增大但目前装在一个普通内存器里仍然没有问题（2018）.</p>
+<h2 id="比特币的第二个激励机制：交易费（transaction-fee）"><a href="#比特币的第二个激励机制：交易费（transaction-fee）" class="headerlink" title="比特币的第二个激励机制：交易费（transaction fee）"></a>比特币的第二个激励机制：交易费（transaction fee）</h2><p>total inputs &#x3D; total outputs</p>
+<p>有些交易可能total inputs略微大于total outputs，里面的差额作为交易费给获得记账权发布区块的那个节点。</p>
+<p>发布区块，可以有一个特殊的coinbase traction, block reward,所以为什么要把你的交易加进去，要验证交易的合法性，占用带宽，传输速度。防止有的节点不管别的交易，只打造自己的交易。</p>
+<p>目前比特币的系统中，交易费的金额都很小，0.01个比特币算比较大的交易费了，2024现在平均交易费 | 0.000013 BTC ($0.832) 6.4 sats&#x2F;vB，也有一些简单的交易没有交易费。主要目的还是为了出块奖励。</p>
+<p>21万个区块，平均出块时间是10分钟，差不多是4年的时间。因为出块奖励减半，若干年后交易费可能就变成主要的了</p>
+<p>比特币：transaction-based ledger的模式，基于交易的模式，隐私保护性较好，所以转账交易要说明币的来源，因为没有地方证明你有这些比特币，需要说明来源<br>另一种模式：基于账户的模式，account-based ledger，系统要显式的得记录账户上有多少币，不需要显式地说明币的来源</p>
+<h2 id="比特币具体的区块信息，例子（可以再看一遍）"><a href="#比特币具体的区块信息，例子（可以再看一遍）" class="headerlink" title="比特币具体的区块信息，例子（可以再看一遍）"></a>比特币具体的区块信息，例子（可以再看一遍）</h2><p>目标阈值表示成16进制</p>
+<p>改变coinbase里的内容，可以随便写，改变会对根哈希值产生的影响：会对merkle root产生变化。所以可以把这个域当作extra nonse，块头里四个字节的nonse不够用，这里还有很多字节自己用，比如把coinbase里的前八个字节当作extra nonse使用，搜索空间一下子增加到了2的96次方。</p>
+<p>所以真正挖矿的时候有两层循环，外层循环调整coin base域的extra nonse，算出block header里的根哈希值之后</p>
+<p>比特币中验证交易的合法性技术把input script 和output script配对后执行来完成，即这个交易的输入脚本和前面提供币的来源的输出脚本配对，拼接后顺利执行则合法</p>
+<h2 id="对挖矿的过程做一些概率分析"><a href="#对挖矿的过程做一些概率分析" class="headerlink" title="对挖矿的过程做一些概率分析"></a>对挖矿的过程做一些概率分析</h2><p>挖矿就是不断地尝试各种nonse来求解这个puzzle，每次尝试nonse可以看作一个bernoulli trial: a random experiment with binary output(bernoulli trial)。比如丢硬币。做大量的bernoulli trial,这些就变成了bernoulli process: a sequence of independent bernoulli trial（性质有：无记忆性memoryless,前面的实验对后面的实验没有影响）</p>
+<p>这种情况下，这个bernouill process可以用poisson process</p>
+<p>Poisson过程是一种随机过程，常用于描述在固定时间间隔内发生的稀疏事件。这些事件独立且以恒定的平均速率发生，适用于模型化如电话呼叫、客户到达或自然事件等场景。其关键特征是事件发生的数量在每个时间间隔内服从泊松分布。</p>
+<p>出块时间服从指数分布，exponential distribution</p>
+<p>对于miner他能挖到下一次区块的时间，取决于这个矿工的算力占系统总算力的百分比，其中的指数分布也是无记忆的，比特币会调整出块难度使其稳定在平均出块时间十分钟。</p>
+<p>progress free:过去的process是不算数的</p>
+<p>如果progress不free算力强的miner会有不成比例的优势</p>
+<h2 id="比特币的总量"><a href="#比特币的总量" class="headerlink" title="比特币的总量"></a>比特币的总量</h2><p>因为出块奖励每隔四年减半，产生的比特币数量构成了集合序列，所有比特币的总量2100万</p>
+<p>比特币求解的puzzle没有实际意义，比特币的稀缺性是人为造成的，但是挖矿的过程对于维护比特币系统的安全性是至关重要的</p>
+<p>bitcoin is secured by mining.挖矿提供了一种凭借算力投票的有效手段。</p>
+<p>虽然出块奖励减少，但价格上升了，越来越多人去挖矿。</p>
+<h2 id="比特币安全性的一些分析"><a href="#比特币安全性的一些分析" class="headerlink" title="比特币安全性的一些分析"></a>比特币安全性的一些分析</h2><p>假设大部分算力在安全的矿工手里，只能说大概率在好的矿工手里</p>
+<p>第一个问题：偷币，把其他账户的节点转给自己</p>
+<p>如果在恶意手里，写入一个不好的区块，那么其他的节点不会接受这个区块。恶意的攻击是否成功的标准要看它能不能让诚实的节点接受这个交易。</p>
+<p>第二个问题：恶意节点把已经花出的币再花一笔，double spending。区块插入的位置要在刚开始挖矿的时候就要决定，因为设置的block header里要填上上一个区块的哈希值，fork attack。如果不是最后一个区块，那么很难，恶意节点需要不断获得记账权，所以简单的防范方法：多等几个区块（确认、缺省）confirmaction</p>
+<p>比特币协议当中的确认的是要等六个区块confirmation,差不多等1个小时</p>
+<p>区块链是不可篡改的账本，irrevocable ledger,这种不可篡改性只是一种概率的保证</p>
+<h2 id="zero-confirmation"><a href="#zero-confirmation" class="headerlink" title="zero confirmation"></a>zero confirmation</h2><p>转账交易发布出去了，但还没有写到区块链</p>
+<p>原因：</p>
+<p>1.比特币协议缺省的设置是节点接收最先听到的交易</p>
+<p>2.比特币之后，购物天然有一定的处理时间</p>
+<h2 id="恶意的节点故意不把合法的区块写入"><a href="#恶意的节点故意不把合法的区块写入" class="headerlink" title="恶意的节点故意不把合法的区块写入"></a>恶意的节点故意不把合法的区块写入</h2><p>可以写到下一个区块里，总有诚实的节点愿意发布这些交易，正常情况下也可能不包括合法的节点，比如一段时间内交易数量过多。</p>
+<p>比特币协议规定每个区块的大小有限制，最多不超过一兆字节。</p>
+<p>一种攻击方法自己存储6个区块，盖过合法区块链。<br>selfish mining。前提是有恶意的节点占据很大一部分算力。每一个区块的算出必须要有前一个区块的哈希。正常挖矿self mining的好处：不发布，然后等两个发布，使得其他的区块，风险就是别人先发布。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" data-id="cm477y2o0001bc4u73a2hchoz" data-title="北大肖臻老师《区块链技术与应用》笔记5" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          北大肖臻老师《区块链技术与应用》笔记6-8
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">北大肖臻老师《区块链技术与应用》笔记4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

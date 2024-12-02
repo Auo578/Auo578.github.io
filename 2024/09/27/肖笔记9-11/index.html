@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>北大肖臻老师《区块链技术与应用》笔记9-11 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-肖笔记9-11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:24:04.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      北大肖臻老师《区块链技术与应用》笔记9-11
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程9：-比特币脚本（the-bitcoin-scripting-language）"><a href="#课程9：-比特币脚本（the-bitcoin-scripting-language）" class="headerlink" title="课程9： 比特币脚本（the bitcoin scripting language）"></a>课程9： 比特币脚本（the bitcoin scripting language）</h1><h1 id="交易实例"><a href="#交易实例" class="headerlink" title="交易实例"></a>交易实例</h1><p>左：output -&gt; input (币来自前面那个交易的输出)</p>
+<p>右：output</p>
+<p>比特币使用的脚本语言非常简单，唯一能访问的内存空间就是一个堆栈，基于栈的语言stock based languege.</p>
+<p>input script：两个操作，分别把两个很长的数压入栈里</p>
+<p>output script:有两行，分别对应上面的两个输出，每个输出都有自己单独对应的脚本</p>
+<h2 id="交易结构"><a href="#交易结构" class="headerlink" title="交易结构"></a>交易结构</h2><p>宏观信息，metadata。</p>
+<p>txid：transaction id</p>
+<p>hash：这个交易的哈希值</p>
+<p>version：比特币协议的版本号</p>
+<p>size：交易的大小</p>
+<p>locktime：交易的生效时间，非零值要过一段时间才会生效</p>
+<p>vin和vout分别是输入输出部分</p>
+<p>bloakhash：这个交易所在的区块的哈希值，由一长串0开头，挖矿的难度要求</p>
+<p>confirmation:有多少个交易信息</p>
+<p>time:这个交易产生的时间，s</p>
+<p>blocktime：这个区块产生的时间，s</p>
+<h2 id="交易的输入结构"><a href="#交易的输入结构" class="headerlink" title="交易的输入结构"></a>交易的输入结构</h2><p>是个数组，一个交易可以有多个输入和输出<br>例子中只有一个输入</p>
+<p>scriptsig -&gt; input script</p>
+<p>每个输入都要说明这个输入花的币是来自之前哪个交易的输出，所以前两行就是给的币的来源。</p>
+<p>txid：之前这个交易的哈希值</p>
+<p>vout：是这个交易的第几个输出</p>
+<p>scriptsig: 输入脚本，最简单的形式是给出一个signature,证明有权力花这个钱。如果一个交易有多个输入，每个输入都要说明币的来源，并且给出签名。比特币中的一个交易可能需要多个签名。</p>
+<p>其中的asm和hex是什么？</p>
+<h2 id="交易的输出结构"><a href="#交易的输出结构" class="headerlink" title="交易的输出结构"></a>交易的输出结构</h2><p>scriptpubkey -&gt; output script</p>
+<p>也是一个数组结构</p>
+<p>value:输出的金额，也有的是satotion：比特币最小的计数单位</p>
+<p>n:序号，表示是这个交易里的第几个输出</p>
+<p>scriptpubkey:输出脚本，输出脚本最简单的形式就是给出一个public key</p>
+<p>asm：输出脚本的内容，里面包含一系列的操作</p>
+<p>hex：？</p>
+<p>reqsigs：这个输出需要多少个签名来实现，require signature。multick多重签名</p>
+<p>type：输出的类型</p>
+<p>address：输出的地址</p>
+<h2 id="输入和输出脚本的执行"><a href="#输入和输出脚本的执行" class="headerlink" title="输入和输出脚本的执行"></a>输入和输出脚本的执行</h2><p>验证交易的合法性，是要把b转给c的这个交易的输入脚本和a转给b的交易的输出脚本拼接在一起执行的。这时有个交叉。</p>
+<p>前面的交易的输出脚本放在后面，后面的交易的输入脚本放在前面，在早期的比特币实现中，这两个脚本是拼接在一起的，从头到尾执行一遍，后来出于安全因素的考虑，这两个脚本改为分别执行。首先执行输入脚本，如果没有出错，后面再执行输出脚本。如果能顺利执行，最后占领的结果为非零值，也就是true，那么验证通过这个交易合法。如果执行过程中出现任何错误，那么这个交易就是非法的。</p>
+<p>如果一个交易有多个输入的话，那么每一个输入脚本都要和所对应的交易的输出脚本匹配之后来进行验证。全都验证通过这个交易才是合法的。</p>
+<h2 id="输入输出脚本的几种形式"><a href="#输入输出脚本的几种形式" class="headerlink" title="输入输出脚本的几种形式"></a>输入输出脚本的几种形式</h2><h3 id="1-P2PK（Pay-to-Public-Key）"><a href="#1-P2PK（Pay-to-Public-Key）" class="headerlink" title="1. P2PK（Pay to Public Key）"></a>1. P2PK（Pay to Public Key）</h3><p>最简单的形式</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>output script:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>输出脚本直接给出收款人的公钥，第二行的checksig是检查签名的操作。在输入脚本中直接给出签名就行了，这个签名是用私钥对这个输入脚本所在的整个交易的签名。</p>
+<p>这种形式是最简单的，因为pubkey是在输出脚本里给出的。</p>
+<p><strong>实际执行情况</strong></p>
+<p>PUSHDATA(Sig)（压入栈）</p>
+<p>PUSHDATA(PubKey)（压入栈）</p>
+<p>CHECKSIG（把栈顶的两个元素弹出来，用公钥检查这个签名是否正确，如果正确的话，返回处说明验证通过，否则执行出错，交易非法）</p>
+<p>这三行是把输入脚本和输出脚本拼接之后的结果，第一行来自输入脚本，后两行来自输出脚本。在实际代码中，出于安全考虑，这两个脚本实际上是分别执行。</p>
+<p><strong>实例</strong></p>
+<p>上面交易的输入脚本就是把签名压入栈，下面这个交易是上面的输入的币的来源，输出有两行，第一行把公钥压入栈，第二行就是checksig</p>
+<h3 id="2-P2PKH-Pay-to-Public-Key-Hash"><a href="#2-P2PKH-Pay-to-Public-Key-Hash" class="headerlink" title="2.P2PKH(Pay to Public Key Hash)"></a>2.P2PKH(Pay to Public Key Hash)</h3><p><strong>input script：</strong></p>
+<p>PUSHDATA(SIG)</p>
+<p>PUSHDATA(PubKey)</p>
+<p><strong>output script：</strong></p>
+<p>DUP</p>
+<p>HASH160</p>
+<p>PUSHDATA(PubKeyHash)</p>
+<p>EQUALVERIFY</p>
+<p>CHECKSIG</p>
+<p>与第一个形式区别在于：输出脚本里没有直接给出收款人的公钥，给出的是公钥的哈希，公钥是在输入脚本里给出的。</p>
+<p>输入脚本里既要给出签名，也要给出公钥。</p>
+<p>输出脚本里，还有其他的一些操作，DUP和HASH160都是为了验证交易的正确性，这种形式实际上是最常用的。</p>
+<p><strong>脚本执行：</strong></p>
+<p>签名-&gt;pubkey压入栈</p>
+<p>DUP：把栈顶的元素复制一遍，所以栈顶又多了一个公钥。</p>
+<p>HASH160：把栈顶的元素弹出来取哈希然后把得到的哈希值再加入栈，PUBKEYHASH。所以栈顶变成了公钥的哈希值。要花这个钱的时候，输入脚本里给出的公钥</p>
+<p>下一条语句是把输出脚本里提供的公钥的哈希值压入栈。收款人公钥的哈希</p>
+<p>EQUALVERIFY:弹出栈顶的两个元素，比较他们是否相等，就是比较栈顶的两个哈希值是否相等。防止有人冒名顶替，如果这两个相等，那么就从栈里消失了。</p>
+<p>CHECKSIG：弹出栈顶的两个元素，用公钥检查这个签名是否正确，假设这个签名是正确的，那么整个脚本顺利运行结束占领留下的是true。</p>
+<p>任何一个环节对不上，那么这个交易就是非法的。</p>
+<p><strong>实例：</strong></p>
+<h3 id="3-P2SH-Pay-to-Script-Hash"><a href="#3-P2SH-Pay-to-Script-Hash" class="headerlink" title="3.P2SH(Pay to Script Hash)"></a>3.P2SH(Pay to Script Hash)</h3><p>采用BIP16的方案</p>
+<p><strong>input script：</strong></p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(seriallized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<p>这种形式的输出脚本给出的不是收款人公钥的哈希，而是收款人提供了一个脚本的哈希，这个脚本叫redeem script赎回脚本，将来花这个钱的时候，输入脚本里要给出这个redeem script这个赎回脚本的具体内容，同时还要给出让这个赎回脚本能够正常运行所需要的签名</p>
+<p>验证的时候分为两步：</p>
+<p>第一步验证输入脚本里给出的这个赎回脚本是否与输出脚本里给出的哈希值匹配。不匹配的话说明给出的赎回脚本是不对的，类似与P2PKH给出的公钥不对，</p>
+<p>第二步验证，如果赎回的脚本是正确的，把赎回脚本的内容当作操作指令来执行一遍，看看最后能不能顺利执行。</p>
+<p>两步验证通过，最后才是合法的。</p>
+<h4 id="redeemScript的形式："><a href="#redeemScript的形式：" class="headerlink" title="redeemScript的形式："></a>redeemScript的形式：</h4><p>1.P2PK的形式</p>
+<p>2.P2PKH的形式</p>
+<p>3.多重签名形式</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><strong>redeemScript:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(serialized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="第一阶段的验证"><a href="#第一阶段的验证" class="headerlink" title="第一阶段的验证"></a>第一阶段的验证</h4><p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(seriRS)</p>
+<p>HASH160得到RSH，赎回脚本的哈希值</p>
+<p>PUSHDATA(RSH)：输出脚本给出的哈希值</p>
+<p>EQUAL，如果相等，两个哈希值消失，剩下Sig</p>
+<p>操作中RSH是指redeem script hash赎回脚本的哈希值</p>
+<h4 id="第二阶段的验证"><a href="#第二阶段的验证" class="headerlink" title="第二阶段的验证"></a>第二阶段的验证</h4><p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>首先把输入脚本里提供的序列化的赎回脚本进行反序列化，在ppt上没有展现，是每个节点自己要完成的。</p>
+<p>然后执行赎回脚本，把PucKey压入栈，然后由CHECKSIG验证一下输入脚本里给出的Signature的正确性，验证通过之后，整个的pay to script hash才算执行完成</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>这个功能在最初版本的比特币里是没有的，后来通过软分叉的形式加进去了，其中一个常见的应用场景就是对多重签名的支持</p>
+<p>比特币系统中一个输出可能要求多个签名才能把钱取出来，比如公司账户中合伙人签名，需要多个私钥才能签名。</p>
+<p>最早的多重签名是通过CHECKMULTISIG实现的，输出脚本给出n个公钥，同时指定一个阈值M。输入脚本只要提供这n个公钥对应的签名中任意M个合法的签名就能通过验证。输入脚本第一行的红叉，比特币中CHECKMULTISIG的实现有一个BUG，执行的时候会从堆栈上多弹出一个元素，没办法改，因为是一个去中心化的系统，软件升级的方法要改的话需要硬分叉。所以实际解决方案是在输入脚本栈上多压进去一个没用的元素。</p>
+<p>给出的M个签名的相对顺序，要与他们在n个公钥中的相对顺序是一致的才行</p>
+<p>这种问题是：网上购物，某个电商用多重签名，要求5个人中3人的签名才能取钱，这就要求用户在支付的时候生成的转账交易里给出5个合伙人的公钥，同时给出n和m的值。用户根据网站的多重签名的规则填入。这就把复杂性都暴露给用户了。</p>
+<p>P2SH实现多重签名的本质是把复杂度从输出脚本转移到了输入脚本，输出脚本变得非常简单。输出脚本只要给出赎回脚本的哈希值就可以了，赎回脚本是在输入脚本里提供的，由收款人提供的。像之前，只要在网站上公布这个赎回脚本的哈希值，然后用户生成转账交易的时候，把这个哈希值包含在输入脚本就可以了。而其中的规则，对用户是不可见的。输入脚本是电商在花掉这笔输出的时候提供的，其中包含赎回脚本的序列化版本，还有让这个赎回脚本验证通过的M个签名。将来2电商改变了所采用的多重签名规则，只要改变输入脚本和赎回脚本的内容，然后把新的哈希值公布出去就行了，对用户来说只是要包含的哈希值发生变化</p>
+<p>现在的多重签名一般采用的都是P2SH的形式</p>
+<h2 id="Proof-of-Burn"><a href="#Proof-of-Burn" class="headerlink" title="Proof of Burn"></a>Proof of Burn</h2><p>output script开头是return，后面可以跟任意内容，作用是无条件地返回错误，包含这个操作的脚本永远不可能通过验证，执行到return语句就出错终止。</p>
+<p>作用：证明销毁比特币的一种方法</p>
+<p>销毁比特币的应用场景：</p>
+<p>1.有些小的币种要求销毁一定数量的比特币，才能够得到这个币，有时管这种小币叫altcoin ：alternative coin。</p>
+<p>2.往区块链中写入一些内容，不可篡改的系统，可以利用这个特性往里面添加一些需要永久保存的内容。digital commitment，取个哈希值放入，知识产权，把哈希值的输入公布，证明之前就已经知道了。coinbase transaction里的coinbase，域里写的内容同样没人管，这种方法只有获得记账权的节点才可以用。而这个方法所有节点都可以使用。发布交易不需要有记账权，发布区块需要记账权。任何用户都可以用这种方法销毁很少一点比特币换取写入一些内容。</p>
+<p>有些交易没有销毁比特币，只不过支付了交易费</p>
+<p>第一个实例：第一个输出正常输出，第二个输出return记录内容</p>
+<p>第二个实例：输出脚本以return开头，收入是个比特币，输出金额是0，输入金额全部用来支付交易费，把交易费给矿工了。矿工看到这种脚本时，知道这种输出永远不可能兑现，就没有必要把这个保存在utxo里，这样对全节点比较友好。</p>
+<p>里面的比特币脚本操作，为了简便，都没有加上OP前缀。OP——CHECKSIG,OP_DUP</p>
+<p>像以太坊中的智能合约的语言是图灵完备的，所以需要靠gas费的机制来防止程序陷入死循环。而栈语言输入功能有限，但是和密码学相关的功能是很强大的</p>
+<h1 id="课程10：比特币分叉"><a href="#课程10：比特币分叉" class="headerlink" title="课程10：比特币分叉"></a>课程10：比特币分叉</h1><p>原因：</p>
+<p>1.几乎同时挖到矿，state fork</p>
+<p>2.forking attack,也属于state fork, it’s deliberate fork</p>
+<p>3.比特币的协议发生了改变，在一个去中心化的系统里，没有保证所有的节点同时都升级软件，少部分没有升级，形成分叉。protocd fork.因为协议发生分叉，根据其内容不同，分为hard frok and soft fork</p>
+<h2 id="hard-fork"><a href="#hard-fork" class="headerlink" title="hard fork"></a>hard fork</h2><p>增加一些特性，new feature，扩展一些功能，一些节点不认同，任何分叉。</p>
+<p>例子：</p>
+<p>比特币中的区块大小限制，1M，一百万个字节，1个交易大概为250个字节，4000个交易要摊到10分钟，每秒大概7笔交易，这个through food是非常低的，所以有些要提高blog size limit</p>
+<p>假设增加到4M，按算力大部分节点更新了软件，系统运行结果，旧节点因为没超过4M，新节点是认可的，但是没有达成共识。这个分叉是永久性的，所以是hard fork。</p>
+<p>社区分类，下一条链，这个社区的人认</p>
+<p>ETH（回滚之后）分叉完有个ETC（原来），有人攻击THE DAO，然后进行硬分叉回滚把他偷盗的钱退回给当初的投资者。分叉后这个节点两个链都可以花，因为私钥一样，但是两条链互相之间一定会有一定影响，比如在一条链上转，结果另一条也进行了同一笔交易，C就是收到2笔，会回放。所以两条链会加一条chain id分开。</p>
+<h2 id="soft-fork"><a href="#soft-fork" class="headerlink" title="soft fork"></a>soft fork</h2><p>对比特币的协议加一些限制，原先有的合法的变成不合法了。比如1M变成0.5M，新节点的链，旧节点是认的，旧节点看到新节点变成最小合法链之后，会回到新节点上，这个分叉是临时性的，旧节点可能经常白挖。</p>
+<p>实际当中出现软分叉的情况</p>
+<p>1.给某些目前协议中没有规定的域增加一些协议或规则，coinbase挖矿难度里前8个字节可以用来调extra nonse，使得原先4个字节的难度变成了个字节，变成的96次方。有人提出coinbase剩下的字节作为utxo集合的根哈希值，merkle proof证明某个交易是不是在某个区块。A的账户余额通过算UTXO集合可以算出，轻节点问全节点可以问出，但是不确定正确性。新节点发布的区块，旧节点认为是合法的</p>
+<p>pay to script hush（P2SH）：这个功能在比特币原本里是没有的，通过软分叉加入。旧节点只做第一阶段的验证，旧节点认为的新节点是合法的。</p>
+<p>soft fork只要一半以上的算力更新软件，系统就不会分叉</p>
+<p>hard fork系统所有的算力更新，系统才不会出现分叉</p>
+<h1 id="课程11：课程问答"><a href="#课程11：课程问答" class="headerlink" title="课程11：课程问答"></a>课程11：课程问答</h1><h2 id="1-转账交易时如果接收者不在线怎么办？"><a href="#1-转账交易时如果接收者不在线怎么办？" class="headerlink" title="1.转账交易时如果接收者不在线怎么办？"></a>1.转账交易时如果接收者不在线怎么办？</h2><p>不需要接收者在线交易，转账交易是在区块链记录一下，把账户转钱</p>
+<h2 id="2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"><a href="#2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的" class="headerlink" title="2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"></a>2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的</h2><p>可能，比特币节点不需要通知任何人，只一转账交易收到钱时，其他节点才知道这个账户的存在。</p>
+<h2 id="3-账户的私钥丢失怎么办？"><a href="#3-账户的私钥丢失怎么办？" class="headerlink" title="3.账户的私钥丢失怎么办？"></a>3.账户的私钥丢失怎么办？</h2><p>钱没了，死钱。有些交易所是中心化结构，提供身份证，保存在交易所密码丢失可以再获得密码。缺乏监管的情况。Mt.Gox,曾经最大交易所70%，黑客攻击丢失了大量比特币，有的监管自盗。硬件钱包比较安全</p>
+<h2 id="4-私钥泄露怎么办"><a href="#4-私钥泄露怎么办" class="headerlink" title="4.私钥泄露怎么办"></a>4.私钥泄露怎么办</h2><p>转移钱到安全账户</p>
+<h2 id="5-转账的时候写错地址怎么办"><a href="#5-转账的时候写错地址怎么办" class="headerlink" title="5.转账的时候写错地址怎么办"></a>5.转账的时候写错地址怎么办</h2><p>没有办法取消已经发布的交易，只能和对方商量，或者转到不存在的地址。转到私钥不存在的，地址return。用很少一点钱换取到写入比特币的机会，但是不提倡，会永远写在utxo里。proof of burn 和 return 的操作。</p>
+<h2 id="6-挖矿"><a href="#6-挖矿" class="headerlink" title="6.挖矿"></a>6.挖矿</h2><p>偷区块，偷nonse，发布的区块coinbase transaction里有一个地址是挖到这个矿的矿工的地址，coinbase transaction变化merkle root会变化，这样nonse就变化。</p>
+<h2 id="7-交易费给矿工的小费"><a href="#7-交易费给矿工的小费" class="headerlink" title="7.交易费给矿工的小费"></a>7.交易费给矿工的小费</h2><p>事先不知道哪个矿工挖到nonse，只要 total inputs - total outputs &#x3D;交易费，哪个矿工挖到，就可以把差额作为自己的交易费。</p>
+<h2 id="8-比特币上的一些统计数据"><a href="#8-比特币上的一些统计数据" class="headerlink" title="8.比特币上的一些统计数据"></a>8.比特币上的一些统计数据</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" data-id="cm477y2ng0014c4u7e56q8fr8" data-title="北大肖臻老师《区块链技术与应用》笔记9-11" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/09/30/12-13/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          北大肖臻老师《区块链技术与应用》笔记12-13
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">北大肖臻老师《区块链技术与应用》笔记6-8</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

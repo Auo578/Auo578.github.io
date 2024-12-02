@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-复习常见编程知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2024-10-10T12:47:39.000Z" itemprop="datePublished">2024-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/">Rust复习-常见编程概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>常见编程概念<br>3.1. 变量与可变性<br>3.2. 数据类型<br>3.3. 函数<br>3.4. 注释<br>3.5. 控制流</p>
+<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p><a target="_blank" rel="noopener" href="https://kaisery.github.io/trpl-zh-cn/appendix-01-keywords.html" title="关键字">https://kaisery.github.io/trpl-zh-cn/appendix-01-keywords.html</a></p>
+<p>Rust 语言中的关键字是保留的词语，用于定义程序的结构、控制流程、类型和函数等。以下是 Rust 中的一些重要关键字，按功能分类列出：</p>
+<h3 id="1-控制流关键字"><a href="#1-控制流关键字" class="headerlink" title="1. 控制流关键字"></a>1. <strong>控制流关键字</strong></h3><p>这些关键字用于控制程序的执行流程。</p>
+<ul>
+<li><code>if</code>：条件语句，用于条件判断。</li>
+<li><code>else</code>：与 <code>if</code> 搭配使用，处理 <code>if</code> 条件不满足时的分支。</li>
+<li><code>match</code>：模式匹配，用于对不同的模式进行分支处理。</li>
+<li><code>loop</code>：无限循环，使用 <code>break</code> 退出循环。</li>
+<li><code>while</code>：基于条件的循环。</li>
+<li><code>for</code>：用于迭代集合的循环。</li>
+<li><code>break</code>：终止循环或跳出 <code>match</code> 分支。</li>
+<li><code>continue</code>：跳过当前循环迭代，进入下一个迭代。</li>
+<li><code>return</code>：从函数中返回值。</li>
+</ul>
+<h3 id="2-类型关键字"><a href="#2-类型关键字" class="headerlink" title="2. 类型关键字"></a>2. <strong>类型关键字</strong></h3><p>这些关键字用于定义数据类型。</p>
+<ul>
+<li><code>fn</code>：用于定义函数。</li>
+<li><code>let</code>：用于定义变量。</li>
+<li><code>const</code>：定义常量，值在编译时确定。</li>
+<li><code>static</code>：定义拥有 <code>&#39;static</code> 生命周期的全局变量。</li>
+<li><code>struct</code>：定义结构体。</li>
+<li><code>enum</code>：定义枚举类型。</li>
+<li><code>impl</code>：为类型实现方法或特征。</li>
+<li><code>trait</code>：定义特征，用于抽象行为。</li>
+<li><code>type</code>：定义类型别名。</li>
+</ul>
+<h3 id="3-所有权与内存管理关键字"><a href="#3-所有权与内存管理关键字" class="headerlink" title="3. 所有权与内存管理关键字"></a>3. <strong>所有权与内存管理关键字</strong></h3><p>这些关键字用于管理内存和所有权。</p>
+<ul>
+<li><code>move</code>：将变量的所有权转移。</li>
+<li><code>mut</code>：可变性修饰符，表示变量可以修改。</li>
+<li><code>ref</code>：模式匹配中用于获取引用。</li>
+<li><code>box</code>：分配在堆上的数据（通过 <code>Box</code> 智能指针）。</li>
+<li><code>Self</code>：表示当前类型的别名，常用于 <code>impl</code> 块中。</li>
+</ul>
+<h3 id="4-模式匹配和解构关键字"><a href="#4-模式匹配和解构关键字" class="headerlink" title="4. 模式匹配和解构关键字"></a>4. <strong>模式匹配和解构关键字</strong></h3><p>这些关键字用于模式匹配和解构操作。</p>
+<ul>
+<li><code>match</code>：用于模式匹配。</li>
+<li><code>ref</code>：在模式匹配中获取引用。</li>
+<li><code>let</code>：定义变量并绑定模式。</li>
+</ul>
+<h3 id="5-异步与并发关键字"><a href="#5-异步与并发关键字" class="headerlink" title="5. 异步与并发关键字"></a>5. <strong>异步与并发关键字</strong></h3><p>这些关键字用于处理异步编程与并发。</p>
+<ul>
+<li><code>async</code>：定义异步函数或代码块。</li>
+<li><code>await</code>：等待异步操作完成。</li>
+<li><code>yield</code>：暂停生成器函数的执行，返回一个值。</li>
+<li><code>unsafe</code>：定义不受 Rust 安全规则限制的代码块。</li>
+</ul>
+<h3 id="6-错误处理关键字"><a href="#6-错误处理关键字" class="headerlink" title="6. 错误处理关键字"></a>6. <strong>错误处理关键字</strong></h3><p>这些关键字用于处理错误和异常情况。</p>
+<ul>
+<li><code>panic!</code>：引发程序崩溃并输出错误消息。</li>
+<li><code>Result</code>：用于表示可能成功或失败的操作。</li>
+<li><code>Option</code>：表示一个值可能存在或不存在。</li>
+</ul>
+<h3 id="7-可见性与模块关键字"><a href="#7-可见性与模块关键字" class="headerlink" title="7. 可见性与模块关键字"></a>7. <strong>可见性与模块关键字</strong></h3><p>这些关键字用于模块化和控制可见性。</p>
+<ul>
+<li><code>mod</code>：定义一个模块。</li>
+<li><code>pub</code>：定义公有可见性，允许模块或项在外部可见。</li>
+<li><code>use</code>：引入模块或项到当前作用域。</li>
+<li><code>crate</code>：表示当前库或包。</li>
+<li><code>extern</code>：引入外部库或函数。</li>
+</ul>
+<h3 id="8-生命周期与泛型关键字"><a href="#8-生命周期与泛型关键字" class="headerlink" title="8. 生命周期与泛型关键字"></a>8. <strong>生命周期与泛型关键字</strong></h3><p>这些关键字与生命周期和泛型参数相关。</p>
+<ul>
+<li><code>fn</code>：定义函数，泛型参数可附加在函数定义上。</li>
+<li><code>where</code>：为泛型参数设定约束。</li>
+<li><code>impl</code>：实现特征或方法时指定泛型类型。</li>
+<li><code>&#39;static</code>：生命周期标注，表示数据在整个程序运行期间都有效。</li>
+</ul>
+<h3 id="9-其他重要关键字"><a href="#9-其他重要关键字" class="headerlink" title="9. 其他重要关键字"></a>9. <strong>其他重要关键字</strong></h3><ul>
+<li><code>as</code>：用于类型转换或别名创建。</li>
+<li><code>in</code>：用于 <code>for</code> 循环中指定迭代范围。</li>
+<li><code>dyn</code>：用于定义动态派发的特征对象。</li>
+<li><code>super</code>：用于引用当前模块的父模块。</li>
+<li><code>self</code>：引用当前模块或结构体的实例。</li>
+<li><code>Self</code>：表示当前类型。</li>
+<li><code>default</code>：用于特征中的默认实现。</li>
+<li><code>union</code>：定义共用体，允许不同类型占用相同内存区域。</li>
+</ul>
+<h3 id="10-特殊类型关键字"><a href="#10-特殊类型关键字" class="headerlink" title="10. 特殊类型关键字"></a>10. <strong>特殊类型关键字</strong></h3><ul>
+<li><code>!</code>：发散类型，表示不会返回值的类型（如 <code>panic!</code>）。</li>
+</ul>
+<h3 id="11-保留关键字（未来可能使用）"><a href="#11-保留关键字（未来可能使用）" class="headerlink" title="11. 保留关键字（未来可能使用）"></a>11. <strong>保留关键字（未来可能使用）</strong></h3><p>这些关键字目前没有实际用途，但可能在未来版本的 Rust 中使用。</p>
+<ul>
+<li><code>abstract</code></li>
+<li><code>async</code></li>
+<li><code>await</code></li>
+<li><code>try</code></li>
+</ul>
+<p>这些关键字构成了 Rust 的核心语法，它们为 Rust 的安全性、所有权模型、并发处理等功能提供了基础支持。</p>
+<h2 id="原始标识符"><a href="#原始标识符" class="headerlink" title="原始标识符"></a>原始标识符</h2><p>原始标识符（Raw identifiers）允许你使用通常不能使用的关键字，其带有 r# 前缀。</p>
+<h1 id="变量和可变性"><a href="#变量和可变性" class="headerlink" title="变量和可变性"></a>变量和可变性</h1><h4 id="len（）"><a href="#len（）" class="headerlink" title="len（）"></a>len（）</h4><p>String 和 &amp;str：返回的是字符串的字节数，而不是字符数。Vec<T>：返回向量中的元素个数。<br>数组：返回数组中的元素个数。<br>切片：返回切片的元素个数。</p>
+<p>len() 方法广泛应用于 Rust 集合类型的长度计算，返回值类型为 usize。</p>
+<h4 id="整型溢出"><a href="#整型溢出" class="headerlink" title="整型溢出"></a>整型溢出</h4><p>在计算机导论里有，为了显式地处理溢出的可能性，可以使用这几类标准库提供的原始数字类型方法：</p>
+<p>所有模式下都可以使用 wrapping_* 方法进行 wrapping，如 wrapping_add</p>
+<p>如果 checked_* 方法出现溢出，则返回 None值</p>
+<p>用 overflowing_* 方法返回值和一个布尔值，表示是否出现溢出</p>
+<p>用 saturating_* 方法在值的最小值或最大值处进行饱和处理</p>
+<h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h2><p>复合类型（Compound types）可以将多个值组合成一个类型。Rust 有两个原生的复合类型：元组（tuple）和数组（array）。</p>
+<h3 id="元组类型"><a href="#元组类型" class="headerlink" title="元组类型"></a>元组类型</h3><p>元组是一个将多个其他类型的值组合进一个复合类型的主要方式。元组长度固定：一旦声明，其长度不会增大或缩小。</p>
+<p>我们使用包含在圆括号中的逗号分隔的值列表来创建一个元组。元组中的每一个位置都有一个类型，而且这些不同值的类型也不必是相同的。</p>
+<pre><code>fn main() &#123;
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+&#125;
+
+fn main() &#123;
+let tup = (500, 6.4, 1);
+
+let (x, y, z) = tup;
+
+println!(&quot;The value of y is: &#123;y&#125;&quot;);
+&#125;
+</code></pre>
+<p>程序首先创建了一个元组并绑定到 tup 变量上。接着使用了 let 和一个模式将 tup 分成了三个不同的变量，x、y 和 z。这叫做 解构（destructuring），因为它将一个元组拆成了三个部分。</p>
+<p>我们也可以使用点号（.）后跟值的索引来直接访问它们。</p>
+<pre><code>fn main() &#123;
+let x: (i32, f64, u8) = (500, 6.4, 1);
+
+let five_hundred = x.0;
+
+let six_point_four = x.1;
+
+let one = x.2;
+&#125;
+</code></pre>
+<p>跟大多数编程语言一样，元组的第一个索引值是 0。</p>
+<p>不带任何值的元组有个特殊的名称，叫做 单元（unit） 元组。这种值以及对应的类型都写作 ()，表示空值或空的返回类型。如果表达式不返回任何其他值，则会隐式返回单元值。</p>
+<h3 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h3><pre><code>fn main() &#123;
+let a = [1, 2, 3, 4, 5];
+&#125;
+let months = [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;,
+  &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+let a = [3; 5];
+</code></pre>
+<p>[3; 5]变量名为 a 的数组将包含 5 个元素，这些元素的值最初都将被设置为 3。这种写法与 let a &#x3D; [3, 3, 3, 3, 3]; 效果相同，但更简洁。</p>
+<h4 id="访问数组元素"><a href="#访问数组元素" class="headerlink" title="访问数组元素"></a>访问数组元素</h4><p>数组是可以在栈 (stack) 上分配的已知固定大小的单个内存块。可以使用索引来访问数组的元素</p>
+<pre><code>fn main() &#123;
+let a = [1, 2, 3, 4, 5];
+
+let first = a[0];
+let second = a[1];
+&#125;
+</code></pre>
+<h4 id="无效的数组元素访问"><a href="#无效的数组元素访问" class="headerlink" title="无效的数组元素访问"></a>无效的数组元素访问</h4><p>访问数组结尾之后的元素会panic！</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><p>在 Rust 中，<code>main</code> 函数是程序的入口点，每个可执行的 Rust 程序都必须包含一个名为 <code>main</code> 的函数。当你运行程序时，Rust 运行时会首先执行 <code>main</code> 函数。下面是关于 <code>main</code> 函数的一些重要信息：</p>
+<h3 id="1-基本结构"><a href="#1-基本结构" class="headerlink" title="1. 基本结构"></a>1. <strong>基本结构</strong></h3><p><code>main</code> 函数的基本定义如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 程序代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-返回值"><a href="#2-返回值" class="headerlink" title="2. 返回值"></a>2. <strong>返回值</strong></h3><p>在 Rust 中，<code>main</code> 函数的返回类型是 <code>()</code>，即不返回任何值（相当于 void）。如果需要从 <code>main</code> 函数返回状态码，可以使用 <code>std::process::exit</code> 函数或通过 <code>Result</code> 类型来实现。</p>
+<h4 id="使用-std-process-exit："><a href="#使用-std-process-exit：" class="headerlink" title="使用 std::process::exit："></a>使用 <code>std::process::exit</code>：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 程序代码</span></span><br><span class="line">    std::process::<span class="title function_ invoke__">exit</span>(<span class="number">0</span>); <span class="comment">// 正常退出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-Result-类型："><a href="#使用-Result-类型：" class="headerlink" title="使用 Result 类型："></a>使用 <code>Result</code> 类型：</h4><p>通过返回 <code>Result</code> 类型，你可以处理错误并返回不同的状态码：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::error::Error;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;(), <span class="type">Box</span>&lt;<span class="keyword">dyn</span> Error&gt;&gt; &#123;</span><br><span class="line">    <span class="comment">// 程序代码</span></span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(()) <span class="comment">// 正常返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-命令行参数"><a href="#3-命令行参数" class="headerlink" title="3. 命令行参数"></a>3. <strong>命令行参数</strong></h3><p><code>main</code> 函数可以使用 <code>std::env::args</code> 来访问命令行参数。它返回一个迭代器，包含程序执行时提供的所有参数。</p>
+<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::env;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">args</span>: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt; = env::<span class="title function_ invoke__">args</span>().<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Arguments: &#123;:?&#125;&quot;</span>, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行这个程序时，可以在命令行中传入参数，它会将所有参数打印出来。</p>
+<h3 id="4-示例程序"><a href="#4-示例程序" class="headerlink" title="4. 示例程序"></a>4. <strong>示例程序</strong></h3><p>下面是一个简单的 Rust 程序示例，它演示了如何使用 <code>main</code> 函数以及命令行参数的处理：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::env;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">args</span>: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt; = env::<span class="title function_ invoke__">args</span>().<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> args.<span class="title function_ invoke__">len</span>() &gt; <span class="number">1</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Hello, &#123;&#125;!&quot;</span>, args[<span class="number">1</span>]); <span class="comment">// 打印第一个命令行参数</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// 默认消息</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你在命令行中运行这个程序并传入一个名字，它会问候那个名字；如果没有传入任何参数，则会打印默认消息。</p>
+<h3 id="5-错误处理"><a href="#5-错误处理" class="headerlink" title="5. 错误处理"></a>5. <strong>错误处理</strong></h3><p>在 Rust 中，使用 <code>main</code> 函数时，可以通过 <code>Result</code> 来简化错误处理。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::fs::File;</span><br><span class="line"><span class="keyword">use</span> std::io::Read;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;(), <span class="type">Box</span>&lt;<span class="keyword">dyn</span> std::error::Error&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">file</span> = File::<span class="title function_ invoke__">open</span>(<span class="string">&quot;hello.txt&quot;</span>)?; <span class="comment">// 使用 ? 处理错误</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">contents</span> = <span class="type">String</span>::<span class="title function_ invoke__">new</span>();</span><br><span class="line">    file.<span class="title function_ invoke__">read_to_string</span>(&amp;<span class="keyword">mut</span> contents)?;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, contents);</span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>main</code> 函数返回一个 <code>Result</code>，如果任何操作失败，程序会自动处理错误。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>main</code> 函数是 Rust 程序的入口点。</li>
+<li>它可以返回 <code>()</code> 或 <code>Result</code> 类型。</li>
+<li>可以使用 <code>std::env::args</code> 访问命令行参数。</li>
+<li>通过返回 <code>Result</code> 可以有效地处理错误。</li>
+</ul>
+<p><code>main</code> 函数的设计使得 Rust 程序能够安全、有效地处理任务和错误，是编写 Rust 应用程序的基础。</p>
+<h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>在编程中，尤其是在函数的上下文中，<strong>形参</strong>（parameter）和<strong>实参</strong>（argument）是两个重要的概念。它们的区别如下：</p>
+<h3 id="1-形参（Parameters）"><a href="#1-形参（Parameters）" class="headerlink" title="1. 形参（Parameters）"></a>1. 形参（Parameters）</h3><ul>
+<li><strong>定义</strong>：形参是函数定义中指定的变量，用于接收调用函数时传入的值。它们是函数的一部分，用于描述函数所需的输入。</li>
+<li><strong>作用</strong>：形参在函数内部被用作变量，函数通过这些变量来访问传入的值。</li>
+<li><strong>示例</strong>：  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">add</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123; <span class="comment">// a 和 b 是形参</span></span><br><span class="line">    a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  在上面的例子中，<code>a</code> 和 <code>b</code> 是 <code>add</code> 函数的形参，定义了该函数所需的输入类型（<code>i32</code>）。</li>
+</ul>
+<h3 id="2-实参（Arguments）"><a href="#2-实参（Arguments）" class="headerlink" title="2. 实参（Arguments）"></a>2. 实参（Arguments）</h3><ul>
+<li><strong>定义</strong>：实参是调用函数时实际传入的值或变量。实参可以是常量、变量、表达式等，具体取决于函数的调用。</li>
+<li><strong>作用</strong>：实参在函数调用时被传递给形参，函数使用这些值执行其逻辑。</li>
+<li><strong>示例</strong>：  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">sum</span> = <span class="title function_ invoke__">add</span>(<span class="number">5</span>, <span class="number">10</span>); <span class="comment">// 5 和 10 是实参</span></span><br></pre></td></tr></table></figure>
+  在这个例子中，<code>5</code> 和 <code>10</code> 是实参，它们在调用 <code>add</code> 函数时传递给形参 <code>a</code> 和 <code>b</code>。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>形参</strong>是函数定义时的变量，表示函数期望接收的输入。</li>
+<li><strong>实参</strong>是函数调用时传递的实际值或变量，供形参使用。</li>
+</ul>
+<p>这种区别在函数调用的上下文中非常重要，因为它帮助理解如何定义函数及如何在实际使用中传递数据。通过形参和实参的机制，函数可以重用代码并实现更通用的逻辑。</p>
+<h2 id="在-let-语句中使用-if"><a href="#在-let-语句中使用-if" class="headerlink" title="在 let 语句中使用 if"></a>在 let 语句中使用 if</h2><pre><code>fn main() &#123;
+let condition = true;
+let number = if condition &#123; 5 &#125; else &#123; 6 &#125;;
+
+println!(&quot;The value of number is: &#123;number&#125;&quot;);
+&#125;
+</code></pre>
+<p>代码块的值是其最后一个表达式的值，而数字本身就是一个表达式。在这个例子中，整个 if 表达式的值取决于哪个代码块被执行。这意味着 if 的每个分支的可能的返回值都必须是相同类型；</p>
+<h2 id="rev"><a href="#rev" class="headerlink" title="rev()"></a>rev()</h2><p>在 Rust 中，<code>rev()</code> 是一个常用于反转迭代器的函数。它属于迭代器适配器的方法，允许你将迭代器的顺序反转。这个函数可以用于不同类型的迭代器，包括数组、切片、向量等。以下是关于 <code>rev()</code> 方法的详细介绍：</p>
+<h3 id="1-基本用法"><a href="#1-基本用法" class="headerlink" title="1. 基本用法"></a>1. <strong>基本用法</strong></h3><p><code>rev()</code> 方法通过反转迭代器的顺序，返回一个新的迭代器，该迭代器按相反的顺序访问原始迭代器中的元素。</p>
+<h3 id="2-使用示例"><a href="#2-使用示例" class="headerlink" title="2. 使用示例"></a>2. <strong>使用示例</strong></h3><h4 id="反转数组"><a href="#反转数组" class="headerlink" title="反转数组"></a>反转数组</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed</span>: <span class="type">Vec</span>&lt;_&gt; = arr.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">collect</span>(); <span class="comment">// 反转数组并收集到一个新的 Vec 中</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, reversed); <span class="comment">// 输出：[5, 4, 3, 2, 1]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>arr.iter().rev()</code> 创建了一个反向迭代器，接着使用 <code>collect()</code> 方法将其收集到一个新的 <code>Vec</code> 中。</p>
+<h4 id="反转向量"><a href="#反转向量" class="headerlink" title="反转向量"></a>反转向量</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed</span>: <span class="type">Vec</span>&lt;_&gt; = vec.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">collect</span>(); <span class="comment">// 反转向量</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, reversed); <span class="comment">// 输出：[50, 40, 30, 20, 10]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里，<code>vec.iter().rev()</code> 反转了向量的迭代顺序。</p>
+<h3 id="3-反转字符串"><a href="#3-反转字符串" class="headerlink" title="3. 反转字符串"></a>3. <strong>反转字符串</strong></h3><p>对于字符串切片，你也可以使用 <code>rev()</code> 方法：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed</span>: <span class="type">String</span> = s.<span class="title function_ invoke__">chars</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">collect</span>(); <span class="comment">// 反转字符串</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, reversed); <span class="comment">// 输出：olleh</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>s.chars()</code> 返回字符串中的字符迭代器，然后使用 <code>rev()</code> 反转字符顺序，并最终收集到一个新的字符串中。</p>
+<h3 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4. 注意事项"></a>4. <strong>注意事项</strong></h3><ul>
+<li><code>rev()</code> 方法只反转迭代器的顺序，不会修改原始集合。</li>
+<li>由于 <code>rev()</code> 返回的是一个新的迭代器，因此在使用时可以继续进行其他的迭代器操作。</li>
+</ul>
+<h3 id="5-结合其他迭代器方法"><a href="#5-结合其他迭代器方法" class="headerlink" title="5. 结合其他迭代器方法"></a>5. <strong>结合其他迭代器方法</strong></h3><p>你可以将 <code>rev()</code> 与其他迭代器方法结合使用，例如 <code>map</code>、<code>filter</code> 等：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">numbers</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed_and_doubled</span>: <span class="type">Vec</span>&lt;_&gt; = numbers.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">map</span>(|&amp;x| x * <span class="number">2</span>).<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, reversed_and_doubled); <span class="comment">// 输出：[10, 8, 6, 4, 2]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，首先反转了向量，然后将每个元素乘以 2。</p>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>rev()</code> 是一个迭代器适配器，用于反转迭代器的顺序。</li>
+<li>它返回一个新的迭代器，原始集合不会被修改。</li>
+<li>可以与其他迭代器方法结合使用，增加了代码的灵活性和可读性。</li>
+</ul>
+<p>通过 <code>rev()</code> 方法，Rust 提供了一种简便的方式来处理迭代器中的元素顺序，使得在数据处理过程中更加高效和直观。</p>
+<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><h2 id="1-’static-str"><a href="#1-’static-str" class="headerlink" title="1.&amp;’static str"></a>1.&amp;’static str</h2><pre><code>fn main() &#123;
+let x = define_x();
+println!(&quot;&#123;:?&#125;, world&quot;, x);
+&#125;
+
+fn define_x() -&gt; &amp;&#39;static str &#123;
+let x = &quot;hello&quot;;
+x
+&#125;
+</code></pre>
+<h2 id="2-和"><a href="#2-和" class="headerlink" title="2.{:?}和{:#?}"></a>2.{:?}和{:#?}</h2><p>在 Rust 中，<code>&#123;:?&#125;</code> 是一种格式化占位符，用于在打印或格式化输出时显示对象的调试信息。它属于 Rust 的格式化宏 <code>println!</code>、<code>format!</code> 等的一部分，主要用于输出实现了 <code>std::fmt::Debug</code> trait 的类型的内容。</p>
+<h3 id="1-基本用法-1"><a href="#1-基本用法-1" class="headerlink" title="1. 基本用法"></a>1. <strong>基本用法</strong></h3><p>要使用 <code>&#123;:?&#125;</code>，你的数据类型必须实现 <code>Debug</code> trait。这通常适用于大多数标准库类型，如 <code>Vec</code>、<code>String</code>、数组、结构体等。</p>
+<h4 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The vector is: &#123;:?&#125;&quot;</span>, vec); <span class="comment">// 输出：The vector is: [1, 2, 3, 4, 5]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>&#123;:?&#125;</code> 用于打印向量的内容，显示其元素的列表。</p>
+<h3 id="2-打印结构体"><a href="#2-打印结构体" class="headerlink" title="2. 打印结构体"></a>2. <strong>打印结构体</strong></h3><p>你可以使用 <code>&#123;:?&#125;</code> 来打印自定义结构体的内容。为了能够使用 <code>&#123;:?&#125;</code>，你需要为结构体实现 <code>Debug</code> trait。</p>
+<h4 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug)]</span> <span class="comment">// 为结构体实现 Debug trait</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    name: <span class="type">String</span>,</span><br><span class="line">    age: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">person</span> = Person &#123;</span><br><span class="line">        name: <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Alice&quot;</span>),</span><br><span class="line">        age: <span class="number">30</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Person details: &#123;:?&#125;&quot;</span>, person); <span class="comment">// 输出：Person details: Person &#123; name: &quot;Alice&quot;, age: 30 &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>#[derive(Debug)]</code> 宏为 <code>Person</code> 结构体自动实现了 <code>Debug</code> trait，这样就可以使用 <code>&#123;:?&#125;</code> 打印结构体的内容。</p>
+<h3 id="3-格式化输出"><a href="#3-格式化输出" class="headerlink" title="3. 格式化输出"></a>3. <strong>格式化输出</strong></h3><p>你还可以在输出中结合使用其他格式化占位符，如 <code>&#123;&#125;</code>、<code>&#123;:x&#125;</code> 等，以控制输出格式。对于 <code>&#123;:?&#125;</code>，输出是未经格式化的调试信息。</p>
+<h4 id="示例：-3"><a href="#示例：-3" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">num</span> = <span class="number">42</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The number is: &#123;:?&#125;&quot;</span>, num); <span class="comment">// 输出：The number is: 42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-打印切片和数组"><a href="#4-打印切片和数组" class="headerlink" title="4. 打印切片和数组"></a>4. <strong>打印切片和数组</strong></h3><p>使用 <code>&#123;:?&#125;</code> 还可以打印切片和数组：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Array: &#123;:?&#125;&quot;</span>, arr); <span class="comment">// 输出：Array: [1, 2, 3, 4, 5]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-多重调试输出"><a href="#5-多重调试输出" class="headerlink" title="5. 多重调试输出"></a>5. <strong>多重调试输出</strong></h3><p>如果你有多个需要输出的信息，可以使用多个 <code>&#123;:?&#125;</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec1</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec2</span> = <span class="built_in">vec!</span>[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Vector 1: &#123;:?&#125;, Vector 2: &#123;:?&#125;&quot;</span>, vec1, vec2);</span><br><span class="line">    <span class="comment">// 输出：Vector 1: [1, 2, 3], Vector 2: [4, 5, 6]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>&#123;:?&#125;</code> 是 Rust 中用于调试输出的格式化占位符。</li>
+<li>仅适用于实现了 <code>std::fmt::Debug</code> trait 的类型。</li>
+<li>方便开发者在调试时查看对象的内部状态和内容。</li>
+</ul>
+<p>使用 <code>&#123;:?&#125;</code> 进行调试输出是 Rust 开发中非常常见的做法，有助于快速检查数据结构的状态。<br>在 Rust 中，<code>&#123;:?&#125;</code> 和 <code>&#123;:#?&#125;</code> 都是用于格式化输出的占位符，主要用于调试目的。它们的主要区别在于输出的格式。以下是对这两种占位符的详细说明：</p>
+<h3 id="1"><a href="#1" class="headerlink" title="1. {:?}"></a>1. <code>&#123;:?&#125;</code></h3><ul>
+<li><strong>定义</strong>：用于打印实现了 <code>std::fmt::Debug</code> trait 的类型的内容，返回的是一种紧凑的格式。</li>
+<li><strong>用法</strong>：通常用于在控制台上打印数据结构的简单表示。</li>
+</ul>
+<h4 id="示例：-4"><a href="#示例：-4" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Compact format: &#123;:?&#125;&quot;</span>, vec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Compact format: [1, 2, 3, 4, 5]</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&#123;:?&#125;</code> 输出了一个紧凑的向量表示。</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2. {:#?}"></a>2. <code>&#123;:#?&#125;</code></h3><ul>
+<li><strong>定义</strong>：与 <code>&#123;:?&#125;</code> 相同，但输出的格式为“美化”格式。它将以更易读的方式格式化输出，通常在包含多个元素或嵌套结构时更明显。</li>
+<li><strong>用法</strong>：适用于需要更清晰、易读的调试输出。</li>
+</ul>
+<h4 id="示例：-5"><a href="#示例：-5" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Pretty format: &#123;:#?&#125;&quot;</span>, vec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pretty format: [</span><br><span class="line">    1,</span><br><span class="line">    2,</span><br><span class="line">    3,</span><br><span class="line">    4,</span><br><span class="line">    5,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&#123;:#?&#125;</code> 输出了更具可读性的格式，每个元素单独占一行，并使用缩进。</p>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><ul>
+<li>**<code>&#123;:?&#125;</code>**：返回紧凑的调试输出格式，适用于简单的数据结构。</li>
+<li>**<code>&#123;:#?&#125;</code>**：返回美化的调试输出格式，适用于更复杂或嵌套的数据结构，使其更易于阅读。</li>
+</ul>
+<h3 id="4-实际应用"><a href="#4-实际应用" class="headerlink" title="4. 实际应用"></a>4. 实际应用</h3><ul>
+<li>当你想快速查看数据结构的内容时，可以使用 <code>&#123;:?&#125;</code>。</li>
+<li>当你在调试过程中需要详细的输出以便于阅读和理解结构时，可以选择 <code>&#123;:#?&#125;</code>。</li>
+</ul>
+<p>这两个占位符都非常有用，尤其在调试复杂的数据结构时，可以帮助开发者快速理解程序状态。</p>
+<h2 id="3-compiler-warning-unused-variable-x"><a href="#3-compiler-warning-unused-variable-x" class="headerlink" title="3.compiler warning: unused variable: x"></a>3.compiler warning: unused variable: <code>x</code></h2><pre><code>_下划线或者#[allow(unused_variables)]
+</code></pre>
+<h2 id="4"><a href="#4" class="headerlink" title="4. .."></a>4. ..</h2><p>在 Rust 中，.. 是一种特殊的模式匹配符号，用于忽略某些值或元素，表示“这里有内容，但我们不关心具体是什么”。</p>
+<h2 id="5-format！"><a href="#5-format！" class="headerlink" title="5.format！"></a>5.format！</h2><p>在 Rust 中，<code>format!</code> 是一个用于<strong>格式化字符串</strong>的宏。它类似于 <code>println!</code>，但不同之处在于 <code>format!</code> 不会将格式化后的字符串打印到控制台，而是返回一个格式化后的 <code>String</code> 类型的值。这非常适合需要处理或操作格式化后的字符串的情况。</p>
+<h3 id="1-format-的基本语法"><a href="#1-format-的基本语法" class="headerlink" title="1. format! 的基本语法"></a>1. <strong><code>format!</code> 的基本语法</strong></h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">format!</span>(format_string, args...)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>**<code>format_string</code>**：格式化字符串，类似于 <code>println!</code> 中的格式化模板，使用 <code>&#123;&#125;</code> 来表示占位符。</li>
+<li>**<code>args...</code>**：一个或多个表达式，它们的值会替换格式化字符串中的 <code>&#123;&#125;</code>。</li>
+</ul>
+<h3 id="2-简单示例"><a href="#2-简单示例" class="headerlink" title="2. 简单示例"></a>2. <strong>简单示例</strong></h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">name</span> = <span class="string">&quot;Alice&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">age</span> = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;My name is &#123;&#125; and I am &#123;&#125; years old.&quot;</span>, name, age);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: My name is Alice and I am 30 years old.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>format!</code> 返回一个 <code>String</code>，并且将 <code>name</code> 和 <code>age</code> 的值插入到 <code>&#123;&#125;</code> 占位符处。最终的字符串存储在 <code>formatted</code> 变量中。</p>
+<h3 id="3-格式化控制"><a href="#3-格式化控制" class="headerlink" title="3. 格式化控制"></a>3. <strong>格式化控制</strong></h3><p>除了简单的 <code>&#123;&#125;</code>，<code>format!</code> 还支持各种格式化控制，例如控制输出的宽度、对齐方式、填充字符等。</p>
+<h4 id="宽度控制和对齐："><a href="#宽度控制和对齐：" class="headerlink" title="宽度控制和对齐："></a>宽度控制和对齐：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">number</span> = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Number: &#123;:&gt;5&#125;&quot;</span>, number);  <span class="comment">// 右对齐，宽度为5</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Number:    42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&#123;:&gt;5&#125;</code> 表示将 <code>number</code> 右对齐，并使用至少 5 个字符的宽度来显示。</p>
+<h4 id="填充和对齐："><a href="#填充和对齐：" class="headerlink" title="填充和对齐："></a>填充和对齐：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">number</span> = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Number: &#123;:0&gt;5&#125;&quot;</span>, number);  <span class="comment">// 右对齐，宽度为5，空位用0填充</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Number: 00042</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>&#123;:0&gt;5&#125;</code> 表示右对齐，并且使用 <code>0</code> 填充空位，输出结果为 <code>00042</code>。</p>
+<h4 id="小数点精度："><a href="#小数点精度：" class="headerlink" title="小数点精度："></a>小数点精度：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">pi</span> = <span class="number">3.141592</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Pi is &#123;:.2&#125;&quot;</span>, pi);  <span class="comment">// 只保留两位小数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Pi is 3.14</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>&#123;:.2&#125;</code> 表示将浮点数限制为两位小数。</p>
+<h3 id="4-字符串拼接"><a href="#4-字符串拼接" class="headerlink" title="4. 字符串拼接"></a>4. <strong>字符串拼接</strong></h3><p><code>format!</code> 在 Rust 中是处理字符串拼接的一个常见方式，尤其是在需要将多个变量或不同数据类型的内容拼接成一个字符串时。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">name</span> = <span class="string">&quot;Alice&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">age</span> = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">info</span> = <span class="built_in">format!</span>(<span class="string">&quot;&#123;&#125; is &#123;&#125; years old.&quot;</span>, name, age);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, info);  <span class="comment">// 输出: Alice is 30 years old.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-格式化调试输出"><a href="#5-格式化调试输出" class="headerlink" title="5. 格式化调试输出"></a>5. <strong>格式化调试输出</strong></h3><p>如果你需要调试信息，可以使用 <code>&#123;:?&#125;</code> 或 <code>&#123;:#?&#125;</code> 作为占位符，打印出实现了 <code>Debug</code> trait 的类型内容。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Debug: &#123;:?&#125;&quot;</span>, vec);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Debug: [1, 2, 3]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-返回值是-String"><a href="#6-返回值是-String" class="headerlink" title="6. 返回值是 String"></a>6. <strong>返回值是 <code>String</code></strong></h3><p><code>format!</code> 和 <code>println!</code> 的区别在于：</p>
+<ul>
+<li><code>println!</code> 是直接将结果打印到控制台。</li>
+<li><code>format!</code> 则返回一个 <code>String</code>，供后续使用或处理。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">greeting</span> = <span class="built_in">format!</span>(<span class="string">&quot;Hello, &#123;&#125;!&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">greeting_with_exclamation</span> = <span class="built_in">format!</span>(<span class="string">&quot;&#123;&#125;!!!&quot;</span>, greeting);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, greeting_with_exclamation);  <span class="comment">// 输出: Hello, world!!!!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>format!</code> 拼接了字符串，然后通过 <code>String</code> 的返回值做进一步操作。</p>
+<h3 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. <strong>总结</strong></h3><ul>
+<li><code>format!</code> 是 Rust 中用于创建和操作格式化字符串的强大工具。</li>
+<li>它类似于 <code>println!</code>，但不输出到控制台，而是返回一个 <code>String</code>。</li>
+<li>支持各种格式化控制，包括宽度、对齐、填充、精度等。</li>
+<li>常用于字符串拼接、调试信息生成和动态生成字符串数据。</li>
+</ul>
+<h2 id="6-unwrap"><a href="#6-unwrap" class="headerlink" title="6.unwrap()"></a>6.unwrap()</h2><p>在 Rust 中，<code>unwrap()</code> 是一种常用于处理 <code>Option</code> 和 <code>Result</code> 类型的<strong>辅助方法</strong>。它的作用是解包（unwrap）一个 <code>Option</code> 或 <code>Result</code> 类型的值，并返回其内部的内容。如果该类型是 <code>None</code> 或 <code>Err</code>，那么 <code>unwrap()</code> 会引发程序的<strong>恐慌（panic）</strong>，导致程序中止。</p>
+<h3 id="unwrap-的基本用法"><a href="#unwrap-的基本用法" class="headerlink" title="unwrap() 的基本用法"></a><code>unwrap()</code> 的基本用法</h3><ol>
+<li><strong>对于 <code>Option&lt;T&gt;</code> 类型</strong>：<ul>
+<li><code>Option&lt;T&gt;</code> 表示一个可能包含值（<code>Some(T)</code>）或没有值（<code>None</code>）的类型。</li>
+<li><code>unwrap()</code> 会解包 <code>Some(T)</code> 并返回内部的值 <code>T</code>，如果是 <code>None</code>，则会导致程序崩溃并触发 <code>panic!</code>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">some_value</span> = <span class="title function_ invoke__">Some</span>(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 正常解包 Some(5)</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, some_value.<span class="title function_ invoke__">unwrap</span>());  <span class="comment">// 输出: Value: 5</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 触发 panic，因为 none_value 是 None</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, none_value.<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中：</p>
+<ul>
+<li><code>some_value.unwrap()</code> 成功返回值 <code>5</code>。</li>
+<li><code>none_value.unwrap()</code> 因为是 <code>None</code>，会导致程序崩溃，抛出 <code>panic!</code> 并中止程序。</li>
+</ul>
+<ol start="2">
+<li><strong>对于 <code>Result&lt;T, E&gt;</code> 类型</strong>：<ul>
+<li><code>Result&lt;T, E&gt;</code> 表示一个可能成功（<code>Ok(T)</code>）或失败（<code>Err(E)</code>）的类型，通常用于处理可能失败的操作，如文件 I&#x2F;O 或网络请求。</li>
+<li><code>unwrap()</code> 会解包 <code>Ok(T)</code> 并返回内部的值 <code>T</code>，如果是 <code>Err(E)</code>，则会导致 <code>panic!</code> 并输出错误信息。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">ok_value</span>: <span class="type">Result</span>&lt;<span class="type">i32</span>, &amp;<span class="type">str</span>&gt; = <span class="title function_ invoke__">Ok</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">err_value</span>: <span class="type">Result</span>&lt;<span class="type">i32</span>, &amp;<span class="type">str</span>&gt; = <span class="title function_ invoke__">Err</span>(<span class="string">&quot;Error occurred&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 正常解包 Ok(10)</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, ok_value.<span class="title function_ invoke__">unwrap</span>());  <span class="comment">// 输出: Value: 10</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 触发 panic，因为 err_value 是 Err</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, err_value.<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中：</p>
+<ul>
+<li><code>ok_value.unwrap()</code> 返回值 <code>10</code>。</li>
+<li><code>err_value.unwrap()</code> 是 <code>Err</code>，因此会导致 <code>panic!</code>，并显示错误消息。</li>
+</ul>
+<h3 id="unwrap-的风险"><a href="#unwrap-的风险" class="headerlink" title="unwrap() 的风险"></a><code>unwrap()</code> 的风险</h3><ul>
+<li><strong>安全性问题</strong>：<code>unwrap()</code> 会直接导致程序在 <code>None</code> 或 <code>Err</code> 的情况下崩溃，因此它是一种<strong>危险</strong>的做法，尤其是在生产代码中。使用 <code>unwrap()</code> 会引发恐慌（<code>panic!</code>），如果不能百分之百确保值是 <code>Some</code> 或 <code>Ok</code>，最好避免使用它。</li>
+<li><strong>建议使用其他替代方法</strong>：在实际开发中，最好用更安全的方式处理错误或 <code>None</code> 情况。</li>
+</ul>
+<h3 id="替代方法"><a href="#替代方法" class="headerlink" title="替代方法"></a>替代方法</h3><ol>
+<li>**<code>unwrap_or()</code>**：<ul>
+<li>如果是 <code>None</code> 或 <code>Err</code>，则返回一个默认值，而不会引发 <code>panic!</code>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">value</span> = none_value.<span class="title function_ invoke__">unwrap_or</span>(<span class="number">0</span>);  <span class="comment">// 如果是 None，就返回 0</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, value);  <span class="comment">// 输出: Value: 0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>**<code>unwrap_or_else()</code>**：<ul>
+<li>类似于 <code>unwrap_or()</code>，但它允许你传递一个闭包来生成默认值。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">value</span> = none_value.<span class="title function_ invoke__">unwrap_or_else</span>(|| &#123;</span><br><span class="line">        <span class="comment">// 可以在这里执行一些逻辑，然后返回一个默认值</span></span><br><span class="line">        <span class="number">42</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, value);  <span class="comment">// 输出: Value: 42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>**<code>expect()</code>**：<ul>
+<li><code>expect()</code> 类似于 <code>unwrap()</code>，但是在发生 <code>None</code> 或 <code>Err</code> 时，它会提供一个自定义错误消息，而不是使用默认的 <code>panic!</code> 信息。相比 <code>unwrap()</code>，<code>expect()</code> 更可取，因为它提供了更清晰的上下文，便于调试。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line">    <span class="comment">// 提供自定义的 panic 信息</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">value</span> = none_value.<span class="title function_ invoke__">expect</span>(<span class="string">&quot;Expected a value, but got None instead&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong><code>unwrap()</code></strong> 是一个简便的方式，可以快速解包 <code>Option</code> 或 <code>Result</code>，但存在一定的风险。如果值是 <code>None</code> 或 <code>Err</code>，它会触发 <code>panic!</code> 并导致程序崩溃。</li>
+<li>为了避免意外崩溃，建议使用更安全的方法，比如 <code>unwrap_or()</code>、<code>unwrap_or_else()</code> 或 <code>expect()</code>，来更好地处理可能的错误情况。</li>
+</ul>
+<h2 id="8-let-v-1-024-0xff-0o77-0b1111-1111"><a href="#8-let-v-1-024-0xff-0o77-0b1111-1111" class="headerlink" title="8. let v = 1_024 + 0xff + 0o77 + 0b1111_1111;"></a>8. <code>let v = 1_024 + 0xff + 0o77 + 0b1111_1111;</code></h2><p>这段代码：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">v</span> = <span class="number">1_024</span> + <span class="number">0xff</span> + <span class="number">0o77</span> + <span class="number">0b1111_1111</span>;</span><br></pre></td></tr></table></figure>
+
+<p>展示了 Rust 支持用不同的进制表示数值。我们来逐个解析每一个部分：</p>
+<ol>
+<li><p>**<code>1_024</code>**：</p>
+<ul>
+<li>这是十进制（常规的 10 进制）数 <code>1024</code>。下划线 <code>_</code> 是为了方便阅读，在 Rust 中不影响数字本身的值。相当于 <code>1024</code>。</li>
+</ul>
+</li>
+<li><p>**<code>0xff</code>**：</p>
+<ul>
+<li>这是一个十六进制（hexadecimal）数，用 <code>0x</code> 前缀表示。<code>ff</code> 在十六进制中表示 <code>255</code>，相当于 <code>0xFF = 255</code>。</li>
+</ul>
+</li>
+<li><p>**<code>0o77</code>**：</p>
+<ul>
+<li>这是一个八进制（octal）数，用 <code>0o</code> 前缀表示。<code>77</code> 在八进制中表示的十进制值是 <code>63</code>，因为 <code>0o77 = 63</code>。</li>
+</ul>
+</li>
+<li><p>**<code>0b1111_1111</code>**：</p>
+<ul>
+<li>这是一个二进制（binary）数，用 <code>0b</code> 前缀表示。<code>1111_1111</code> 是 8 位二进制数，相当于十进制的 <code>255</code>。下划线 <code>_</code> 用来分隔数字，方便阅读。相当于 <code>0b11111111 = 255</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>将这些数值相加的过程为：</p>
+<ul>
+<li><code>1024 + 255 + 63 + 255 = 1597</code></li>
+</ul>
+<p>所以这段代码中的 <code>v</code> 最终会得到值 <code>1597</code>。</p>
+<h3 id="进制表示法汇总："><a href="#进制表示法汇总：" class="headerlink" title="进制表示法汇总："></a>进制表示法汇总：</h3><ul>
+<li><strong>十进制（Decimal）</strong>：直接写出数字，如 <code>1024</code>。</li>
+<li><strong>十六进制（Hexadecimal）</strong>：使用 <code>0x</code> 前缀表示，如 <code>0xff</code> 表示 <code>255</code>。</li>
+<li><strong>八进制（Octal）</strong>：使用 <code>0o</code> 前缀表示，如 <code>0o77</code> 表示 <code>63</code>。</li>
+<li><strong>二进制（Binary）</strong>：使用 <code>0b</code> 前缀表示，如 <code>0b1111_1111</code> 表示 <code>255</code>。</li>
+</ul>
+<h2 id="9-f32和f64"><a href="#9-f32和f64" class="headerlink" title="9.f32和f64"></a>9.f32和f64</h2><p>f32：大约能表示 6-7 位十进制有效数字。<br>f64：大约能表示 15-16 位十进制有效数字。</p>
+<p>Rust 默认将浮点数面量当作 f64 类型，这是为了提供更高的精度。如果你需要 f32 类型，必须显式声明。</p>
+<h2 id="10-abs"><a href="#10-abs" class="headerlink" title="10.abs()"></a>10.abs()</h2><p>(0.1_f64 + 0.2 - 0.3).abs()：通过调用 .abs() 获取这个结果的绝对值。这样即便结果是负数，也能比较它的绝对值。</p>
+<h2 id="11-use-std-ops-Range-RangeInclusive"><a href="#11-use-std-ops-Range-RangeInclusive" class="headerlink" title="11.use std::ops::{Range, RangeInclusive};"></a>11.use std::ops::{Range, RangeInclusive};</h2><p>在 Rust 中，<code>std::ops</code> 模块提供了多种操作符的实现，包括范围（ranges）的相关操作。通过使用 <code>Range</code> 和 <code>RangeInclusive</code>，你可以创建表示一系列连续值的范围。下面将详细介绍这两个类型及其用法。</p>
+<h3 id="1-Range"><a href="#1-Range" class="headerlink" title="1. Range"></a>1. <code>Range</code></h3><p><code>Range</code> 表示一个不包含上限的范围。它的基本语法如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>; <span class="comment">// 表示 [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>1..5</code> 创建了一个从 <code>1</code> 到 <code>4</code> 的范围（包含 <code>1</code>，不包含 <code>5</code>）。</p>
+<h3 id="2-RangeInclusive"><a href="#2-RangeInclusive" class="headerlink" title="2. RangeInclusive"></a>2. <code>RangeInclusive</code></h3><p><code>RangeInclusive</code> 表示一个包含上限的范围。它的基本语法如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">inclusive_range</span> = <span class="number">1</span>..=<span class="number">5</span>; <span class="comment">// 表示 [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>1..=5</code> 创建了一个从 <code>1</code> 到 <code>5</code> 的范围（包含 <code>1</code> 和 <code>5</code>）。</p>
+<h3 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a><strong>示例</strong></h3><p>下面是一个简单的示例，演示如何使用 <code>Range</code> 和 <code>RangeInclusive</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 使用 Range</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>; <span class="comment">// 1, 2, 3, 4</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> range &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i); <span class="comment">// 输出 1, 2, 3, 4</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 RangeInclusive</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">inclusive_range</span> = <span class="number">1</span>..=<span class="number">5</span>; <span class="comment">// 1, 2, 3, 4, 5</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> inclusive_range &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i); <span class="comment">// 输出 1, 2, 3, 4, 5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a><strong>常用方法</strong></h3><ol>
+<li><p><strong><code>contains</code> 方法</strong>：检查一个值是否在范围内。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>;</span><br><span class="line"><span class="built_in">assert!</span>(range.<span class="title function_ invoke__">contains</span>(&amp;<span class="number">3</span>)); <span class="comment">// 返回 true</span></span><br><span class="line"><span class="built_in">assert!</span>(!range.<span class="title function_ invoke__">contains</span>(&amp;<span class="number">5</span>)); <span class="comment">// 返回 false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>len</code> 方法</strong>：获取范围中的元素数量。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;Length: &#123;&#125;&quot;</span>, range.<span class="title function_ invoke__">len</span>()); <span class="comment">// 输出 Length: 4</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>is_empty</code> 方法</strong>：检查范围是否为空。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">empty_range</span>: Range&lt;<span class="type">i32</span>&gt; = <span class="number">5</span>..<span class="number">5</span>;</span><br><span class="line"><span class="built_in">assert!</span>(empty_range.<span class="title function_ invoke__">is_empty</span>()); <span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><code>Range</code> 表示不包含上限的范围。</li>
+<li><code>RangeInclusive</code> 表示包含上限的范围。</li>
+<li>通过使用 <code>std::ops</code> 中的这两个类型，你可以轻松地处理一系列的连续值，并利用它们的方法进行检查和操作。</li>
+</ul>
+<h2 id="12-位操作"><a href="#12-位操作" class="headerlink" title="12.位操作"></a>12.位操作</h2><p>这段代码展示了 Rust 中的位操作（bitwise operations）以及如何以二进制和十六进制格式输出结果。让我们逐行解析每个 <code>println!</code> 语句。</p>
+<h3 id="1-位操作的概念"><a href="#1-位操作的概念" class="headerlink" title="1. 位操作的概念"></a>1. 位操作的概念</h3><p>位操作是直接对二进制位进行操作的运算。常见的位操作有：</p>
+<ul>
+<li>AND（与）</li>
+<li>OR（或）</li>
+<li>XOR（异或）</li>
+<li>左移（&lt;&lt;）</li>
+<li>右移（&gt;&gt;）</li>
+</ul>
+<h3 id="代码逐行解释"><a href="#代码逐行解释" class="headerlink" title="代码逐行解释"></a>代码逐行解释</h3><h4 id="第-1-行：AND-操作"><a href="#第-1-行：AND-操作" class="headerlink" title="第 1 行：AND 操作"></a>第 1 行：AND 操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0011 AND 0101 is &#123;:04b&#125;&quot;</span>, <span class="number">0b0011u32</span> &amp; <span class="number">0b0101</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>0b0011</code> 和 <code>0b0101</code> 是以二进制形式表示的数值，分别对应十进制的 <code>3</code> 和 <code>5</code>。</li>
+<li><code>&amp;</code> 是位与操作符，对应位同时为 <code>1</code> 时结果为 <code>1</code>。</li>
+<li>计算过程：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0011</span><br><span class="line">&amp; 0101</span><br><span class="line">------</span><br><span class="line">0001  (只在最低位为1的地方得到了1)</span><br></pre></td></tr></table></figure></li>
+<li>结果是 <code>1</code>，以 <code>&#123;:04b&#125;</code> 格式输出，输出格式化为 4 位二进制，即 <code>0001</code>。</li>
+</ul>
+<h4 id="第-2-行：OR-操作"><a href="#第-2-行：OR-操作" class="headerlink" title="第 2 行：OR 操作"></a>第 2 行：OR 操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0011 OR 0101 is &#123;:04b&#125;&quot;</span>, <span class="number">0b0011u32</span> | <span class="number">0b0101</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>|</code> 是位或操作符，对应位有一个为 <code>1</code> 时结果为 <code>1</code>。</li>
+<li>计算过程：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0011</span><br><span class="line">| 0101</span><br><span class="line">------</span><br><span class="line">0111  (在所有的位上，至少有一位是1)</span><br></pre></td></tr></table></figure></li>
+<li>结果是 <code>7</code>，以 <code>&#123;:04b&#125;</code> 格式输出，即 <code>0111</code>。</li>
+</ul>
+<h4 id="第-3-行：XOR-操作"><a href="#第-3-行：XOR-操作" class="headerlink" title="第 3 行：XOR 操作"></a>第 3 行：XOR 操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0011 XOR 0101 is &#123;:04b&#125;&quot;</span>, <span class="number">0b0011u32</span> ^ <span class="number">0b0101</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>^</code> 是位异或操作符，只有对应位不相同时结果才为 <code>1</code>。</li>
+<li>计算过程：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0011</span><br><span class="line">^ 0101</span><br><span class="line">------</span><br><span class="line">0110  (相同位结果为0，不同位结果为1)</span><br></pre></td></tr></table></figure></li>
+<li>结果是 <code>6</code>，以 <code>&#123;:04b&#125;</code> 格式输出，即 <code>0110</code>。</li>
+</ul>
+<h4 id="第-4-行：左移操作"><a href="#第-4-行：左移操作" class="headerlink" title="第 4 行：左移操作"></a>第 4 行：左移操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;1 &lt;&lt; 5 is &#123;&#125;&quot;</span>, <span class="number">1u32</span> &lt;&lt; <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&lt;&lt;</code> 是左移操作符，表示将数字的二进制位向左移动 <code>5</code> 位。</li>
+<li><code>1</code> 的二进制表示是 <code>0000 0001</code>，左移 <code>5</code> 位后变为 <code>0010 0000</code>，即 <code>32</code>（十进制）。</li>
+<li>输出结果为 <code>32</code>。</li>
+</ul>
+<h4 id="第-5-行：右移操作"><a href="#第-5-行：右移操作" class="headerlink" title="第 5 行：右移操作"></a>第 5 行：右移操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0x80 &gt;&gt; 2 is 0x&#123;:x&#125;&quot;</span>, <span class="number">0x80u32</span> &gt;&gt; <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&gt;&gt;</code> 是右移操作符，表示将数字的二进制位向右移动 <code>2</code> 位。</li>
+<li><code>0x80</code> 是十六进制，等于 <code>128</code>，其二进制表示为 <code>1000 0000</code>。</li>
+<li>右移 <code>2</code> 位后变为 <code>0010 0000</code>，即 <code>32</code>（十进制）。</li>
+<li>使用 <code>&#123;:x&#125;</code> 格式输出为十六进制，输出结果为 <code>0x20</code>。</li>
+</ul>
+<h3 id="总结-6"><a href="#总结-6" class="headerlink" title="总结"></a>总结</h3><p>这段代码通过展示位操作和移位操作，展示了如何在 Rust 中进行底层的位操作，并且通过格式化输出结果，以不同的进制表示，帮助理解位操作的效果。</p>
+<h2 id="13-size-of-val"><a href="#13-size-of-val" class="headerlink" title="13.size_of_val"></a>13.size_of_val</h2><p>在 Rust 中，<code>std::mem::size_of_val</code> 是一个函数，用于获取值在内存中占用的字节大小。它可以用于任何类型的值，包括基本类型、复合类型、以及用户定义的类型。下面是关于 <code>size_of_val</code> 的详细介绍和示例。</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p><code>size_of_val</code> 函数的签名如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">size_of_val</span>&lt;T&gt;(val: &amp;T) <span class="punctuation">-&gt;</span> <span class="type">usize</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>参数</strong>：它接受一个对值的引用（<code>&amp;T</code>），其中 <code>T</code> 可以是任何类型。</li>
+<li><strong>返回值</strong>：返回值的类型为 <code>usize</code>，表示在内存中占用的字节数。</li>
+</ul>
+<h3 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h3><p>以下是一个简单的示例，展示了如何使用 <code>size_of_val</code> 函数：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem::size_of_val;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">42</span>; <span class="comment">// 整数</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = <span class="number">3.14</span>; <span class="comment">// 浮点数</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]; <span class="comment">// 数组</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">str_slice</span> = <span class="string">&quot;Hello, world!&quot;</span>; <span class="comment">// 字符串切片</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of x: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(&amp;x)); <span class="comment">// 输出整数 x 占用的字节数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of y: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(&amp;y)); <span class="comment">// 输出浮点数 y 占用的字节数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of arr: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(&amp;arr)); <span class="comment">// 输出数组 arr 占用的字节数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of str_slice: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(str_slice)); <span class="comment">// 输出字符串切片占用的字节数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果解释"><a href="#结果解释" class="headerlink" title="结果解释"></a>结果解释</h3><ol>
+<li><strong>整数</strong> (<code>i32</code> 或 <code>u32</code>): 通常占用 <code>4</code> 字节。</li>
+<li><strong>浮点数</strong> (<code>f32</code> 或 <code>f64</code>): <code>f32</code> 通常占用 <code>4</code> 字节，<code>f64</code> 占用 <code>8</code> 字节。</li>
+<li><strong>数组</strong>：数组的大小等于数组元素大小乘以数组长度。</li>
+<li><strong>字符串切片</strong>：字符串切片的大小等于指针的大小（通常是 <code>8</code> 字节）加上长度信息（通常是 <code>8</code> 字节），因此总的大小为 <code>16</code> 字节。</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><code>size_of_val</code> 计算的是值的动态大小（如动态数组或字符串），而不是类型的固定大小。</li>
+<li>对于某些复合类型（如结构体或元组），它只计算直接包含在该类型中的值的大小，而不考虑指向的堆内存。</li>
+<li>对于切片、字符串等类型，<code>size_of_val</code> 返回的是指向数据的指针的大小，而不是指针指向的数据的大小。</li>
+</ul>
+<h3 id="总结-7"><a href="#总结-7" class="headerlink" title="总结"></a>总结</h3><p><code>size_of_val</code> 函数是一个非常有用的工具，用于检查在内存中占用的字节数，这对性能分析和内存管理非常重要。通过了解数据类型和结构的大小，可以帮助开发者优化代码和内存使用。</p>
+<p>在计算机中，一个中文字符的字节数取决于其编码方式。常见的编码方式包括 UTF-8 和 UTF-16。</p>
+<h3 id="1-UTF-8-编码"><a href="#1-UTF-8-编码" class="headerlink" title="1. UTF-8 编码"></a>1. UTF-8 编码</h3><p>在 UTF-8 编码中：</p>
+<ul>
+<li>中文字符通常占用 <strong>3</strong> 个字节。</li>
+<li>例如，汉字 “汉” 的 UTF-8 编码是 <code>E6 B1 89</code>，总共 3 个字节。</li>
+</ul>
+<h3 id="2-UTF-16-编码"><a href="#2-UTF-16-编码" class="headerlink" title="2. UTF-16 编码"></a>2. UTF-16 编码</h3><p>在 UTF-16 编码中：</p>
+<ul>
+<li>中文字符通常占用 <strong>2</strong> 个字节（使用基本多文种平面 BMP 的字符）。</li>
+<li>例如，汉字 “汉” 的 UTF-16 编码是 <code>6C49</code>，总共 2 个字节。</li>
+</ul>
+<h3 id="总结-8"><a href="#总结-8" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在 UTF-8 编码中，一个中文字符通常占用 <strong>3</strong> 字节。</li>
+<li>在 UTF-16 编码中，一个中文字符通常占用 <strong>2</strong> 字节。</li>
+</ul>
+<p>在 Rust 中，char 类型用于表示单个 Unicode 字符。每个 char 在 Rust 中占用 4 字节，固定大小，因为它以 UTF-32 编码表示 Unicode 字符。</p>
+<h2 id="14-返回值"><a href="#14-返回值" class="headerlink" title="14.返回值"></a>14.返回值</h2><p>在 Rust 中，函数的返回值类型是通过函数签名来定义的。Rust 中的空元组 <code>()</code> 被称为 <strong>unit type</strong>，表示没有实际值的类型。我们来看一下你的代码和相关概念。</p>
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v1</span>: () = (); <span class="comment">// v1 是一个 unit 类型的变量，赋值为 ()</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = (<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// v 是一个包含两个元素的元组 (2, 3)</span></span><br><span class="line">    <span class="built_in">assert_eq!</span>(v1, <span class="title function_ invoke__">implicitly_ret_unit</span>()); <span class="comment">// 断言 v1 和 implicitly_ret_unit() 的返回值相等</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Success!&quot;</span>); <span class="comment">// 如果一切正常，将打印 &quot;Success!&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">implicitly_ret_unit</span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;I will return a ()&quot;</span>); <span class="comment">// 打印信息</span></span><br><span class="line">    <span class="comment">// 没有显式的返回语句，返回值为 ()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ol>
+<li><p><strong>函数的返回值</strong>：</p>
+<ul>
+<li>如果函数没有显式的 <code>return</code> 语句，并且没有返回任何值，则函数默认返回 <code>()</code>。这就是 <code>implicitly_ret_unit</code> 函数的行为。尽管它打印了一条消息，但返回值实际上是 <code>()</code>。</li>
+</ul>
+</li>
+<li><p><strong>打印消息</strong>：</p>
+<ul>
+<li>当 <code>implicitly_ret_unit()</code> 被调用时，它执行 <code>println!(&quot;I will return a ()&quot;);</code>，打印出 <code>&quot;I will return a ()&quot;</code>。即使该函数返回的是 <code>()</code>，调用 <code>println!</code> 语句仍然会打印输出。</li>
+</ul>
+</li>
+<li><p><strong>断言</strong>：</p>
+<ul>
+<li><code>assert_eq!(v1, implicitly_ret_unit());</code> 断言 <code>v1</code> 和 <code>implicitly_ret_unit()</code> 的返回值相等。因为 <code>v1</code> 是 <code>()</code>，而 <code>implicitly_ret_unit()</code> 也返回 <code>()</code>，因此断言成立，不会引发 panic。</li>
+</ul>
+</li>
+<li><p><strong>程序输出</strong>：</p>
+<ul>
+<li>如果 <code>assert_eq!</code> 通过，程序将继续执行，并打印 <code>&quot;Success!&quot;</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-9"><a href="#总结-9" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在 Rust 中，任何没有返回值或没有显式返回的函数都默认返回 <code>()</code>（unit type）。</li>
+<li>由于 <code>implicitly_ret_unit</code> 函数内部调用了 <code>println!</code>，因此在调用该函数时，会打印出相应的信息。然后它会返回 <code>()</code>，这与 <code>v1</code> 相等，导致断言通过。</li>
+</ul>
+<p>在 Rust 中，<code>()</code>（unit type）表示一个没有值的类型，它被用作函数的返回值或表示没有任何有意义的信息。虽然 <code>()</code> 代表一个空值，但它的实际大小在内存中是 <strong>0</strong> 字节。</p>
+<h3 id="代码解析-1"><a href="#代码解析-1" class="headerlink" title="代码解析"></a>代码解析</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem::size_of_val;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">unit</span>: () = (); <span class="comment">// 创建一个 unit 类型的变量 unit，值为 ()</span></span><br><span class="line">    <span class="built_in">assert!</span>(<span class="title function_ invoke__">size_of_val</span>(&amp;unit) == <span class="number">0</span>); <span class="comment">// 断言 unit 的大小为 0</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Success!&quot;</span>); <span class="comment">// 如果断言通过，打印 &quot;Success!&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关键点-1"><a href="#关键点-1" class="headerlink" title="关键点"></a>关键点</h3><ol>
+<li><p><strong>unit type (<code>()</code>)</strong>:</p>
+<ul>
+<li><code>()</code> 是一个零大小的类型，表示没有值或空值。它通常用于函数没有返回值的情况，或者在需要一个占位符但不需要实际数据的地方。</li>
+</ul>
+</li>
+<li><p><strong><code>size_of_val</code> 函数</strong>:</p>
+<ul>
+<li><code>size_of_val(&amp;unit)</code> 返回变量 <code>unit</code> 在内存中占用的字节数。由于 <code>()</code> 没有实际内容，<code>size_of_val</code> 返回 <strong>0</strong>。</li>
+</ul>
+</li>
+<li><p><strong>断言</strong>:</p>
+<ul>
+<li><code>assert!(size_of_val(&amp;unit) == 0);</code> 检查 <code>unit</code> 的大小是否等于 <strong>0</strong>。如果条件为真，程序继续执行。如果条件为假，则会导致 panic。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-10"><a href="#总结-10" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在 Rust 中，<code>()</code> 作为一个零大小类型，其内存占用为 <strong>0</strong> 字节。</li>
+<li>因此，<code>size_of_val(&amp;unit)</code> 返回 <strong>0</strong> 是符合预期的，说明 <code>unit</code> 不占用任何内存。这使得它在需要占位但没有实际数据的场景中非常有用。</li>
+</ul>
+<h2 id="15-顺序"><a href="#15-顺序" class="headerlink" title="15.顺序"></a>15.顺序</h2><p>在 Rust 中，变量的声明与初始化顺序非常重要。你的两个代码示例展示了这种区别，导致其中一个代码块不能编译。</p>
+<h3 id="代码-1：可以编译的代码"><a href="#代码-1：可以编译的代码" class="headerlink" title="代码 1：可以编译的代码"></a>代码 1：可以编译的代码</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">3</span>; <span class="comment">// 在这里，x 被声明和初始化</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = x; <span class="comment">// v 被赋值为 x 的值，此时 x 已经有值</span></span><br><span class="line">    <span class="built_in">assert!</span>(v == <span class="number">3</span>); <span class="comment">// 断言 v 等于 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码-2：不能编译的代码"><a href="#代码-2：不能编译的代码" class="headerlink" title="代码 2：不能编译的代码"></a>代码 2：不能编译的代码</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = x; <span class="comment">// 尝试在 x 初始化之前使用 x，这会导致编译错误</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">3</span>; <span class="comment">// x 在这里才被声明和初始化</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">assert!</span>(v == <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><ul>
+<li><p><strong>代码 1</strong>：</p>
+<ul>
+<li><code>x</code> 先被声明和初始化为 <code>3</code>，因此当 <code>v</code> 被赋值时，<code>x</code> 已经有了值，<code>v</code> 可以成功被赋值为 <code>3</code>。</li>
+<li>这符合 Rust 的编译规则，所有变量必须在使用之前初始化。</li>
+</ul>
+</li>
+<li><p><strong>代码 2</strong>：</p>
+<ul>
+<li><code>let v = x;</code> 尝试在 <code>x</code> 还没有被声明和初始化时使用 <code>x</code>，这会导致编译器报错：**”cannot find value <code>x</code> in this scope”** 或 **”use of possibly uninitialized variable”**。</li>
+<li>在 Rust 中，变量必须先被声明并初始化，才能被其他变量使用。</li>
+<li>由于 <code>x</code> 在 <code>v</code> 初始化时还没有被声明，Rust 会拒绝编译。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rust-的变量使用规则"><a href="#Rust-的变量使用规则" class="headerlink" title="Rust 的变量使用规则"></a>Rust 的变量使用规则</h3><p>Rust 是一种<strong>静态类型</strong>语言，要求所有变量在使用前必须被初始化。这是 Rust 编译器确保内存安全的一个重要方面。在代码 2 中，<code>v</code> 试图在 <code>x</code> 还没有值的情况下使用它，这会导致未定义行为。因此，Rust 不允许这种操作。</p>
+<h3 id="总结-11"><a href="#总结-11" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>代码 1</strong> 是正确的，因为 <code>x</code> 在 <code>v</code> 被赋值之前已经声明并初始化。</li>
+<li><strong>代码 2</strong> 不正确，因为它试图在 <code>x</code> 初始化之前使用 <code>x</code>，违反了 Rust 的变量初始化顺序规则。</li>
+</ul>
+<h2 id="16-！"><a href="#16-！" class="headerlink" title="16.！"></a>16.！</h2><p>表示该函数永远不会返回。返回类型 !：这个类型表示函数不会返回任何值，它可能会导致程序终止、进入无限循环，或触发 panic。</p>
+<p>在 Rust 中，<code>!</code> 符号有几种不同的用法。以下是一些主要的用法：</p>
+<h3 id="1-宏调用"><a href="#1-宏调用" class="headerlink" title="1. 宏调用"></a>1. <strong>宏调用</strong></h3><p>在 Rust 中，<code>!</code> 通常用于调用宏。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// println! 是一个宏调用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-表示不返回值的类型"><a href="#2-表示不返回值的类型" class="headerlink" title="2. 表示不返回值的类型"></a>2. <strong>表示不返回值的类型</strong></h3><p>在函数签名中，<code>!</code> 也可以表示不返回值的类型，这称为 **”never type”**。它表示函数会导致程序终止或无限循环，不会返回到调用它的地方。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">panic_example</span>() <span class="punctuation">-&gt;</span> ! &#123;</span><br><span class="line">    <span class="built_in">panic!</span>(<span class="string">&quot;This function never returns!&quot;</span>); <span class="comment">// 触发 panic，程序终止</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-逻辑非运算符"><a href="#3-逻辑非运算符" class="headerlink" title="3. 逻辑非运算符"></a>3. <strong>逻辑非运算符</strong></h3><p><code>!</code> 也可以用作逻辑非运算符，用于反转布尔值。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">condition</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">negated</span> = !condition; <span class="comment">// negated 现在是 false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="17-发散函数"><a href="#17-发散函数" class="headerlink" title="17.发散函数"></a>17.发散函数</h2><p>“发散函数”通常指的是在某些情况下无法返回一个具体值的函数，或者是由于某种原因而进入无限循环、永远不终止的函数。在编程语言中，特别是在 Rust 中，发散函数常常用来描述那些不会正常返回到调用点的函数。这类函数的返回类型通常是 <code>!</code>，表示“永远不返回”（never type）。</p>
+<h3 id="Rust-中的发散函数"><a href="#Rust-中的发散函数" class="headerlink" title="Rust 中的发散函数"></a>Rust 中的发散函数</h3><p>在 Rust 中，发散函数的一个典型例子是 <code>panic!</code> 或无限循环的函数，例如前面提到的 <code>never_return</code> 函数。它们会导致程序运行到某个点后停止或陷入循环，永远不返回到调用它的地方。</p>
+<h4 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">never_return</span>() <span class="punctuation">-&gt;</span> ! &#123;</span><br><span class="line">    <span class="keyword">loop</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;I will never return!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="作用和用途"><a href="#作用和用途" class="headerlink" title="作用和用途"></a>作用和用途</h3><ol>
+<li><p><strong>控制流</strong>：发散函数可以用于控制程序的流，例如在错误处理或状态监控中。当某个条件不满足时，你可以选择让程序 panic 或进入一个无限循环，以避免后续不正确的操作。</p>
+</li>
+<li><p><strong>确保类型安全</strong>：通过明确使用 <code>!</code> 类型，Rust 语言可以确保类型系统的安全性，任何返回 <code>!</code> 的函数都可以被视为不返回，因此在类型系统中不会引起错误。</p>
+</li>
+<li><p><strong>实现守护进程或服务</strong>：在一些需要持续运行的服务中，例如后台任务或守护进程，发散函数可以用于实现这些功能。</p>
+</li>
+</ol>
+<h3 id="总结-12"><a href="#总结-12" class="headerlink" title="总结"></a>总结</h3><p>发散函数在 Rust 中用于表示不会返回的函数，帮助开发者控制程序的流，并确保类型的安全性。这种设计模式在一些特殊场景中非常有用，例如错误处理、守护进程等。</p>
+<p>unimplemented!() 是一个宏，用于指示函数尚未实现。调用这个宏会导致程序在运行时 panic，通常在开发过程中使用，以确保在调用未实现的代码时会显式地出错。</p>
+<p>todo!() 和 unimplemented!() 类似，都是用于表示某个代码部分尚未实现的宏。调用 todo!() 时，也会导致程序在运行时 panic。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" data-id="cm477y2mp000uc4u7apsz75v4" data-title="Rust复习-常见编程概念" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-20-21" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/04/20-21/" class="article-date">
+  <time class="dt-published" datetime="2024-10-04T06:10:38.000Z" itemprop="datePublished">2024-10-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/04/20-21/">北大肖臻老师《区块链技术与应用》笔记20-21</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程20：以太坊发挖矿难度调整"><a href="#课程20：以太坊发挖矿难度调整" class="headerlink" title="课程20：以太坊发挖矿难度调整"></a>课程20：以太坊发挖矿难度调整</h1><p>比特币是每隔2016个区块调整一下挖矿难度，目标维持出块时间10分钟左右。</p>
+<p>以太坊每个区块都有可能调整挖矿难度，调整的方法也比较复杂。</p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-1.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-2.png"></p>
+<p>这是难度调整公式，H是指当前这个区块，Hi就是区块的序号，D（H）是这个区块当前的难度。</p>
+<p>难度调整公式有2部分，max括号里的是第一部分（基础部分），目的是维持出块时间大概在15秒左右，后面跟的<br><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>ϵ</mi></math><br>是第二部分，也称为难度炸弹，主要是为了向权益证明过渡。</p>
+<p>第一部分调整的方法是在副区块的难度基础上加上一些自调整的部分<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>P</mi><mo>（</mo><mi>H</mi><mo>）</mo><mrow><mstyle mathsize="0.7em"><mi>H</mi></mstyle></mrow><mrow><mstyle mathsize="0.5em"><mi>d</mi></mstyle></mrow></math>这里就是父区块的难度，自调整部分为<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>x</mi><mo>×</mo><mi>ς</mi><mrow><mstyle mathsize="0.5em"><mn>2</mn></mstyle></mrow></math>。所谓的父区块就是当前区块链的最后一个区块。对于我们现在正在挖的区块来说，这是当前区块的父区块。</p>
+<p>第一部分的难度调整有一个下限，就是<math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>D</mi><mrow><mstyle mathsize="0.5em"><mn>0</mn></mstyle></mrow><mo>≡</mo><mn>131072</mn></math>.这是为了保证挖矿有一个最低的难度。</p>
+<p>第一部分：自适应难度调整部分<br><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-3.png"></p>
+<p>这里的x是调整的力度，是父区块的难度除以2048，所以不论是上调还是下调，都是按照这个力度的整数倍进行调整的，按照父区块的难度的1&#x2F;2048作为调整的一个单位。</p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-4.png"></p>
+<p>第二行的<br><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>ς</mi><mrow><mstyle mathsize="0.5em"><mn>2</mn></mstyle></mrow></math><br>和两个因素有关，一个是出块时间，另一个是是否有叔父区块。因为当前区块链的最后一个区块，包含有叔父区块的话，这个系统中的货币总供应量是增加的，<br>因为叔父区块要得到出块奖励，包含叔父区块的这个父区块也要得到一定的奖励，这些都会导致货币的总供应量增加，那么为了维持系统的总供应量的稳定，所以当前正在挖这个区块的难度就要提高一个单位。</p>
+<p>后面的-99是指难度调整的这个系数部分有一个下限，最多一次性只能调整99个单位，每个单位是父区块难度的1&#x2F;2048，所以一次性下调难度最多是99&#x2F;2048。</p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-5.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-6.png"></p>
+<p>其中的y就是取决于有没有叔父区块，有叔父区块的话y&#x3D;2，没有叔父区块的话y&#x3D;1，不论是那种情况，都是常数。如果后面那一样比前一项大的话，那么难度下调。</p>
+<p>为什么要除以9，看图。如果更长，下调的幅度也会更大，但不会下调到99以上。</p>
+<h4 id="难度炸弹部分（difficulty-bomb）"><a href="#难度炸弹部分（difficulty-bomb）" class="headerlink" title="难度炸弹部分（difficulty bomb）"></a>难度炸弹部分（difficulty bomb）</h4><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-7.png"></p>
+<p>为了防止矿工抵制，不愿意转入权益证明，硬分叉。当时设置的时候没有Hi第二行。难度炸弹的取值呈指数型增长，刚上线时难度低。等到这个难度炸弹威力发挥出来的时候，也是改pos的时候。减了300000个区块，就是回调难度炸弹的时候。<br><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-8.png"></p>
+<h2 id="以太坊的发展阶段"><a href="#以太坊的发展阶段" class="headerlink" title="以太坊的发展阶段"></a>以太坊的发展阶段</h2><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-9.png"></p>
+<p>拜占庭阶段：难度炸弹的回调</p>
+<p>EIP：Ethereum improvement proposal</p>
+<p>BIP：Bitcoin improvement proposal</p>
+<p>在难度回调的时候同时减少出块奖励，不这样对回调之前的miner是不公平的，同时也要维护系统总供应量的稳定.</p>
+<h3 id="具体代码实现"><a href="#具体代码实现" class="headerlink" title="具体代码实现"></a>具体代码实现</h3><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-10.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-11.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-12.png"><br>为什么只是减少299999个不是300000，因为当前判断的是父区块的时候，而当前正在挖的区块比父区块的序号要多一个。</p>
+<h3 id="以太坊中的一些实际统计情况"><a href="#以太坊中的一些实际统计情况" class="headerlink" title="以太坊中的一些实际统计情况"></a>以太坊中的一些实际统计情况</h3><p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-13.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-14.png"></p>
+<p><img src="https://github.com/Auo578/xiao-classimage/blob/main/%E8%82%961-5/20-15.png"></p>
+<p>早期时候挖矿难度的调整主要是以稳定出块时间为主</p>
+<p>对以太坊来说，最长合法链 &#x3D; 最难合法链，总难度最大的合法链。每个区块的难度反映的是挖出这个区块所需要的工作量。而总难度最大就是挖出这条链上所有区块需要的总工作量最大。</p>
+<h1 id="课程21：权益证明"><a href="#课程21：权益证明" class="headerlink" title="课程21：权益证明"></a>课程21：权益证明</h1><p>POS（poof of stake）</p>
+<p>pow非常浪费电、资源。</p>
+<p>TWH&#x3D; terawatt（10的12次方） hours</p>
+<p>kwh&#x3D; kilowatt（10的3次方） hours</p>
+<p>出块奖励，激励矿工来参与维护</p>
+<p>既然挖矿最终是比拼资金，那么只要直接比拼资金就不用挖矿，消耗电力了 -&gt; 权益证明的基本思想（Virtual mining）</p>
+<p>采用权益证明的加密货币，一般在正式发行之前，会先预留一部分货币给开发者，也会出售一部分货币来换取开发这个加密货币所需要的资金。</p>
+<p>将来按照权益证明的共识机制，每个按照持有货币的数量来进行投票。</p>
+<p>优点在于：1.省去了挖矿的过程，也避免了能耗和带来的影响。2.基于工作量证明的共识系统从某种意义上说，维护这种这个区块链安全的资源不是一个闭环，blockchain is secured by mining，mining的equipment是用法币买来的，是从加密货币的生态系统外面得到的，所以如果有某个组织想要发动恶意攻击，只需要用足够的资金来购买挖矿设备，然后占据到这个加密货币总算力一半以上的算力就可以了。也就是说发动这种攻击所需要的资源是可以从外面得到的。</p>
+<p>altcoin infanticide：把小的加密货币通过这种方式扼杀在摇篮里</p>
+<p>如果采用的是权益证明，所以如果某个人想要发动51%的攻击，首先要设法获得这个币种发行量的一半以上的份额。发动攻击的资源只能从这个加密货币系统内部得到。所以是个闭环。而一旦有人大量买入加密货币，那么价格会大涨，类似于股份制公司遭受恶意收购。</p>
+<p>权益证明和工作量证明并不是互斥的，有的加密货币采用的是一种混合模型，就是仍然挖矿，但是挖矿的难度和持有的权益、币是相关的，持有的币越多挖矿的难度越小。</p>
+<p>如果这样设置，系统中持有币数量最多的那个人，每次挖矿都是最容易的，所以有的加密货币要求投入的币会被锁定一段时间不能够重复使用，proof of deposit。</p>
+<h3 id="权益证明挑战"><a href="#权益证明挑战" class="headerlink" title="权益证明挑战"></a>权益证明挑战</h3><p>早期权益证明的挑战就是两边下注的问题，nothing at stake。挖矿不会两边都挖，但是权益证明可以两边都下注，如果上面那条链成为最长合法链，那么下面那条链锁定的那些币是没有影响的。</p>
+<p>以太坊采用的权益证明协议：casper the friendly finality gadget（FFG）.在过渡阶段也是要和pow混合使用，为工作量提高证明叫finality。finality是一种最终的状态，包含在finality的交易不会被取消，单纯基于pow的交易是有可能被回滚的（分叉），单纯基于挖矿的区块链是缺乏这种finality的。</p>
+<p>casper中引入一种概念，叫validator验证者，要想成为validator必须要投入一定数量的以太币作为保证金，这个保证金会被系统锁定，validator的职责是要推动这个系统达成共识，投票决定哪条链是最长合法链。投票的权重取决于保证金数目大小，类似于数据库中的 two phase commit。混用的时候还是有人挖矿，挖矿的时候每挖出100个区块，就作为epoch，然后决定他能不能成为一个validator要进行一个投票。第一轮投票是一个prepare message，第二轮投票是commit message。casper规定每一轮投票都要得到2&#x2F;3以上的验证者才能通过，按照保证金的金额大小来算。实际系统当中不区分两个message，而且把epoch从原来的100个区块减少为50个区块，每个apoch只要一轮投票就可以了。这一轮投票对于上一个epoch来说，他是commit message，对下一个epoch来说是prepare message。那么要连续两轮投票，两个epoch都得到2&#x2F;3以上的多数才算有效。</p>
+<p>对于验证者，如果验证者履行职责，那么可以得到相应的奖励，类似于miner的block reward。如果验证者有不良行为被发现，要受到相应的处罚。比如行政不作为，不投票，达不成共识，那么这种情况系统要扣掉它的一部分保证金。乱投票，两边下注，那么要没收全部的保证金。而没收的保证金被销毁了，相当于减少了系统中以太币的总供应量，每个验证者有一定的任期，任期满之后要经过一段时间的等待期，等待期是为了让其他的节点可以检举揭发这个验证者有没有什么不良行为进行惩处。如果等待期通过，那么验证者可以取回当初的保证金和应该得到的奖励。</p>
+<p>casper协议可以给挖矿挖出的区块链的某种状态做一个检查点，check point，那么这个check point是不是绝对安全的？即通过验证者投票达成的finality,有没有可能被推翻？一定是大量的验证者两边下注，给有冲突的finality都下注，casper要求每轮投票有2&#x2F;3的验证者通过才算通过，如果出现这种情况，只是有1&#x2F;3的验证者是都投票了，一旦发现，1&#x2F;3验证者的保证金将会没收。</p>
+<p>随着时间推移，pos的奖励越来越多，pow的奖励越来越少。</p>
+<h5 id="为什么不开始就用pos"><a href="#为什么不开始就用pos" class="headerlink" title="为什么不开始就用pos"></a>为什么不开始就用pos</h5><p>因为pos还不成熟，pow很成熟，经过了bug boundy的检验。</p>
+<p>eos使用dpos：delegated proof of stake的协议，先用投票的方法选出21个超级节点，然后再由超级节点产生区块。pos在2018处于探索状态。</p>
+<p>有些人认为挖矿可以有效消耗过度产能，带动当地经济的发展</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/04/20-21/" data-id="cm477y2lp0006c4u7glwohnoz" data-title="北大肖臻老师《区块链技术与应用》笔记20-21" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖18" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/03/%E8%82%9618/" class="article-date">
+  <time class="dt-published" datetime="2024-10-03T06:10:38.000Z" itemprop="datePublished">2024-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/03/%E8%82%9618/">北大肖臻老师《区块链技术与应用》笔记18</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程18-GHOST协议"><a href="#课程18-GHOST协议" class="headerlink" title="课程18 GHOST协议"></a>课程18 GHOST协议</h1><p>以太坊中的共识机制，ghost协议，以太坊把系统的出块时间提高到了十几秒，这对于提高系统的through put和降低反应时间都很有帮助。</p>
+<p>Throughput 在区块链系统中是指系统在单位时间内处理交易的能力或速度。具体来说，它表示每秒钟区块链能够处理的交易数量（TPS, Transactions Per Second）。这是一个衡量区块链性能的重要指标，尤其是在涉及到高并发的场景时。</p>
+<p>以太坊通过引入 GHOST（Greedy Heaviest Observed Subtree）协议 来提升出块速度，从而间接提高了系统的吞吐量（throughput）。GHOST 协议能够更好地处理由于高出块速度带来的孤块问题，减少分叉的影响，使得区块链能够更加高效地进行交易处理。</p>
+<p>比特币和以太坊都是运行在应用层的共识协议，底层是一个p2p over the network，这个over the network的本身传输时间是比较长的，因为他的拓扑协议做flooding时没有考虑实际的拓扑结构。所带来的问题是，发布一个区块后，区块在网络上传到其他节点，可能需要十几秒的时间。比特币十分钟的出块时间，足够新发布的区块传播到其他节点。对于以太坊来说，临时性的分叉变成了常态，而且分叉的数目也会更多，因为十几秒的出块时间，其他节点没来得及收到发布的区块，等收到时可能自己已经挖出区块。</p>
+<p>这种区块对共识机制来说，比特币中除了最长合法链的其他分叉上挖出的币是作废的orphan block,stale block。但是以太坊分叉概率很高，矿工白挖几率变高。mining pool。正常情况希望，收益比例等于算力比例，但是以太坊依然这样则矿池得到的收益超过算力比例，mining centralization，并且大矿池网络各个区块可能都有接口，所以他挖出的区块可能更早地被其他节点所收到，恶性循环，centralization bias（中心化带来的不成比例的优势）。</p>
+<h2 id="ghost协议"><a href="#ghost协议" class="headerlink" title="ghost协议"></a>ghost协议</h2><h3 id="uncle-block"><a href="#uncle-block" class="headerlink" title="uncle block"></a>uncle block</h3><p>ghost协议比以太坊出现早，以太坊对ghost协议做了修改。挖到的区块作废，但仍给予一些奖励。所谓的orphan block、stale block变成uncle block。规定最长合法链的下个区块可以把uncle block包含进来，这样uncle block可以得到7&#x2F;8的出块奖励，而对于当前的区块，如果包含uncle block可以包含1&#x2F;32的额外的出块奖励，而一个区块最多可以包括2个uncle block。这样设计补贴矿工，并且有利于鼓励系统中出现分叉之后及时合并？</p>
+<p>问题出现第三个怎么办？作为uncle block的前提是在挖这个区块的时候已经知道uncle block的存在了。因为uncle block的reward还是很高，所以不限制的话以太坊的币就不太值钱了。</p>
+<p>矿工比较自私？出于商业利益？商业上有的矿池可能故意这么做。</p>
+<p>所以把协议改了，之前的叔父区块被第无数个区块作为叔父区块。可能隔着几代，当代uncle，7&#x2F;8，上代6&#x2F;8，上上代5&#x2F;8，以此类推，1&#x2F;8的那个就不算了，最少是2&#x2F;8的作为叔父区块，在七代之内。</p>
+<p>不限制叔父的辈分的话1.对于全节点来说要维护的状态就太多了。2.有利于出现分叉之后尽快进行合并</p>
+<p>uncle reward，包含叔父区块都能得到1&#x2F;32的出块奖励。</p>
+<p>而这样设计的目的是为了解决系统中出现的临时性分叉。</p>
+<h4 id="出块奖励"><a href="#出块奖励" class="headerlink" title="出块奖励"></a>出块奖励</h4><p>比特币的出块奖励分为，block reward（静态奖励）和tx fee（动态奖励）。</p>
+<p>以太坊分为block reward和gas fee（动态奖励），执行这个区块的时候会执行智能合约，执行智能合约的时候可以得到gas fee。gas fee所占的比例是很小的，大部分都是block reward。以太坊没有规定定期出块奖励减半。比特币：数字黄金，储值。以太坊：石油，可生成。</p>
+<p>把uncle block包含进的时候，uncle block里的交易不要执行。这两个区块里的交易可能是有冲突的。</p>
+<p>以太坊中是执行最长合法链上的交易，并且根本不检查叔父区块里交易的合法性。只检测uncle block是不是合法发布的区块，hard。</p>
+<p>交易在叔父区块上不执行，但是可能等一个区块到主流区块，还是会执行，最终是flooding到所有节点的。</p>
+<p>关于分叉链，如果也给后面的reward会造成forking attack，使得attack的风险大幅下降。</p>
+<p>#######后面的笔记没了，我也不知道为什么，我记得应该是保存了啊，但是没了，一点都没了，还有课程19的笔记，都没了都没了，没了没了没了没了，所有的努力都是一场空。。。。。。啊啊啊啊啊啊啊，是网络延迟吗，不对啊这是本地文件，我还启动了自动保存啊，这么不靠谱吗。之后补吧，我也不知道之后是什么时候，回顾的时候？</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/03/%E8%82%9618/" data-id="cm477y2ne0012c4u73n2ybcva" data-title="北大肖臻老师《区块链技术与应用》笔记18" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-16-17" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/03/16-17/" class="article-date">
+  <time class="dt-published" datetime="2024-10-02T18:52:04.000Z" itemprop="datePublished">2024-10-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/03/16-17/">北大肖臻老师《区块链技术与应用》笔记16-17</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="16-以太坊中的状态树（数据结构）"><a href="#16-以太坊中的状态树（数据结构）" class="headerlink" title="16 以太坊中的状态树（数据结构）"></a>16 以太坊中的状态树（数据结构）</h1><p>以太坊采用的是基于账户的模式，系统显式地维护每个账户上有多少余额。</p>
+<p>要完成的功能，从一个账户地址到一个账户状态的映射，address -&gt; state .以太坊中使用的账户地址是160位的，160 bits，20bytes，一般表示成40个16进制的数。</p>
+<p>状态就是指的外部账户和合约账户的状态，包括balance、nonse、code、storage。</p>
+<h2 id="怎样的数据结构实现映射？"><a href="#怎样的数据结构实现映射？" class="headerlink" title="怎样的数据结构实现映射？"></a>怎样的数据结构实现映射？</h2><h3 id="1-直观使用哈希表（×）"><a href="#1-直观使用哈希表（×）" class="headerlink" title="1.直观使用哈希表（×）"></a>1.直观使用哈希表（×）</h3><p>直观像很典型的key value pair。所以直观的想法是使用哈希表，如果不考虑哈希碰撞，那么查询的效率基本是在常数时间内完成的。用哈希表怎么提供merkle proof,怎么提供账户余额？把哈希表中的元素组织成一个merkle tree然后算出一个根哈希值，根哈希值保存在block header里。这种问题是如果发布一个新区块，要执行交易，就比如会使哈希表的内容发生变化，然后发布下一个区块时，要把哈希表中的内容重新组织成一个merkle tree，代价太大。实际上真正发生变化的账户状态只是一小部分，因为只有那个区块所包含的交易所关联的账户才会发生变化，大多数账户的状态是不变的。</p>
+<p>同样在比特币系统中每出一个区块，都要重新构造一个merkle tree，merkle tree是把区块内包含的交易组织成一个merkle tree。在区块链中，每次发布一个区块又有一系列新的交易，所以比特币当中的merkle tree是immutable的。每次发布一个区块对应着一个merkle tree，构建完之后只有下次发布一个新的区块再构建一个merkle tree。区块里最多差不多4000个交易，1M&#x2F;250bytes，上限。所以每次发布一个区块，比特币里构建一个merkle tree，是要把这几百个到几千个交易构成一个merkle tree。</p>
+<p>所以如果在以太坊中采用这种方法是要把所有的以太坊账户一起构建成一个merkle tree，而这个数目的比之前每个区块中几百个几千个交易高出好几个数量级，相当每次发布一个区块，要把所有的账户遍历一遍构建成一个merkle tree。merkle tree作用：1.提供merkle proof证明这个账户有多少钱 2.维护各个全节点之间状态的一致性，如果没有根哈希值发布出来，每个节点就是在内部本地维护一个数据结构，那怎么知道自己的数据结构的状态和别人数据结构的状态是否一致？这也是比特币中为什么把根哈希值写在块头的一个原因。就是对应当前的区块中包含哪些交易，所有的全节点要有一个共识。</p>
+<p>所以如果就简单每个全节点在本地维护一个哈希表，然后在需要构建merkle tree的时候构建出merkle tree，根哈希值放在区块头里是并不行的。哈希表本身的效率是不错的，但是每次构建merkle tree的代价太大。</p>
+<h3 id="直接使用merkle-tree（×）"><a href="#直接使用merkle-tree（×）" class="headerlink" title="直接使用merkle tree（×）"></a>直接使用merkle tree（×）</h3><p>不使用哈希表，直接构建一个merkle tree，把所有的账户放进去，要改的时候直接在merkle tree里改。</p>
+<p>因为每次更新的都是一小部分账户，所以每次改的只是merkle tree 的一小部分。</p>
+<p>第一个问题在于merkle tree没有提供一个高效的查找和更新的方法。</p>
+<p>比特币中的merkle tree，最底下一层是传达层，然后把哈希值放到上面的节点里两两结合，依次向上传递。没有提供一个高效的查找和更新的方法。</p>
+<p>第二个问题在于直接构造一个这样的merkle tree，这样的merkle tree要不要排序？第二节里的sorted merkle tree。不排序查找速度会变慢，但是更重要的是比特币中要证明一个交易在区块里是不用排序的，但是要证明一个交易没有包含在一个区块里是需要用排序的版本，否则它证明的代价就变成了线性的，变成 O(n)。</p>
+<p>第三个问题是这些账户组成这个merkle tree，叶节点是这些账户的信息，如果不规定这些账户在叶节点的出现顺序，那么这样构建出来的merkle tree不是唯一的，每个节点根据听到的交易的顺序构建merkle tree，叶节点是乱的，最后构建出来的merkle tree是不一样的，算出的根哈希值也是不一样的。</p>
+<p>为什么比特币就没有这个问题，也不排序，收入每个节点打造的顺序不一样，但是最后是获得记账权的节点说了算，所以顺序是唯一的，是发布区块的那个节点说了算的。为什么在这不行，以太坊也这样则是需要把账户的状态发布到区块里，但你发布的是所有账户的状态，不是区块里包含的交易。每隔十几秒发布一个区块这是不可行的。</p>
+<p>不排序，不唯一的merkle true是不行的，用排序，缩减的merkle true，产生一个新的账户，可能在叶节点的中间，后面的数又得重新排序排。新加入一个交易，哈希表代价是常数的，但是merkle tree 得重构。</p>
+<p>排序的merkle tree插入和删除代价大，以太坊中没有显式的删除账户的操作。</p>
+<h3 id="以太坊采用数据结构"><a href="#以太坊采用数据结构" class="headerlink" title="以太坊采用数据结构"></a>以太坊采用数据结构</h3><p>trie：trie从retrieval（信息检索，字典数，前缀数）来的，也是一种key value的ston，一般来说key是字符串用的比较多，单词有可能在trie的一个中间节点结束。</p>
+<p>这个结构有一些特点：</p>
+<p>1.在trie当中每个节点的分支数目取决于这个key值里每个元素的取值范围。在以太坊里表示成40个16进制的数，所以也表示成branding factor。0到f加上一个结束标志词，17.</p>
+<p>2.trie的查找效率取决于这个key的长度，键值他越长，查找需要访问的内存的次数就越多。应用所有的键值都是一样长的，40。</p>
+<p>3.如果用哈希表来储存这个key ston，从理论上说是有可能出现哈希碰撞的，有可能有两个不同地址的账户恰好映射到了哈希表的同一个位置。trie只要两个地址不一样，最后肯定映射到书中的两个不同分支，所以trie是不会出现碰撞的</p>
+<p>4.merkle tree中一个账户插入到merkle tree的顺序不一样，得到数的结构也不一样。trie，给定一组输入，只要输入不变，不论这个输入怎么打乱重排，插入进去构成的trie是同一棵树。</p>
+<p>5.和更新有关，每次发布一个区块，只有个别收到影响的账户的状态才会改变。所以更新操作的局部性很重要。</p>
+<p>trie缺点</p>
+<p>1.存储有点浪费，存储的开销。节点合并，提高开销，查找效率。</p>
+<p>patricia tree(trie)：经过了路径压缩的前缀树，压缩前缀树。压缩后直观上树的高度明显缩短-&gt;访问内存的次数大大减少，效率提高。但是如果新插入一个新的单词，那么原来压缩的路径可能需要扩展开。</p>
+<p>路径压缩在树中插入的这些键值的分布在比较稀疏的情况下，差距比较大。</p>
+<p>而在应用中的键值是地址，160位，2的160次方，非常稀疏。以太坊的普通账户创造方式和比特币是一样的，没有一个中央的节点，每个用户自己独立创造账户。防止碰撞，就是地址足够长，地址足够稀疏，但这也是一个去中心化系统防止账户冲突的唯一办法。</p>
+<h3 id="MPT（merkle-partricia-tree）"><a href="#MPT（merkle-partricia-tree）" class="headerlink" title="MPT（merkle partricia tree）"></a>MPT（merkle partricia tree）</h3><p>merkle tree and binary tree，把普通指针换成哈希指针。</p>
+<p>把所有的账户组织成一个patricia tree,用路径压缩提高效率，然后把普通指针换成哈希指针，所以就可以计算出一个根哈希值了-&gt; block header。</p>
+<p>比特币的block header里只有一个根哈希值，就是区块里包含的交易组成的merkle tree 的根哈希值。</p>
+<p>而以太坊中的有三个根哈希值，也有一个交易组成的叫交易数，现在讲的是状态数，账户状态组成了一个merkle tree，他的根哈希值。</p>
+<p>根哈希值：防止篡改。 merkle proof：证明余额（账户所在的分支，然后向上，作为merkle proof 发给轻节点，然后轻节点验证余额）</p>
+<p>能不能证明某个交易是不存在的 -&gt; 能不能证明MPT中的某个键值是不存在的：</p>
+<p>其证明方法和sorted merkle tree类似，如果存在，在的分支的merkle proof发过去，法这个分支发过去，可以证明其是不存在的。</p>
+<p><strong>以太坊用的是modified MPT.</strong></p>
+<p>节点出现了三种：</p>
+<p>Root:extension node,根节点，key。shared nibble：16进制数，1个nibble就是一个16进制数</p>
+<p>branch node：分开了</p>
+<p>leaf node：叶节点</p>
+<p>这就是状态数</p>
+<p>根节点取哈希之后的哈希值要写在块头，奇节点和偶节点。</p>
+<p>每次发布一个新区块时，状态树中有一些节点的值会发生变化，这些改变不是在原地改的，而是新建一些分支，原来的状态其实是保留下来的。</p>
+<p>例子中state root 状态树根哈希值，虽然每个区块都有一个新的状态树，但是他们的大多数节点是共享的，只有那些发生过改变的节点需要新建一个分支</p>
+<p>合约账户的存储也是用MPT的形式保存下来的，存储也是一个key value store维护的是从一个变量到这个变量取值的一个映射。</p>
+<p>所以以太坊中的结构是很多大的mpt包含很多小的MPT，每一个合约账户的存储都是一个小的MPT</p>
+<p>所以系统中每个全节点需要维护的不是一颗MPT,而是每次出现一个区块都要新建一个MPT，只不过这些状态数中大部分节点是共享的，只有少数发生变化的节点要新建分支。</p>
+<p>为什么要保留历史状态：1.作为mode？ 2.临时性的分叉常态，其中一个分叉胜出后其他分叉区块回滚，然后沿着正确分支往下。为了回滚，当前这个交易有可能要undo。如果是比特币，则交易比较简单有时候可以通过反向操作推算出前一个状态。而以太坊中，有图灵完备的智能合约，比较复杂，难以推算以前的状态。所以为了回滚，必须保存一些状态。</p>
+<h3 id="以太坊数据结构例子"><a href="#以太坊数据结构例子" class="headerlink" title="以太坊数据结构例子"></a>以太坊数据结构例子</h3><h4 id="head-struct"><a href="#head-struct" class="headerlink" title="head struct"></a>head struct</h4><p>uncle hash 可能比parent hash大很多辈分。</p>
+<p>以太坊中有三颗树，状态树，交易树和收据树。</p>
+<p>bloom是bloom filter，和收据树是相关的，提高一种高效查询符合某种条件的交易的执行结果。</p>
+<p>difficulty是挖矿的难度</p>
+<p>gaslimit和gas used和汽油费相关，智能合约要消耗汽油费，类似于比特币中的交易费。</p>
+<p>time是这个区块大致的产生时间</p>
+<p>mixdigest和nonse和挖矿过程相关，nonse是挖矿猜的随机数。mixdigest是从这个nonse的随机数经过计算算出了一个哈希值，</p>
+<h4 id="block-struct"><a href="#block-struct" class="headerlink" title="block struct"></a>block struct</h4><p>header 指向block head 的指针</p>
+<p>uncle是指向叔区块的header的指针，而且是个数组，因为一个区块可以有多个叔父区块</p>
+<p>transaction 这个区块中的交易的列表</p>
+<h4 id="extblock-struct"><a href="#extblock-struct" class="headerlink" title="extblock struct"></a>extblock struct</h4><p>这个区块真正在网上发布的时候发布的信息，其实就是block struct里的这三项</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>状态数中保存的是key value pair，key就是地址，讲到现在主要讲的就是这个键值的这个地址的管理方式，那么value，这个账户的状态是怎么存储在状态数当中的？实际上要经过序列化的过程，用RLP这个编码序列化之后然后存储，recursive length prefix，特点是简单。protocol buffer：protobuf，很有名的做序列化的库，而这个只支持nested array of bytes这个类型，可以嵌套。以太坊中所有的	其他类型，整数、哈希表都要变成nested array of bytes。所以实现rlp比实现protocolbuf要容易很多，因为难的东西都不做，都推给应用层做了</p>
+<h1 id="课程17-以太坊中的交易树和收据树"><a href="#课程17-以太坊中的交易树和收据树" class="headerlink" title="课程17 以太坊中的交易树和收据树"></a>课程17 以太坊中的交易树和收据树</h1><p>每次发布一个区块时，这些区块里所包含的交易会组成一颗交易树，也是一颗merkle tree，和比特币的区块类似。</p>
+<p>而每个交易执行完之后会形成一个收据，记录这个交易的相关信息。交易树和收据树上面的节点是一一对应的。增加收据树主要是考虑到以太坊的智能合约执行过程比较复杂，所以通过增加收据树的结构，有利于快速查询一些执行的结果。</p>
+<p>从数据结构上，交易树和收据树都是MPT，和比特币中有所区别，比特币中的交易树就是用普通的merkle tree。而以太坊中使用MPT，就是为了方便以太坊中的三棵树都用同样的数据结构，这样代码可能比较统一便于管理，用MPT的一个好处是它支持查找操作，可以通过键值，从顶向下沿着这个数进行查找，对于状态数来说，查找的键值就是这个账户的地址。对于交易数和收据树来说，查找的键值就是这个交易在发布的区块里面的序号，而交易的排列顺序是由发布区块的那个节点决定的。</p>
+<p>三颗树区别：交易树和收据树，都是只把当前发布的这个区块里的交易组织起来的，而状态数是要把系统中所有的状态包括进去。从数据结构上来说，多个区块的状态树是共享节点的。而每个交易的交易树和收据树都是独立的，不会共享节点的。</p>
+<p>交易树和收据树的作用：1.提供merkle proof，交易树可以证明某个交易被包含到某个区块上，可以向轻节点提供这样的merkle proof。收据树也是你要证明某个交易的执行结果，也可以在收据树里提供一个merkle proof。</p>
+<p>除此之外，以太坊还提供一些更加复杂的查询操作，比如找到过去十天内所有和某个智能合约有关的交易。寻找十天内的所有区块。清节点没有办法。</p>
+<h2 id="bloom-filter"><a href="#bloom-filter" class="headerlink" title="bloom filter"></a>bloom filter</h2><p>bloom filter：支持比较高效地查找某个元素是不是在一个比较大的集合里。最笨的方法，遍历，难度线性，并且需要有足够的存储来保存整个集合中的元素，但对于轻节点中没有交易列表，整个集合的元素信息。<br>给这个大的集合，计算出一个很紧凑的摘要，digest。</p>
+<p>使用bloom filter很可能出现false positive，但是不会出现false negative，就是有可能出现误报，但是不会出现漏报。他有各种变种，比如用一组哈希函数，如果出现哈希碰撞，但是一般不会所有的哈希函数都同时出现碰撞。</p>
+<p>如果从集合中删除一个元素，不支持删除操作，把1改成0的话，这个集合中有可能有另外一个元素也映射到这个位置，哈希碰撞。所以简单的bloom filter是不支持删除操作的。如果要支持删除操作，这里就不能用binary，就不能是0和1，得改成1个计数器，还要考虑这个技术器会不会over flow。但这样就和当初设计bloom filter 的初衷就相违背了。</p>
+<p>以太坊使用bloom filter的作用，每个交易执行完之后会形成一个收据，而这个收据就包含了bloom filter，记录这个交易的类型，地址等其他信息。而发布的区块在它的块头里也有一个总的不同的bloom filter。而这个总的bloom filter是这个区块里所有交易的bloom filter的一个并集。</p>
+<p>所以例子中的查找方法：先找哪个区块的bloom filter有我要的这个交易的类型-&gt;这个区块所包含的交易的收据树里的bloom filter。有可能都没有，有的话找到相对应的交易进行确认，好处是通过bloom filter的结构过滤掉大量无关的区块。</p>
+<p>总结：这三颗树的根哈希值都是包含在块头里的，以太坊的运行过程可以把它看作是一个交易驱动的状态机，transaction-driven state machine，这个状态机的状态就是所有账户的状态。交易就是每次发布的区块里包含的交易。通过执行这些交易，会驱动系统从当前的状态转移到下一个状态。</p>
+<p>比特币也可以认为是一个交易驱动的状态机，比特币中的状态是utxo。</p>
+<p>这两个状态机有一个共同的特点，状态转移都是确定性的。对一个给定的当前状态，一个给定的交易，能够确定性地转移到下一个状态。因为所有的全节点，都要执行同样的状态转移，所以状态转移必须是确定的。</p>
+<p>收款人的地址从来没听说过？可能的，创建账户是不需要通知，转账才可以，然后状态树插入节点。</p>
+<p>能不能状态树从全部改成相关？一致性问题？不全部的话账户状态不一致？这样每个区块没有一个完整的状态树，这样设计要想查找某个账户的状态就不方便了，只有找到包含a的最近的一个区块才能知道a的账户余额。如果a很长时间没有发生交易，那么只有往前找很长时间才能找到他最近一次的账户状态。如果和新产生的区块发生交易，那么只有一直找到最初的区块才能确定b的余额。</p>
+<h2 id="代码中具体的数据结构"><a href="#代码中具体的数据结构" class="headerlink" title="代码中具体的数据结构"></a>代码中具体的数据结构</h2><p>希望学完solidity语言后再看看ETH内的代码</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/03/16-17/" data-id="cm477y2lh0003c4u7g9tz5qmz" data-title="北大肖臻老师《区块链技术与应用》笔记16-17" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖14-15" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/01/%E8%82%9614-15/" class="article-date">
+  <time class="dt-published" datetime="2024-09-30T16:29:35.000Z" itemprop="datePublished">2024-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/10/01/%E8%82%9614-15/">北大肖臻老师《区块链技术与应用》笔记14-15</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程14：以太坊概述"><a href="#课程14：以太坊概述" class="headerlink" title="课程14：以太坊概述"></a>课程14：以太坊概述</h1><p>比特币和以太坊是两种最主要的加密货币。比特币被称为区块链1.0，以太坊被称为区块链2.0，以太坊在系统设计上，针对比特币的运行过程中出现的一些问题进行了改进，比如</p>
+<p><strong>1.出块时间：</strong></p>
+<p>比特币：10分钟</p>
+<p>以太坊：十几秒，基于这个出块时间，以太坊设计了一套基于ghost协议的共识机制。</p>
+<p><strong>2.针对挖矿使用的mining puzzle</strong></p>
+<p>比特币：计算密集型，比拼的是计算哈希值的算力-&gt;挖矿设备的专业化，</p>
+<p>以太坊：memory hard mining puzzle ,对内存的要求很高,设计的目的在一定程度上限制了asic芯片的使用，asic resistance，用权益证明来替代工作量证明。proof of work -&gt; proof of stake。不挖矿，类似于股份投票的方法决定下一个区块该怎么产生</p>
+<p><strong>3.对智能合约的支持smart contract</strong></p>
+<p>比特币实现一种去中心化的货币，decentralized currency，如果货币可以去中心化还有什么是可以去中心的？</p>
+<p>Ethereum智能合约，增加了去中心化的合约的支持，decentralized contract,币Ether。</p>
+<p>比特币的最小计量单位，1 satoshi,为了纪念中本聪。</p>
+<p>以太坊。 1wei，也是一个人名。</p>
+<h2 id="去中心化的智能合约"><a href="#去中心化的智能合约" class="headerlink" title="去中心化的智能合约"></a>去中心化的智能合约</h2><p>货币的价值是建立在政府公信力的基础上，然后政府通过司法手段来维持这个金融体系的运行。</p>
+<p>比特币的出现，用技术手段把政府的这些职能给取代了，通过密码学、共识机制来维护加密货币体系的正常运行。</p>
+<p>去中心化的合约也是这个意思，合约（合同）也是应该通过司法手段通过政府来维护的，例如合同打官司。用技术手段把这个司法手段给取代了，这个技术以太坊智能合约的一个设计目的。</p>
+<p>如果合同中的内容是可以通过程序代码来实现的，就可以把这个代码放到区块链上，通过区块链的不可篡改性来保证代码的正确运行。当然，不是所有的合同的内容都可以用编程语言来实现，也不是所有的合同条款都是可以量化的，但是有些逻辑比较简单比较清晰的合同是可以写成智能合约的形式。</p>
+<h3 id="这种去中心化的合同有什么好处？"><a href="#这种去中心化的合同有什么好处？" class="headerlink" title="这种去中心化的合同有什么好处？"></a>这种去中心化的合同有什么好处？</h3><p>去中心化的货币的好处和法币相比？fiat currency，去中心化的货币有的应用场景是跨国转账，比法币快。</p>
+<p>智能合约也有类似的场景，如果合同的签署方是来自世界各地的，没有一个统一的司法管辖权，这个时候用司法手段来维护合同的有效性就比较困难，比如众筹，通过事先写好的程序代码来保证每个人都只能按照这个规则来执行，这是一种比较好的解决方法。其实计算是合同的参与方都在同一个司法管辖权之下的，真正想通过司法手段来维护合同的执行，也是一个比较费时费力的过程，看打官司。所以最好是用技术手段来保证合同的参与方从一开始就不可能违约。而智能合约的一个好处就在于，这个代码一旦发布到区块链，那么区块链的不可篡改性保证大家就只能按照代码中制定的规则来执行。</p>
+<h1 id="课程15：以太坊的账户"><a href="#课程15：以太坊的账户" class="headerlink" title="课程15：以太坊的账户"></a>课程15：以太坊的账户</h1><p>以太坊系统中采用的账户模式，比特币中用的是基于交易的账本，transaction base natrue，这种模式下，系统中并没有显示的记录每个账户上有多少钱，根据utxo推算。好处是隐私保护比较好，问题是使用上比较别扭，证明交易的币的来源合法性，花钱说明。</p>
+<p>在前面收到一些币和一些输出，将来花的时候必须要一次性都花出去。如果只花一部分，那么剩下的部分都会当作transacton费花出去了，miner exctied（哈哈哈）</p>
+<p>所以必须把剩下的比特币转回给自己，很多的比特币钱包可以自动生成这种接收余额的地址，每次交易换一次地址，也有利于隐私保护，但同样和日常生活习惯不太一样。问题在于比特币系统中没有显式地维护这种基于账户交易的概念，它是每个交易单独进行处理的。</p>
+<p><strong>以太坊系统</strong>中采用的是基于账户的模型，account-based ledger，和日常习惯比较相近，显式地记录每个账户上有多少个以太币。转钱只要证明账户中是否有足够多的钱，不用说明其中是具体把哪十个币转给了接收者，不用说明这些币的来源是来自哪些交易的。也不用一次全部转出，可以转出一部分，也不用把剩下的转给自己，因为有显式的余额的概念，所以剩下的币直接放到账户上就可以了。哈希指针也不用说明币的来源。</p>
+<p><strong>好处</strong>是对double spending attack有天然的防御作用，因为不用管币的来源，每花一次钱，就往账户里扣钱，花两次就扣两次。</p>
+<p><strong>关于篡改账户余额？</strong>以太坊中的余额是系统中全节点维护的状态中要保存的，以太坊中一个重要的数据结构是状态数。状态数就是所有的账户的状态组成一颗树。转给账户状态里包含的一个重要的域就是balance（余额），这个余额没有办法改，如果要改得是所有的全节点都认为这个余额是发生了变化，否则其他节点是不认的。</p>
+<p><strong>坏处</strong>：replay attack，假设a转给b10个以太币，而b有恶意，在转过去之后，把这个交易又在网上重新广播一遍，其他节点认可则以为a又转给b一笔相同的钱，就把a的钱扣了2次。和double spending是对称的，double是指花钱的人不诚实，把钱花一遍。replay则是收钱的人不成熟，想要再收一遍。比特币中的重放攻击是很明显的double spending。</p>
+<p><strong>以太坊对付的办法</strong>：</p>
+<p>加一个计数器交易次数：记录账户有史以来一共发布过多少个交易。然后转账的时候，这个交易次数要成为交易内容的一部分，一起包含进去。这些都是收到发布交易者的签名保护的，例子中：nonse（次数），因为有签名的保护，nonse的值改不了。然后系统中的每个节点维护a账户的状态，不光是要维护a的balance，还要维护nonse的值。nonse，新创立的时候nonse&#x3D;0，每次收到这个账户发起的交易nonse+1.</p>
+<p>所以如果有人想重放交易，因为nonse的值已经是21了，节点认为已经执行过了，就不会再执行一遍了。</p>
+<h2 id="以太坊账户"><a href="#以太坊账户" class="headerlink" title="以太坊账户"></a>以太坊账户</h2><p>以太坊中有两类账户，一类是外部账户（externally owned account）类似于比特币的账户，用公私钥控制，私钥证明控制权，也管这个叫普通账户，有balance和nonse（counter、sequence number）。</p>
+<p>第二类账户是合约账户，smart contract account，合约账户不是通过公私钥对控制的，合约账户同样有balance和nonse，一个合约可以调用另一个合约，所以同样要通过nonse记录调用的次数。但是合约账户不能主动发起一个交易，以太坊规定，所有的交易只能由外部账户发起。外部账户发起交易，如果调用了一个合约账户，这个合约账户可以发送一个message调用另外一个合约，但是合约账户不能平白的发起一个交易。</p>
+<p>合约账户有：balance、nonse、code（代码）、<br>storage（相关的状态，包括每个变量的取值）</p>
+<h3 id="合约账户怎么被调用"><a href="#合约账户怎么被调用" class="headerlink" title="合约账户怎么被调用"></a>合约账户怎么被调用</h3><p>创造合约的时候会返回一个地址，知道这个合约的地址就可以调用这个合约，调用的过程中，这个状态会发送变化，代码是不变的，storage存储会发生变化。</p>
+<h3 id="为什么要设计这种新的模型？"><a href="#为什么要设计这种新的模型？" class="headerlink" title="为什么要设计这种新的模型？"></a>为什么要设计这种新的模型？</h3><p>当创建以太坊时，比特币已经有比较成熟的代码可以做一些参考，为什么不用已有的代码？可以在系统设计上改进出块时间，mining puzzle，不一定非要改账户系统。</p>
+<p>比特币基于交易的账户模型的好处是隐私保护较好，每次交易可以换一个新的账户。</p>
+<p>而以太坊要支持的是智能合约，对于合约来说，要求参与者有比较稳定的身份，类似日常生活。现在有人提出用智能合约实现一些金融的衍生品，所谓的financial derivative，比如期权期货。比如投钱给合约账户，投完之后，合约地址变了。。。所以以太坊创建这个系统的时候，采用了account-based ledger.</p>
+<p>如果有隐私保护的需要，同样可以创建多个账户，根据情况使用不同的账户进行交易。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/01/%E8%82%9614-15/" data-id="cm477y2nc0010c4u7430o6wx1" data-title="北大肖臻老师《区块链技术与应用》笔记14-15" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-12-13" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/30/12-13/" class="article-date">
+  <time class="dt-published" datetime="2024-09-30T10:00:55.000Z" itemprop="datePublished">2024-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/30/12-13/">北大肖臻老师《区块链技术与应用》笔记12-13</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程12：比特币的匿名性（Bitcoin-and-anonymity）"><a href="#课程12：比特币的匿名性（Bitcoin-and-anonymity）" class="headerlink" title="课程12：比特币的匿名性（Bitcoin and anonymity）"></a>课程12：比特币的匿名性（Bitcoin and anonymity）</h1><p>privacy</p>
+<p>不要求真名，不是完全没有名字，用的 是化名，pseudonymity。</p>
+<p>好处：匿名性没有现金好，比银行好。以前银行用的是化名。拿存折取</p>
+<p>从某种意义上说，如果银行允许使用化名。他的匿名性要比比特币好，比特币的账本公开，而银行的不是。</p>
+<p>即使每一次交易都使用一个新的账户和地址，但实际上地址也可以关联起来</p>
+<p>为了更强的隐私保护，可以人为地产生一些没必要的输出</p>
+<p>现在很少人手工地生成转账交易，常用的比特币钱包就那么几种，所以把常用的钱包生成交易的方式搞清楚，那么就可以把区块链很大一部分转账交易分析出来</p>
+<p>常用的钱包一般没有固定生成这些不必要的输出地址</p>
+<p>有可能破坏比特币的方面：</p>
+<p>1.这个人可以生成很多的地址账户，但是这些地址账户是有可能被关联起来的</p>
+<p>2.这个地址账户和在社会现实世界中的真实身份也可能产生关联。而任何让比特币系统中的比特币，虚拟货币与实体世界发生联系的时候，都有可能泄露身份。只是虚拟世界系统内，是没有问题的，一旦与实体世界有联系，就有可能泄露真实身份。</p>
+<p>泄露身份最明显的是资金的转入和转出。</p>
+<p>场外交易：两个人私下交易不经过交易所</p>
+<p><strong>怎么防范用比特币进行洗钱：</strong></p>
+<p>法定货币（英语：Fiat Currency , Legal Tender），简称法币，是由政府铸造与发行的货币，价值来自政府的信用担保。以政府的法令使其成为合法通货的货币，任何金钱债权人均不得拒收法定货币。法定货币的材质可能为金属、纸张</p>
+<h3 id="隐私"><a href="#隐私" class="headerlink" title="隐私"></a>隐私</h3><p>1.盯住资金的转入转出链。很大资金转入与转出很难不引起司法部门的注意。</p>
+<p>资金的转入与转出也是比特币隐私有可能被破坏很重要的点</p>
+<p>2.用比特币进行支付，白板idea，交易费很贵，延迟很长。但是收比特币的时候就会引起隐私泄露，因为用于支付的这个账户和真实身份是建立联系的，并且这个账户和其他本人创建的账户也是很容易有联系的，这个其实不光是接受交易的商家会知道，其他人其实也会知道</p>
+<p>有信用卡例子可以推测出账户。</p>
+<p>例子2：silk road ，ebay for illegal drugs，底下的网络层用的是洋葱路由，tor，被抓据说是有几次不小心在同一台电脑同时登录真实账户和虚拟非法账户</p>
+<p>比特币的匿名性没有想象的那么好。</p>
+<p><strong>hide your identity from whom？</strong></p>
+<p>假设是一名比特币用户，能采取什么样的方法，尽量地提高匿名性？</p>
+<p>application layer：</p>
+<p>network layer：</p>
+<p>网吧-&gt; ip -&gt; ID card</p>
+<p>网络层的匿名性方案：</p>
+<p>多路径转发比如TOR，经过很多次节点传输，只要中间有一个节点是诚实的，就能把最初发现人的身份隐藏起来</p>
+<p>application：</p>
+<p>把各个不同人的币混合在一起，coin mixing。有些专门做coin mixing的网站，有一定的复杂性，设计不好会有一些side channel。有点风险，因为coin mixing的网站也是需要保持一定的匿名性的，如果卷款跑路也是没有办法的。美国西部，法律鞭长莫及。</p>
+<p>有一些应用本身也带有coin mixing 的性质，比如在线钱包，但在线钱包不保证要履行这个功能。交易所也天然有一种coin mixing的性质，前提是交易所不会泄露相关的记录。</p>
+<p>为什么保护隐私性难度大？本质上是因为比特币的账本是公开并且不可篡改的。</p>
+<h2 id="零知识证明"><a href="#零知识证明" class="headerlink" title="零知识证明"></a>零知识证明</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>零知识证明是指一方(证明者)向另一方（验证者）证明一个陈述是正确的，而无需透露该陈述是正确的之外的任何信息。</p>
+<p>比如：证明某个比特币账户是自己的，需要证明有它的私钥，但可以提供签名。但这个例子是不是零知识证明是有争议的，因为要提供私钥的签名。</p>
+<h3 id="同态隐藏"><a href="#同态隐藏" class="headerlink" title="同态隐藏"></a>同态隐藏</h3><ol>
+<li>如果x，y不同，那么它们的加密函数值E（x）和E（y）也不相同</li>
+<li>给定E（x）的值，很难反推出x的值</li>
+<li>给定E（x）和E（y）的值，我们可以很容易地计算出某些关于x，y的加密函数值</li>
+</ol>
+<p>比如：</p>
+<p>同态加法：通过E（x）和E（y）计算出E（x+y）的值</p>
+<p>同态乘法：通过E（x）和E（y）计算出E（xy）的值</p>
+<p>扩展到多项式</p>
+<p>解释：</p>
+<ol>
+<li><p>加密函数值不会发生碰撞，反过来说明，如果两个加密函数值是相等的，那么它们的输入也是相等的</p>
+</li>
+<li><p>说明加密函数是不可逆的，类似哈希函数的hideing property</p>
+</li>
+<li><p>对这些加密之后的函数值进行某些代数运算等价于对这些输入直接进行代数运算然后再加密</p>
+</li>
+</ol>
+<p>例子：</p>
+<p>图片上，第一个性质是没有碰表现在第三点，E（x+y）&#x3D; 7</p>
+<p>这个例子有缺陷，因为被证明者可以用蛮力算法去拆除原始的x和y是多少。所以在更复杂的解法中，证明者在把输入给输出者之前，要对x和y的值做一些随机化处理，这种随机化处理的方法是保证x和y加起来是不变的</p>
+<p>例子2：盲签方法</p>
+<p>设计目的，不知道币是哪来的，无法把a和b的联系起来</p>
+<h2 id="零币和零钞（零知识证明）"><a href="#零币和零钞（零知识证明）" class="headerlink" title="零币和零钞（零知识证明）"></a>零币和零钞（零知识证明）</h2><p>motivation</p>
+<p>比特币在一定程度上或者说在很大程度上提供了匿名性，sudo limit，但是它不能够完全消除关联性，link limit。</p>
+<p>新的加密货币？从一开始的体系结构设计上就用了密码学原理保证匿名性，这就是零币和零钞的motivation，专门为了匿名性设计的加密货币。基础币是不能花的？零币只需要用零知识证明证明花掉的币是系统中存在的某一个合法的币就行了，但是不用透露花的具体是系统中的哪一个币。这个就是和比特币的本质区别。</p>
+<p>比特币每一笔交易都要说明币的来源，但是零币和零钞是证明的时候从数学上可以保证花的币是以前区块链上的某个合法的币，但是不知道具体是哪一个，把关联性给去掉了，就没法追溯了。</p>
+<p>零钞就完全没有基础币，完全是zerocoin</p>
+<p>设计比较复杂，设计到比较深的密码学和数学的知识。</p>
+<p>2018，这些专门为匿名性设计的新的加密货币，到现在也不是很主流。原因1：这些加密货币为了匿名性付出了一定的代价，在性能上有一定的损失，并且在数学原理上对初始化有比较严格的要求：初始的时候用的随机源要能够销毁掉，没有销毁掉则会有一定的安全漏洞。</p>
+<p>原因2：可能需要强匿名性的用户也不是很多。</p>
+<p>原因3：不是百分百的匿名安全，与实体发生交互的时候仍然暴露身份。</p>
+<h1 id="课程13：比特币引发的思考"><a href="#课程13：比特币引发的思考" class="headerlink" title="课程13：比特币引发的思考"></a>课程13：比特币引发的思考</h1><h2 id="1-哈希指针"><a href="#1-哈希指针" class="headerlink" title="1.哈希指针"></a>1.哈希指针</h2><p>区块的块头就有指向前一个区块的哈希指针，指针保存的是本地内存的地址，那么只是在本地这台计算机上才有意义，发送到其他的计算机上就没有意义了。那么在发布区块时，哈希指针是怎么通过网络进行传输的呢？</p>
+<p>所谓的哈希指针只是一种形象的说法，实际系统中用的时候只有哈希没有指针。</p>
+<p>那么怎么找到前一个区块的内容？全节点一般是把这些区块，存储在一个（key，value）数据库里。<br>key -&gt; haxi  ,  value -&gt; content</p>
+<p>一个常用的key，value数据库是 level DB。区块链所谓的链表，实际上是在level DB中用哈希指针串起来的。只要知道最后一个区块的哈希值，那么可以一个一个地吧所有的内容取出来。</p>
+<p>所以说在实际系统中，所谓的哈希指针只有哈希，没有指针或者也可以认为所谓的哈希值就是指针。哈希指针的性质保证了整个区块的内容是不可篡改的。</p>
+<h2 id="2-区块恋"><a href="#2-区块恋" class="headerlink" title="2.区块恋"></a>2.区块恋</h2><p>私钥截断，各拿一部分。用blockchain的不可篡改性作为两人爱情的见证。n个人的账户，任何人私钥丢取不出钱来，并且会降低私钥的安全性。比特币系统中每个账户的安全性和所用的私钥的长度是相关的。而用256位的私钥，是因为这样的私钥用暴力破解的方法是不可行的。减少位数的私钥安全性以指数级降低。</p>
+<p>对于多个人的共享账户用多重签名，其中的每一个私钥都是独立产生的，还有其他的灵活性。</p>
+<p>UTXO会永久保持没有使用过的币，对矿工是不友好的。很多人私钥不重视丢失。</p>
+<h2 id="3-分布式共识"><a href="#3-分布式共识" class="headerlink" title="3.分布式共识"></a>3.分布式共识</h2><p>很多不可能的结论，各种impossibility result，从理论上说，分布式系统中取得共识是不可能的。</p>
+<p>为什么比特币系统能够绕过分布式共识中的那些不可能结论？</p>
+<p>严格意义上，比特币并没有取得真正意义下的共识，因为取得的共识随时有可能被推翻。按照分布式系统理论的要求，共识一旦达成之后就不应该再改了，所以从这个方面上说，比特币并没有绕过分布式系统中的哪些不可能的结论，因为它并没有达到真正意义上的共识。</p>
+<p>而且理论和实际往往是有距离的，很多理论上的不可能结论，对于实际上是不适用的，因为这个不可能结论只是对某种特定模型下的不可能，实际当中修改一些模型，这个结论就不成立了。</p>
+<p>例子：死机<br>分布式系统已经证明了，在异步（通讯传输的延迟是没有上限的）的环境中，不可能区分某台远程的服务器是垮掉了还是运行缓慢。给人打电话。这种理论上的不可能，现实又变成了可能。服务器插一个电话线。</p>
+<p>知识改变命运，但是对知识的一知半解，有可能会使命运变得更差。</p>
+<h2 id="4-比特币的稀缺性"><a href="#4-比特币的稀缺性" class="headerlink" title="4.比特币的稀缺性"></a>4.比特币的稀缺性</h2><p>任何新发行的加密货币，都有启动的问题。</p>
+<p>比特币：</p>
+<p>1.早期的挖矿难度比较低，很容易就挖到</p>
+<p>2.早期的出块奖励也是比较高的</p>
+<p>其实总量固定的是不适合用来做货币的，以太坊就没有出块奖励定期减半的方法，有些加密货币甚至自带一些加密的功能。</p>
+<p>稀缺的东西是不适合用来做货币的，但是一个好的货币是应该有通货膨胀的功能。比如黄金，如果继续金本位，黄金会越来越值钱。比如房地产（货币金融学的相关知识）</p>
+<h2 id="量子计算"><a href="#量子计算" class="headerlink" title="量子计算"></a>量子计算</h2><p>将来量子计算技术发展起来之后，这些基于密码学的货币会不会变得不安全了？</p>
+<p>不必要的</p>
+<p>首先量子计算机的技术离实用还有很长一段距离，在比特币的有生之年，不一定能够产生实质性的威胁。而等量子计算能够破坏现有的加密体系的话，首先冲击到的是传统金融业，网上支付不安全了。与其担心对加密货币的冲击，不如担心对传统金融业的冲击，因为大多数的钱还是放在传统金融业里。加密货币的总市值只占据了现在金融业的很小一部分，而且将来还有量子加密算法。</p>
+<p>第二方面，比特币并没有把账户的公钥直接暴露出来，而是用公钥取哈希之后得到一个地址，比特币中用的非对称加密体系从私钥可以推导出公钥，所以只要把私钥保存好，公钥丢了也没有关系。而如果将来量子计算机可以从公钥推出私钥，比特币在设计上又加了一层保护，是没有用公钥的本身，而是用公钥的哈希。</p>
+<p>所以要偷钱的话，地址 -&gt; 公钥，相当于把公钥的哈希值逆运算，而这一点，即使是用量子计算机也是没有办法完成的。加密和取哈希是两个不同性质的操作，加密的目的是为了未来可以解密，所以加密算法要保证信息的完整性，加密过程是不能够丢失信息的。但是取哈希的过程一般来说是会造成信息的损失的，哈希函数一般都是不可逆的。</p>
+<p>所以比特币系统中，只是为了收钱，没有必要把公钥暴露出来，只要暴露一个公钥生成的哈希地址就可以了，取钱才需要提供公钥，取钱 &#x3D; 公钥 + 签名。要实时地破解公钥，再产生一个竞争的交易。即使量子计算机，也很难在几分钟之内把私钥破解，而且破解的交易还要在前面。安全性方面，地址用过了就不要再用的。即使是公钥也不要随便泄露。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/30/12-13/" data-id="cm477y2lr0007c4u755sr0wos" data-title="北大肖臻老师《区块链技术与应用》笔记12-13" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖笔记9-11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:24:04.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/">北大肖臻老师《区块链技术与应用》笔记9-11</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程9：-比特币脚本（the-bitcoin-scripting-language）"><a href="#课程9：-比特币脚本（the-bitcoin-scripting-language）" class="headerlink" title="课程9： 比特币脚本（the bitcoin scripting language）"></a>课程9： 比特币脚本（the bitcoin scripting language）</h1><h1 id="交易实例"><a href="#交易实例" class="headerlink" title="交易实例"></a>交易实例</h1><p>左：output -&gt; input (币来自前面那个交易的输出)</p>
+<p>右：output</p>
+<p>比特币使用的脚本语言非常简单，唯一能访问的内存空间就是一个堆栈，基于栈的语言stock based languege.</p>
+<p>input script：两个操作，分别把两个很长的数压入栈里</p>
+<p>output script:有两行，分别对应上面的两个输出，每个输出都有自己单独对应的脚本</p>
+<h2 id="交易结构"><a href="#交易结构" class="headerlink" title="交易结构"></a>交易结构</h2><p>宏观信息，metadata。</p>
+<p>txid：transaction id</p>
+<p>hash：这个交易的哈希值</p>
+<p>version：比特币协议的版本号</p>
+<p>size：交易的大小</p>
+<p>locktime：交易的生效时间，非零值要过一段时间才会生效</p>
+<p>vin和vout分别是输入输出部分</p>
+<p>bloakhash：这个交易所在的区块的哈希值，由一长串0开头，挖矿的难度要求</p>
+<p>confirmation:有多少个交易信息</p>
+<p>time:这个交易产生的时间，s</p>
+<p>blocktime：这个区块产生的时间，s</p>
+<h2 id="交易的输入结构"><a href="#交易的输入结构" class="headerlink" title="交易的输入结构"></a>交易的输入结构</h2><p>是个数组，一个交易可以有多个输入和输出<br>例子中只有一个输入</p>
+<p>scriptsig -&gt; input script</p>
+<p>每个输入都要说明这个输入花的币是来自之前哪个交易的输出，所以前两行就是给的币的来源。</p>
+<p>txid：之前这个交易的哈希值</p>
+<p>vout：是这个交易的第几个输出</p>
+<p>scriptsig: 输入脚本，最简单的形式是给出一个signature,证明有权力花这个钱。如果一个交易有多个输入，每个输入都要说明币的来源，并且给出签名。比特币中的一个交易可能需要多个签名。</p>
+<p>其中的asm和hex是什么？</p>
+<h2 id="交易的输出结构"><a href="#交易的输出结构" class="headerlink" title="交易的输出结构"></a>交易的输出结构</h2><p>scriptpubkey -&gt; output script</p>
+<p>也是一个数组结构</p>
+<p>value:输出的金额，也有的是satotion：比特币最小的计数单位</p>
+<p>n:序号，表示是这个交易里的第几个输出</p>
+<p>scriptpubkey:输出脚本，输出脚本最简单的形式就是给出一个public key</p>
+<p>asm：输出脚本的内容，里面包含一系列的操作</p>
+<p>hex：？</p>
+<p>reqsigs：这个输出需要多少个签名来实现，require signature。multick多重签名</p>
+<p>type：输出的类型</p>
+<p>address：输出的地址</p>
+<h2 id="输入和输出脚本的执行"><a href="#输入和输出脚本的执行" class="headerlink" title="输入和输出脚本的执行"></a>输入和输出脚本的执行</h2><p>验证交易的合法性，是要把b转给c的这个交易的输入脚本和a转给b的交易的输出脚本拼接在一起执行的。这时有个交叉。</p>
+<p>前面的交易的输出脚本放在后面，后面的交易的输入脚本放在前面，在早期的比特币实现中，这两个脚本是拼接在一起的，从头到尾执行一遍，后来出于安全因素的考虑，这两个脚本改为分别执行。首先执行输入脚本，如果没有出错，后面再执行输出脚本。如果能顺利执行，最后占领的结果为非零值，也就是true，那么验证通过这个交易合法。如果执行过程中出现任何错误，那么这个交易就是非法的。</p>
+<p>如果一个交易有多个输入的话，那么每一个输入脚本都要和所对应的交易的输出脚本匹配之后来进行验证。全都验证通过这个交易才是合法的。</p>
+<h2 id="输入输出脚本的几种形式"><a href="#输入输出脚本的几种形式" class="headerlink" title="输入输出脚本的几种形式"></a>输入输出脚本的几种形式</h2><h3 id="1-P2PK（Pay-to-Public-Key）"><a href="#1-P2PK（Pay-to-Public-Key）" class="headerlink" title="1. P2PK（Pay to Public Key）"></a>1. P2PK（Pay to Public Key）</h3><p>最简单的形式</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>output script:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>输出脚本直接给出收款人的公钥，第二行的checksig是检查签名的操作。在输入脚本中直接给出签名就行了，这个签名是用私钥对这个输入脚本所在的整个交易的签名。</p>
+<p>这种形式是最简单的，因为pubkey是在输出脚本里给出的。</p>
+<p><strong>实际执行情况</strong></p>
+<p>PUSHDATA(Sig)（压入栈）</p>
+<p>PUSHDATA(PubKey)（压入栈）</p>
+<p>CHECKSIG（把栈顶的两个元素弹出来，用公钥检查这个签名是否正确，如果正确的话，返回处说明验证通过，否则执行出错，交易非法）</p>
+<p>这三行是把输入脚本和输出脚本拼接之后的结果，第一行来自输入脚本，后两行来自输出脚本。在实际代码中，出于安全考虑，这两个脚本实际上是分别执行。</p>
+<p><strong>实例</strong></p>
+<p>上面交易的输入脚本就是把签名压入栈，下面这个交易是上面的输入的币的来源，输出有两行，第一行把公钥压入栈，第二行就是checksig</p>
+<h3 id="2-P2PKH-Pay-to-Public-Key-Hash"><a href="#2-P2PKH-Pay-to-Public-Key-Hash" class="headerlink" title="2.P2PKH(Pay to Public Key Hash)"></a>2.P2PKH(Pay to Public Key Hash)</h3><p><strong>input script：</strong></p>
+<p>PUSHDATA(SIG)</p>
+<p>PUSHDATA(PubKey)</p>
+<p><strong>output script：</strong></p>
+<p>DUP</p>
+<p>HASH160</p>
+<p>PUSHDATA(PubKeyHash)</p>
+<p>EQUALVERIFY</p>
+<p>CHECKSIG</p>
+<p>与第一个形式区别在于：输出脚本里没有直接给出收款人的公钥，给出的是公钥的哈希，公钥是在输入脚本里给出的。</p>
+<p>输入脚本里既要给出签名，也要给出公钥。</p>
+<p>输出脚本里，还有其他的一些操作，DUP和HASH160都是为了验证交易的正确性，这种形式实际上是最常用的。</p>
+<p><strong>脚本执行：</strong></p>
+<p>签名-&gt;pubkey压入栈</p>
+<p>DUP：把栈顶的元素复制一遍，所以栈顶又多了一个公钥。</p>
+<p>HASH160：把栈顶的元素弹出来取哈希然后把得到的哈希值再加入栈，PUBKEYHASH。所以栈顶变成了公钥的哈希值。要花这个钱的时候，输入脚本里给出的公钥</p>
+<p>下一条语句是把输出脚本里提供的公钥的哈希值压入栈。收款人公钥的哈希</p>
+<p>EQUALVERIFY:弹出栈顶的两个元素，比较他们是否相等，就是比较栈顶的两个哈希值是否相等。防止有人冒名顶替，如果这两个相等，那么就从栈里消失了。</p>
+<p>CHECKSIG：弹出栈顶的两个元素，用公钥检查这个签名是否正确，假设这个签名是正确的，那么整个脚本顺利运行结束占领留下的是true。</p>
+<p>任何一个环节对不上，那么这个交易就是非法的。</p>
+<p><strong>实例：</strong></p>
+<h3 id="3-P2SH-Pay-to-Script-Hash"><a href="#3-P2SH-Pay-to-Script-Hash" class="headerlink" title="3.P2SH(Pay to Script Hash)"></a>3.P2SH(Pay to Script Hash)</h3><p>采用BIP16的方案</p>
+<p><strong>input script：</strong></p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(seriallized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<p>这种形式的输出脚本给出的不是收款人公钥的哈希，而是收款人提供了一个脚本的哈希，这个脚本叫redeem script赎回脚本，将来花这个钱的时候，输入脚本里要给出这个redeem script这个赎回脚本的具体内容，同时还要给出让这个赎回脚本能够正常运行所需要的签名</p>
+<p>验证的时候分为两步：</p>
+<p>第一步验证输入脚本里给出的这个赎回脚本是否与输出脚本里给出的哈希值匹配。不匹配的话说明给出的赎回脚本是不对的，类似与P2PKH给出的公钥不对，</p>
+<p>第二步验证，如果赎回的脚本是正确的，把赎回脚本的内容当作操作指令来执行一遍，看看最后能不能顺利执行。</p>
+<p>两步验证通过，最后才是合法的。</p>
+<h4 id="redeemScript的形式："><a href="#redeemScript的形式：" class="headerlink" title="redeemScript的形式："></a>redeemScript的形式：</h4><p>1.P2PK的形式</p>
+<p>2.P2PKH的形式</p>
+<p>3.多重签名形式</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><strong>redeemScript:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(serialized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="第一阶段的验证"><a href="#第一阶段的验证" class="headerlink" title="第一阶段的验证"></a>第一阶段的验证</h4><p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(seriRS)</p>
+<p>HASH160得到RSH，赎回脚本的哈希值</p>
+<p>PUSHDATA(RSH)：输出脚本给出的哈希值</p>
+<p>EQUAL，如果相等，两个哈希值消失，剩下Sig</p>
+<p>操作中RSH是指redeem script hash赎回脚本的哈希值</p>
+<h4 id="第二阶段的验证"><a href="#第二阶段的验证" class="headerlink" title="第二阶段的验证"></a>第二阶段的验证</h4><p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>首先把输入脚本里提供的序列化的赎回脚本进行反序列化，在ppt上没有展现，是每个节点自己要完成的。</p>
+<p>然后执行赎回脚本，把PucKey压入栈，然后由CHECKSIG验证一下输入脚本里给出的Signature的正确性，验证通过之后，整个的pay to script hash才算执行完成</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>这个功能在最初版本的比特币里是没有的，后来通过软分叉的形式加进去了，其中一个常见的应用场景就是对多重签名的支持</p>
+<p>比特币系统中一个输出可能要求多个签名才能把钱取出来，比如公司账户中合伙人签名，需要多个私钥才能签名。</p>
+<p>最早的多重签名是通过CHECKMULTISIG实现的，输出脚本给出n个公钥，同时指定一个阈值M。输入脚本只要提供这n个公钥对应的签名中任意M个合法的签名就能通过验证。输入脚本第一行的红叉，比特币中CHECKMULTISIG的实现有一个BUG，执行的时候会从堆栈上多弹出一个元素，没办法改，因为是一个去中心化的系统，软件升级的方法要改的话需要硬分叉。所以实际解决方案是在输入脚本栈上多压进去一个没用的元素。</p>
+<p>给出的M个签名的相对顺序，要与他们在n个公钥中的相对顺序是一致的才行</p>
+<p>这种问题是：网上购物，某个电商用多重签名，要求5个人中3人的签名才能取钱，这就要求用户在支付的时候生成的转账交易里给出5个合伙人的公钥，同时给出n和m的值。用户根据网站的多重签名的规则填入。这就把复杂性都暴露给用户了。</p>
+<p>P2SH实现多重签名的本质是把复杂度从输出脚本转移到了输入脚本，输出脚本变得非常简单。输出脚本只要给出赎回脚本的哈希值就可以了，赎回脚本是在输入脚本里提供的，由收款人提供的。像之前，只要在网站上公布这个赎回脚本的哈希值，然后用户生成转账交易的时候，把这个哈希值包含在输入脚本就可以了。而其中的规则，对用户是不可见的。输入脚本是电商在花掉这笔输出的时候提供的，其中包含赎回脚本的序列化版本，还有让这个赎回脚本验证通过的M个签名。将来2电商改变了所采用的多重签名规则，只要改变输入脚本和赎回脚本的内容，然后把新的哈希值公布出去就行了，对用户来说只是要包含的哈希值发生变化</p>
+<p>现在的多重签名一般采用的都是P2SH的形式</p>
+<h2 id="Proof-of-Burn"><a href="#Proof-of-Burn" class="headerlink" title="Proof of Burn"></a>Proof of Burn</h2><p>output script开头是return，后面可以跟任意内容，作用是无条件地返回错误，包含这个操作的脚本永远不可能通过验证，执行到return语句就出错终止。</p>
+<p>作用：证明销毁比特币的一种方法</p>
+<p>销毁比特币的应用场景：</p>
+<p>1.有些小的币种要求销毁一定数量的比特币，才能够得到这个币，有时管这种小币叫altcoin ：alternative coin。</p>
+<p>2.往区块链中写入一些内容，不可篡改的系统，可以利用这个特性往里面添加一些需要永久保存的内容。digital commitment，取个哈希值放入，知识产权，把哈希值的输入公布，证明之前就已经知道了。coinbase transaction里的coinbase，域里写的内容同样没人管，这种方法只有获得记账权的节点才可以用。而这个方法所有节点都可以使用。发布交易不需要有记账权，发布区块需要记账权。任何用户都可以用这种方法销毁很少一点比特币换取写入一些内容。</p>
+<p>有些交易没有销毁比特币，只不过支付了交易费</p>
+<p>第一个实例：第一个输出正常输出，第二个输出return记录内容</p>
+<p>第二个实例：输出脚本以return开头，收入是个比特币，输出金额是0，输入金额全部用来支付交易费，把交易费给矿工了。矿工看到这种脚本时，知道这种输出永远不可能兑现，就没有必要把这个保存在utxo里，这样对全节点比较友好。</p>
+<p>里面的比特币脚本操作，为了简便，都没有加上OP前缀。OP——CHECKSIG,OP_DUP</p>
+<p>像以太坊中的智能合约的语言是图灵完备的，所以需要靠gas费的机制来防止程序陷入死循环。而栈语言输入功能有限，但是和密码学相关的功能是很强大的</p>
+<h1 id="课程10：比特币分叉"><a href="#课程10：比特币分叉" class="headerlink" title="课程10：比特币分叉"></a>课程10：比特币分叉</h1><p>原因：</p>
+<p>1.几乎同时挖到矿，state fork</p>
+<p>2.forking attack,也属于state fork, it’s deliberate fork</p>
+<p>3.比特币的协议发生了改变，在一个去中心化的系统里，没有保证所有的节点同时都升级软件，少部分没有升级，形成分叉。protocd fork.因为协议发生分叉，根据其内容不同，分为hard frok and soft fork</p>
+<h2 id="hard-fork"><a href="#hard-fork" class="headerlink" title="hard fork"></a>hard fork</h2><p>增加一些特性，new feature，扩展一些功能，一些节点不认同，任何分叉。</p>
+<p>例子：</p>
+<p>比特币中的区块大小限制，1M，一百万个字节，1个交易大概为250个字节，4000个交易要摊到10分钟，每秒大概7笔交易，这个through food是非常低的，所以有些要提高blog size limit</p>
+<p>假设增加到4M，按算力大部分节点更新了软件，系统运行结果，旧节点因为没超过4M，新节点是认可的，但是没有达成共识。这个分叉是永久性的，所以是hard fork。</p>
+<p>社区分类，下一条链，这个社区的人认</p>
+<p>ETH（回滚之后）分叉完有个ETC（原来），有人攻击THE DAO，然后进行硬分叉回滚把他偷盗的钱退回给当初的投资者。分叉后这个节点两个链都可以花，因为私钥一样，但是两条链互相之间一定会有一定影响，比如在一条链上转，结果另一条也进行了同一笔交易，C就是收到2笔，会回放。所以两条链会加一条chain id分开。</p>
+<h2 id="soft-fork"><a href="#soft-fork" class="headerlink" title="soft fork"></a>soft fork</h2><p>对比特币的协议加一些限制，原先有的合法的变成不合法了。比如1M变成0.5M，新节点的链，旧节点是认的，旧节点看到新节点变成最小合法链之后，会回到新节点上，这个分叉是临时性的，旧节点可能经常白挖。</p>
+<p>实际当中出现软分叉的情况</p>
+<p>1.给某些目前协议中没有规定的域增加一些协议或规则，coinbase挖矿难度里前8个字节可以用来调extra nonse，使得原先4个字节的难度变成了个字节，变成的96次方。有人提出coinbase剩下的字节作为utxo集合的根哈希值，merkle proof证明某个交易是不是在某个区块。A的账户余额通过算UTXO集合可以算出，轻节点问全节点可以问出，但是不确定正确性。新节点发布的区块，旧节点认为是合法的</p>
+<p>pay to script hush（P2SH）：这个功能在比特币原本里是没有的，通过软分叉加入。旧节点只做第一阶段的验证，旧节点认为的新节点是合法的。</p>
+<p>soft fork只要一半以上的算力更新软件，系统就不会分叉</p>
+<p>hard fork系统所有的算力更新，系统才不会出现分叉</p>
+<h1 id="课程11：课程问答"><a href="#课程11：课程问答" class="headerlink" title="课程11：课程问答"></a>课程11：课程问答</h1><h2 id="1-转账交易时如果接收者不在线怎么办？"><a href="#1-转账交易时如果接收者不在线怎么办？" class="headerlink" title="1.转账交易时如果接收者不在线怎么办？"></a>1.转账交易时如果接收者不在线怎么办？</h2><p>不需要接收者在线交易，转账交易是在区块链记录一下，把账户转钱</p>
+<h2 id="2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"><a href="#2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的" class="headerlink" title="2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"></a>2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的</h2><p>可能，比特币节点不需要通知任何人，只一转账交易收到钱时，其他节点才知道这个账户的存在。</p>
+<h2 id="3-账户的私钥丢失怎么办？"><a href="#3-账户的私钥丢失怎么办？" class="headerlink" title="3.账户的私钥丢失怎么办？"></a>3.账户的私钥丢失怎么办？</h2><p>钱没了，死钱。有些交易所是中心化结构，提供身份证，保存在交易所密码丢失可以再获得密码。缺乏监管的情况。Mt.Gox,曾经最大交易所70%，黑客攻击丢失了大量比特币，有的监管自盗。硬件钱包比较安全</p>
+<h2 id="4-私钥泄露怎么办"><a href="#4-私钥泄露怎么办" class="headerlink" title="4.私钥泄露怎么办"></a>4.私钥泄露怎么办</h2><p>转移钱到安全账户</p>
+<h2 id="5-转账的时候写错地址怎么办"><a href="#5-转账的时候写错地址怎么办" class="headerlink" title="5.转账的时候写错地址怎么办"></a>5.转账的时候写错地址怎么办</h2><p>没有办法取消已经发布的交易，只能和对方商量，或者转到不存在的地址。转到私钥不存在的，地址return。用很少一点钱换取到写入比特币的机会，但是不提倡，会永远写在utxo里。proof of burn 和 return 的操作。</p>
+<h2 id="6-挖矿"><a href="#6-挖矿" class="headerlink" title="6.挖矿"></a>6.挖矿</h2><p>偷区块，偷nonse，发布的区块coinbase transaction里有一个地址是挖到这个矿的矿工的地址，coinbase transaction变化merkle root会变化，这样nonse就变化。</p>
+<h2 id="7-交易费给矿工的小费"><a href="#7-交易费给矿工的小费" class="headerlink" title="7.交易费给矿工的小费"></a>7.交易费给矿工的小费</h2><p>事先不知道哪个矿工挖到nonse，只要 total inputs - total outputs &#x3D;交易费，哪个矿工挖到，就可以把差额作为自己的交易费。</p>
+<h2 id="8-比特币上的一些统计数据"><a href="#8-比特币上的一些统计数据" class="headerlink" title="8.比特币上的一些统计数据"></a>8.比特币上的一些统计数据</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" data-id="cm477y2ng0014c4u7e56q8fr8" data-title="北大肖臻老师《区块链技术与应用》笔记9-11" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖笔记6-8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:23:47.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/">北大肖臻老师《区块链技术与应用》笔记6-8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程6：比特币网络（The-Bitcoin-Network）"><a href="#课程6：比特币网络（The-Bitcoin-Network）" class="headerlink" title="课程6：比特币网络（The Bitcoin Network）"></a>课程6：比特币网络（The Bitcoin Network）</h1><p>用户把交易发布到比特币网络上，节点，区块，比特币网络。</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>比特币工作在应用层，底层是b2b overlay network</p>
+<p>application layer: Bitcoin Block chain</p>
+<p>netwrok layer： p2p overlay network</p>
+<p>比特币网络：所有节点都是对等的，没有super node or master node（超级节点和主节点）</p>
+<p>要加入网络，至少知道一个种子节点，seed node,通信后告诉网络上的其他节点，节点间通过tcp通信，有利于通过防火墙。</p>
+<p>退出节点不需要做其他操作，只要退出应用程序就可以了，其他节点没有收到信息过段时间就会删除这个节点</p>
+<p>比特币网络的设计原则：简单、可靠simple 、robust,but not efficient ，而不是高效。</p>
+<p>每个节点维护一个凝聚节点的集合，消息传播在网络钟采取flooding的方式。</p>
+<p>节点听到消息 -&gt; 其他所有凝聚节点，同时记录已收到过消息。</p>
+<p>凝聚节点的选取是随机的，没有考虑拓朴结构。</p>
+<p>好处是增强鲁棒性，鲁棒性非常强，但是牺牲的是效率。</p>
+<p>“鲁棒性”（robustness），这个词和“robust”发音相近。鲁棒性强调系统在面对各种挑战和不确定性时的稳定性和可靠性。这样，句子的意思是：凝聚节点的选取是随机的，虽然增强了鲁棒性，但牺牲了效率。</p>
+<p>比特币系统中的每个节点要维护一个等待上面交易的集合。</p>
+<p>race condition。</p>
+<p>新发布的区块在网络上的传播方式跟新发布的交易是类似的，每个节点要检查内容和法性，和是否在最长合法链上。</p>
+<p>越是大的区块，在网络上的传播速度就越慢。<br>比特币协议对区块的大小有一个限制，1M.因为传播方式非常消耗带宽，一个新发布的区块可能要几十秒才能发布到网络的绝大数区块中。</p>
+<p>比特币网络是属于best effort，一个交易发布到网络上不一定所有节点都能收到，而且不同节点收到交易的顺序也不一样，网络传输存在延迟，并且有的节点不一定根据比特币协议进行转发。</p>
+<p>线上的系统不能解决线下的问题。回稳交易。</p>
+<h1 id="课程7：比特币的挖矿难度调整"><a href="#课程7：比特币的挖矿难度调整" class="headerlink" title="课程7：比特币的挖矿难度调整"></a>课程7：比特币的挖矿难度调整</h1><h2 id="为什么要调整挖矿难度"><a href="#为什么要调整挖矿难度" class="headerlink" title="为什么要调整挖矿难度"></a>为什么要调整挖矿难度</h2><p>H（block header）&lt;&#x3D; target，nonse<br>哈希算法：SHA-256，所有整个的输出空间是2的256次方</p>
+<p>difficulty&#x3D;difficulty_1_target&#x2F;target<br>(挖矿难度为1的时候所对应的目标阈值)，最小为1</p>
+<p>出块时间太短的的问题：分叉可能变成常态，一次很多分叉。</p>
+<p>恶意攻击需要51%的算力，多个分叉，有恶意的节点就可以集中算力就获得其中一个分叉。</p>
+<p>不一定10分钟出块就是最优的，但是一定需要一个常数的波动范围。以太坊的出块时间为15秒，新的共识协议，叫ghost.在ghost协议中这些分叉叫orphan block，不能简单地丢弃，需要给一些奖励，叫yncle reward.以太坊同样需要保持出块时间</p>
+<h2 id="怎么调整挖矿难度"><a href="#怎么调整挖矿难度" class="headerlink" title="怎么调整挖矿难度"></a>怎么调整挖矿难度</h2><p>比特币每隔2016个区块，要调整目标阈值target，大概是2个星期左右。</p>
+<p>具体调整公式，target &#x3D; target*（actual time&#x2F;expected time） </p>
+<p>expected time &#x3D; 2016 * 10min</p>
+<p>time spent mining the last 2016 blocks &#x3D; actual time</p>
+<p>实际代码中上调和下调都是有4倍的线，即最多增大或缩小4倍，主要避免意外情况导致target变化。</p>
+<p>怎么让所有矿工调整目标阈值，代码开源。如果不调，诚实的miner不会认可</p>
+<p>nbits： target的编码的一个版本，block header里面没有直接存储target，target的域是256位，32个字节。nbits 在header里只有4个字节，可以人为是它的一个压缩编码。不调target，那么区块合法性不通过，每个节点要独立验证发布的区块的合法性，检查的内容就包括nbits：即目标阈值发布的对不对。</p>
+<p>以太坊就不是隔一个固定的区块，而是每个新出的区块都有可能进行调整，调整的方法也更复杂。</p>
+<p>比特币的成功从某种意义上来说是因为他更不实用，比特币没有任何法币背书，没有任何保证金。比特币的设计是很保守的，但还算笔记合理</p>
+<h2 id="比特币系统中的一些实际情况"><a href="#比特币系统中的一些实际情况" class="headerlink" title="比特币系统中的一些实际情况"></a>比特币系统中的一些实际情况</h2><p>总算力的变化情况，算力在指数级增大，虽然有波动。如果某个币挖矿难度越来越小，说明热情减少，慢慢不行了</p>
+<p>实际比特币代码里用的是目标阈值。</p>
+<h1 id="课程8：比特币挖矿"><a href="#课程8：比特币挖矿" class="headerlink" title="课程8：比特币挖矿"></a>课程8：比特币挖矿</h1><p>先总结以前的基础知识。如果只是交易不需要挖矿的话，只需要轻节点，不需要全节点。</p>
+<p>memoryless(progress free)无论是挖原区块还是新区块，可能性都是一样的，所以不可惜。</p>
+<p>比特币安全性的保证：</p>
+<p>1.密码学上的保证：别人没有私钥，就没有办法伪造签名，前提是系统中拥有大多数算力的矿工是好的，不会接受那些没有合法签名的交易</p>
+<p>2.共识机制的保证</p>
+<h2 id="挖矿相关"><a href="#挖矿相关" class="headerlink" title="挖矿相关"></a>挖矿相关</h2><h3 id="挖矿设备"><a href="#挖矿设备" class="headerlink" title="挖矿设备"></a>挖矿设备</h3><p>越来越专业化，普通cpu（挖矿只用到很少一部分内存和cpu的指令，硬盘和其他也都是闲置的） -&gt; gpu挖矿（效率提高，主要用于大部分的并行计算，大量的矩阵乘法）-&gt; asic芯片</p>
+<p>“GPU”是指“图形处理单元”，主要用于加速图形渲染和并行计算。它在深度学习、科学计算和游戏等领域有广泛应用。为了通用并行计算设计的</p>
+<p>ASIC： Application specific integrated circle,专为挖矿设计，有些甚至只能挖一种加密货币，除非这些加密货币用同一种mining puzzle，有些为了启动问题，用同一种mining puzzle 这种叫做：merge mining，除了这种之外，其他都是一个芯片只能为一个加密货币挖矿。asic研发周期很长，比特币可能是1年，但是已经很奇迹了。定制的asic芯片可能用不了几个月就过时了，大部分利润在前两个月产生的，一般提前预定，比特币算力突然有一个很大的提高，新的矿机产生出来了。过时即作废</p>
+<p>有些加密货币，alternative mining puzzle，出发点有resistance抗asic化，让通用计算机也能挖矿。</p>
+<p>单个矿工，概率很小，还要承担全节点的其他责任</p>
+<h3 id="矿池"><a href="#矿池" class="headerlink" title="矿池"></a>矿池</h3><p>所谓的矿石就是把矿工组织起来作为整体，矿石的架构一般来说是一个全节点会驱动很多矿机</p>
+<p>pool manager -&gt; many miner,miner只负责计算哈希值，其他职责都由 pool manager承担，asic只能负责计算哈希值。</p>
+<p>矿石的出现也有为了解决收入不稳定的问题</p>
+<p>矿石一般有两种组织形式：</p>
+<p>1.大型数据中心</p>
+<p>2.分布式的，来自不同机构，矿工和矿主不在同一个地方，miner根据矿池规定的通讯协议联系矿主，矿主分配要计算的哈希值的任务，计算完之后结果返回矿主。利益分配，按贡献大小分配，按工作量分配。</p>
+<p>share: almost valid block，差不多符合难度就可以，发给矿主，证明工作量</p>
+<p>工作量证明可行性分析：概率取决于尝试数，share数越多，尝试的数量越多。</p>
+<p>问题：</p>
+<p>1.挖到区块后不提交给矿主，上交share，但是区块不上交。矿主分配任务，miner只负责计算nonse，其他还需要调整coinbase transaction，分配nonse范围，并且coinbase transaction上收款人的地址写的是矿主的地址（poor manager），取不出来钱来</p>
+<p>2.不管矿主任务，自己组装区块，改收款地址。那么share是不认的，里面的交易列表改变，coinbase transaction的内容发生变化，merkle tree的根哈希值也不一样。</p>
+<p>3.捣乱，挖到合法区块丢弃，可以但是没有经济好处，可以矿池打压竞争对手。</p>
+<p>目前矿池算力是分散的，但是几个大型的矿池占据了大的比例。</p>
+<p>一般来说poor manager收取一定比例出块奖励作为管理费，也有的是交易费</p>
+<h3 id="51-的攻击"><a href="#51-的攻击" class="headerlink" title="51%的攻击"></a>51%的攻击</h3><p>管理费低或者赔本吸引足够多的矿工，然后攻击。</p>
+<p>矿池使得51%攻击更容易了（on demand computing, it’s on demand mining），但是使得矿工的收益更均匀稳定了，降低风险了，减轻负担。</p>
+<p>1.分叉攻击，forking attack，平均增长速度会快于链，可以追赶然后回滚。不到51%也能发动攻击，只是一个概率的区别。</p>
+<p>2.boycott，封锁禁阈，产生不包含某个账户的区块，那么不需要等6个确认，一上链就可以分叉</p>
+<p>3.转别人账户的钱，不行因为没有私钥进行签名，把没有合法签名的交易写入链上，会造成分叉，诚实的矿工会沿着另一种链去挖</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" data-id="cm477y2ny001ac4u7ecd8hxly" data-title="北大肖臻老师《区块链技术与应用》笔记6-8" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖课程笔记5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" class="article-date">
+  <time class="dt-published" datetime="2024-09-26T04:38:25.000Z" itemprop="datePublished">2024-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记5</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程5：比特币系统的实现"><a href="#课程5：比特币系统的实现" class="headerlink" title="课程5：比特币系统的实现"></a>课程5：比特币系统的实现</h1><p>比特币采用的是基于交易的账本模式（transaction -based ledger）,每个区块记录的是交易信息，但是没有地方显式地记录哪个地方有多少钱，需要通过交易记录推算。</p>
+<h2 id="UTXO数据结构"><a href="#UTXO数据结构" class="headerlink" title="UTXO数据结构"></a>UTXO数据结构</h2><p>比特币系统的全节点要维护 UTXO：unspent transaction output  的数据结构</p>
+<p>UTXO: 所有还没有被花掉的交易的输出组成的集合</p>
+<p>一个交易可能有多个输出和输入，UTXO集合里的每个元素要给出产生的输出的交易的哈希值，以及在交易里是第几个输出，通过这两个信息可以定位到在UTXO里的输出。每个输入地址要提供对应的签名。</p>
+<p>作用：检测double spending。</p>
+<p>每个交易会消耗输出也会产生输出，UTXO的集合会逐渐增大但目前装在一个普通内存器里仍然没有问题（2018）.</p>
+<h2 id="比特币的第二个激励机制：交易费（transaction-fee）"><a href="#比特币的第二个激励机制：交易费（transaction-fee）" class="headerlink" title="比特币的第二个激励机制：交易费（transaction fee）"></a>比特币的第二个激励机制：交易费（transaction fee）</h2><p>total inputs &#x3D; total outputs</p>
+<p>有些交易可能total inputs略微大于total outputs，里面的差额作为交易费给获得记账权发布区块的那个节点。</p>
+<p>发布区块，可以有一个特殊的coinbase traction, block reward,所以为什么要把你的交易加进去，要验证交易的合法性，占用带宽，传输速度。防止有的节点不管别的交易，只打造自己的交易。</p>
+<p>目前比特币的系统中，交易费的金额都很小，0.01个比特币算比较大的交易费了，2024现在平均交易费 | 0.000013 BTC ($0.832) 6.4 sats&#x2F;vB，也有一些简单的交易没有交易费。主要目的还是为了出块奖励。</p>
+<p>21万个区块，平均出块时间是10分钟，差不多是4年的时间。因为出块奖励减半，若干年后交易费可能就变成主要的了</p>
+<p>比特币：transaction-based ledger的模式，基于交易的模式，隐私保护性较好，所以转账交易要说明币的来源，因为没有地方证明你有这些比特币，需要说明来源<br>另一种模式：基于账户的模式，account-based ledger，系统要显式的得记录账户上有多少币，不需要显式地说明币的来源</p>
+<h2 id="比特币具体的区块信息，例子（可以再看一遍）"><a href="#比特币具体的区块信息，例子（可以再看一遍）" class="headerlink" title="比特币具体的区块信息，例子（可以再看一遍）"></a>比特币具体的区块信息，例子（可以再看一遍）</h2><p>目标阈值表示成16进制</p>
+<p>改变coinbase里的内容，可以随便写，改变会对根哈希值产生的影响：会对merkle root产生变化。所以可以把这个域当作extra nonse，块头里四个字节的nonse不够用，这里还有很多字节自己用，比如把coinbase里的前八个字节当作extra nonse使用，搜索空间一下子增加到了2的96次方。</p>
+<p>所以真正挖矿的时候有两层循环，外层循环调整coin base域的extra nonse，算出block header里的根哈希值之后</p>
+<p>比特币中验证交易的合法性技术把input script 和output script配对后执行来完成，即这个交易的输入脚本和前面提供币的来源的输出脚本配对，拼接后顺利执行则合法</p>
+<h2 id="对挖矿的过程做一些概率分析"><a href="#对挖矿的过程做一些概率分析" class="headerlink" title="对挖矿的过程做一些概率分析"></a>对挖矿的过程做一些概率分析</h2><p>挖矿就是不断地尝试各种nonse来求解这个puzzle，每次尝试nonse可以看作一个bernoulli trial: a random experiment with binary output(bernoulli trial)。比如丢硬币。做大量的bernoulli trial,这些就变成了bernoulli process: a sequence of independent bernoulli trial（性质有：无记忆性memoryless,前面的实验对后面的实验没有影响）</p>
+<p>这种情况下，这个bernouill process可以用poisson process</p>
+<p>Poisson过程是一种随机过程，常用于描述在固定时间间隔内发生的稀疏事件。这些事件独立且以恒定的平均速率发生，适用于模型化如电话呼叫、客户到达或自然事件等场景。其关键特征是事件发生的数量在每个时间间隔内服从泊松分布。</p>
+<p>出块时间服从指数分布，exponential distribution</p>
+<p>对于miner他能挖到下一次区块的时间，取决于这个矿工的算力占系统总算力的百分比，其中的指数分布也是无记忆的，比特币会调整出块难度使其稳定在平均出块时间十分钟。</p>
+<p>progress free:过去的process是不算数的</p>
+<p>如果progress不free算力强的miner会有不成比例的优势</p>
+<h2 id="比特币的总量"><a href="#比特币的总量" class="headerlink" title="比特币的总量"></a>比特币的总量</h2><p>因为出块奖励每隔四年减半，产生的比特币数量构成了集合序列，所有比特币的总量2100万</p>
+<p>比特币求解的puzzle没有实际意义，比特币的稀缺性是人为造成的，但是挖矿的过程对于维护比特币系统的安全性是至关重要的</p>
+<p>bitcoin is secured by mining.挖矿提供了一种凭借算力投票的有效手段。</p>
+<p>虽然出块奖励减少，但价格上升了，越来越多人去挖矿。</p>
+<h2 id="比特币安全性的一些分析"><a href="#比特币安全性的一些分析" class="headerlink" title="比特币安全性的一些分析"></a>比特币安全性的一些分析</h2><p>假设大部分算力在安全的矿工手里，只能说大概率在好的矿工手里</p>
+<p>第一个问题：偷币，把其他账户的节点转给自己</p>
+<p>如果在恶意手里，写入一个不好的区块，那么其他的节点不会接受这个区块。恶意的攻击是否成功的标准要看它能不能让诚实的节点接受这个交易。</p>
+<p>第二个问题：恶意节点把已经花出的币再花一笔，double spending。区块插入的位置要在刚开始挖矿的时候就要决定，因为设置的block header里要填上上一个区块的哈希值，fork attack。如果不是最后一个区块，那么很难，恶意节点需要不断获得记账权，所以简单的防范方法：多等几个区块（确认、缺省）confirmaction</p>
+<p>比特币协议当中的确认的是要等六个区块confirmation,差不多等1个小时</p>
+<p>区块链是不可篡改的账本，irrevocable ledger,这种不可篡改性只是一种概率的保证</p>
+<h2 id="zero-confirmation"><a href="#zero-confirmation" class="headerlink" title="zero confirmation"></a>zero confirmation</h2><p>转账交易发布出去了，但还没有写到区块链</p>
+<p>原因：</p>
+<p>1.比特币协议缺省的设置是节点接收最先听到的交易</p>
+<p>2.比特币之后，购物天然有一定的处理时间</p>
+<h2 id="恶意的节点故意不把合法的区块写入"><a href="#恶意的节点故意不把合法的区块写入" class="headerlink" title="恶意的节点故意不把合法的区块写入"></a>恶意的节点故意不把合法的区块写入</h2><p>可以写到下一个区块里，总有诚实的节点愿意发布这些交易，正常情况下也可能不包括合法的节点，比如一段时间内交易数量过多。</p>
+<p>比特币协议规定每个区块的大小有限制，最多不超过一兆字节。</p>
+<p>一种攻击方法自己存储6个区块，盖过合法区块链。<br>selfish mining。前提是有恶意的节点占据很大一部分算力。每一个区块的算出必须要有前一个区块的哈希。正常挖矿self mining的好处：不发布，然后等两个发布，使得其他的区块，风险就是别人先发布。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" data-id="cm477y2o0001bc4u73a2hchoz" data-title="北大肖臻老师《区块链技术与应用》笔记5" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖课程笔记4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" class="article-date">
+  <time class="dt-published" datetime="2024-09-24T10:10:25.464Z" itemprop="datePublished">2024-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/">北大肖臻老师《区块链技术与应用》笔记4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程4：比特币的共识协议"><a href="#课程4：比特币的共识协议" class="headerlink" title="课程4：比特币的共识协议"></a>课程4：比特币的共识协议</h1><h2 id="一个中心化银行如何发行数字货币"><a href="#一个中心化银行如何发行数字货币" class="headerlink" title="一个中心化银行如何发行数字货币"></a>一个中心化银行如何发行数字货币</h2><p>例如央行发行数字货币，只是数字签名可以复制，double spending attack。<br>如果加上编号，要与银行核实，但太麻烦了，是一个中心化的方案，要让银行确认。</p>
+<p>一个去中心化的货币要解决两个问题，</p>
+<p>1.数字货币的发行，谁来发行数字货币<br>2.怎么验证交易的有效性</p>
+<p>数据结构由所有用户共同维护。</p>
+<p>CreatCoin(铸币交易)（Coinbase transaction） -&gt; A -&gt; B,C(signed by A)</p>
+<p>输入部分：币的来源和A的公钥。 输出部分：输出部分收款人公钥的哈希。 付款人的数字签名和收款人的地址，地址通过公钥推算（某个地方公开公钥，b要知道A的公钥，知道币的来源，所有节点都需要知道A的公钥，需要验证签名，转账交易合法。</p>
+<p>这时有两种哈希指针</p>
+<p>1.连接各个区块的，串联成链表<br>2.指向前面某个交易，说明币的来源。（防止伪造和double spending attack）</p>
+<p>避免B’用自己的公钥伪造A的公钥说是A转的，转账交易要说明A的公钥要和币的来源里说明的公钥的哈希对的上，因此假的公钥会与输出里指定的A的公钥的哈希对不上，与币的来源里的哈希值对不上，有查的币的来源的问题。这些都是<br>脚本，验证交易加上把当前这个交易的输入脚本跟提供币的来源的那个交易的输出脚本拼在一起，看看能不能顺利执行。（Bition script）</p>
+<p>实际系统中每个区块包括很多个交易，这些交易组成merkle tree，每个区块分成块头和块体（Block header and block body）.</p>
+<p>block head: version + hash of previous block header + merkle root hash + taeget（目标阈值的编码） + nonce</p>
+<p>block body: transaction list +</p>
+<p>full node(所有信息：fully validating node) and light node (lightweight node)只保存block header中的信息，一般来说轻节点无法独立验证交易的合法性。系统中大多数节点是轻节点，全节点的数目不是很多。轻节点没有参与区块链的构造和维护，只是利用了区块链的信息做一些查询。</p>
+<p>每个账户都可以发布交易，这个交易是广播给所有节点的，交易可能合法与非法。谁来决定哪些交易可以写到下一个区块中？按怎样的顺序写呢？每个用户自己决定的话一致性得不到保证，区块链-&gt;去中心化的账本，得统一。</p>
+<p>所以账本的内容要取得分布式的共识（distribued consensus），比如distributed hash table,有很多机器共同维护一个全局的哈希表,需要取得的共识的内容是</p>
+<p>在分布式账本系统中，通过分布式共识（distributed consensus）来维护一个全局的哈希表时，需要取得的共识内容主要包括pwk（准入型密钥）。</p>
+<h3 id="impossibiliyu-result"><a href="#impossibiliyu-result" class="headerlink" title="impossibiliyu result"></a>impossibiliyu result</h3><p>FLP impossibiliyu result<br>asynchronous(异步系统：网络传输时延没有上限)，即使一个成员传输是有问题的（faulty），那么也不可能取得共识。</p>
+<p>CAP theorem</p>
+<p>C： Consistency<br>A：Availability<br>P:partition tolerance</p>
+<p>任何一个分布式系统，这三个性质当中最多满足两个，不可能满足三个。</p>
+<p>分布式共识一个比较著名的协议：Paxos<br>可以保证consistency，但是某些情况下可能一直没有办法达成共识。可能性比较小，但是客观存在。</p>
+<h2 id="比特币中的共识协议（Consensus-in-bitcoin）"><a href="#比特币中的共识协议（Consensus-in-bitcoin）" class="headerlink" title="比特币中的共识协议（Consensus in bitcoin）"></a>比特币中的共识协议（Consensus in bitcoin）</h2><p>假设系统中大部分节点是好的无恶意的</p>
+<p>构造共识协议</p>
+<p>1.投票，半数赞成则区块接受，问题：membership，决定投票权，恶意节点超过一半则具有控制权（即sybil attack）女巫攻击</p>
+<p>bitcoin实际解决方法：根据计算力投票而不是通过账户数目投票。每个节点都可以在本地组装一个候选区块，把合法交易放在区块中，然后尝试各种nonse值。<br>computational puddle。nonse：4 bytes。</p>
+<h3 id="分叉攻击（forking-attack）"><a href="#分叉攻击（forking-attack）" class="headerlink" title="分叉攻击（forking attack）"></a>分叉攻击（forking attack）</h3><p>某个节点找到了符合要求的nonse，那么获得了记账权，可以往比特币这个去中心化账本里写入下一个区块的权力。其他节点验证这个区块的合法性。n Bits：目标阈值（targets）的编码,blocker header and blocker body(交易列表中)符合要求，但插在区块链中间则不符合要求，hash of previous block.这样区块就有两个分支，一个交易者就可以把钱转给2个人，而这两者分别在不同的分支里，两个交易都是合法的，因为交易不会查询到另一个分支里的内容。所以虽然交易合法，但不在最长合法链上，longest valid chain，即比特币协议中规定接受的区块应该是在扩展最长合法链。</p>
+<p>区块链在正常情况下也可能获得分叉，两个节点同时获得记账权，会出现两个等长的分叉。每个节点接受他最早收到的那一个，不同节点根据在网络上位置的不同，不同节点接受的区块不同。</p>
+<h3 id="判断是否接收一个区块"><a href="#判断是否接收一个区块" class="headerlink" title="判断是否接收一个区块"></a>判断是否接收一个区块</h3><p>implicit concern,沿着这个区块往下继续扩展，则是认可这个区块。所以这两种等长的临时性的分叉会维持一段时间，直到其中某一个分叉胜出。而另一个链则叫orphan block（舍弃）</p>
+<h3 id="所以为什么争夺记账权"><a href="#所以为什么争夺记账权" class="headerlink" title="所以为什么争夺记账权"></a>所以为什么争夺记账权</h3><p>获得记账权的节点可以选择接受哪些交易被写到下一个区块里，但是设置协议时不应该让这个成为争夺记账权的主要动力，因为我们希望凡是合法的交易都应该被写入区块链中。</p>
+<p><strong>比特币解决办法：出块奖励（block reward</strong>）<br>即获得记账权的节点，在发布的区块里可以有一个特殊的交易：铸币交易（coinbase transaction），在这个交易里可以发布一定数量的比特币，比特币系统中发布新的货币的唯一方法，其他所有的交易只是把比特币从一个账户转移到另一个账户。</p>
+<p>比特币刚上线时每一个发布的区块可以产生50个比特币，21万个区块以后，出块奖励少一半（截至2024 年7 月5 日，流通中的比特币数量为1972 万。 随着新区块的开采和新比特币的产生，这一数字大约每10 分钟就会发生变化。目前，比特币已经进行了三次减半，分别发生在2012年11月、2016年7月和2020年5月。第四次比特币减半时间预计将发生在2024年5月。届时，比特币产量将会由现在的6.25个减半到3.125个。）</p>
+<h3 id="共识机制要取得的共识是什么"><a href="#共识机制要取得的共识是什么" class="headerlink" title="共识机制要取得的共识是什么"></a>共识机制要取得的共识是什么</h3><p>之前例子中哈希表的内容，包含哪些pwk【PermissionWithKey（准入型公钥）】。</p>
+<p>比特币中的共识是这个去中心化账本中所取得的共识，获得记账权的节点决定账本内容，而取得记账权则是解得H（block header） &lt;&#x3D; target 这个power。所以比特币的共识机制是靠算力来投票的。</p>
+<p>puzzle friendly决定求解puzzle的过程没有捷径，只能一个一个试nonse。（hash rate越高，获得记账权的概率越大）</p>
+<p>怎么防范sybil attack（女巫攻击），不管创建多少个账户，投票的权重没有改变。</p>
+<h3 id="挖矿（mining）"><a href="#挖矿（mining）" class="headerlink" title="挖矿（mining）"></a>挖矿（mining）</h3><p>争夺记账权的过程</p>
+<p>比特币： digital gold</p>
+<p>争夺记账权的节点：miner</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" data-id="cm477y2o2001dc4u76n6lg6du" data-title="北大肖臻老师《区块链技术与应用》笔记4" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+  </nav>
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

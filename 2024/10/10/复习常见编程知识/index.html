@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Rust复习-常见编程概念 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-复习常见编程知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2024-10-10T12:47:39.000Z" itemprop="datePublished">2024-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Rust复习-常见编程概念
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>常见编程概念<br>3.1. 变量与可变性<br>3.2. 数据类型<br>3.3. 函数<br>3.4. 注释<br>3.5. 控制流</p>
+<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><p><a target="_blank" rel="noopener" href="https://kaisery.github.io/trpl-zh-cn/appendix-01-keywords.html" title="关键字">https://kaisery.github.io/trpl-zh-cn/appendix-01-keywords.html</a></p>
+<p>Rust 语言中的关键字是保留的词语，用于定义程序的结构、控制流程、类型和函数等。以下是 Rust 中的一些重要关键字，按功能分类列出：</p>
+<h3 id="1-控制流关键字"><a href="#1-控制流关键字" class="headerlink" title="1. 控制流关键字"></a>1. <strong>控制流关键字</strong></h3><p>这些关键字用于控制程序的执行流程。</p>
+<ul>
+<li><code>if</code>：条件语句，用于条件判断。</li>
+<li><code>else</code>：与 <code>if</code> 搭配使用，处理 <code>if</code> 条件不满足时的分支。</li>
+<li><code>match</code>：模式匹配，用于对不同的模式进行分支处理。</li>
+<li><code>loop</code>：无限循环，使用 <code>break</code> 退出循环。</li>
+<li><code>while</code>：基于条件的循环。</li>
+<li><code>for</code>：用于迭代集合的循环。</li>
+<li><code>break</code>：终止循环或跳出 <code>match</code> 分支。</li>
+<li><code>continue</code>：跳过当前循环迭代，进入下一个迭代。</li>
+<li><code>return</code>：从函数中返回值。</li>
+</ul>
+<h3 id="2-类型关键字"><a href="#2-类型关键字" class="headerlink" title="2. 类型关键字"></a>2. <strong>类型关键字</strong></h3><p>这些关键字用于定义数据类型。</p>
+<ul>
+<li><code>fn</code>：用于定义函数。</li>
+<li><code>let</code>：用于定义变量。</li>
+<li><code>const</code>：定义常量，值在编译时确定。</li>
+<li><code>static</code>：定义拥有 <code>&#39;static</code> 生命周期的全局变量。</li>
+<li><code>struct</code>：定义结构体。</li>
+<li><code>enum</code>：定义枚举类型。</li>
+<li><code>impl</code>：为类型实现方法或特征。</li>
+<li><code>trait</code>：定义特征，用于抽象行为。</li>
+<li><code>type</code>：定义类型别名。</li>
+</ul>
+<h3 id="3-所有权与内存管理关键字"><a href="#3-所有权与内存管理关键字" class="headerlink" title="3. 所有权与内存管理关键字"></a>3. <strong>所有权与内存管理关键字</strong></h3><p>这些关键字用于管理内存和所有权。</p>
+<ul>
+<li><code>move</code>：将变量的所有权转移。</li>
+<li><code>mut</code>：可变性修饰符，表示变量可以修改。</li>
+<li><code>ref</code>：模式匹配中用于获取引用。</li>
+<li><code>box</code>：分配在堆上的数据（通过 <code>Box</code> 智能指针）。</li>
+<li><code>Self</code>：表示当前类型的别名，常用于 <code>impl</code> 块中。</li>
+</ul>
+<h3 id="4-模式匹配和解构关键字"><a href="#4-模式匹配和解构关键字" class="headerlink" title="4. 模式匹配和解构关键字"></a>4. <strong>模式匹配和解构关键字</strong></h3><p>这些关键字用于模式匹配和解构操作。</p>
+<ul>
+<li><code>match</code>：用于模式匹配。</li>
+<li><code>ref</code>：在模式匹配中获取引用。</li>
+<li><code>let</code>：定义变量并绑定模式。</li>
+</ul>
+<h3 id="5-异步与并发关键字"><a href="#5-异步与并发关键字" class="headerlink" title="5. 异步与并发关键字"></a>5. <strong>异步与并发关键字</strong></h3><p>这些关键字用于处理异步编程与并发。</p>
+<ul>
+<li><code>async</code>：定义异步函数或代码块。</li>
+<li><code>await</code>：等待异步操作完成。</li>
+<li><code>yield</code>：暂停生成器函数的执行，返回一个值。</li>
+<li><code>unsafe</code>：定义不受 Rust 安全规则限制的代码块。</li>
+</ul>
+<h3 id="6-错误处理关键字"><a href="#6-错误处理关键字" class="headerlink" title="6. 错误处理关键字"></a>6. <strong>错误处理关键字</strong></h3><p>这些关键字用于处理错误和异常情况。</p>
+<ul>
+<li><code>panic!</code>：引发程序崩溃并输出错误消息。</li>
+<li><code>Result</code>：用于表示可能成功或失败的操作。</li>
+<li><code>Option</code>：表示一个值可能存在或不存在。</li>
+</ul>
+<h3 id="7-可见性与模块关键字"><a href="#7-可见性与模块关键字" class="headerlink" title="7. 可见性与模块关键字"></a>7. <strong>可见性与模块关键字</strong></h3><p>这些关键字用于模块化和控制可见性。</p>
+<ul>
+<li><code>mod</code>：定义一个模块。</li>
+<li><code>pub</code>：定义公有可见性，允许模块或项在外部可见。</li>
+<li><code>use</code>：引入模块或项到当前作用域。</li>
+<li><code>crate</code>：表示当前库或包。</li>
+<li><code>extern</code>：引入外部库或函数。</li>
+</ul>
+<h3 id="8-生命周期与泛型关键字"><a href="#8-生命周期与泛型关键字" class="headerlink" title="8. 生命周期与泛型关键字"></a>8. <strong>生命周期与泛型关键字</strong></h3><p>这些关键字与生命周期和泛型参数相关。</p>
+<ul>
+<li><code>fn</code>：定义函数，泛型参数可附加在函数定义上。</li>
+<li><code>where</code>：为泛型参数设定约束。</li>
+<li><code>impl</code>：实现特征或方法时指定泛型类型。</li>
+<li><code>&#39;static</code>：生命周期标注，表示数据在整个程序运行期间都有效。</li>
+</ul>
+<h3 id="9-其他重要关键字"><a href="#9-其他重要关键字" class="headerlink" title="9. 其他重要关键字"></a>9. <strong>其他重要关键字</strong></h3><ul>
+<li><code>as</code>：用于类型转换或别名创建。</li>
+<li><code>in</code>：用于 <code>for</code> 循环中指定迭代范围。</li>
+<li><code>dyn</code>：用于定义动态派发的特征对象。</li>
+<li><code>super</code>：用于引用当前模块的父模块。</li>
+<li><code>self</code>：引用当前模块或结构体的实例。</li>
+<li><code>Self</code>：表示当前类型。</li>
+<li><code>default</code>：用于特征中的默认实现。</li>
+<li><code>union</code>：定义共用体，允许不同类型占用相同内存区域。</li>
+</ul>
+<h3 id="10-特殊类型关键字"><a href="#10-特殊类型关键字" class="headerlink" title="10. 特殊类型关键字"></a>10. <strong>特殊类型关键字</strong></h3><ul>
+<li><code>!</code>：发散类型，表示不会返回值的类型（如 <code>panic!</code>）。</li>
+</ul>
+<h3 id="11-保留关键字（未来可能使用）"><a href="#11-保留关键字（未来可能使用）" class="headerlink" title="11. 保留关键字（未来可能使用）"></a>11. <strong>保留关键字（未来可能使用）</strong></h3><p>这些关键字目前没有实际用途，但可能在未来版本的 Rust 中使用。</p>
+<ul>
+<li><code>abstract</code></li>
+<li><code>async</code></li>
+<li><code>await</code></li>
+<li><code>try</code></li>
+</ul>
+<p>这些关键字构成了 Rust 的核心语法，它们为 Rust 的安全性、所有权模型、并发处理等功能提供了基础支持。</p>
+<h2 id="原始标识符"><a href="#原始标识符" class="headerlink" title="原始标识符"></a>原始标识符</h2><p>原始标识符（Raw identifiers）允许你使用通常不能使用的关键字，其带有 r# 前缀。</p>
+<h1 id="变量和可变性"><a href="#变量和可变性" class="headerlink" title="变量和可变性"></a>变量和可变性</h1><h4 id="len（）"><a href="#len（）" class="headerlink" title="len（）"></a>len（）</h4><p>String 和 &amp;str：返回的是字符串的字节数，而不是字符数。Vec<T>：返回向量中的元素个数。<br>数组：返回数组中的元素个数。<br>切片：返回切片的元素个数。</p>
+<p>len() 方法广泛应用于 Rust 集合类型的长度计算，返回值类型为 usize。</p>
+<h4 id="整型溢出"><a href="#整型溢出" class="headerlink" title="整型溢出"></a>整型溢出</h4><p>在计算机导论里有，为了显式地处理溢出的可能性，可以使用这几类标准库提供的原始数字类型方法：</p>
+<p>所有模式下都可以使用 wrapping_* 方法进行 wrapping，如 wrapping_add</p>
+<p>如果 checked_* 方法出现溢出，则返回 None值</p>
+<p>用 overflowing_* 方法返回值和一个布尔值，表示是否出现溢出</p>
+<p>用 saturating_* 方法在值的最小值或最大值处进行饱和处理</p>
+<h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h2><p>复合类型（Compound types）可以将多个值组合成一个类型。Rust 有两个原生的复合类型：元组（tuple）和数组（array）。</p>
+<h3 id="元组类型"><a href="#元组类型" class="headerlink" title="元组类型"></a>元组类型</h3><p>元组是一个将多个其他类型的值组合进一个复合类型的主要方式。元组长度固定：一旦声明，其长度不会增大或缩小。</p>
+<p>我们使用包含在圆括号中的逗号分隔的值列表来创建一个元组。元组中的每一个位置都有一个类型，而且这些不同值的类型也不必是相同的。</p>
+<pre><code>fn main() &#123;
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+&#125;
+
+fn main() &#123;
+let tup = (500, 6.4, 1);
+
+let (x, y, z) = tup;
+
+println!(&quot;The value of y is: &#123;y&#125;&quot;);
+&#125;
+</code></pre>
+<p>程序首先创建了一个元组并绑定到 tup 变量上。接着使用了 let 和一个模式将 tup 分成了三个不同的变量，x、y 和 z。这叫做 解构（destructuring），因为它将一个元组拆成了三个部分。</p>
+<p>我们也可以使用点号（.）后跟值的索引来直接访问它们。</p>
+<pre><code>fn main() &#123;
+let x: (i32, f64, u8) = (500, 6.4, 1);
+
+let five_hundred = x.0;
+
+let six_point_four = x.1;
+
+let one = x.2;
+&#125;
+</code></pre>
+<p>跟大多数编程语言一样，元组的第一个索引值是 0。</p>
+<p>不带任何值的元组有个特殊的名称，叫做 单元（unit） 元组。这种值以及对应的类型都写作 ()，表示空值或空的返回类型。如果表达式不返回任何其他值，则会隐式返回单元值。</p>
+<h3 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h3><pre><code>fn main() &#123;
+let a = [1, 2, 3, 4, 5];
+&#125;
+let months = [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;,
+  &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+let a = [3; 5];
+</code></pre>
+<p>[3; 5]变量名为 a 的数组将包含 5 个元素，这些元素的值最初都将被设置为 3。这种写法与 let a &#x3D; [3, 3, 3, 3, 3]; 效果相同，但更简洁。</p>
+<h4 id="访问数组元素"><a href="#访问数组元素" class="headerlink" title="访问数组元素"></a>访问数组元素</h4><p>数组是可以在栈 (stack) 上分配的已知固定大小的单个内存块。可以使用索引来访问数组的元素</p>
+<pre><code>fn main() &#123;
+let a = [1, 2, 3, 4, 5];
+
+let first = a[0];
+let second = a[1];
+&#125;
+</code></pre>
+<h4 id="无效的数组元素访问"><a href="#无效的数组元素访问" class="headerlink" title="无效的数组元素访问"></a>无效的数组元素访问</h4><p>访问数组结尾之后的元素会panic！</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><p>在 Rust 中，<code>main</code> 函数是程序的入口点，每个可执行的 Rust 程序都必须包含一个名为 <code>main</code> 的函数。当你运行程序时，Rust 运行时会首先执行 <code>main</code> 函数。下面是关于 <code>main</code> 函数的一些重要信息：</p>
+<h3 id="1-基本结构"><a href="#1-基本结构" class="headerlink" title="1. 基本结构"></a>1. <strong>基本结构</strong></h3><p><code>main</code> 函数的基本定义如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 程序代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-返回值"><a href="#2-返回值" class="headerlink" title="2. 返回值"></a>2. <strong>返回值</strong></h3><p>在 Rust 中，<code>main</code> 函数的返回类型是 <code>()</code>，即不返回任何值（相当于 void）。如果需要从 <code>main</code> 函数返回状态码，可以使用 <code>std::process::exit</code> 函数或通过 <code>Result</code> 类型来实现。</p>
+<h4 id="使用-std-process-exit："><a href="#使用-std-process-exit：" class="headerlink" title="使用 std::process::exit："></a>使用 <code>std::process::exit</code>：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 程序代码</span></span><br><span class="line">    std::process::<span class="title function_ invoke__">exit</span>(<span class="number">0</span>); <span class="comment">// 正常退出</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-Result-类型："><a href="#使用-Result-类型：" class="headerlink" title="使用 Result 类型："></a>使用 <code>Result</code> 类型：</h4><p>通过返回 <code>Result</code> 类型，你可以处理错误并返回不同的状态码：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::error::Error;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;(), <span class="type">Box</span>&lt;<span class="keyword">dyn</span> Error&gt;&gt; &#123;</span><br><span class="line">    <span class="comment">// 程序代码</span></span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(()) <span class="comment">// 正常返回</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-命令行参数"><a href="#3-命令行参数" class="headerlink" title="3. 命令行参数"></a>3. <strong>命令行参数</strong></h3><p><code>main</code> 函数可以使用 <code>std::env::args</code> 来访问命令行参数。它返回一个迭代器，包含程序执行时提供的所有参数。</p>
+<h4 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::env;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">args</span>: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt; = env::<span class="title function_ invoke__">args</span>().<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Arguments: &#123;:?&#125;&quot;</span>, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行这个程序时，可以在命令行中传入参数，它会将所有参数打印出来。</p>
+<h3 id="4-示例程序"><a href="#4-示例程序" class="headerlink" title="4. 示例程序"></a>4. <strong>示例程序</strong></h3><p>下面是一个简单的 Rust 程序示例，它演示了如何使用 <code>main</code> 函数以及命令行参数的处理：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::env;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">args</span>: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt; = env::<span class="title function_ invoke__">args</span>().<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> args.<span class="title function_ invoke__">len</span>() &gt; <span class="number">1</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Hello, &#123;&#125;!&quot;</span>, args[<span class="number">1</span>]); <span class="comment">// 打印第一个命令行参数</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// 默认消息</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你在命令行中运行这个程序并传入一个名字，它会问候那个名字；如果没有传入任何参数，则会打印默认消息。</p>
+<h3 id="5-错误处理"><a href="#5-错误处理" class="headerlink" title="5. 错误处理"></a>5. <strong>错误处理</strong></h3><p>在 Rust 中，使用 <code>main</code> 函数时，可以通过 <code>Result</code> 来简化错误处理。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::fs::File;</span><br><span class="line"><span class="keyword">use</span> std::io::Read;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() <span class="punctuation">-&gt;</span> <span class="type">Result</span>&lt;(), <span class="type">Box</span>&lt;<span class="keyword">dyn</span> std::error::Error&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">file</span> = File::<span class="title function_ invoke__">open</span>(<span class="string">&quot;hello.txt&quot;</span>)?; <span class="comment">// 使用 ? 处理错误</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">contents</span> = <span class="type">String</span>::<span class="title function_ invoke__">new</span>();</span><br><span class="line">    file.<span class="title function_ invoke__">read_to_string</span>(&amp;<span class="keyword">mut</span> contents)?;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, contents);</span><br><span class="line">    <span class="title function_ invoke__">Ok</span>(())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>main</code> 函数返回一个 <code>Result</code>，如果任何操作失败，程序会自动处理错误。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>main</code> 函数是 Rust 程序的入口点。</li>
+<li>它可以返回 <code>()</code> 或 <code>Result</code> 类型。</li>
+<li>可以使用 <code>std::env::args</code> 访问命令行参数。</li>
+<li>通过返回 <code>Result</code> 可以有效地处理错误。</li>
+</ul>
+<p><code>main</code> 函数的设计使得 Rust 程序能够安全、有效地处理任务和错误，是编写 Rust 应用程序的基础。</p>
+<h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>在编程中，尤其是在函数的上下文中，<strong>形参</strong>（parameter）和<strong>实参</strong>（argument）是两个重要的概念。它们的区别如下：</p>
+<h3 id="1-形参（Parameters）"><a href="#1-形参（Parameters）" class="headerlink" title="1. 形参（Parameters）"></a>1. 形参（Parameters）</h3><ul>
+<li><strong>定义</strong>：形参是函数定义中指定的变量，用于接收调用函数时传入的值。它们是函数的一部分，用于描述函数所需的输入。</li>
+<li><strong>作用</strong>：形参在函数内部被用作变量，函数通过这些变量来访问传入的值。</li>
+<li><strong>示例</strong>：  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">add</span>(a: <span class="type">i32</span>, b: <span class="type">i32</span>) <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123; <span class="comment">// a 和 b 是形参</span></span><br><span class="line">    a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  在上面的例子中，<code>a</code> 和 <code>b</code> 是 <code>add</code> 函数的形参，定义了该函数所需的输入类型（<code>i32</code>）。</li>
+</ul>
+<h3 id="2-实参（Arguments）"><a href="#2-实参（Arguments）" class="headerlink" title="2. 实参（Arguments）"></a>2. 实参（Arguments）</h3><ul>
+<li><strong>定义</strong>：实参是调用函数时实际传入的值或变量。实参可以是常量、变量、表达式等，具体取决于函数的调用。</li>
+<li><strong>作用</strong>：实参在函数调用时被传递给形参，函数使用这些值执行其逻辑。</li>
+<li><strong>示例</strong>：  <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">sum</span> = <span class="title function_ invoke__">add</span>(<span class="number">5</span>, <span class="number">10</span>); <span class="comment">// 5 和 10 是实参</span></span><br></pre></td></tr></table></figure>
+  在这个例子中，<code>5</code> 和 <code>10</code> 是实参，它们在调用 <code>add</code> 函数时传递给形参 <code>a</code> 和 <code>b</code>。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>形参</strong>是函数定义时的变量，表示函数期望接收的输入。</li>
+<li><strong>实参</strong>是函数调用时传递的实际值或变量，供形参使用。</li>
+</ul>
+<p>这种区别在函数调用的上下文中非常重要，因为它帮助理解如何定义函数及如何在实际使用中传递数据。通过形参和实参的机制，函数可以重用代码并实现更通用的逻辑。</p>
+<h2 id="在-let-语句中使用-if"><a href="#在-let-语句中使用-if" class="headerlink" title="在 let 语句中使用 if"></a>在 let 语句中使用 if</h2><pre><code>fn main() &#123;
+let condition = true;
+let number = if condition &#123; 5 &#125; else &#123; 6 &#125;;
+
+println!(&quot;The value of number is: &#123;number&#125;&quot;);
+&#125;
+</code></pre>
+<p>代码块的值是其最后一个表达式的值，而数字本身就是一个表达式。在这个例子中，整个 if 表达式的值取决于哪个代码块被执行。这意味着 if 的每个分支的可能的返回值都必须是相同类型；</p>
+<h2 id="rev"><a href="#rev" class="headerlink" title="rev()"></a>rev()</h2><p>在 Rust 中，<code>rev()</code> 是一个常用于反转迭代器的函数。它属于迭代器适配器的方法，允许你将迭代器的顺序反转。这个函数可以用于不同类型的迭代器，包括数组、切片、向量等。以下是关于 <code>rev()</code> 方法的详细介绍：</p>
+<h3 id="1-基本用法"><a href="#1-基本用法" class="headerlink" title="1. 基本用法"></a>1. <strong>基本用法</strong></h3><p><code>rev()</code> 方法通过反转迭代器的顺序，返回一个新的迭代器，该迭代器按相反的顺序访问原始迭代器中的元素。</p>
+<h3 id="2-使用示例"><a href="#2-使用示例" class="headerlink" title="2. 使用示例"></a>2. <strong>使用示例</strong></h3><h4 id="反转数组"><a href="#反转数组" class="headerlink" title="反转数组"></a>反转数组</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed</span>: <span class="type">Vec</span>&lt;_&gt; = arr.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">collect</span>(); <span class="comment">// 反转数组并收集到一个新的 Vec 中</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, reversed); <span class="comment">// 输出：[5, 4, 3, 2, 1]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>arr.iter().rev()</code> 创建了一个反向迭代器，接着使用 <code>collect()</code> 方法将其收集到一个新的 <code>Vec</code> 中。</p>
+<h4 id="反转向量"><a href="#反转向量" class="headerlink" title="反转向量"></a>反转向量</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed</span>: <span class="type">Vec</span>&lt;_&gt; = vec.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">collect</span>(); <span class="comment">// 反转向量</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, reversed); <span class="comment">// 输出：[50, 40, 30, 20, 10]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里，<code>vec.iter().rev()</code> 反转了向量的迭代顺序。</p>
+<h3 id="3-反转字符串"><a href="#3-反转字符串" class="headerlink" title="3. 反转字符串"></a>3. <strong>反转字符串</strong></h3><p>对于字符串切片，你也可以使用 <code>rev()</code> 方法：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s</span> = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed</span>: <span class="type">String</span> = s.<span class="title function_ invoke__">chars</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">collect</span>(); <span class="comment">// 反转字符串</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, reversed); <span class="comment">// 输出：olleh</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>s.chars()</code> 返回字符串中的字符迭代器，然后使用 <code>rev()</code> 反转字符顺序，并最终收集到一个新的字符串中。</p>
+<h3 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4. 注意事项"></a>4. <strong>注意事项</strong></h3><ul>
+<li><code>rev()</code> 方法只反转迭代器的顺序，不会修改原始集合。</li>
+<li>由于 <code>rev()</code> 返回的是一个新的迭代器，因此在使用时可以继续进行其他的迭代器操作。</li>
+</ul>
+<h3 id="5-结合其他迭代器方法"><a href="#5-结合其他迭代器方法" class="headerlink" title="5. 结合其他迭代器方法"></a>5. <strong>结合其他迭代器方法</strong></h3><p>你可以将 <code>rev()</code> 与其他迭代器方法结合使用，例如 <code>map</code>、<code>filter</code> 等：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">numbers</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">reversed_and_doubled</span>: <span class="type">Vec</span>&lt;_&gt; = numbers.<span class="title function_ invoke__">iter</span>().<span class="title function_ invoke__">rev</span>().<span class="title function_ invoke__">map</span>(|&amp;x| x * <span class="number">2</span>).<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, reversed_and_doubled); <span class="comment">// 输出：[10, 8, 6, 4, 2]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，首先反转了向量，然后将每个元素乘以 2。</p>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>rev()</code> 是一个迭代器适配器，用于反转迭代器的顺序。</li>
+<li>它返回一个新的迭代器，原始集合不会被修改。</li>
+<li>可以与其他迭代器方法结合使用，增加了代码的灵活性和可读性。</li>
+</ul>
+<p>通过 <code>rev()</code> 方法，Rust 提供了一种简便的方式来处理迭代器中的元素顺序，使得在数据处理过程中更加高效和直观。</p>
+<h1 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h1><h2 id="1-’static-str"><a href="#1-’static-str" class="headerlink" title="1.&amp;’static str"></a>1.&amp;’static str</h2><pre><code>fn main() &#123;
+let x = define_x();
+println!(&quot;&#123;:?&#125;, world&quot;, x);
+&#125;
+
+fn define_x() -&gt; &amp;&#39;static str &#123;
+let x = &quot;hello&quot;;
+x
+&#125;
+</code></pre>
+<h2 id="2-和"><a href="#2-和" class="headerlink" title="2.{:?}和{:#?}"></a>2.{:?}和{:#?}</h2><p>在 Rust 中，<code>&#123;:?&#125;</code> 是一种格式化占位符，用于在打印或格式化输出时显示对象的调试信息。它属于 Rust 的格式化宏 <code>println!</code>、<code>format!</code> 等的一部分，主要用于输出实现了 <code>std::fmt::Debug</code> trait 的类型的内容。</p>
+<h3 id="1-基本用法-1"><a href="#1-基本用法-1" class="headerlink" title="1. 基本用法"></a>1. <strong>基本用法</strong></h3><p>要使用 <code>&#123;:?&#125;</code>，你的数据类型必须实现 <code>Debug</code> trait。这通常适用于大多数标准库类型，如 <code>Vec</code>、<code>String</code>、数组、结构体等。</p>
+<h4 id="示例：-1"><a href="#示例：-1" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The vector is: &#123;:?&#125;&quot;</span>, vec); <span class="comment">// 输出：The vector is: [1, 2, 3, 4, 5]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个示例中，<code>&#123;:?&#125;</code> 用于打印向量的内容，显示其元素的列表。</p>
+<h3 id="2-打印结构体"><a href="#2-打印结构体" class="headerlink" title="2. 打印结构体"></a>2. <strong>打印结构体</strong></h3><p>你可以使用 <code>&#123;:?&#125;</code> 来打印自定义结构体的内容。为了能够使用 <code>&#123;:?&#125;</code>，你需要为结构体实现 <code>Debug</code> trait。</p>
+<h4 id="示例：-2"><a href="#示例：-2" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(Debug)]</span> <span class="comment">// 为结构体实现 Debug trait</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    name: <span class="type">String</span>,</span><br><span class="line">    age: <span class="type">u32</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">person</span> = Person &#123;</span><br><span class="line">        name: <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;Alice&quot;</span>),</span><br><span class="line">        age: <span class="number">30</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Person details: &#123;:?&#125;&quot;</span>, person); <span class="comment">// 输出：Person details: Person &#123; name: &quot;Alice&quot;, age: 30 &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>#[derive(Debug)]</code> 宏为 <code>Person</code> 结构体自动实现了 <code>Debug</code> trait，这样就可以使用 <code>&#123;:?&#125;</code> 打印结构体的内容。</p>
+<h3 id="3-格式化输出"><a href="#3-格式化输出" class="headerlink" title="3. 格式化输出"></a>3. <strong>格式化输出</strong></h3><p>你还可以在输出中结合使用其他格式化占位符，如 <code>&#123;&#125;</code>、<code>&#123;:x&#125;</code> 等，以控制输出格式。对于 <code>&#123;:?&#125;</code>，输出是未经格式化的调试信息。</p>
+<h4 id="示例：-3"><a href="#示例：-3" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">num</span> = <span class="number">42</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The number is: &#123;:?&#125;&quot;</span>, num); <span class="comment">// 输出：The number is: 42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-打印切片和数组"><a href="#4-打印切片和数组" class="headerlink" title="4. 打印切片和数组"></a>4. <strong>打印切片和数组</strong></h3><p>使用 <code>&#123;:?&#125;</code> 还可以打印切片和数组：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Array: &#123;:?&#125;&quot;</span>, arr); <span class="comment">// 输出：Array: [1, 2, 3, 4, 5]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-多重调试输出"><a href="#5-多重调试输出" class="headerlink" title="5. 多重调试输出"></a>5. <strong>多重调试输出</strong></h3><p>如果你有多个需要输出的信息，可以使用多个 <code>&#123;:?&#125;</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec1</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec2</span> = <span class="built_in">vec!</span>[<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Vector 1: &#123;:?&#125;, Vector 2: &#123;:?&#125;&quot;</span>, vec1, vec2);</span><br><span class="line">    <span class="comment">// 输出：Vector 1: [1, 2, 3], Vector 2: [4, 5, 6]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><code>&#123;:?&#125;</code> 是 Rust 中用于调试输出的格式化占位符。</li>
+<li>仅适用于实现了 <code>std::fmt::Debug</code> trait 的类型。</li>
+<li>方便开发者在调试时查看对象的内部状态和内容。</li>
+</ul>
+<p>使用 <code>&#123;:?&#125;</code> 进行调试输出是 Rust 开发中非常常见的做法，有助于快速检查数据结构的状态。<br>在 Rust 中，<code>&#123;:?&#125;</code> 和 <code>&#123;:#?&#125;</code> 都是用于格式化输出的占位符，主要用于调试目的。它们的主要区别在于输出的格式。以下是对这两种占位符的详细说明：</p>
+<h3 id="1"><a href="#1" class="headerlink" title="1. {:?}"></a>1. <code>&#123;:?&#125;</code></h3><ul>
+<li><strong>定义</strong>：用于打印实现了 <code>std::fmt::Debug</code> trait 的类型的内容，返回的是一种紧凑的格式。</li>
+<li><strong>用法</strong>：通常用于在控制台上打印数据结构的简单表示。</li>
+</ul>
+<h4 id="示例：-4"><a href="#示例：-4" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Compact format: &#123;:?&#125;&quot;</span>, vec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Compact format: [1, 2, 3, 4, 5]</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&#123;:?&#125;</code> 输出了一个紧凑的向量表示。</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2. {:#?}"></a>2. <code>&#123;:#?&#125;</code></h3><ul>
+<li><strong>定义</strong>：与 <code>&#123;:?&#125;</code> 相同，但输出的格式为“美化”格式。它将以更易读的方式格式化输出，通常在包含多个元素或嵌套结构时更明显。</li>
+<li><strong>用法</strong>：适用于需要更清晰、易读的调试输出。</li>
+</ul>
+<h4 id="示例：-5"><a href="#示例：-5" class="headerlink" title="示例："></a>示例：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Pretty format: &#123;:#?&#125;&quot;</span>, vec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Pretty format: [</span><br><span class="line">    1,</span><br><span class="line">    2,</span><br><span class="line">    3,</span><br><span class="line">    4,</span><br><span class="line">    5,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&#123;:#?&#125;</code> 输出了更具可读性的格式，每个元素单独占一行，并使用缩进。</p>
+<h3 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h3><ul>
+<li>**<code>&#123;:?&#125;</code>**：返回紧凑的调试输出格式，适用于简单的数据结构。</li>
+<li>**<code>&#123;:#?&#125;</code>**：返回美化的调试输出格式，适用于更复杂或嵌套的数据结构，使其更易于阅读。</li>
+</ul>
+<h3 id="4-实际应用"><a href="#4-实际应用" class="headerlink" title="4. 实际应用"></a>4. 实际应用</h3><ul>
+<li>当你想快速查看数据结构的内容时，可以使用 <code>&#123;:?&#125;</code>。</li>
+<li>当你在调试过程中需要详细的输出以便于阅读和理解结构时，可以选择 <code>&#123;:#?&#125;</code>。</li>
+</ul>
+<p>这两个占位符都非常有用，尤其在调试复杂的数据结构时，可以帮助开发者快速理解程序状态。</p>
+<h2 id="3-compiler-warning-unused-variable-x"><a href="#3-compiler-warning-unused-variable-x" class="headerlink" title="3.compiler warning: unused variable: x"></a>3.compiler warning: unused variable: <code>x</code></h2><pre><code>_下划线或者#[allow(unused_variables)]
+</code></pre>
+<h2 id="4"><a href="#4" class="headerlink" title="4. .."></a>4. ..</h2><p>在 Rust 中，.. 是一种特殊的模式匹配符号，用于忽略某些值或元素，表示“这里有内容，但我们不关心具体是什么”。</p>
+<h2 id="5-format！"><a href="#5-format！" class="headerlink" title="5.format！"></a>5.format！</h2><p>在 Rust 中，<code>format!</code> 是一个用于<strong>格式化字符串</strong>的宏。它类似于 <code>println!</code>，但不同之处在于 <code>format!</code> 不会将格式化后的字符串打印到控制台，而是返回一个格式化后的 <code>String</code> 类型的值。这非常适合需要处理或操作格式化后的字符串的情况。</p>
+<h3 id="1-format-的基本语法"><a href="#1-format-的基本语法" class="headerlink" title="1. format! 的基本语法"></a>1. <strong><code>format!</code> 的基本语法</strong></h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">format!</span>(format_string, args...)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>**<code>format_string</code>**：格式化字符串，类似于 <code>println!</code> 中的格式化模板，使用 <code>&#123;&#125;</code> 来表示占位符。</li>
+<li>**<code>args...</code>**：一个或多个表达式，它们的值会替换格式化字符串中的 <code>&#123;&#125;</code>。</li>
+</ul>
+<h3 id="2-简单示例"><a href="#2-简单示例" class="headerlink" title="2. 简单示例"></a>2. <strong>简单示例</strong></h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">name</span> = <span class="string">&quot;Alice&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">age</span> = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;My name is &#123;&#125; and I am &#123;&#125; years old.&quot;</span>, name, age);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: My name is Alice and I am 30 years old.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>format!</code> 返回一个 <code>String</code>，并且将 <code>name</code> 和 <code>age</code> 的值插入到 <code>&#123;&#125;</code> 占位符处。最终的字符串存储在 <code>formatted</code> 变量中。</p>
+<h3 id="3-格式化控制"><a href="#3-格式化控制" class="headerlink" title="3. 格式化控制"></a>3. <strong>格式化控制</strong></h3><p>除了简单的 <code>&#123;&#125;</code>，<code>format!</code> 还支持各种格式化控制，例如控制输出的宽度、对齐方式、填充字符等。</p>
+<h4 id="宽度控制和对齐："><a href="#宽度控制和对齐：" class="headerlink" title="宽度控制和对齐："></a>宽度控制和对齐：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">number</span> = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Number: &#123;:&gt;5&#125;&quot;</span>, number);  <span class="comment">// 右对齐，宽度为5</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Number:    42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>&#123;:&gt;5&#125;</code> 表示将 <code>number</code> 右对齐，并使用至少 5 个字符的宽度来显示。</p>
+<h4 id="填充和对齐："><a href="#填充和对齐：" class="headerlink" title="填充和对齐："></a>填充和对齐：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">number</span> = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Number: &#123;:0&gt;5&#125;&quot;</span>, number);  <span class="comment">// 右对齐，宽度为5，空位用0填充</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Number: 00042</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>&#123;:0&gt;5&#125;</code> 表示右对齐，并且使用 <code>0</code> 填充空位，输出结果为 <code>00042</code>。</p>
+<h4 id="小数点精度："><a href="#小数点精度：" class="headerlink" title="小数点精度："></a>小数点精度：</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">pi</span> = <span class="number">3.141592</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Pi is &#123;:.2&#125;&quot;</span>, pi);  <span class="comment">// 只保留两位小数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Pi is 3.14</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>&#123;:.2&#125;</code> 表示将浮点数限制为两位小数。</p>
+<h3 id="4-字符串拼接"><a href="#4-字符串拼接" class="headerlink" title="4. 字符串拼接"></a>4. <strong>字符串拼接</strong></h3><p><code>format!</code> 在 Rust 中是处理字符串拼接的一个常见方式，尤其是在需要将多个变量或不同数据类型的内容拼接成一个字符串时。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">name</span> = <span class="string">&quot;Alice&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">age</span> = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">info</span> = <span class="built_in">format!</span>(<span class="string">&quot;&#123;&#125; is &#123;&#125; years old.&quot;</span>, name, age);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, info);  <span class="comment">// 输出: Alice is 30 years old.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-格式化调试输出"><a href="#5-格式化调试输出" class="headerlink" title="5. 格式化调试输出"></a>5. <strong>格式化调试输出</strong></h3><p>如果你需要调试信息，可以使用 <code>&#123;:?&#125;</code> 或 <code>&#123;:#?&#125;</code> 作为占位符，打印出实现了 <code>Debug</code> trait 的类型内容。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">vec</span> = <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">formatted</span> = <span class="built_in">format!</span>(<span class="string">&quot;Debug: &#123;:?&#125;&quot;</span>, vec);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, formatted);  <span class="comment">// 输出: Debug: [1, 2, 3]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-返回值是-String"><a href="#6-返回值是-String" class="headerlink" title="6. 返回值是 String"></a>6. <strong>返回值是 <code>String</code></strong></h3><p><code>format!</code> 和 <code>println!</code> 的区别在于：</p>
+<ul>
+<li><code>println!</code> 是直接将结果打印到控制台。</li>
+<li><code>format!</code> 则返回一个 <code>String</code>，供后续使用或处理。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">greeting</span> = <span class="built_in">format!</span>(<span class="string">&quot;Hello, &#123;&#125;!&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">greeting_with_exclamation</span> = <span class="built_in">format!</span>(<span class="string">&quot;&#123;&#125;!!!&quot;</span>, greeting);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, greeting_with_exclamation);  <span class="comment">// 输出: Hello, world!!!!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>format!</code> 拼接了字符串，然后通过 <code>String</code> 的返回值做进一步操作。</p>
+<h3 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a>7. <strong>总结</strong></h3><ul>
+<li><code>format!</code> 是 Rust 中用于创建和操作格式化字符串的强大工具。</li>
+<li>它类似于 <code>println!</code>，但不输出到控制台，而是返回一个 <code>String</code>。</li>
+<li>支持各种格式化控制，包括宽度、对齐、填充、精度等。</li>
+<li>常用于字符串拼接、调试信息生成和动态生成字符串数据。</li>
+</ul>
+<h2 id="6-unwrap"><a href="#6-unwrap" class="headerlink" title="6.unwrap()"></a>6.unwrap()</h2><p>在 Rust 中，<code>unwrap()</code> 是一种常用于处理 <code>Option</code> 和 <code>Result</code> 类型的<strong>辅助方法</strong>。它的作用是解包（unwrap）一个 <code>Option</code> 或 <code>Result</code> 类型的值，并返回其内部的内容。如果该类型是 <code>None</code> 或 <code>Err</code>，那么 <code>unwrap()</code> 会引发程序的<strong>恐慌（panic）</strong>，导致程序中止。</p>
+<h3 id="unwrap-的基本用法"><a href="#unwrap-的基本用法" class="headerlink" title="unwrap() 的基本用法"></a><code>unwrap()</code> 的基本用法</h3><ol>
+<li><strong>对于 <code>Option&lt;T&gt;</code> 类型</strong>：<ul>
+<li><code>Option&lt;T&gt;</code> 表示一个可能包含值（<code>Some(T)</code>）或没有值（<code>None</code>）的类型。</li>
+<li><code>unwrap()</code> 会解包 <code>Some(T)</code> 并返回内部的值 <code>T</code>，如果是 <code>None</code>，则会导致程序崩溃并触发 <code>panic!</code>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">some_value</span> = <span class="title function_ invoke__">Some</span>(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 正常解包 Some(5)</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, some_value.<span class="title function_ invoke__">unwrap</span>());  <span class="comment">// 输出: Value: 5</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 触发 panic，因为 none_value 是 None</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, none_value.<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中：</p>
+<ul>
+<li><code>some_value.unwrap()</code> 成功返回值 <code>5</code>。</li>
+<li><code>none_value.unwrap()</code> 因为是 <code>None</code>，会导致程序崩溃，抛出 <code>panic!</code> 并中止程序。</li>
+</ul>
+<ol start="2">
+<li><strong>对于 <code>Result&lt;T, E&gt;</code> 类型</strong>：<ul>
+<li><code>Result&lt;T, E&gt;</code> 表示一个可能成功（<code>Ok(T)</code>）或失败（<code>Err(E)</code>）的类型，通常用于处理可能失败的操作，如文件 I&#x2F;O 或网络请求。</li>
+<li><code>unwrap()</code> 会解包 <code>Ok(T)</code> 并返回内部的值 <code>T</code>，如果是 <code>Err(E)</code>，则会导致 <code>panic!</code> 并输出错误信息。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">ok_value</span>: <span class="type">Result</span>&lt;<span class="type">i32</span>, &amp;<span class="type">str</span>&gt; = <span class="title function_ invoke__">Ok</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">err_value</span>: <span class="type">Result</span>&lt;<span class="type">i32</span>, &amp;<span class="type">str</span>&gt; = <span class="title function_ invoke__">Err</span>(<span class="string">&quot;Error occurred&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 正常解包 Ok(10)</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, ok_value.<span class="title function_ invoke__">unwrap</span>());  <span class="comment">// 输出: Value: 10</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 触发 panic，因为 err_value 是 Err</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, err_value.<span class="title function_ invoke__">unwrap</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中：</p>
+<ul>
+<li><code>ok_value.unwrap()</code> 返回值 <code>10</code>。</li>
+<li><code>err_value.unwrap()</code> 是 <code>Err</code>，因此会导致 <code>panic!</code>，并显示错误消息。</li>
+</ul>
+<h3 id="unwrap-的风险"><a href="#unwrap-的风险" class="headerlink" title="unwrap() 的风险"></a><code>unwrap()</code> 的风险</h3><ul>
+<li><strong>安全性问题</strong>：<code>unwrap()</code> 会直接导致程序在 <code>None</code> 或 <code>Err</code> 的情况下崩溃，因此它是一种<strong>危险</strong>的做法，尤其是在生产代码中。使用 <code>unwrap()</code> 会引发恐慌（<code>panic!</code>），如果不能百分之百确保值是 <code>Some</code> 或 <code>Ok</code>，最好避免使用它。</li>
+<li><strong>建议使用其他替代方法</strong>：在实际开发中，最好用更安全的方式处理错误或 <code>None</code> 情况。</li>
+</ul>
+<h3 id="替代方法"><a href="#替代方法" class="headerlink" title="替代方法"></a>替代方法</h3><ol>
+<li>**<code>unwrap_or()</code>**：<ul>
+<li>如果是 <code>None</code> 或 <code>Err</code>，则返回一个默认值，而不会引发 <code>panic!</code>。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">value</span> = none_value.<span class="title function_ invoke__">unwrap_or</span>(<span class="number">0</span>);  <span class="comment">// 如果是 None，就返回 0</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, value);  <span class="comment">// 输出: Value: 0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>**<code>unwrap_or_else()</code>**：<ul>
+<li>类似于 <code>unwrap_or()</code>，但它允许你传递一个闭包来生成默认值。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">value</span> = none_value.<span class="title function_ invoke__">unwrap_or_else</span>(|| &#123;</span><br><span class="line">        <span class="comment">// 可以在这里执行一些逻辑，然后返回一个默认值</span></span><br><span class="line">        <span class="number">42</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Value: &#123;&#125;&quot;</span>, value);  <span class="comment">// 输出: Value: 42</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>**<code>expect()</code>**：<ul>
+<li><code>expect()</code> 类似于 <code>unwrap()</code>，但是在发生 <code>None</code> 或 <code>Err</code> 时，它会提供一个自定义错误消息，而不是使用默认的 <code>panic!</code> 信息。相比 <code>unwrap()</code>，<code>expect()</code> 更可取，因为它提供了更清晰的上下文，便于调试。</li>
+</ul>
+</li>
+</ol>
+<h4 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">none_value</span>: <span class="type">Option</span>&lt;<span class="type">i32</span>&gt; = <span class="literal">None</span>;</span><br><span class="line">    <span class="comment">// 提供自定义的 panic 信息</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">value</span> = none_value.<span class="title function_ invoke__">expect</span>(<span class="string">&quot;Expected a value, but got None instead&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong><code>unwrap()</code></strong> 是一个简便的方式，可以快速解包 <code>Option</code> 或 <code>Result</code>，但存在一定的风险。如果值是 <code>None</code> 或 <code>Err</code>，它会触发 <code>panic!</code> 并导致程序崩溃。</li>
+<li>为了避免意外崩溃，建议使用更安全的方法，比如 <code>unwrap_or()</code>、<code>unwrap_or_else()</code> 或 <code>expect()</code>，来更好地处理可能的错误情况。</li>
+</ul>
+<h2 id="8-let-v-1-024-0xff-0o77-0b1111-1111"><a href="#8-let-v-1-024-0xff-0o77-0b1111-1111" class="headerlink" title="8. let v = 1_024 + 0xff + 0o77 + 0b1111_1111;"></a>8. <code>let v = 1_024 + 0xff + 0o77 + 0b1111_1111;</code></h2><p>这段代码：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">v</span> = <span class="number">1_024</span> + <span class="number">0xff</span> + <span class="number">0o77</span> + <span class="number">0b1111_1111</span>;</span><br></pre></td></tr></table></figure>
+
+<p>展示了 Rust 支持用不同的进制表示数值。我们来逐个解析每一个部分：</p>
+<ol>
+<li><p>**<code>1_024</code>**：</p>
+<ul>
+<li>这是十进制（常规的 10 进制）数 <code>1024</code>。下划线 <code>_</code> 是为了方便阅读，在 Rust 中不影响数字本身的值。相当于 <code>1024</code>。</li>
+</ul>
+</li>
+<li><p>**<code>0xff</code>**：</p>
+<ul>
+<li>这是一个十六进制（hexadecimal）数，用 <code>0x</code> 前缀表示。<code>ff</code> 在十六进制中表示 <code>255</code>，相当于 <code>0xFF = 255</code>。</li>
+</ul>
+</li>
+<li><p>**<code>0o77</code>**：</p>
+<ul>
+<li>这是一个八进制（octal）数，用 <code>0o</code> 前缀表示。<code>77</code> 在八进制中表示的十进制值是 <code>63</code>，因为 <code>0o77 = 63</code>。</li>
+</ul>
+</li>
+<li><p>**<code>0b1111_1111</code>**：</p>
+<ul>
+<li>这是一个二进制（binary）数，用 <code>0b</code> 前缀表示。<code>1111_1111</code> 是 8 位二进制数，相当于十进制的 <code>255</code>。下划线 <code>_</code> 用来分隔数字，方便阅读。相当于 <code>0b11111111 = 255</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>将这些数值相加的过程为：</p>
+<ul>
+<li><code>1024 + 255 + 63 + 255 = 1597</code></li>
+</ul>
+<p>所以这段代码中的 <code>v</code> 最终会得到值 <code>1597</code>。</p>
+<h3 id="进制表示法汇总："><a href="#进制表示法汇总：" class="headerlink" title="进制表示法汇总："></a>进制表示法汇总：</h3><ul>
+<li><strong>十进制（Decimal）</strong>：直接写出数字，如 <code>1024</code>。</li>
+<li><strong>十六进制（Hexadecimal）</strong>：使用 <code>0x</code> 前缀表示，如 <code>0xff</code> 表示 <code>255</code>。</li>
+<li><strong>八进制（Octal）</strong>：使用 <code>0o</code> 前缀表示，如 <code>0o77</code> 表示 <code>63</code>。</li>
+<li><strong>二进制（Binary）</strong>：使用 <code>0b</code> 前缀表示，如 <code>0b1111_1111</code> 表示 <code>255</code>。</li>
+</ul>
+<h2 id="9-f32和f64"><a href="#9-f32和f64" class="headerlink" title="9.f32和f64"></a>9.f32和f64</h2><p>f32：大约能表示 6-7 位十进制有效数字。<br>f64：大约能表示 15-16 位十进制有效数字。</p>
+<p>Rust 默认将浮点数面量当作 f64 类型，这是为了提供更高的精度。如果你需要 f32 类型，必须显式声明。</p>
+<h2 id="10-abs"><a href="#10-abs" class="headerlink" title="10.abs()"></a>10.abs()</h2><p>(0.1_f64 + 0.2 - 0.3).abs()：通过调用 .abs() 获取这个结果的绝对值。这样即便结果是负数，也能比较它的绝对值。</p>
+<h2 id="11-use-std-ops-Range-RangeInclusive"><a href="#11-use-std-ops-Range-RangeInclusive" class="headerlink" title="11.use std::ops::{Range, RangeInclusive};"></a>11.use std::ops::{Range, RangeInclusive};</h2><p>在 Rust 中，<code>std::ops</code> 模块提供了多种操作符的实现，包括范围（ranges）的相关操作。通过使用 <code>Range</code> 和 <code>RangeInclusive</code>，你可以创建表示一系列连续值的范围。下面将详细介绍这两个类型及其用法。</p>
+<h3 id="1-Range"><a href="#1-Range" class="headerlink" title="1. Range"></a>1. <code>Range</code></h3><p><code>Range</code> 表示一个不包含上限的范围。它的基本语法如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>; <span class="comment">// 表示 [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>1..5</code> 创建了一个从 <code>1</code> 到 <code>4</code> 的范围（包含 <code>1</code>，不包含 <code>5</code>）。</p>
+<h3 id="2-RangeInclusive"><a href="#2-RangeInclusive" class="headerlink" title="2. RangeInclusive"></a>2. <code>RangeInclusive</code></h3><p><code>RangeInclusive</code> 表示一个包含上限的范围。它的基本语法如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">inclusive_range</span> = <span class="number">1</span>..=<span class="number">5</span>; <span class="comment">// 表示 [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>1..=5</code> 创建了一个从 <code>1</code> 到 <code>5</code> 的范围（包含 <code>1</code> 和 <code>5</code>）。</p>
+<h3 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a><strong>示例</strong></h3><p>下面是一个简单的示例，演示如何使用 <code>Range</code> 和 <code>RangeInclusive</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="comment">// 使用 Range</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>; <span class="comment">// 1, 2, 3, 4</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> range &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i); <span class="comment">// 输出 1, 2, 3, 4</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 RangeInclusive</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">inclusive_range</span> = <span class="number">1</span>..=<span class="number">5</span>; <span class="comment">// 1, 2, 3, 4, 5</span></span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> inclusive_range &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i); <span class="comment">// 输出 1, 2, 3, 4, 5</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a><strong>常用方法</strong></h3><ol>
+<li><p><strong><code>contains</code> 方法</strong>：检查一个值是否在范围内。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>;</span><br><span class="line"><span class="built_in">assert!</span>(range.<span class="title function_ invoke__">contains</span>(&amp;<span class="number">3</span>)); <span class="comment">// 返回 true</span></span><br><span class="line"><span class="built_in">assert!</span>(!range.<span class="title function_ invoke__">contains</span>(&amp;<span class="number">5</span>)); <span class="comment">// 返回 false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>len</code> 方法</strong>：获取范围中的元素数量。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">range</span> = <span class="number">1</span>..<span class="number">5</span>;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;Length: &#123;&#125;&quot;</span>, range.<span class="title function_ invoke__">len</span>()); <span class="comment">// 输出 Length: 4</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>is_empty</code> 方法</strong>：检查范围是否为空。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">empty_range</span>: Range&lt;<span class="type">i32</span>&gt; = <span class="number">5</span>..<span class="number">5</span>;</span><br><span class="line"><span class="built_in">assert!</span>(empty_range.<span class="title function_ invoke__">is_empty</span>()); <span class="comment">// 返回 true</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul>
+<li><code>Range</code> 表示不包含上限的范围。</li>
+<li><code>RangeInclusive</code> 表示包含上限的范围。</li>
+<li>通过使用 <code>std::ops</code> 中的这两个类型，你可以轻松地处理一系列的连续值，并利用它们的方法进行检查和操作。</li>
+</ul>
+<h2 id="12-位操作"><a href="#12-位操作" class="headerlink" title="12.位操作"></a>12.位操作</h2><p>这段代码展示了 Rust 中的位操作（bitwise operations）以及如何以二进制和十六进制格式输出结果。让我们逐行解析每个 <code>println!</code> 语句。</p>
+<h3 id="1-位操作的概念"><a href="#1-位操作的概念" class="headerlink" title="1. 位操作的概念"></a>1. 位操作的概念</h3><p>位操作是直接对二进制位进行操作的运算。常见的位操作有：</p>
+<ul>
+<li>AND（与）</li>
+<li>OR（或）</li>
+<li>XOR（异或）</li>
+<li>左移（&lt;&lt;）</li>
+<li>右移（&gt;&gt;）</li>
+</ul>
+<h3 id="代码逐行解释"><a href="#代码逐行解释" class="headerlink" title="代码逐行解释"></a>代码逐行解释</h3><h4 id="第-1-行：AND-操作"><a href="#第-1-行：AND-操作" class="headerlink" title="第 1 行：AND 操作"></a>第 1 行：AND 操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0011 AND 0101 is &#123;:04b&#125;&quot;</span>, <span class="number">0b0011u32</span> &amp; <span class="number">0b0101</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>0b0011</code> 和 <code>0b0101</code> 是以二进制形式表示的数值，分别对应十进制的 <code>3</code> 和 <code>5</code>。</li>
+<li><code>&amp;</code> 是位与操作符，对应位同时为 <code>1</code> 时结果为 <code>1</code>。</li>
+<li>计算过程：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0011</span><br><span class="line">&amp; 0101</span><br><span class="line">------</span><br><span class="line">0001  (只在最低位为1的地方得到了1)</span><br></pre></td></tr></table></figure></li>
+<li>结果是 <code>1</code>，以 <code>&#123;:04b&#125;</code> 格式输出，输出格式化为 4 位二进制，即 <code>0001</code>。</li>
+</ul>
+<h4 id="第-2-行：OR-操作"><a href="#第-2-行：OR-操作" class="headerlink" title="第 2 行：OR 操作"></a>第 2 行：OR 操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0011 OR 0101 is &#123;:04b&#125;&quot;</span>, <span class="number">0b0011u32</span> | <span class="number">0b0101</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>|</code> 是位或操作符，对应位有一个为 <code>1</code> 时结果为 <code>1</code>。</li>
+<li>计算过程：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0011</span><br><span class="line">| 0101</span><br><span class="line">------</span><br><span class="line">0111  (在所有的位上，至少有一位是1)</span><br></pre></td></tr></table></figure></li>
+<li>结果是 <code>7</code>，以 <code>&#123;:04b&#125;</code> 格式输出，即 <code>0111</code>。</li>
+</ul>
+<h4 id="第-3-行：XOR-操作"><a href="#第-3-行：XOR-操作" class="headerlink" title="第 3 行：XOR 操作"></a>第 3 行：XOR 操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0011 XOR 0101 is &#123;:04b&#125;&quot;</span>, <span class="number">0b0011u32</span> ^ <span class="number">0b0101</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>^</code> 是位异或操作符，只有对应位不相同时结果才为 <code>1</code>。</li>
+<li>计算过程：  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0011</span><br><span class="line">^ 0101</span><br><span class="line">------</span><br><span class="line">0110  (相同位结果为0，不同位结果为1)</span><br></pre></td></tr></table></figure></li>
+<li>结果是 <code>6</code>，以 <code>&#123;:04b&#125;</code> 格式输出，即 <code>0110</code>。</li>
+</ul>
+<h4 id="第-4-行：左移操作"><a href="#第-4-行：左移操作" class="headerlink" title="第 4 行：左移操作"></a>第 4 行：左移操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;1 &lt;&lt; 5 is &#123;&#125;&quot;</span>, <span class="number">1u32</span> &lt;&lt; <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&lt;&lt;</code> 是左移操作符，表示将数字的二进制位向左移动 <code>5</code> 位。</li>
+<li><code>1</code> 的二进制表示是 <code>0000 0001</code>，左移 <code>5</code> 位后变为 <code>0010 0000</code>，即 <code>32</code>（十进制）。</li>
+<li>输出结果为 <code>32</code>。</li>
+</ul>
+<h4 id="第-5-行：右移操作"><a href="#第-5-行：右移操作" class="headerlink" title="第 5 行：右移操作"></a>第 5 行：右移操作</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;0x80 &gt;&gt; 2 is 0x&#123;:x&#125;&quot;</span>, <span class="number">0x80u32</span> &gt;&gt; <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>&gt;&gt;</code> 是右移操作符，表示将数字的二进制位向右移动 <code>2</code> 位。</li>
+<li><code>0x80</code> 是十六进制，等于 <code>128</code>，其二进制表示为 <code>1000 0000</code>。</li>
+<li>右移 <code>2</code> 位后变为 <code>0010 0000</code>，即 <code>32</code>（十进制）。</li>
+<li>使用 <code>&#123;:x&#125;</code> 格式输出为十六进制，输出结果为 <code>0x20</code>。</li>
+</ul>
+<h3 id="总结-6"><a href="#总结-6" class="headerlink" title="总结"></a>总结</h3><p>这段代码通过展示位操作和移位操作，展示了如何在 Rust 中进行底层的位操作，并且通过格式化输出结果，以不同的进制表示，帮助理解位操作的效果。</p>
+<h2 id="13-size-of-val"><a href="#13-size-of-val" class="headerlink" title="13.size_of_val"></a>13.size_of_val</h2><p>在 Rust 中，<code>std::mem::size_of_val</code> 是一个函数，用于获取值在内存中占用的字节大小。它可以用于任何类型的值，包括基本类型、复合类型、以及用户定义的类型。下面是关于 <code>size_of_val</code> 的详细介绍和示例。</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p><code>size_of_val</code> 函数的签名如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">fn</span> <span class="title function_">size_of_val</span>&lt;T&gt;(val: &amp;T) <span class="punctuation">-&gt;</span> <span class="type">usize</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>参数</strong>：它接受一个对值的引用（<code>&amp;T</code>），其中 <code>T</code> 可以是任何类型。</li>
+<li><strong>返回值</strong>：返回值的类型为 <code>usize</code>，表示在内存中占用的字节数。</li>
+</ul>
+<h3 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h3><p>以下是一个简单的示例，展示了如何使用 <code>size_of_val</code> 函数：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem::size_of_val;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">42</span>; <span class="comment">// 整数</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = <span class="number">3.14</span>; <span class="comment">// 浮点数</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]; <span class="comment">// 数组</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">str_slice</span> = <span class="string">&quot;Hello, world!&quot;</span>; <span class="comment">// 字符串切片</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of x: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(&amp;x)); <span class="comment">// 输出整数 x 占用的字节数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of y: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(&amp;y)); <span class="comment">// 输出浮点数 y 占用的字节数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of arr: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(&amp;arr)); <span class="comment">// 输出数组 arr 占用的字节数</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Size of str_slice: &#123;&#125; bytes&quot;</span>, <span class="title function_ invoke__">size_of_val</span>(str_slice)); <span class="comment">// 输出字符串切片占用的字节数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果解释"><a href="#结果解释" class="headerlink" title="结果解释"></a>结果解释</h3><ol>
+<li><strong>整数</strong> (<code>i32</code> 或 <code>u32</code>): 通常占用 <code>4</code> 字节。</li>
+<li><strong>浮点数</strong> (<code>f32</code> 或 <code>f64</code>): <code>f32</code> 通常占用 <code>4</code> 字节，<code>f64</code> 占用 <code>8</code> 字节。</li>
+<li><strong>数组</strong>：数组的大小等于数组元素大小乘以数组长度。</li>
+<li><strong>字符串切片</strong>：字符串切片的大小等于指针的大小（通常是 <code>8</code> 字节）加上长度信息（通常是 <code>8</code> 字节），因此总的大小为 <code>16</code> 字节。</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><code>size_of_val</code> 计算的是值的动态大小（如动态数组或字符串），而不是类型的固定大小。</li>
+<li>对于某些复合类型（如结构体或元组），它只计算直接包含在该类型中的值的大小，而不考虑指向的堆内存。</li>
+<li>对于切片、字符串等类型，<code>size_of_val</code> 返回的是指向数据的指针的大小，而不是指针指向的数据的大小。</li>
+</ul>
+<h3 id="总结-7"><a href="#总结-7" class="headerlink" title="总结"></a>总结</h3><p><code>size_of_val</code> 函数是一个非常有用的工具，用于检查在内存中占用的字节数，这对性能分析和内存管理非常重要。通过了解数据类型和结构的大小，可以帮助开发者优化代码和内存使用。</p>
+<p>在计算机中，一个中文字符的字节数取决于其编码方式。常见的编码方式包括 UTF-8 和 UTF-16。</p>
+<h3 id="1-UTF-8-编码"><a href="#1-UTF-8-编码" class="headerlink" title="1. UTF-8 编码"></a>1. UTF-8 编码</h3><p>在 UTF-8 编码中：</p>
+<ul>
+<li>中文字符通常占用 <strong>3</strong> 个字节。</li>
+<li>例如，汉字 “汉” 的 UTF-8 编码是 <code>E6 B1 89</code>，总共 3 个字节。</li>
+</ul>
+<h3 id="2-UTF-16-编码"><a href="#2-UTF-16-编码" class="headerlink" title="2. UTF-16 编码"></a>2. UTF-16 编码</h3><p>在 UTF-16 编码中：</p>
+<ul>
+<li>中文字符通常占用 <strong>2</strong> 个字节（使用基本多文种平面 BMP 的字符）。</li>
+<li>例如，汉字 “汉” 的 UTF-16 编码是 <code>6C49</code>，总共 2 个字节。</li>
+</ul>
+<h3 id="总结-8"><a href="#总结-8" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在 UTF-8 编码中，一个中文字符通常占用 <strong>3</strong> 字节。</li>
+<li>在 UTF-16 编码中，一个中文字符通常占用 <strong>2</strong> 字节。</li>
+</ul>
+<p>在 Rust 中，char 类型用于表示单个 Unicode 字符。每个 char 在 Rust 中占用 4 字节，固定大小，因为它以 UTF-32 编码表示 Unicode 字符。</p>
+<h2 id="14-返回值"><a href="#14-返回值" class="headerlink" title="14.返回值"></a>14.返回值</h2><p>在 Rust 中，函数的返回值类型是通过函数签名来定义的。Rust 中的空元组 <code>()</code> 被称为 <strong>unit type</strong>，表示没有实际值的类型。我们来看一下你的代码和相关概念。</p>
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v1</span>: () = (); <span class="comment">// v1 是一个 unit 类型的变量，赋值为 ()</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = (<span class="number">2</span>, <span class="number">3</span>); <span class="comment">// v 是一个包含两个元素的元组 (2, 3)</span></span><br><span class="line">    <span class="built_in">assert_eq!</span>(v1, <span class="title function_ invoke__">implicitly_ret_unit</span>()); <span class="comment">// 断言 v1 和 implicitly_ret_unit() 的返回值相等</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Success!&quot;</span>); <span class="comment">// 如果一切正常，将打印 &quot;Success!&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">implicitly_ret_unit</span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;I will return a ()&quot;</span>); <span class="comment">// 打印信息</span></span><br><span class="line">    <span class="comment">// 没有显式的返回语句，返回值为 ()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ol>
+<li><p><strong>函数的返回值</strong>：</p>
+<ul>
+<li>如果函数没有显式的 <code>return</code> 语句，并且没有返回任何值，则函数默认返回 <code>()</code>。这就是 <code>implicitly_ret_unit</code> 函数的行为。尽管它打印了一条消息，但返回值实际上是 <code>()</code>。</li>
+</ul>
+</li>
+<li><p><strong>打印消息</strong>：</p>
+<ul>
+<li>当 <code>implicitly_ret_unit()</code> 被调用时，它执行 <code>println!(&quot;I will return a ()&quot;);</code>，打印出 <code>&quot;I will return a ()&quot;</code>。即使该函数返回的是 <code>()</code>，调用 <code>println!</code> 语句仍然会打印输出。</li>
+</ul>
+</li>
+<li><p><strong>断言</strong>：</p>
+<ul>
+<li><code>assert_eq!(v1, implicitly_ret_unit());</code> 断言 <code>v1</code> 和 <code>implicitly_ret_unit()</code> 的返回值相等。因为 <code>v1</code> 是 <code>()</code>，而 <code>implicitly_ret_unit()</code> 也返回 <code>()</code>，因此断言成立，不会引发 panic。</li>
+</ul>
+</li>
+<li><p><strong>程序输出</strong>：</p>
+<ul>
+<li>如果 <code>assert_eq!</code> 通过，程序将继续执行，并打印 <code>&quot;Success!&quot;</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-9"><a href="#总结-9" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在 Rust 中，任何没有返回值或没有显式返回的函数都默认返回 <code>()</code>（unit type）。</li>
+<li>由于 <code>implicitly_ret_unit</code> 函数内部调用了 <code>println!</code>，因此在调用该函数时，会打印出相应的信息。然后它会返回 <code>()</code>，这与 <code>v1</code> 相等，导致断言通过。</li>
+</ul>
+<p>在 Rust 中，<code>()</code>（unit type）表示一个没有值的类型，它被用作函数的返回值或表示没有任何有意义的信息。虽然 <code>()</code> 代表一个空值，但它的实际大小在内存中是 <strong>0</strong> 字节。</p>
+<h3 id="代码解析-1"><a href="#代码解析-1" class="headerlink" title="代码解析"></a>代码解析</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem::size_of_val;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">unit</span>: () = (); <span class="comment">// 创建一个 unit 类型的变量 unit，值为 ()</span></span><br><span class="line">    <span class="built_in">assert!</span>(<span class="title function_ invoke__">size_of_val</span>(&amp;unit) == <span class="number">0</span>); <span class="comment">// 断言 unit 的大小为 0</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Success!&quot;</span>); <span class="comment">// 如果断言通过，打印 &quot;Success!&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关键点-1"><a href="#关键点-1" class="headerlink" title="关键点"></a>关键点</h3><ol>
+<li><p><strong>unit type (<code>()</code>)</strong>:</p>
+<ul>
+<li><code>()</code> 是一个零大小的类型，表示没有值或空值。它通常用于函数没有返回值的情况，或者在需要一个占位符但不需要实际数据的地方。</li>
+</ul>
+</li>
+<li><p><strong><code>size_of_val</code> 函数</strong>:</p>
+<ul>
+<li><code>size_of_val(&amp;unit)</code> 返回变量 <code>unit</code> 在内存中占用的字节数。由于 <code>()</code> 没有实际内容，<code>size_of_val</code> 返回 <strong>0</strong>。</li>
+</ul>
+</li>
+<li><p><strong>断言</strong>:</p>
+<ul>
+<li><code>assert!(size_of_val(&amp;unit) == 0);</code> 检查 <code>unit</code> 的大小是否等于 <strong>0</strong>。如果条件为真，程序继续执行。如果条件为假，则会导致 panic。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-10"><a href="#总结-10" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在 Rust 中，<code>()</code> 作为一个零大小类型，其内存占用为 <strong>0</strong> 字节。</li>
+<li>因此，<code>size_of_val(&amp;unit)</code> 返回 <strong>0</strong> 是符合预期的，说明 <code>unit</code> 不占用任何内存。这使得它在需要占位但没有实际数据的场景中非常有用。</li>
+</ul>
+<h2 id="15-顺序"><a href="#15-顺序" class="headerlink" title="15.顺序"></a>15.顺序</h2><p>在 Rust 中，变量的声明与初始化顺序非常重要。你的两个代码示例展示了这种区别，导致其中一个代码块不能编译。</p>
+<h3 id="代码-1：可以编译的代码"><a href="#代码-1：可以编译的代码" class="headerlink" title="代码 1：可以编译的代码"></a>代码 1：可以编译的代码</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">3</span>; <span class="comment">// 在这里，x 被声明和初始化</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = x; <span class="comment">// v 被赋值为 x 的值，此时 x 已经有值</span></span><br><span class="line">    <span class="built_in">assert!</span>(v == <span class="number">3</span>); <span class="comment">// 断言 v 等于 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码-2：不能编译的代码"><a href="#代码-2：不能编译的代码" class="headerlink" title="代码 2：不能编译的代码"></a>代码 2：不能编译的代码</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">v</span> = x; <span class="comment">// 尝试在 x 初始化之前使用 x，这会导致编译错误</span></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">3</span>; <span class="comment">// x 在这里才被声明和初始化</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">assert!</span>(v == <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><ul>
+<li><p><strong>代码 1</strong>：</p>
+<ul>
+<li><code>x</code> 先被声明和初始化为 <code>3</code>，因此当 <code>v</code> 被赋值时，<code>x</code> 已经有了值，<code>v</code> 可以成功被赋值为 <code>3</code>。</li>
+<li>这符合 Rust 的编译规则，所有变量必须在使用之前初始化。</li>
+</ul>
+</li>
+<li><p><strong>代码 2</strong>：</p>
+<ul>
+<li><code>let v = x;</code> 尝试在 <code>x</code> 还没有被声明和初始化时使用 <code>x</code>，这会导致编译器报错：**”cannot find value <code>x</code> in this scope”** 或 **”use of possibly uninitialized variable”**。</li>
+<li>在 Rust 中，变量必须先被声明并初始化，才能被其他变量使用。</li>
+<li>由于 <code>x</code> 在 <code>v</code> 初始化时还没有被声明，Rust 会拒绝编译。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rust-的变量使用规则"><a href="#Rust-的变量使用规则" class="headerlink" title="Rust 的变量使用规则"></a>Rust 的变量使用规则</h3><p>Rust 是一种<strong>静态类型</strong>语言，要求所有变量在使用前必须被初始化。这是 Rust 编译器确保内存安全的一个重要方面。在代码 2 中，<code>v</code> 试图在 <code>x</code> 还没有值的情况下使用它，这会导致未定义行为。因此，Rust 不允许这种操作。</p>
+<h3 id="总结-11"><a href="#总结-11" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>代码 1</strong> 是正确的，因为 <code>x</code> 在 <code>v</code> 被赋值之前已经声明并初始化。</li>
+<li><strong>代码 2</strong> 不正确，因为它试图在 <code>x</code> 初始化之前使用 <code>x</code>，违反了 Rust 的变量初始化顺序规则。</li>
+</ul>
+<h2 id="16-！"><a href="#16-！" class="headerlink" title="16.！"></a>16.！</h2><p>表示该函数永远不会返回。返回类型 !：这个类型表示函数不会返回任何值，它可能会导致程序终止、进入无限循环，或触发 panic。</p>
+<p>在 Rust 中，<code>!</code> 符号有几种不同的用法。以下是一些主要的用法：</p>
+<h3 id="1-宏调用"><a href="#1-宏调用" class="headerlink" title="1. 宏调用"></a>1. <strong>宏调用</strong></h3><p>在 Rust 中，<code>!</code> 通常用于调用宏。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;Hello, world!&quot;</span>); <span class="comment">// println! 是一个宏调用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-表示不返回值的类型"><a href="#2-表示不返回值的类型" class="headerlink" title="2. 表示不返回值的类型"></a>2. <strong>表示不返回值的类型</strong></h3><p>在函数签名中，<code>!</code> 也可以表示不返回值的类型，这称为 **”never type”**。它表示函数会导致程序终止或无限循环，不会返回到调用它的地方。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">panic_example</span>() <span class="punctuation">-&gt;</span> ! &#123;</span><br><span class="line">    <span class="built_in">panic!</span>(<span class="string">&quot;This function never returns!&quot;</span>); <span class="comment">// 触发 panic，程序终止</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-逻辑非运算符"><a href="#3-逻辑非运算符" class="headerlink" title="3. 逻辑非运算符"></a>3. <strong>逻辑非运算符</strong></h3><p><code>!</code> 也可以用作逻辑非运算符，用于反转布尔值。例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">condition</span> = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="variable">negated</span> = !condition; <span class="comment">// negated 现在是 false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="17-发散函数"><a href="#17-发散函数" class="headerlink" title="17.发散函数"></a>17.发散函数</h2><p>“发散函数”通常指的是在某些情况下无法返回一个具体值的函数，或者是由于某种原因而进入无限循环、永远不终止的函数。在编程语言中，特别是在 Rust 中，发散函数常常用来描述那些不会正常返回到调用点的函数。这类函数的返回类型通常是 <code>!</code>，表示“永远不返回”（never type）。</p>
+<h3 id="Rust-中的发散函数"><a href="#Rust-中的发散函数" class="headerlink" title="Rust 中的发散函数"></a>Rust 中的发散函数</h3><p>在 Rust 中，发散函数的一个典型例子是 <code>panic!</code> 或无限循环的函数，例如前面提到的 <code>never_return</code> 函数。它们会导致程序运行到某个点后停止或陷入循环，永远不返回到调用它的地方。</p>
+<h4 id="示例-7"><a href="#示例-7" class="headerlink" title="示例"></a>示例</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">never_return</span>() <span class="punctuation">-&gt;</span> ! &#123;</span><br><span class="line">    <span class="keyword">loop</span> &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;I will never return!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="作用和用途"><a href="#作用和用途" class="headerlink" title="作用和用途"></a>作用和用途</h3><ol>
+<li><p><strong>控制流</strong>：发散函数可以用于控制程序的流，例如在错误处理或状态监控中。当某个条件不满足时，你可以选择让程序 panic 或进入一个无限循环，以避免后续不正确的操作。</p>
+</li>
+<li><p><strong>确保类型安全</strong>：通过明确使用 <code>!</code> 类型，Rust 语言可以确保类型系统的安全性，任何返回 <code>!</code> 的函数都可以被视为不返回，因此在类型系统中不会引起错误。</p>
+</li>
+<li><p><strong>实现守护进程或服务</strong>：在一些需要持续运行的服务中，例如后台任务或守护进程，发散函数可以用于实现这些功能。</p>
+</li>
+</ol>
+<h3 id="总结-12"><a href="#总结-12" class="headerlink" title="总结"></a>总结</h3><p>发散函数在 Rust 中用于表示不会返回的函数，帮助开发者控制程序的流，并确保类型的安全性。这种设计模式在一些特殊场景中非常有用，例如错误处理、守护进程等。</p>
+<p>unimplemented!() 是一个宏，用于指示函数尚未实现。调用这个宏会导致程序在运行时 panic，通常在开发过程中使用，以确保在调用未实现的代码时会显式地出错。</p>
+<p>todo!() 和 unimplemented!() 类似，都是用于表示某个代码部分尚未实现的宏。调用 todo!() 时，也会导致程序在运行时 panic。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/10/10/%E5%A4%8D%E4%B9%A0%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" data-id="cm477y2mp000uc4u7apsz75v4" data-title="Rust复习-常见编程概念" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/10/10/Rust/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Rust复习-入门
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/04/20-21/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">北大肖臻老师《区块链技术与应用》笔记20-21</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2024 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
