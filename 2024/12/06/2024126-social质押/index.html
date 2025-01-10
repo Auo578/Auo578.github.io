@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>solana质押 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2024126-social质押" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/" class="article-date">
+  <time class="dt-published" datetime="2024-12-06T03:50:35.000Z" itemprop="datePublished">2024-12-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      solana质押
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="质押"><a href="#质押" class="headerlink" title="质押"></a>质押</h1><p>将sol或者其他token进行锁定，并赚取收益。</p>
+<p><a target="_blank" rel="noopener" href="https://solanabeach.io/">https://solanabeach.io/</a></p>
+<p>用户：赚取收益、参与共识网络</p>
+<p>平台：POS网络中validator负责交易确认和区块制作，其权重由质押决定。二为通过控制质押收益控制token流动性，从而控制价值。</p>
+<p>需要超过60%的权重</p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241216093751001.png" alt="image-20241216093751001"></p>
+<p>网络级别的质押：solana官方开发的合约，原生合约（已经部署到solana的网络中），流动性质押。</p>
+<p>应用级别的质押（用流动性质押的方式）</p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241216093952513.png" alt="image-20241216093952513"></p>
+<p><a target="_blank" rel="noopener" href="https://solana.com/zh/docs/economics/staking">https://solana.com/zh/docs/economics/staking</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.anza.xyz/">https://docs.anza.xyz/</a></p>
+<p>POH：<a target="_blank" rel="noopener" href="https://www.blockchain-council.org/blockchain/what-is-proof-of-history-and-how-does-it-work/">https://www.blockchain-council.org/blockchain/what-is-proof-of-history-and-how-does-it-work/</a></p>
+<p>论文：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Blockchain_lemon/article/details/90631623">https://blog.csdn.net/Blockchain_lemon/article/details/90631623</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013288190/article/details/139650979">https://blog.csdn.net/u013288190/article/details/139650979</a></p>
+<p>角色：</p>
+<p>user wallet：通过质押账户进行质押</p>
+<p>validator：validator通过vote account接收质押</p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241216133146240.png" alt="image-20241216133146240"></p>
+<h2 id="质押方式"><a href="#质押方式" class="headerlink" title="质押方式"></a>质押方式</h2><p>1.钱包质押，phantom</p>
+<p>2.native staking</p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241216142629612.png" alt="image-20241216142629612"></p>
+<p><a target="_blank" rel="noopener" href="https://docs.anza.xyz/cli/examples/delegate-stake">https://docs.anza.xyz/cli/examples/delegate-stake</a></p>
+<h2 id="实现native-staking"><a href="#实现native-staking" class="headerlink" title="实现native staking"></a>实现native staking</h2><p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241217091652949.png" alt="image-20241217091652949"></p>
+<p>创建质押账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator</span><br><span class="line"></span><br><span class="line">课程</span><br><span class="line">solana-keygen new --no-passphrase -s -o stake-account</span><br><span class="line">.json</span><br><span class="line">网站</span><br><span class="line">solana-keygen new --no-passphrase -o stake-account.json</span><br></pre></td></tr></table></figure>
+
+<p><code>solana-keygen new</code>：生成一个新的 Solana 密钥对。</p>
+<p><code>--no-passphrase</code>：表示不设置密码保护，密钥将以明文形式存储在文件中。</p>
+<p><code>-s</code>：指定使用 <strong><code>ed25519</code> seed phrase</strong>（种子短语）来生成密钥对。</p>
+<p><code>-o stake-account.json</code>：指定将生成的密钥对存储在 <code>stake-account.json</code> 文件中。</p>
+<p>用以下命令查看生成的密钥文件内容：cat stake-account.json</p>
+<p>公钥和私钥的一个数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# cat stake-account.json</span><br><span class="line">[222,89,142,121,165,189,42,239,54,253,123,69,30,195,249,77,191,164,137,4,54,224,49,76,188,98,169,179,212,255,165,88,195,171,81,23,197,150,61,191,92,0,119,130,245,133,84,162,135,195,208,134,175,174,81,27,165,175,253,109,214,254,252,197]#   </span><br></pre></td></tr></table></figure>
+
+<p>查看公钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana address -k stake-account.json</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana address -k stake-account.json</span><br><span class="line">EAp1qih1E94fSfeZDLtfQgrLNzg5uLxi7XcMyAvdEhx8</span><br></pre></td></tr></table></figure>
+
+<p><code>-k</code> 选项表示指定密钥文件的路径。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana create-stake-account stake-account.json 100 --url localhost</span><br><span class="line"></span><br><span class="line">Signature: 5QwvDK41BU3ogm53Kfz1d5pPQf3x79sp9U2EnK7EoroNccNspZwjBCKfTDQEYAQqdYUpAjPeuM7PFuMWBNH1DpwP</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana validators -u localhost</span><br><span class="line">   Identity                                      Vote Account                            Commission  Last Vote        Root Slot     Skip Rate  Credits  Version            Active Stake</span><br><span class="line">  HBU7uEtHykBaqmEk5sPHuZbUsBLC1r4LrAs3RkL5fkDV  Hqe5qMfUtnc93FJk4QLUqG1ec2AuSNu2uH7R6hhi6ArD    0%      98226 (  0)      98195 (  0)   0.00%  1571069    2.1.4    999999.997717120 SOL (100.00%)</span><br><span class="line"></span><br><span class="line">Average Stake-Weighted Skip Rate: 0.00%</span><br><span class="line">Average Unweighted Skip Rate:     0.00%</span><br><span class="line"></span><br><span class="line">Active Stake: 999999.99771712 SOL</span><br><span class="line"></span><br><span class="line">Stake By Version:</span><br><span class="line">2.1.4   -    1 current validators (100.00%)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana delegate-stake stake-account.json Hqe5qMfUtnc93FJk4QLUqG1ec2AuSNu2uH7R6hhi6ArD -u loca</span><br><span class="line">lhost</span><br><span class="line"></span><br><span class="line">Signature: 3JFdFVCFdzavdQrL415MzU7NJUNRLTQK3PCyxkRkx3AbhruJrwDZHA9VJDEwCc9q41sR6mwWndHz3Y4FYuzYZZsY</span><br><span class="line"></span><br><span class="line">LAPTOP-6M4RE4LA# solana stake-account stake-account.json</span><br><span class="line">Balance: 200 SOL</span><br><span class="line">Rent Exempt Reserve: 0.00228288 SOL</span><br><span class="line">Delegated Stake: 199.99771712 SOL</span><br><span class="line">Active Stake: 0 SOL</span><br><span class="line">Activating Stake: 199.99771712 SOL</span><br><span class="line">Stake activates starting from epoch: 0</span><br><span class="line">Delegated Vote Account Address: Hqe5qMfUtnc93FJk4QLUqG1ec2AuSNu2uH7R6hhi6ArD</span><br><span class="line">Stake Authority: DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br><span class="line">Withdraw Authority: DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana deactivate-stake stake-account.json -u localhost</span><br><span class="line"></span><br><span class="line">Signature: 62Ntvt9TGutHLznuXj2Ftjn7rVhuQbTpxev8nit7icLk1D8prQj6sTxQzVuXtXP6jCAEEnDLWRtmfCQ7uFzrPvqK</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana balance</span><br><span class="line">499999897.884810805 SOL</span><br><span class="line">LAPTOP-6M4RE4LA# solana withdraw-stake  stake-account.json DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9 200 -u localhost</span><br><span class="line"></span><br><span class="line">Signature: 5XJpJ7K6awpuLrd1fxd5dx4WWa7dsRedmks4EdkZvucV6VYxHNNrMrAwE7RSfu2HK6mfWKNYv25EwxogbtLS6WcK</span><br><span class="line"></span><br><span class="line">LAPTOP-6M4RE4LA# solana balance</span><br><span class="line">500000097.884805799 SOL</span><br><span class="line">LAPTOP-6M4RE4LA# solana address</span><br><span class="line">DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何实现native-staking"><a href="#如何实现native-staking" class="headerlink" title="如何实现native staking"></a>如何实现native staking</h2><p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241221111125162.png" alt="image-20241221111125162"></p>
+<h1 id="流动性质押介绍-质押池的创建"><a href="#流动性质押介绍-质押池的创建" class="headerlink" title="流动性质押介绍&amp;质押池的创建"></a>流动性质押介绍&amp;质押池的创建</h1><p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241221120311748.png" alt="image-20241221120311748"></p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241221120751914.png" alt="image-20241221120751914"></p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241221123633522.png" alt="image-20241221123633522"></p>
+<h3 id="管理员可以设置的费用类型："><a href="#管理员可以设置的费用类型：" class="headerlink" title="管理员可以设置的费用类型："></a>管理员可以设置的费用类型：</h3><p>sol deposit  -&gt; sol withdrawal</p>
+<p>质押池直接质押sol，不经过质押账户</p>
+<p>stake deposit</p>
+<p>通过质押账户的费率 -&gt; stake withdrawal</p>
+<p>epoch</p>
+<p>每个周期的费用（可以理解为管理费）</p>
+<p>referral（介绍费）</p>
+<p>拉人头返现</p>
+<h2 id="创建质押池"><a href="#创建质押池" class="headerlink" title="创建质押池"></a>创建质押池</h2><p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241221124314022.png" alt="image-20241221124314022"></p>
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20241221124330066.png" alt="image-20241221124330066"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool create-pool -h</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool create-pool \</span><br><span class="line">  --epoch-fee-denominator 100 \</span><br><span class="line">  --epoch-fee-numerator 2 \</span><br><span class="line">  --max-validators 10 \</span><br><span class="line">  --withdrawal-fee-denominator 1000 \</span><br><span class="line">  --withdrawal-fee-numerator 1 \</span><br><span class="line">  --deposit-fee-numerator 3 \</span><br><span class="line">  --deposit-fee-denominator 1000 \</span><br><span class="line">  --referral-fee 0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool list -v 《stake pool address》</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-stake-pool create-pool \</span><br><span class="line">  --epoch-fee-denominator 100 \</span><br><span class="line">  --epoch-fee-numerator 2 \</span><br><span class="line">  --max-validators 10 \</span><br><span class="line">  --withdrawal-fee-denominator 1000 \</span><br><span class="line">  --withdrawal-fee-numerator 1 \</span><br><span class="line">  --deposit-fee-numerator 3 \</span><br><span class="line">  --deposit-fee-denominator 1000 \</span><br><span class="line">  --referral-fee 0</span><br><span class="line">Creating reserve stake UYNZbheLhARogFCddPhonmkpfA6cHqSYCWnqMxQQ8U5</span><br><span class="line">Creating mint 8m7MQ2NM5r7GqLKKwLjnXbQWJaWPEY5mSQgYFjGrFpL9</span><br><span class="line">Creating associated token account HpEvgWHHP9TkTXCMMoTiCif4gnFnQZRYDo592DZXdrDf to receive stake pool tokens of mint 8m7MQ2NM5r7GqLKKwLjnXbQWJaWPEY5mSQgYFjGrFpL9, owned by DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br><span class="line">Creating pool fee collection account HpEvgWHHP9TkTXCMMoTiCif4gnFnQZRYDo592DZXdrDf</span><br><span class="line">Setting up required accounts for stake pool: reserve stake UYNZbheLhARogFCddPhonmkpfA6cHqSYCWnqMxQQ8U5 and mint 8m7MQ2NM5r7GqLKKwLjnXbQWJaWPEY5mSQgYFjGrFpL9</span><br><span class="line">Signature: 5jtB33WXDmBsrja4QZHQJpNjvyreFtEGRKbgWFpoEWym4YaxrTrtU8WUSkaWE4Xogx6XmZVcTAkmmMWR9KF4Gi7f</span><br><span class="line">Creating stake pool 9rp9LaHqozHDsjCWTzLNkARaz3qUGzQM4QWcRTiuBP3J with validator list 4mLChLpwZsVXq6TnHaghTV5k9dQxxKiXqRDncxi4N7vo</span><br><span class="line">RPC response error -32002: Transaction simulation failed: Attempt to load a program that does not exist;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-stake-pool create-pool \</span><br><span class="line">  --epoch-fee-denominator 100 \</span><br><span class="line">  --epoch-fee-numerator 2 \</span><br><span class="line">  --max-validators 10 \</span><br><span class="line">  --withdrawal-fee-denominator 1000 \</span><br><span class="line">  --withdrawal-fee-numerator 1 \</span><br><span class="line">  --deposit-fee-numerator 3 \</span><br><span class="line">  --deposit-fee-denominator 1000 \</span><br><span class="line">  --referral-fee 0</span><br><span class="line">Creating reserve stake 88pq61ETqVXC5E9uaN3tXS2NWFAs7ba2BZuh2spHUMn2</span><br><span class="line">Creating mint GeJY4EHmAyEzPx4GGMZ9wMeFuguDKW6WdLf41fHsRWck</span><br><span class="line">Creating associated token account 4Df2W4DYcHEdz6h4tWTtopDgryoeezPHooocSTx3o26T to receive stake pool tokens of mint GeJY4EHmAyEzPx4GGMZ9wMeFuguDKW6WdLf41fHsRWck, owned by DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br><span class="line">Creating pool fee collection account 4Df2W4DYcHEdz6h4tWTtopDgryoeezPHooocSTx3o26T</span><br><span class="line">Setting up required accounts for stake pool: reserve stake 88pq61ETqVXC5E9uaN3tXS2NWFAs7ba2BZuh2spHUMn2 and mint GeJY4EHmAyEzPx4GGMZ9wMeFuguDKW6WdLf41fHsRWck</span><br><span class="line">Signature: 3P7Pc5rKTwTWPZnCsqbnSJ4C38UzjcJ985awn4Br33M2kP9MdUCgEhrHJjHvbFxAHMTm4HKnpPKdTXRimcpkgb72</span><br><span class="line">Creating stake pool 3tMgCvn77uZf66XT3vEGzDYXasu9V9SUUtEtpqLvgFKH with validator list 5bqbCjCqdiCgu1Jxed3DKGMgySqdcahbe1aW9QWNuo4h</span><br><span class="line">RPC response error -32002: Transaction simulation failed: Attempt to load a program that does not exist;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="已解决（1）"><a href="#已解决（1）" class="headerlink" title="已解决（1）"></a>已解决（1）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Creating stake pool F8tSahYWyTzk5Mp7yerthEkjoPwfvMQg7uBVfUV9hH4i</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool list -v F8tSahYWyTzk5Mp7yerthEkjoPwfvMQg7uBVfUV9hH4i</span><br></pre></td></tr></table></figure>
+
+<p>可以看到设计的哪些账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool set-manager [flass] [options] &lt;&gt;</span><br><span class="line"></span><br><span class="line">spl-stake-pool set-fee [flass] [options] &lt;&gt;</span><br><span class="line"></span><br><span class="line">spl-stake-pool set-stake [flass] [options] &lt;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="E:/hexo/blog/source/imgs/2024126-social%E8%B4%A8%E6%8A%BC/image-20250102134246063.png" alt="image-20250102134246063"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool -h</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">添加validator</span><br><span class="line">solana validators -u localhost</span><br><span class="line">spl-stake-pool add-validator &lt;your_stake_pool_address&gt; &lt;vote_account_address&gt;</span><br><span class="line"></span><br><span class="line">spl-stake-pool list -v &lt;your_stake_pool_address&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool deposit-sol F8tSahYWyTzk5Mp7yerthEkjoPwfvMQg7uBVfUV9hH4i 1.002282880</span><br><span class="line"></span><br><span class="line">spl-stake-pool deposit-sol F8tSahYWyTzk5Mp7yerthEkjoPwfvMQg7uBVfUV9hH4i 1.1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool add-validator F8tSahYWyTzk5Mp7yerthEkjoPwfvMQg7uBVfUV9hH4i  36HHDkHQQKd9SbJCEfKrntMe69rAhdxV8Hm26r4TwxGU</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool list -v F8tSahYWyTzk5Mp7yerthEkjoPwfvMQg7uBVfUV9hH4i </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><h2 id="交易一直不完成"><a href="#交易一直不完成" class="headerlink" title="交易一直不完成"></a>交易一直不完成</h2><p> ⠤ [0&#x2F;1] Finalizing transaction 3DV4XGaWPQA5Bj2KtoLF28ivwchkD3i4Z8xk5yxYArdRdja7WWXkfTn7MhHjN6LGFEZsAy7KJRk7Kpd4to4dgyE2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我所需要做的就是通过运行以下命令重新启动本地验证器</span><br><span class="line"></span><br><span class="line">solana-test-validator -r</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/" data-id="cm5r2i69900014su7cn543ilc" data-title="solana质押" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          github的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">账户的概念和用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/">solana流动性质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>github的使用 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2024129-github的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2024-12-09T02:23:47.000Z" itemprop="datePublished">2024-12-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      github的使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="提交github"><a href="#提交github" class="headerlink" title="提交github"></a>提交github</h2><p>如果你已经解决了子模块问题，或者你不需要 <code>cli/</code> 作为子模块，并且已经进行了一些提交，那么你可以按照以下步骤继续推送到 GitHub 仓库。</p>
+<p>问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: detected dubious ownership in repository at &#x27;//wsl.localhost/Ubuntu-22.04/root/class/cli&#x27;</span><br><span class="line">To add an exception for this directory, call:</span><br></pre></td></tr></table></figure>
+
+<p>解决：如果信任</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global --add safe.directory &#x27;%(prefix)///wsl.localhost/Ubuntu-22.04/root/class/cli&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf counter/.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git add -f cli/ counter/ friend-cli/ friend/ ibuidl_social/ token/</span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line">git pull origin main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><ol>
+<li><p><strong>确认已初始化 Git 仓库</strong>： 确保你在正确的目录下，并且已经初始化了 Git 仓库。如果还没有初始化，运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加远程仓库</strong>： 如果你还没有添加远程仓库，可以运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/Auo578/solanapractical.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>切换并重命名为 <code>main</code> 分支</strong>： 如果你还没有切换到 <code>main</code> 分支或重命名分支，可以运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -M main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加所有文件到暂存区</strong>： 运行以下命令将所有文件添加到 Git 暂存区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+<p>确保你解决了所有子模块问题，或者删除了不必要的 <code>.git</code> 文件夹，确保所有文件都可以被添加。</p>
+</li>
+<li><p><strong>提交更改</strong>： 提交你的更改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;Initial commit&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个命令会把所有已添加的文件（包括修复后的 <code>cli/</code> 目录）提交到本地仓库。</p>
+</li>
+<li><p><strong>推送到 GitHub 仓库</strong>： 推送你的 <code>main</code> 分支到远程 GitHub 仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会将本地的 <code>main</code> 分支推送到远程 GitHub 仓库，并将远程仓库的 <code>origin</code> 设置为上游（<code>-u</code> 参数）。</p>
+</li>
+</ol>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ul>
+<li><strong>添加远程仓库</strong>：<code>git remote add origin https://github.com/Auo578/solana-practice.git</code></li>
+<li>**切换并重命名分支为 <code>main</code>**：<code>git branch -M main</code></li>
+<li><strong>添加并提交文件</strong>：<code>git add .</code> 和 <code>git commit -m &quot;Initial commit&quot;</code></li>
+<li><strong>推送到远程仓库</strong>：<code>git push -u origin main</code></li>
+</ul>
+<p>这些步骤应该能解决问题并将本地的代码推送到远程仓库。如果有任何问题，请继续提问！</p>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><p>在执行 <code>git rm --cached</code> 时，路径应该是文件相对于当前 Git 仓库的路径，而不是绝对路径。如果您在 Git Bash 或 WSL 中，路径应该遵循 Git 仓库中的相对路径，而不是 Windows 系统中的路径。</p>
+<p>从您的提示信息 <code>xiang@LAPTOP-6M4RE4LA MINGW64 //wsl.localhost/Ubuntu-22.04/root/class/cli (main)</code> 看，您的当前工作目录是 <code>//wsl.localhost/Ubuntu-22.04/root/class/cli</code>，这是 WSL 下的路径。</p>
+<h3 id="1-确认当前路径"><a href="#1-确认当前路径" class="headerlink" title="1. 确认当前路径"></a>1. <strong>确认当前路径</strong></h3><p>您现在位于 <code>cli</code> 目录中，这意味着如果要删除 <code>cli</code> 目录中的文件，您只需要提供相对路径。例如，假设您想删除 <code>cli</code> 目录下的 <code>test.txt</code> 文件，路径应该是相对于 <code>cli</code> 目录的路径。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> --cached test.txt</span><br></pre></td></tr></table></figure>
+
+<p>如果您在 <code>cli</code> 目录下，路径 <code>test.txt</code> 就是该目录下的文件。如果您想删除 <code>cli</code> 目录外的文件，则需要从仓库根目录开始写相对路径。</p>
+<h3 id="2-删除-cli-目录中的文件"><a href="#2-删除-cli-目录中的文件" class="headerlink" title="2. 删除 cli 目录中的文件"></a>2. <strong>删除 <code>cli</code> 目录中的文件</strong></h3><p>如果您想删除整个 <code>cli</code> 目录中的所有文件，并且保留它们在本地文件系统中（即仅从 Git 中删除），您可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> --cached -r *</span><br></pre></td></tr></table></figure>
+
+<p>这将删除 <code>cli</code> 目录下的所有文件（不包括 <code>.git</code> 文件夹）。</p>
+<h3 id="3-从父目录删除-cli-目录"><a href="#3-从父目录删除-cli-目录" class="headerlink" title="3. 从父目录删除 cli 目录"></a>3. <strong>从父目录删除 <code>cli</code> 目录</strong></h3><p>如果您要删除整个 <code>cli</code> 目录（以及它的所有内容）并推送到远程仓库，您可以使用相对路径，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> --cached -r cli</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>如果您在 <code>cli</code> 目录中，使用相对路径 <code>git rm --cached test.txt</code>。</li>
+<li>如果您想删除整个 <code>cli</code> 目录，使用 <code>git rm --cached -r cli</code>。</li>
+<li>确保使用相对路径而不是绝对路径。</li>
+</ul>
+<p>要删除 GitHub 上的文件，您可以通过 Git 来删除它们，然后将更改推送到 GitHub。以下是详细步骤：</p>
+<h3 id="1-删除本地文件"><a href="#1-删除本地文件" class="headerlink" title="1. 删除本地文件"></a>1. <strong>删除本地文件</strong></h3><p>首先，删除本地仓库中的文件。您可以通过 <code>git rm</code> 命令来删除文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>path/to/file</code> 是您要删除的文件的相对路径。如果要删除整个目录及其内容，可以使用 <code>-r</code> 选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> -r path/to/directory</span><br></pre></td></tr></table></figure>
+
+<p>如果您只是想删除文件，并保留文件在本地系统上的副本，可以使用 <code>--cached</code> 选项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> --cached path/to/file</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-提交删除操作"><a href="#2-提交删除操作" class="headerlink" title="2. 提交删除操作"></a>2. <strong>提交删除操作</strong></h3><p>删除文件后，您需要提交删除操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;Delete file or directory&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-推送更改到-GitHub"><a href="#3-推送更改到-GitHub" class="headerlink" title="3. 推送更改到 GitHub"></a>3. <strong>推送更改到 GitHub</strong></h3><p>然后，您将删除的更改推送到 GitHub：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure>
+
+<p><code>main</code> 是您的当前分支名称，如果您使用的是其他分支，请替换为相应的分支名称。</p>
+<h3 id="示例：删除文件并推送更改"><a href="#示例：删除文件并推送更改" class="headerlink" title="示例：删除文件并推送更改"></a>示例：删除文件并推送更改</h3><p>假设您想删除 GitHub 上的 <code>test.txt</code> 文件，您可以按以下步骤操作：</p>
+<ol>
+<li><p><strong>删除文件</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> test.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>提交删除操作</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;Delete test.txt&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>推送到 GitHub</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="4-通过-GitHub-网站删除文件"><a href="#4-通过-GitHub-网站删除文件" class="headerlink" title="4. 通过 GitHub 网站删除文件"></a>4. <strong>通过 GitHub 网站删除文件</strong></h3><p>如果您不想使用命令行，也可以直接通过 GitHub 网站删除文件：</p>
+<ol>
+<li>进入您的仓库页面。</li>
+<li>找到您要删除的文件。</li>
+<li>点击文件名，进入文件详情页面。</li>
+<li>点击右上角的铅笔图标（编辑按钮）。</li>
+<li>在文件页面底部，选择 “Delete this file”。</li>
+<li>在提交信息框中填写相关的说明，然后点击 “Commit changes”。</li>
+</ol>
+<p>这将直接从 GitHub 网站删除该文件，并提交更改。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>使用 <code>git rm</code> 删除文件。</li>
+<li>提交更改并推送到 GitHub。</li>
+<li>也可以通过 GitHub 网站手动删除文件。</li>
+</ul>
+<p>通过这些步骤，您可以轻松地删除 GitHub 上的文件。</p>
+<h2 id="上传某些除文件"><a href="#上传某些除文件" class="headerlink" title="上传某些除文件"></a>上传某些除文件</h2><p>如果你想上传除 <code>test-ledger/</code> 目录外的所有文件，以下是可以执行的步骤：</p>
+<h3 id="1-使用-gitignore-来忽略-test-ledger-目录"><a href="#1-使用-gitignore-来忽略-test-ledger-目录" class="headerlink" title="1. 使用 .gitignore 来忽略 test-ledger/ 目录"></a>1. <strong>使用 <code>.gitignore</code> 来忽略 <code>test-ledger/</code> 目录</strong></h3><p>您可以通过 <code>.gitignore</code> 文件来排除 <code>test-ledger/</code> 目录，并确保 Git 跟踪其他目录中的文件。</p>
+<h4 id="步骤：-1"><a href="#步骤：-1" class="headerlink" title="步骤："></a>步骤：</h4><ol>
+<li><p><strong>创建 <code>.gitignore</code> 文件（如果没有的话）</strong>： 如果仓库中还没有 <code>.gitignore</code> 文件，您可以创建一个：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> .gitignore</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>在 <code>.gitignore</code> 中排除 <code>test-ledger/</code> 目录</strong>： 打开 <code>.gitignore</code> 文件，并添加以下内容：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test-ledger/</span><br></pre></td></tr></table></figure>
+
+<p>这将告诉 Git 忽略 <code>test-ledger/</code> 目录及其所有内容。</p>
+</li>
+<li><p><strong>添加并提交其他文件</strong>： 然后，您可以将其他文件添加到 Git 并提交它们。由于 <code>test-ledger/</code> 已被 <code>.gitignore</code> 忽略，Git 会跳过该目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;Add all files except test-ledger&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>推送更改到 GitHub</strong>： 最后，推送您的更改到 GitHub：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br><span class="line"></span><br><span class="line">git push -f origin main</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="2-手动添加文件（不使用-gitignore）"><a href="#2-手动添加文件（不使用-gitignore）" class="headerlink" title="2. 手动添加文件（不使用 .gitignore）"></a>2. <strong>手动添加文件（不使用 <code>.gitignore</code>）</strong></h3><p>如果您不想修改 <code>.gitignore</code> 文件，也可以手动选择性地添加文件，而不包括 <code>test-ledger/</code> 目录。</p>
+<h4 id="步骤：-2"><a href="#步骤：-2" class="headerlink" title="步骤："></a>步骤：</h4><ol>
+<li><p><strong>查看未跟踪的文件</strong>： 使用 <code>git status</code> 来查看当前未跟踪的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<p>结果显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Untracked files:</span><br><span class="line">cli/</span><br><span class="line">counter/</span><br><span class="line">friend-cli/</span><br><span class="line">friend/</span><br><span class="line">ibuidl_social/</span><br><span class="line">test-ledger/</span><br><span class="line">token/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>手动添加文件</strong>： 您可以手动选择性地添加其他目录中的文件（不包括 <code>test-ledger/</code> 目录）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add cli/ counter/ friend-cli/ friend/ ibuidl_social/ token/</span><br></pre></td></tr></table></figure>
+
+<p>这将添加所有其他目录中的文件，但排除了 <code>test-ledger/</code> 目录。</p>
+</li>
+<li><p><strong>提交并推送到 GitHub</strong>： 提交更改并将其推送到 GitHub：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;Add all files except test-ledger&quot;</span></span><br><span class="line">git push origin main</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="总结：-1"><a href="#总结：-1" class="headerlink" title="总结："></a>总结：</h3><ul>
+<li>**使用 <code>.gitignore</code>**：推荐使用 <code>.gitignore</code> 来忽略 <code>test-ledger/</code> 目录。</li>
+<li><strong>手动添加文件</strong>：如果不想使用 <code>.gitignore</code>，可以手动选择性地添加文件。</li>
+</ul>
+<p>使用 <code>.gitignore</code> 更加方便，因为它可以帮助您在未来避免重复添加 <code>test-ledger/</code> 目录。如果有其他问题，随时告诉我！</p>
+<h2 id="拉取远程仓库的更改"><a href="#拉取远程仓库的更改" class="headerlink" title="拉取远程仓库的更改"></a>拉取远程仓库的更改</h2><p>这个错误信息表明，远程仓库 <code>main</code> 分支包含了一些您本地没有的更改。为了解决这个问题，您需要先从远程仓库拉取最新的更改，再进行推送。</p>
+<h3 id="解决步骤："><a href="#解决步骤：" class="headerlink" title="解决步骤："></a>解决步骤：</h3><ol>
+<li><p><strong>拉取远程仓库的更改</strong>： 使用 <code>git pull</code> 拉取远程仓库的最新更改到本地，合并这些更改。假设您要拉取远程 <code>main</code> 分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin main</span><br></pre></td></tr></table></figure>
+
+<p>这会将远程仓库的 <code>main</code> 分支上的更改合并到您本地的 <code>main</code> 分支中。如果有冲突，您需要解决这些冲突。</p>
+</li>
+<li><p><strong>解决冲突（如果有的话）</strong>： 如果拉取过程中出现冲突，Git 会提示您哪个文件有冲突。您需要手动解决冲突，然后执行以下命令标记冲突已解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;resolved-file&gt;</span><br><span class="line">git commit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>再次推送更改</strong>： 一旦您成功拉取并解决了任何冲突，您就可以将本地更改推送到远程仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin main</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="其他情况"><a href="#其他情况" class="headerlink" title="其他情况"></a>其他情况</h3><ul>
+<li><p>如果您希望强制推送</p>
+<p>（小心使用）：如果您确定本地更改是正确的，并且您希望覆盖远程仓库的更改，可以使用 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--force</span><br></pre></td></tr></table></figure>
+
+<p> 强制推送，但这可能会导致丢失远程仓库的更改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --force origin main</span><br></pre></td></tr></table></figure>
+
+<p>强制推送之前，请确保您了解可能的风险。</p>
+</li>
+</ul>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>先执行 <code>git pull origin main</code> 拉取远程更改。</li>
+<li>解决任何冲突并提交解决后的文件。</li>
+<li>最后推送更改。</li>
+</ol>
+<p>如果您遇到任何问题，随时告诉我！</p>
+<p>如果您已经执行了 <code>git add</code> 来添加文件，但还没有提交（<code>git commit</code>），并且现在想要从暂存区移除文件，可以使用 <code>git reset</code> 命令。</p>
+<h3 id="从暂存区移除已添加的文件"><a href="#从暂存区移除已添加的文件" class="headerlink" title="从暂存区移除已添加的文件"></a>从暂存区移除已添加的文件</h3><ol>
+<li><p><strong>移除指定文件：</strong></p>
+<p>如果您只想移除某个特定的文件或目录，可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>例如，要移除 <code>cli/</code> 文件夹，可以运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset cli/</span><br></pre></td></tr></table></figure>
+
+<p>这会将 <code>cli/</code> 从暂存区移除，但保留文件在工作区。</p>
+</li>
+<li><p><strong>移除所有已添加的文件：</strong></p>
+<p>如果您想要移除所有已添加到暂存区的文件，可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
+
+<p>这会将所有文件从暂存区移除，但不会删除文件本身。文件仍然保留在您的工作目录中，只是不会被 Git 跟踪提交。</p>
+</li>
+</ol>
+<h3 id="检查当前状态"><a href="#检查当前状态" class="headerlink" title="检查当前状态"></a>检查当前状态</h3><p>在移除文件后，您可以通过 <code>git status</code> 来查看当前的状态，确认文件已经从暂存区移除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<p>这时，文件应该会显示为 <strong>untracked</strong>（未跟踪的），而不是 <strong>staged</strong>（已暂存的）。</p>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>使用 <code>git reset &lt;file&gt;</code> 移除特定文件。</li>
+<li>使用 <code>git reset</code> 移除所有文件。</li>
+<li>使用 <code>git status</code> 检查文件是否成功移除。</li>
+</ul>
+<p>这样，您就可以将已经添加到暂存区的文件撤回，而不会影响您的工作目录。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cm5r2i69i00094su7a000htq1" data-title="github的使用" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          solana流动性质押
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">solana质押</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/">solana流动性质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

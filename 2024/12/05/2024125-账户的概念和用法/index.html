@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>账户的概念和用法 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2024125-账户的概念和用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2024-12-04T17:50:35.000Z" itemprop="datePublished">2024-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      账户的概念和用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="账户的概念和用法"><a href="#账户的概念和用法" class="headerlink" title="账户的概念和用法"></a>账户的概念和用法</h1><p>合约框架：anchor</p>
+<h3 id="创建anchor项目"><a href="#创建anchor项目" class="headerlink" title="创建anchor项目"></a>创建anchor项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor init &lt;new-workspace-name&gt; </span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>app:默认为空，用来放前端代码</p>
+</li>
+<li><p>programs:合约代码。默认会有一个项目同名文件夹，里面有一个lib.rs文件</p>
+</li>
+<li><p>tests:测试目录。默认包含一个当前项目名的测试</p>
+</li>
+<li><p>migrations:合约的部署，迁移脚本</p>
+</li>
+<li><p><code>Anchor.toml</code>:项目的配置文件</p>
+<p>本地的合约地址([<code>programs.localnet]</code>)</p>
+<p>合约仓库([registry])</p>
+<p>solana网络（[provider]）</p>
+<p>脚本([script])。脚本可以使用<code>anchor run &lt;script_name&gt;</code>运行，默认是<code>test</code>脚本</p>
+</li>
+</ol>
+<h2 id="实际运行"><a href="#实际运行" class="headerlink" title="实际运行"></a>实际运行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//创建项目</span><br><span class="line">anchor init counter</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">删除文件</span><br><span class="line">rm </span><br><span class="line">删除文件夹及其内容</span><br><span class="line">rm -r</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mocha &gt; glob@7.2.0: Glob versions prior to v9 are no longer supported</span><br><span class="line"></span><br><span class="line">LAPTOP-6M4RE4LA# npm show mocha version</span><br><span class="line">11.0.1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="anchor文件内介绍"><a href="#anchor文件内介绍" class="headerlink" title="anchor文件内介绍"></a>anchor文件内介绍</h3><p>app：存放前端代码</p>
+<p>migrations：合约部署和迁移</p>
+<p>node_modules:前端使用的和一些脚手架使用的第三方的包</p>
+<p>programs：（可存放多个项目）</p>
+<p>​	项目名：合约存放地</p>
+<p>target：编译和debug的目标文件，idl文件</p>
+<p>test：测试脚本</p>
+<p>anchor.toml:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//合约的本地地址</span><br><span class="line">[programs.localnet]</span><br><span class="line">counter = &quot;1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4&quot;</span><br><span class="line"></span><br><span class="line">//合约仓库</span><br><span class="line">[registry]</span><br><span class="line">url = &quot;https://api.apr.dev&quot;</span><br><span class="line">//当前部署的合约网络是本地的网络</span><br><span class="line">[provider]</span><br><span class="line">cluster = &quot;Localnet&quot;</span><br><span class="line">wallet = &quot;~/.config/solana/id.json&quot;</span><br><span class="line"></span><br><span class="line">//脚本</span><br><span class="line">[scripts]</span><br><span class="line">test = &quot;yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts&quot;</span><br></pre></td></tr></table></figure>
+
+<p>其他的就是rust中的包管理，使用了workspace的方式</p>
+<p>再写一遍加固记忆</p>
+<h4 id="programs内项目介绍"><a href="#programs内项目介绍" class="headerlink" title="programs内项目介绍"></a>programs内项目介绍</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">solana config get</span><br><span class="line">solana config set --url localhost</span><br><span class="line">solana-keygen new</span><br><span class="line">//设置为本地钱包</span><br><span class="line">solana config set -k ~/.config/solana/id.json</span><br><span class="line">cat /root/.config/solana/id.json</span><br><span class="line"></span><br><span class="line">solana balance</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//声明了合约地址</span><br><span class="line">declare_id!(&quot;1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4&quot;);</span><br><span class="line"></span><br><span class="line">[programs.localnet]</span><br><span class="line">counter = &quot;1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//programs/counter/src</span><br><span class="line">第一步声明了合约的地址</span><br><span class="line">第二部分就是合约的逻辑，用program宏声明的部分</span><br><span class="line">这个宏下面声明的每个public都是一个合约的指令</span><br><span class="line">#[program]</span><br><span class="line">pub mod counter &#123;</span><br><span class="line">    use super::*;</span><br><span class="line"></span><br><span class="line">    pub fn initialize(ctx: Context&lt;Initialize&gt;) -&gt; Result&lt;()&gt; &#123;</span><br><span class="line">        msg!(&quot;Greetings from: &#123;:?&#125;&quot;, ctx.program_id);</span><br><span class="line">        Ok(())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//账户的定义，使用派生的方式把结构体实现成一个solana要求的账户的结构</span><br><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct Initialize &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="账户的概念"><a href="#账户的概念" class="headerlink" title="账户的概念"></a>账户的概念</h4><p>在solana网络中，一切的数据都可以被称为账户</p>
+<p><img src="C:/Users/xiang/AppData/Roaming/Typora/typora-user-images/image-20241205111840739.png" alt="image-20241205111840739"></p>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor build</span><br></pre></td></tr></table></figure>
+
+<p>target&#x2F;idl:描述了合约的指令，可以利用idl来进行app端的编写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">anchor deploy</span><br><span class="line">anchor run test</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# anchor deploy</span><br><span class="line">Deploying cluster: http://127.0.0.1:8899</span><br><span class="line">Upgrade authority: /root/.config/solana/id.json</span><br><span class="line">Deploying program &quot;counter&quot;...</span><br><span class="line">Program path: /root/class/counter/target/deploy/counter.so...</span><br><span class="line">//在anchor.toml地址一样</span><br><span class="line">Program Id: 1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4</span><br><span class="line"></span><br><span class="line">Signature: 2buCQ31i8A1nnx9mVxGJGWHdQeTwtPKwv65nHrMSPZin4EzsE8DvcQUcCQsMR7bTpTYd9Uobs7zDLREXzAadwLrj</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于出现account-data-too-small"><a href="#关于出现account-data-too-small" class="headerlink" title="关于出现account data too small"></a>关于出现account data too small</h4><p>自定义合约数据太小，塞不下</p>
+<p>solana每次部署会按照2倍的容量预留，程序扩大所以空间不够了</p>
+<p>可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana program extend 1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4 1000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">anchor.toml</span><br><span class="line">//programid</span><br><span class="line">[programs.localnet]</span><br><span class="line">counter = &quot;1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4&quot;</span><br><span class="line"></span><br><span class="line">1000是扩容的字节数</span><br></pre></td></tr></table></figure>
+
+<p>可以看到idl多了increment的指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx.accounts.counter.count = ctx.accounts.counter.count.checked_add(1).unwrap();</span><br><span class="line"></span><br><span class="line">check_add不是在原有的基础上加一，而是产生一个返回值</span><br></pre></td></tr></table></figure>
+
+<h4 id="编译并部署"><a href="#编译并部署" class="headerlink" title="编译并部署"></a>编译并部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor build &amp;&amp; anchor deploy</span><br></pre></td></tr></table></figure>
+
+<p>可以看到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; count: &lt;BN: 1&gt; &#125;而不是之前的&#123; count: &lt;BN: 0&gt; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其部署代码为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(&quot;Reader counter&quot;,async() =&gt; &#123;</span><br><span class="line">  const counterKeypair = new anchor.web3.PublicKey(&quot;9rNwH3menMJp3wHsXpJYPHvRiq6z3amzz2TVDPh9ipy8&quot;)</span><br><span class="line">  const currentCount = await program.account.counter.fetch(counterKeypair);</span><br><span class="line">  console.log(currentCount)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>再运行可以看到，不断的加1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; count: &lt;BN: 2&gt; &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h4><p>需要地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare_id!(&quot;1BFbuvVvb4kPkNHpeo1f1eS2gTfQsiJaiiDyfYZGqR4&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>在#[program]每个pub fn都是一个指令，但是每个指令的第一个参数都是我们需要的账户的集合，在struct写需要哪些账户，指定counter账户里的数据格式，像这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#[account]</span><br><span class="line">pub struct Counter&#123;</span><br><span class="line">    count:u64,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>利用anchor提供的一些属性宏，就不用在app侧进行初始化，anchor框架可以初始化。至少这三个搭配在一起，anchor会帮助初始化</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#[account(</span><br><span class="line">    init,</span><br><span class="line">    payer = payer,</span><br><span class="line">    space = 8 + 8,</span><br><span class="line">)]</span><br></pre></td></tr></table></figure>
+
+<p>想要赋值时就和正常代码的赋值一样，把正常的值进行修改就可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx.accounts.counter.count = ctx.accounts.counter.count.checked_add(1).unwrap();</span><br></pre></td></tr></table></figure>
+
+<h1 id="pda的概念和用法"><a href="#pda的概念和用法" class="headerlink" title="pda的概念和用法"></a>pda的概念和用法</h1><p>pda：派生账户</p>
+<p>pda的使用场景</p>
+<p>方法1：hashmap</p>
+<p>问题在于，当用户比较多时，账户有10M大小的限制，和web2不一样的是app是可以直接读账户，而不需要通过合约。而当app拉取account，Dapp当查询某一个人的计时器需要拉取全部数据</p>
+<p>方法2：独立账户</p>
+<p>给不同的wallet生成不同的counter账户</p>
+<p>对于a和b比较麻烦，因为需要记住各自的地址。像网站的密码和用户名</p>
+<p>方法3：PDA</p>
+<p>优点：</p>
+<ul>
+<li>不需要记住钱包和账户的映射关系</li>
+<li>每个账户独立且不会冲突</li>
+</ul>
+<p>还是不同的wallet生成不同的counter账户，但地址可能就是</p>
+<p>wallet A pubkeys + program pubkey</p>
+<p>wallet B pubkeys + program pubkey</p>
+<p>账户的地址也必须是合法的32位的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">findProgramAddressSync函数去生成[PDA,bump]</span><br><span class="line">两个部分seed[Buffer.from(string)]</span><br><span class="line">programid</span><br></pre></td></tr></table></figure>
+
+<p>在lib里加seed和bump指定账户为PDA账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#[account(</span><br><span class="line">    init,</span><br><span class="line">    payer = payer,</span><br><span class="line">    space = 8 + 8,</span><br><span class="line">    seeds = [payer.key().as_ref()],</span><br><span class="line">    bump </span><br><span class="line">)]</span><br></pre></td></tr></table></figure>
+
+<p>bump可以指定，但是不指定使用的就是匹配上的第一个</p>
+<p>第一次运行pda，</p>
+<p>第一次运行成功，第二次报错。</p>
+<p>因为PDA派生的规则没有变，所以counterkeypair一直是一个地址。所以不能重复地初始化了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const [counterKeypair,bump] = anchor.web3.PublicKey.findProgramAddressSync(</span><br><span class="line">  [wallet.publicKey.toBytes()],</span><br><span class="line">  program.programId,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="CPI"><a href="#CPI" class="headerlink" title="CPI"></a>CPI</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/" data-id="cm5r2i69500004su70msoarbb" data-title="账户的概念和用法" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          solana质押
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">SOLANA社交项目实践1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/">solana流动性质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

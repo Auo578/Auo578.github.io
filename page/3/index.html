@@ -47,6 +47,458 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-肖笔记9-11" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:24:04.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/">北大肖臻老师《区块链技术与应用》笔记9-11</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程9：-比特币脚本（the-bitcoin-scripting-language）"><a href="#课程9：-比特币脚本（the-bitcoin-scripting-language）" class="headerlink" title="课程9： 比特币脚本（the bitcoin scripting language）"></a>课程9： 比特币脚本（the bitcoin scripting language）</h1><h1 id="交易实例"><a href="#交易实例" class="headerlink" title="交易实例"></a>交易实例</h1><p>左：output -&gt; input (币来自前面那个交易的输出)</p>
+<p>右：output</p>
+<p>比特币使用的脚本语言非常简单，唯一能访问的内存空间就是一个堆栈，基于栈的语言stock based languege.</p>
+<p>input script：两个操作，分别把两个很长的数压入栈里</p>
+<p>output script:有两行，分别对应上面的两个输出，每个输出都有自己单独对应的脚本</p>
+<h2 id="交易结构"><a href="#交易结构" class="headerlink" title="交易结构"></a>交易结构</h2><p>宏观信息，metadata。</p>
+<p>txid：transaction id</p>
+<p>hash：这个交易的哈希值</p>
+<p>version：比特币协议的版本号</p>
+<p>size：交易的大小</p>
+<p>locktime：交易的生效时间，非零值要过一段时间才会生效</p>
+<p>vin和vout分别是输入输出部分</p>
+<p>bloakhash：这个交易所在的区块的哈希值，由一长串0开头，挖矿的难度要求</p>
+<p>confirmation:有多少个交易信息</p>
+<p>time:这个交易产生的时间，s</p>
+<p>blocktime：这个区块产生的时间，s</p>
+<h2 id="交易的输入结构"><a href="#交易的输入结构" class="headerlink" title="交易的输入结构"></a>交易的输入结构</h2><p>是个数组，一个交易可以有多个输入和输出<br>例子中只有一个输入</p>
+<p>scriptsig -&gt; input script</p>
+<p>每个输入都要说明这个输入花的币是来自之前哪个交易的输出，所以前两行就是给的币的来源。</p>
+<p>txid：之前这个交易的哈希值</p>
+<p>vout：是这个交易的第几个输出</p>
+<p>scriptsig: 输入脚本，最简单的形式是给出一个signature,证明有权力花这个钱。如果一个交易有多个输入，每个输入都要说明币的来源，并且给出签名。比特币中的一个交易可能需要多个签名。</p>
+<p>其中的asm和hex是什么？</p>
+<h2 id="交易的输出结构"><a href="#交易的输出结构" class="headerlink" title="交易的输出结构"></a>交易的输出结构</h2><p>scriptpubkey -&gt; output script</p>
+<p>也是一个数组结构</p>
+<p>value:输出的金额，也有的是satotion：比特币最小的计数单位</p>
+<p>n:序号，表示是这个交易里的第几个输出</p>
+<p>scriptpubkey:输出脚本，输出脚本最简单的形式就是给出一个public key</p>
+<p>asm：输出脚本的内容，里面包含一系列的操作</p>
+<p>hex：？</p>
+<p>reqsigs：这个输出需要多少个签名来实现，require signature。multick多重签名</p>
+<p>type：输出的类型</p>
+<p>address：输出的地址</p>
+<h2 id="输入和输出脚本的执行"><a href="#输入和输出脚本的执行" class="headerlink" title="输入和输出脚本的执行"></a>输入和输出脚本的执行</h2><p>验证交易的合法性，是要把b转给c的这个交易的输入脚本和a转给b的交易的输出脚本拼接在一起执行的。这时有个交叉。</p>
+<p>前面的交易的输出脚本放在后面，后面的交易的输入脚本放在前面，在早期的比特币实现中，这两个脚本是拼接在一起的，从头到尾执行一遍，后来出于安全因素的考虑，这两个脚本改为分别执行。首先执行输入脚本，如果没有出错，后面再执行输出脚本。如果能顺利执行，最后占领的结果为非零值，也就是true，那么验证通过这个交易合法。如果执行过程中出现任何错误，那么这个交易就是非法的。</p>
+<p>如果一个交易有多个输入的话，那么每一个输入脚本都要和所对应的交易的输出脚本匹配之后来进行验证。全都验证通过这个交易才是合法的。</p>
+<h2 id="输入输出脚本的几种形式"><a href="#输入输出脚本的几种形式" class="headerlink" title="输入输出脚本的几种形式"></a>输入输出脚本的几种形式</h2><h3 id="1-P2PK（Pay-to-Public-Key）"><a href="#1-P2PK（Pay-to-Public-Key）" class="headerlink" title="1. P2PK（Pay to Public Key）"></a>1. P2PK（Pay to Public Key）</h3><p>最简单的形式</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>output script:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>输出脚本直接给出收款人的公钥，第二行的checksig是检查签名的操作。在输入脚本中直接给出签名就行了，这个签名是用私钥对这个输入脚本所在的整个交易的签名。</p>
+<p>这种形式是最简单的，因为pubkey是在输出脚本里给出的。</p>
+<p><strong>实际执行情况</strong></p>
+<p>PUSHDATA(Sig)（压入栈）</p>
+<p>PUSHDATA(PubKey)（压入栈）</p>
+<p>CHECKSIG（把栈顶的两个元素弹出来，用公钥检查这个签名是否正确，如果正确的话，返回处说明验证通过，否则执行出错，交易非法）</p>
+<p>这三行是把输入脚本和输出脚本拼接之后的结果，第一行来自输入脚本，后两行来自输出脚本。在实际代码中，出于安全考虑，这两个脚本实际上是分别执行。</p>
+<p><strong>实例</strong></p>
+<p>上面交易的输入脚本就是把签名压入栈，下面这个交易是上面的输入的币的来源，输出有两行，第一行把公钥压入栈，第二行就是checksig</p>
+<h3 id="2-P2PKH-Pay-to-Public-Key-Hash"><a href="#2-P2PKH-Pay-to-Public-Key-Hash" class="headerlink" title="2.P2PKH(Pay to Public Key Hash)"></a>2.P2PKH(Pay to Public Key Hash)</h3><p><strong>input script：</strong></p>
+<p>PUSHDATA(SIG)</p>
+<p>PUSHDATA(PubKey)</p>
+<p><strong>output script：</strong></p>
+<p>DUP</p>
+<p>HASH160</p>
+<p>PUSHDATA(PubKeyHash)</p>
+<p>EQUALVERIFY</p>
+<p>CHECKSIG</p>
+<p>与第一个形式区别在于：输出脚本里没有直接给出收款人的公钥，给出的是公钥的哈希，公钥是在输入脚本里给出的。</p>
+<p>输入脚本里既要给出签名，也要给出公钥。</p>
+<p>输出脚本里，还有其他的一些操作，DUP和HASH160都是为了验证交易的正确性，这种形式实际上是最常用的。</p>
+<p><strong>脚本执行：</strong></p>
+<p>签名-&gt;pubkey压入栈</p>
+<p>DUP：把栈顶的元素复制一遍，所以栈顶又多了一个公钥。</p>
+<p>HASH160：把栈顶的元素弹出来取哈希然后把得到的哈希值再加入栈，PUBKEYHASH。所以栈顶变成了公钥的哈希值。要花这个钱的时候，输入脚本里给出的公钥</p>
+<p>下一条语句是把输出脚本里提供的公钥的哈希值压入栈。收款人公钥的哈希</p>
+<p>EQUALVERIFY:弹出栈顶的两个元素，比较他们是否相等，就是比较栈顶的两个哈希值是否相等。防止有人冒名顶替，如果这两个相等，那么就从栈里消失了。</p>
+<p>CHECKSIG：弹出栈顶的两个元素，用公钥检查这个签名是否正确，假设这个签名是正确的，那么整个脚本顺利运行结束占领留下的是true。</p>
+<p>任何一个环节对不上，那么这个交易就是非法的。</p>
+<p><strong>实例：</strong></p>
+<h3 id="3-P2SH-Pay-to-Script-Hash"><a href="#3-P2SH-Pay-to-Script-Hash" class="headerlink" title="3.P2SH(Pay to Script Hash)"></a>3.P2SH(Pay to Script Hash)</h3><p>采用BIP16的方案</p>
+<p><strong>input script：</strong></p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p><strong>…</strong></p>
+<p>PUSHDATA(seriallized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<p>这种形式的输出脚本给出的不是收款人公钥的哈希，而是收款人提供了一个脚本的哈希，这个脚本叫redeem script赎回脚本，将来花这个钱的时候，输入脚本里要给出这个redeem script这个赎回脚本的具体内容，同时还要给出让这个赎回脚本能够正常运行所需要的签名</p>
+<p>验证的时候分为两步：</p>
+<p>第一步验证输入脚本里给出的这个赎回脚本是否与输出脚本里给出的哈希值匹配。不匹配的话说明给出的赎回脚本是不对的，类似与P2PKH给出的公钥不对，</p>
+<p>第二步验证，如果赎回的脚本是正确的，把赎回脚本的内容当作操作指令来执行一遍，看看最后能不能顺利执行。</p>
+<p>两步验证通过，最后才是合法的。</p>
+<h4 id="redeemScript的形式："><a href="#redeemScript的形式：" class="headerlink" title="redeemScript的形式："></a>redeemScript的形式：</h4><p>1.P2PK的形式</p>
+<p>2.P2PKH的形式</p>
+<p>3.多重签名形式</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><strong>redeemScript:</strong></p>
+<p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p><strong>input script:</strong></p>
+<p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(serialized redeemScript)</p>
+<p><strong>output script:</strong></p>
+<p>HASH160</p>
+<p>PUSHDATA(redeemScriptHash)</p>
+<p>EQUAL</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="第一阶段的验证"><a href="#第一阶段的验证" class="headerlink" title="第一阶段的验证"></a>第一阶段的验证</h4><p>PUSHDATA(Sig)</p>
+<p>PUSHDATA(seriRS)</p>
+<p>HASH160得到RSH，赎回脚本的哈希值</p>
+<p>PUSHDATA(RSH)：输出脚本给出的哈希值</p>
+<p>EQUAL，如果相等，两个哈希值消失，剩下Sig</p>
+<p>操作中RSH是指redeem script hash赎回脚本的哈希值</p>
+<h4 id="第二阶段的验证"><a href="#第二阶段的验证" class="headerlink" title="第二阶段的验证"></a>第二阶段的验证</h4><p>PUSHDATA(PubKey)</p>
+<p>CHECKSIG</p>
+<p>首先把输入脚本里提供的序列化的赎回脚本进行反序列化，在ppt上没有展现，是每个节点自己要完成的。</p>
+<p>然后执行赎回脚本，把PucKey压入栈，然后由CHECKSIG验证一下输入脚本里给出的Signature的正确性，验证通过之后，整个的pay to script hash才算执行完成</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>这个功能在最初版本的比特币里是没有的，后来通过软分叉的形式加进去了，其中一个常见的应用场景就是对多重签名的支持</p>
+<p>比特币系统中一个输出可能要求多个签名才能把钱取出来，比如公司账户中合伙人签名，需要多个私钥才能签名。</p>
+<p>最早的多重签名是通过CHECKMULTISIG实现的，输出脚本给出n个公钥，同时指定一个阈值M。输入脚本只要提供这n个公钥对应的签名中任意M个合法的签名就能通过验证。输入脚本第一行的红叉，比特币中CHECKMULTISIG的实现有一个BUG，执行的时候会从堆栈上多弹出一个元素，没办法改，因为是一个去中心化的系统，软件升级的方法要改的话需要硬分叉。所以实际解决方案是在输入脚本栈上多压进去一个没用的元素。</p>
+<p>给出的M个签名的相对顺序，要与他们在n个公钥中的相对顺序是一致的才行</p>
+<p>这种问题是：网上购物，某个电商用多重签名，要求5个人中3人的签名才能取钱，这就要求用户在支付的时候生成的转账交易里给出5个合伙人的公钥，同时给出n和m的值。用户根据网站的多重签名的规则填入。这就把复杂性都暴露给用户了。</p>
+<p>P2SH实现多重签名的本质是把复杂度从输出脚本转移到了输入脚本，输出脚本变得非常简单。输出脚本只要给出赎回脚本的哈希值就可以了，赎回脚本是在输入脚本里提供的，由收款人提供的。像之前，只要在网站上公布这个赎回脚本的哈希值，然后用户生成转账交易的时候，把这个哈希值包含在输入脚本就可以了。而其中的规则，对用户是不可见的。输入脚本是电商在花掉这笔输出的时候提供的，其中包含赎回脚本的序列化版本，还有让这个赎回脚本验证通过的M个签名。将来2电商改变了所采用的多重签名规则，只要改变输入脚本和赎回脚本的内容，然后把新的哈希值公布出去就行了，对用户来说只是要包含的哈希值发生变化</p>
+<p>现在的多重签名一般采用的都是P2SH的形式</p>
+<h2 id="Proof-of-Burn"><a href="#Proof-of-Burn" class="headerlink" title="Proof of Burn"></a>Proof of Burn</h2><p>output script开头是return，后面可以跟任意内容，作用是无条件地返回错误，包含这个操作的脚本永远不可能通过验证，执行到return语句就出错终止。</p>
+<p>作用：证明销毁比特币的一种方法</p>
+<p>销毁比特币的应用场景：</p>
+<p>1.有些小的币种要求销毁一定数量的比特币，才能够得到这个币，有时管这种小币叫altcoin ：alternative coin。</p>
+<p>2.往区块链中写入一些内容，不可篡改的系统，可以利用这个特性往里面添加一些需要永久保存的内容。digital commitment，取个哈希值放入，知识产权，把哈希值的输入公布，证明之前就已经知道了。coinbase transaction里的coinbase，域里写的内容同样没人管，这种方法只有获得记账权的节点才可以用。而这个方法所有节点都可以使用。发布交易不需要有记账权，发布区块需要记账权。任何用户都可以用这种方法销毁很少一点比特币换取写入一些内容。</p>
+<p>有些交易没有销毁比特币，只不过支付了交易费</p>
+<p>第一个实例：第一个输出正常输出，第二个输出return记录内容</p>
+<p>第二个实例：输出脚本以return开头，收入是个比特币，输出金额是0，输入金额全部用来支付交易费，把交易费给矿工了。矿工看到这种脚本时，知道这种输出永远不可能兑现，就没有必要把这个保存在utxo里，这样对全节点比较友好。</p>
+<p>里面的比特币脚本操作，为了简便，都没有加上OP前缀。OP——CHECKSIG,OP_DUP</p>
+<p>像以太坊中的智能合约的语言是图灵完备的，所以需要靠gas费的机制来防止程序陷入死循环。而栈语言输入功能有限，但是和密码学相关的功能是很强大的</p>
+<h1 id="课程10：比特币分叉"><a href="#课程10：比特币分叉" class="headerlink" title="课程10：比特币分叉"></a>课程10：比特币分叉</h1><p>原因：</p>
+<p>1.几乎同时挖到矿，state fork</p>
+<p>2.forking attack,也属于state fork, it’s deliberate fork</p>
+<p>3.比特币的协议发生了改变，在一个去中心化的系统里，没有保证所有的节点同时都升级软件，少部分没有升级，形成分叉。protocd fork.因为协议发生分叉，根据其内容不同，分为hard frok and soft fork</p>
+<h2 id="hard-fork"><a href="#hard-fork" class="headerlink" title="hard fork"></a>hard fork</h2><p>增加一些特性，new feature，扩展一些功能，一些节点不认同，任何分叉。</p>
+<p>例子：</p>
+<p>比特币中的区块大小限制，1M，一百万个字节，1个交易大概为250个字节，4000个交易要摊到10分钟，每秒大概7笔交易，这个through food是非常低的，所以有些要提高blog size limit</p>
+<p>假设增加到4M，按算力大部分节点更新了软件，系统运行结果，旧节点因为没超过4M，新节点是认可的，但是没有达成共识。这个分叉是永久性的，所以是hard fork。</p>
+<p>社区分类，下一条链，这个社区的人认</p>
+<p>ETH（回滚之后）分叉完有个ETC（原来），有人攻击THE DAO，然后进行硬分叉回滚把他偷盗的钱退回给当初的投资者。分叉后这个节点两个链都可以花，因为私钥一样，但是两条链互相之间一定会有一定影响，比如在一条链上转，结果另一条也进行了同一笔交易，C就是收到2笔，会回放。所以两条链会加一条chain id分开。</p>
+<h2 id="soft-fork"><a href="#soft-fork" class="headerlink" title="soft fork"></a>soft fork</h2><p>对比特币的协议加一些限制，原先有的合法的变成不合法了。比如1M变成0.5M，新节点的链，旧节点是认的，旧节点看到新节点变成最小合法链之后，会回到新节点上，这个分叉是临时性的，旧节点可能经常白挖。</p>
+<p>实际当中出现软分叉的情况</p>
+<p>1.给某些目前协议中没有规定的域增加一些协议或规则，coinbase挖矿难度里前8个字节可以用来调extra nonse，使得原先4个字节的难度变成了个字节，变成的96次方。有人提出coinbase剩下的字节作为utxo集合的根哈希值，merkle proof证明某个交易是不是在某个区块。A的账户余额通过算UTXO集合可以算出，轻节点问全节点可以问出，但是不确定正确性。新节点发布的区块，旧节点认为是合法的</p>
+<p>pay to script hush（P2SH）：这个功能在比特币原本里是没有的，通过软分叉加入。旧节点只做第一阶段的验证，旧节点认为的新节点是合法的。</p>
+<p>soft fork只要一半以上的算力更新软件，系统就不会分叉</p>
+<p>hard fork系统所有的算力更新，系统才不会出现分叉</p>
+<h1 id="课程11：课程问答"><a href="#课程11：课程问答" class="headerlink" title="课程11：课程问答"></a>课程11：课程问答</h1><h2 id="1-转账交易时如果接收者不在线怎么办？"><a href="#1-转账交易时如果接收者不在线怎么办？" class="headerlink" title="1.转账交易时如果接收者不在线怎么办？"></a>1.转账交易时如果接收者不在线怎么办？</h2><p>不需要接收者在线交易，转账交易是在区块链记录一下，把账户转钱</p>
+<h2 id="2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"><a href="#2-全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的" class="headerlink" title="2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的"></a>2.全节点收到某个转账交易，转账交易接收者的收款地址是节点从来没有听过的</h2><p>可能，比特币节点不需要通知任何人，只一转账交易收到钱时，其他节点才知道这个账户的存在。</p>
+<h2 id="3-账户的私钥丢失怎么办？"><a href="#3-账户的私钥丢失怎么办？" class="headerlink" title="3.账户的私钥丢失怎么办？"></a>3.账户的私钥丢失怎么办？</h2><p>钱没了，死钱。有些交易所是中心化结构，提供身份证，保存在交易所密码丢失可以再获得密码。缺乏监管的情况。Mt.Gox,曾经最大交易所70%，黑客攻击丢失了大量比特币，有的监管自盗。硬件钱包比较安全</p>
+<h2 id="4-私钥泄露怎么办"><a href="#4-私钥泄露怎么办" class="headerlink" title="4.私钥泄露怎么办"></a>4.私钥泄露怎么办</h2><p>转移钱到安全账户</p>
+<h2 id="5-转账的时候写错地址怎么办"><a href="#5-转账的时候写错地址怎么办" class="headerlink" title="5.转账的时候写错地址怎么办"></a>5.转账的时候写错地址怎么办</h2><p>没有办法取消已经发布的交易，只能和对方商量，或者转到不存在的地址。转到私钥不存在的，地址return。用很少一点钱换取到写入比特币的机会，但是不提倡，会永远写在utxo里。proof of burn 和 return 的操作。</p>
+<h2 id="6-挖矿"><a href="#6-挖矿" class="headerlink" title="6.挖矿"></a>6.挖矿</h2><p>偷区块，偷nonse，发布的区块coinbase transaction里有一个地址是挖到这个矿的矿工的地址，coinbase transaction变化merkle root会变化，这样nonse就变化。</p>
+<h2 id="7-交易费给矿工的小费"><a href="#7-交易费给矿工的小费" class="headerlink" title="7.交易费给矿工的小费"></a>7.交易费给矿工的小费</h2><p>事先不知道哪个矿工挖到nonse，只要 total inputs - total outputs &#x3D;交易费，哪个矿工挖到，就可以把差额作为自己的交易费。</p>
+<h2 id="8-比特币上的一些统计数据"><a href="#8-比特币上的一些统计数据" class="headerlink" title="8.比特币上的一些统计数据"></a>8.比特币上的一些统计数据</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B09-11/" data-id="cm477y2ng0014c4u7e56q8fr8" data-title="北大肖臻老师《区块链技术与应用》笔记9-11" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖笔记6-8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" class="article-date">
+  <time class="dt-published" datetime="2024-09-27T06:23:47.000Z" itemprop="datePublished">2024-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/">北大肖臻老师《区块链技术与应用》笔记6-8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程6：比特币网络（The-Bitcoin-Network）"><a href="#课程6：比特币网络（The-Bitcoin-Network）" class="headerlink" title="课程6：比特币网络（The Bitcoin Network）"></a>课程6：比特币网络（The Bitcoin Network）</h1><p>用户把交易发布到比特币网络上，节点，区块，比特币网络。</p>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><p>比特币工作在应用层，底层是b2b overlay network</p>
+<p>application layer: Bitcoin Block chain</p>
+<p>netwrok layer： p2p overlay network</p>
+<p>比特币网络：所有节点都是对等的，没有super node or master node（超级节点和主节点）</p>
+<p>要加入网络，至少知道一个种子节点，seed node,通信后告诉网络上的其他节点，节点间通过tcp通信，有利于通过防火墙。</p>
+<p>退出节点不需要做其他操作，只要退出应用程序就可以了，其他节点没有收到信息过段时间就会删除这个节点</p>
+<p>比特币网络的设计原则：简单、可靠simple 、robust,but not efficient ，而不是高效。</p>
+<p>每个节点维护一个凝聚节点的集合，消息传播在网络钟采取flooding的方式。</p>
+<p>节点听到消息 -&gt; 其他所有凝聚节点，同时记录已收到过消息。</p>
+<p>凝聚节点的选取是随机的，没有考虑拓朴结构。</p>
+<p>好处是增强鲁棒性，鲁棒性非常强，但是牺牲的是效率。</p>
+<p>“鲁棒性”（robustness），这个词和“robust”发音相近。鲁棒性强调系统在面对各种挑战和不确定性时的稳定性和可靠性。这样，句子的意思是：凝聚节点的选取是随机的，虽然增强了鲁棒性，但牺牲了效率。</p>
+<p>比特币系统中的每个节点要维护一个等待上面交易的集合。</p>
+<p>race condition。</p>
+<p>新发布的区块在网络上的传播方式跟新发布的交易是类似的，每个节点要检查内容和法性，和是否在最长合法链上。</p>
+<p>越是大的区块，在网络上的传播速度就越慢。<br>比特币协议对区块的大小有一个限制，1M.因为传播方式非常消耗带宽，一个新发布的区块可能要几十秒才能发布到网络的绝大数区块中。</p>
+<p>比特币网络是属于best effort，一个交易发布到网络上不一定所有节点都能收到，而且不同节点收到交易的顺序也不一样，网络传输存在延迟，并且有的节点不一定根据比特币协议进行转发。</p>
+<p>线上的系统不能解决线下的问题。回稳交易。</p>
+<h1 id="课程7：比特币的挖矿难度调整"><a href="#课程7：比特币的挖矿难度调整" class="headerlink" title="课程7：比特币的挖矿难度调整"></a>课程7：比特币的挖矿难度调整</h1><h2 id="为什么要调整挖矿难度"><a href="#为什么要调整挖矿难度" class="headerlink" title="为什么要调整挖矿难度"></a>为什么要调整挖矿难度</h2><p>H（block header）&lt;&#x3D; target，nonse<br>哈希算法：SHA-256，所有整个的输出空间是2的256次方</p>
+<p>difficulty&#x3D;difficulty_1_target&#x2F;target<br>(挖矿难度为1的时候所对应的目标阈值)，最小为1</p>
+<p>出块时间太短的的问题：分叉可能变成常态，一次很多分叉。</p>
+<p>恶意攻击需要51%的算力，多个分叉，有恶意的节点就可以集中算力就获得其中一个分叉。</p>
+<p>不一定10分钟出块就是最优的，但是一定需要一个常数的波动范围。以太坊的出块时间为15秒，新的共识协议，叫ghost.在ghost协议中这些分叉叫orphan block，不能简单地丢弃，需要给一些奖励，叫yncle reward.以太坊同样需要保持出块时间</p>
+<h2 id="怎么调整挖矿难度"><a href="#怎么调整挖矿难度" class="headerlink" title="怎么调整挖矿难度"></a>怎么调整挖矿难度</h2><p>比特币每隔2016个区块，要调整目标阈值target，大概是2个星期左右。</p>
+<p>具体调整公式，target &#x3D; target*（actual time&#x2F;expected time） </p>
+<p>expected time &#x3D; 2016 * 10min</p>
+<p>time spent mining the last 2016 blocks &#x3D; actual time</p>
+<p>实际代码中上调和下调都是有4倍的线，即最多增大或缩小4倍，主要避免意外情况导致target变化。</p>
+<p>怎么让所有矿工调整目标阈值，代码开源。如果不调，诚实的miner不会认可</p>
+<p>nbits： target的编码的一个版本，block header里面没有直接存储target，target的域是256位，32个字节。nbits 在header里只有4个字节，可以人为是它的一个压缩编码。不调target，那么区块合法性不通过，每个节点要独立验证发布的区块的合法性，检查的内容就包括nbits：即目标阈值发布的对不对。</p>
+<p>以太坊就不是隔一个固定的区块，而是每个新出的区块都有可能进行调整，调整的方法也更复杂。</p>
+<p>比特币的成功从某种意义上来说是因为他更不实用，比特币没有任何法币背书，没有任何保证金。比特币的设计是很保守的，但还算笔记合理</p>
+<h2 id="比特币系统中的一些实际情况"><a href="#比特币系统中的一些实际情况" class="headerlink" title="比特币系统中的一些实际情况"></a>比特币系统中的一些实际情况</h2><p>总算力的变化情况，算力在指数级增大，虽然有波动。如果某个币挖矿难度越来越小，说明热情减少，慢慢不行了</p>
+<p>实际比特币代码里用的是目标阈值。</p>
+<h1 id="课程8：比特币挖矿"><a href="#课程8：比特币挖矿" class="headerlink" title="课程8：比特币挖矿"></a>课程8：比特币挖矿</h1><p>先总结以前的基础知识。如果只是交易不需要挖矿的话，只需要轻节点，不需要全节点。</p>
+<p>memoryless(progress free)无论是挖原区块还是新区块，可能性都是一样的，所以不可惜。</p>
+<p>比特币安全性的保证：</p>
+<p>1.密码学上的保证：别人没有私钥，就没有办法伪造签名，前提是系统中拥有大多数算力的矿工是好的，不会接受那些没有合法签名的交易</p>
+<p>2.共识机制的保证</p>
+<h2 id="挖矿相关"><a href="#挖矿相关" class="headerlink" title="挖矿相关"></a>挖矿相关</h2><h3 id="挖矿设备"><a href="#挖矿设备" class="headerlink" title="挖矿设备"></a>挖矿设备</h3><p>越来越专业化，普通cpu（挖矿只用到很少一部分内存和cpu的指令，硬盘和其他也都是闲置的） -&gt; gpu挖矿（效率提高，主要用于大部分的并行计算，大量的矩阵乘法）-&gt; asic芯片</p>
+<p>“GPU”是指“图形处理单元”，主要用于加速图形渲染和并行计算。它在深度学习、科学计算和游戏等领域有广泛应用。为了通用并行计算设计的</p>
+<p>ASIC： Application specific integrated circle,专为挖矿设计，有些甚至只能挖一种加密货币，除非这些加密货币用同一种mining puzzle，有些为了启动问题，用同一种mining puzzle 这种叫做：merge mining，除了这种之外，其他都是一个芯片只能为一个加密货币挖矿。asic研发周期很长，比特币可能是1年，但是已经很奇迹了。定制的asic芯片可能用不了几个月就过时了，大部分利润在前两个月产生的，一般提前预定，比特币算力突然有一个很大的提高，新的矿机产生出来了。过时即作废</p>
+<p>有些加密货币，alternative mining puzzle，出发点有resistance抗asic化，让通用计算机也能挖矿。</p>
+<p>单个矿工，概率很小，还要承担全节点的其他责任</p>
+<h3 id="矿池"><a href="#矿池" class="headerlink" title="矿池"></a>矿池</h3><p>所谓的矿石就是把矿工组织起来作为整体，矿石的架构一般来说是一个全节点会驱动很多矿机</p>
+<p>pool manager -&gt; many miner,miner只负责计算哈希值，其他职责都由 pool manager承担，asic只能负责计算哈希值。</p>
+<p>矿石的出现也有为了解决收入不稳定的问题</p>
+<p>矿石一般有两种组织形式：</p>
+<p>1.大型数据中心</p>
+<p>2.分布式的，来自不同机构，矿工和矿主不在同一个地方，miner根据矿池规定的通讯协议联系矿主，矿主分配要计算的哈希值的任务，计算完之后结果返回矿主。利益分配，按贡献大小分配，按工作量分配。</p>
+<p>share: almost valid block，差不多符合难度就可以，发给矿主，证明工作量</p>
+<p>工作量证明可行性分析：概率取决于尝试数，share数越多，尝试的数量越多。</p>
+<p>问题：</p>
+<p>1.挖到区块后不提交给矿主，上交share，但是区块不上交。矿主分配任务，miner只负责计算nonse，其他还需要调整coinbase transaction，分配nonse范围，并且coinbase transaction上收款人的地址写的是矿主的地址（poor manager），取不出来钱来</p>
+<p>2.不管矿主任务，自己组装区块，改收款地址。那么share是不认的，里面的交易列表改变，coinbase transaction的内容发生变化，merkle tree的根哈希值也不一样。</p>
+<p>3.捣乱，挖到合法区块丢弃，可以但是没有经济好处，可以矿池打压竞争对手。</p>
+<p>目前矿池算力是分散的，但是几个大型的矿池占据了大的比例。</p>
+<p>一般来说poor manager收取一定比例出块奖励作为管理费，也有的是交易费</p>
+<h3 id="51-的攻击"><a href="#51-的攻击" class="headerlink" title="51%的攻击"></a>51%的攻击</h3><p>管理费低或者赔本吸引足够多的矿工，然后攻击。</p>
+<p>矿池使得51%攻击更容易了（on demand computing, it’s on demand mining），但是使得矿工的收益更均匀稳定了，降低风险了，减轻负担。</p>
+<p>1.分叉攻击，forking attack，平均增长速度会快于链，可以追赶然后回滚。不到51%也能发动攻击，只是一个概率的区别。</p>
+<p>2.boycott，封锁禁阈，产生不包含某个账户的区块，那么不需要等6个确认，一上链就可以分叉</p>
+<p>3.转别人账户的钱，不行因为没有私钥进行签名，把没有合法签名的交易写入链上，会造成分叉，诚实的矿工会沿着另一种链去挖</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/27/%E8%82%96%E7%AC%94%E8%AE%B06-8/" data-id="cm477y2ny001ac4u7ecd8hxly" data-title="北大肖臻老师《区块链技术与应用》笔记6-8" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖课程笔记5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" class="article-date">
+  <time class="dt-published" datetime="2024-09-26T04:38:25.000Z" itemprop="datePublished">2024-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/">北大肖臻老师《区块链技术与应用》笔记5</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程5：比特币系统的实现"><a href="#课程5：比特币系统的实现" class="headerlink" title="课程5：比特币系统的实现"></a>课程5：比特币系统的实现</h1><p>比特币采用的是基于交易的账本模式（transaction -based ledger）,每个区块记录的是交易信息，但是没有地方显式地记录哪个地方有多少钱，需要通过交易记录推算。</p>
+<h2 id="UTXO数据结构"><a href="#UTXO数据结构" class="headerlink" title="UTXO数据结构"></a>UTXO数据结构</h2><p>比特币系统的全节点要维护 UTXO：unspent transaction output  的数据结构</p>
+<p>UTXO: 所有还没有被花掉的交易的输出组成的集合</p>
+<p>一个交易可能有多个输出和输入，UTXO集合里的每个元素要给出产生的输出的交易的哈希值，以及在交易里是第几个输出，通过这两个信息可以定位到在UTXO里的输出。每个输入地址要提供对应的签名。</p>
+<p>作用：检测double spending。</p>
+<p>每个交易会消耗输出也会产生输出，UTXO的集合会逐渐增大但目前装在一个普通内存器里仍然没有问题（2018）.</p>
+<h2 id="比特币的第二个激励机制：交易费（transaction-fee）"><a href="#比特币的第二个激励机制：交易费（transaction-fee）" class="headerlink" title="比特币的第二个激励机制：交易费（transaction fee）"></a>比特币的第二个激励机制：交易费（transaction fee）</h2><p>total inputs &#x3D; total outputs</p>
+<p>有些交易可能total inputs略微大于total outputs，里面的差额作为交易费给获得记账权发布区块的那个节点。</p>
+<p>发布区块，可以有一个特殊的coinbase traction, block reward,所以为什么要把你的交易加进去，要验证交易的合法性，占用带宽，传输速度。防止有的节点不管别的交易，只打造自己的交易。</p>
+<p>目前比特币的系统中，交易费的金额都很小，0.01个比特币算比较大的交易费了，2024现在平均交易费 | 0.000013 BTC ($0.832) 6.4 sats&#x2F;vB，也有一些简单的交易没有交易费。主要目的还是为了出块奖励。</p>
+<p>21万个区块，平均出块时间是10分钟，差不多是4年的时间。因为出块奖励减半，若干年后交易费可能就变成主要的了</p>
+<p>比特币：transaction-based ledger的模式，基于交易的模式，隐私保护性较好，所以转账交易要说明币的来源，因为没有地方证明你有这些比特币，需要说明来源<br>另一种模式：基于账户的模式，account-based ledger，系统要显式的得记录账户上有多少币，不需要显式地说明币的来源</p>
+<h2 id="比特币具体的区块信息，例子（可以再看一遍）"><a href="#比特币具体的区块信息，例子（可以再看一遍）" class="headerlink" title="比特币具体的区块信息，例子（可以再看一遍）"></a>比特币具体的区块信息，例子（可以再看一遍）</h2><p>目标阈值表示成16进制</p>
+<p>改变coinbase里的内容，可以随便写，改变会对根哈希值产生的影响：会对merkle root产生变化。所以可以把这个域当作extra nonse，块头里四个字节的nonse不够用，这里还有很多字节自己用，比如把coinbase里的前八个字节当作extra nonse使用，搜索空间一下子增加到了2的96次方。</p>
+<p>所以真正挖矿的时候有两层循环，外层循环调整coin base域的extra nonse，算出block header里的根哈希值之后</p>
+<p>比特币中验证交易的合法性技术把input script 和output script配对后执行来完成，即这个交易的输入脚本和前面提供币的来源的输出脚本配对，拼接后顺利执行则合法</p>
+<h2 id="对挖矿的过程做一些概率分析"><a href="#对挖矿的过程做一些概率分析" class="headerlink" title="对挖矿的过程做一些概率分析"></a>对挖矿的过程做一些概率分析</h2><p>挖矿就是不断地尝试各种nonse来求解这个puzzle，每次尝试nonse可以看作一个bernoulli trial: a random experiment with binary output(bernoulli trial)。比如丢硬币。做大量的bernoulli trial,这些就变成了bernoulli process: a sequence of independent bernoulli trial（性质有：无记忆性memoryless,前面的实验对后面的实验没有影响）</p>
+<p>这种情况下，这个bernouill process可以用poisson process</p>
+<p>Poisson过程是一种随机过程，常用于描述在固定时间间隔内发生的稀疏事件。这些事件独立且以恒定的平均速率发生，适用于模型化如电话呼叫、客户到达或自然事件等场景。其关键特征是事件发生的数量在每个时间间隔内服从泊松分布。</p>
+<p>出块时间服从指数分布，exponential distribution</p>
+<p>对于miner他能挖到下一次区块的时间，取决于这个矿工的算力占系统总算力的百分比，其中的指数分布也是无记忆的，比特币会调整出块难度使其稳定在平均出块时间十分钟。</p>
+<p>progress free:过去的process是不算数的</p>
+<p>如果progress不free算力强的miner会有不成比例的优势</p>
+<h2 id="比特币的总量"><a href="#比特币的总量" class="headerlink" title="比特币的总量"></a>比特币的总量</h2><p>因为出块奖励每隔四年减半，产生的比特币数量构成了集合序列，所有比特币的总量2100万</p>
+<p>比特币求解的puzzle没有实际意义，比特币的稀缺性是人为造成的，但是挖矿的过程对于维护比特币系统的安全性是至关重要的</p>
+<p>bitcoin is secured by mining.挖矿提供了一种凭借算力投票的有效手段。</p>
+<p>虽然出块奖励减少，但价格上升了，越来越多人去挖矿。</p>
+<h2 id="比特币安全性的一些分析"><a href="#比特币安全性的一些分析" class="headerlink" title="比特币安全性的一些分析"></a>比特币安全性的一些分析</h2><p>假设大部分算力在安全的矿工手里，只能说大概率在好的矿工手里</p>
+<p>第一个问题：偷币，把其他账户的节点转给自己</p>
+<p>如果在恶意手里，写入一个不好的区块，那么其他的节点不会接受这个区块。恶意的攻击是否成功的标准要看它能不能让诚实的节点接受这个交易。</p>
+<p>第二个问题：恶意节点把已经花出的币再花一笔，double spending。区块插入的位置要在刚开始挖矿的时候就要决定，因为设置的block header里要填上上一个区块的哈希值，fork attack。如果不是最后一个区块，那么很难，恶意节点需要不断获得记账权，所以简单的防范方法：多等几个区块（确认、缺省）confirmaction</p>
+<p>比特币协议当中的确认的是要等六个区块confirmation,差不多等1个小时</p>
+<p>区块链是不可篡改的账本，irrevocable ledger,这种不可篡改性只是一种概率的保证</p>
+<h2 id="zero-confirmation"><a href="#zero-confirmation" class="headerlink" title="zero confirmation"></a>zero confirmation</h2><p>转账交易发布出去了，但还没有写到区块链</p>
+<p>原因：</p>
+<p>1.比特币协议缺省的设置是节点接收最先听到的交易</p>
+<p>2.比特币之后，购物天然有一定的处理时间</p>
+<h2 id="恶意的节点故意不把合法的区块写入"><a href="#恶意的节点故意不把合法的区块写入" class="headerlink" title="恶意的节点故意不把合法的区块写入"></a>恶意的节点故意不把合法的区块写入</h2><p>可以写到下一个区块里，总有诚实的节点愿意发布这些交易，正常情况下也可能不包括合法的节点，比如一段时间内交易数量过多。</p>
+<p>比特币协议规定每个区块的大小有限制，最多不超过一兆字节。</p>
+<p>一种攻击方法自己存储6个区块，盖过合法区块链。<br>selfish mining。前提是有恶意的节点占据很大一部分算力。每一个区块的算出必须要有前一个区块的哈希。正常挖矿self mining的好处：不发布，然后等两个发布，使得其他的区块，风险就是别人先发布。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/26/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B05/" data-id="cm477y2o0001bc4u73a2hchoz" data-title="北大肖臻老师《区块链技术与应用》笔记5" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-肖课程笔记4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" class="article-date">
+  <time class="dt-published" datetime="2024-09-24T10:10:25.464Z" itemprop="datePublished">2024-09-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/">北大肖臻老师《区块链技术与应用》笔记4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="课程4：比特币的共识协议"><a href="#课程4：比特币的共识协议" class="headerlink" title="课程4：比特币的共识协议"></a>课程4：比特币的共识协议</h1><h2 id="一个中心化银行如何发行数字货币"><a href="#一个中心化银行如何发行数字货币" class="headerlink" title="一个中心化银行如何发行数字货币"></a>一个中心化银行如何发行数字货币</h2><p>例如央行发行数字货币，只是数字签名可以复制，double spending attack。<br>如果加上编号，要与银行核实，但太麻烦了，是一个中心化的方案，要让银行确认。</p>
+<p>一个去中心化的货币要解决两个问题，</p>
+<p>1.数字货币的发行，谁来发行数字货币<br>2.怎么验证交易的有效性</p>
+<p>数据结构由所有用户共同维护。</p>
+<p>CreatCoin(铸币交易)（Coinbase transaction） -&gt; A -&gt; B,C(signed by A)</p>
+<p>输入部分：币的来源和A的公钥。 输出部分：输出部分收款人公钥的哈希。 付款人的数字签名和收款人的地址，地址通过公钥推算（某个地方公开公钥，b要知道A的公钥，知道币的来源，所有节点都需要知道A的公钥，需要验证签名，转账交易合法。</p>
+<p>这时有两种哈希指针</p>
+<p>1.连接各个区块的，串联成链表<br>2.指向前面某个交易，说明币的来源。（防止伪造和double spending attack）</p>
+<p>避免B’用自己的公钥伪造A的公钥说是A转的，转账交易要说明A的公钥要和币的来源里说明的公钥的哈希对的上，因此假的公钥会与输出里指定的A的公钥的哈希对不上，与币的来源里的哈希值对不上，有查的币的来源的问题。这些都是<br>脚本，验证交易加上把当前这个交易的输入脚本跟提供币的来源的那个交易的输出脚本拼在一起，看看能不能顺利执行。（Bition script）</p>
+<p>实际系统中每个区块包括很多个交易，这些交易组成merkle tree，每个区块分成块头和块体（Block header and block body）.</p>
+<p>block head: version + hash of previous block header + merkle root hash + taeget（目标阈值的编码） + nonce</p>
+<p>block body: transaction list +</p>
+<p>full node(所有信息：fully validating node) and light node (lightweight node)只保存block header中的信息，一般来说轻节点无法独立验证交易的合法性。系统中大多数节点是轻节点，全节点的数目不是很多。轻节点没有参与区块链的构造和维护，只是利用了区块链的信息做一些查询。</p>
+<p>每个账户都可以发布交易，这个交易是广播给所有节点的，交易可能合法与非法。谁来决定哪些交易可以写到下一个区块中？按怎样的顺序写呢？每个用户自己决定的话一致性得不到保证，区块链-&gt;去中心化的账本，得统一。</p>
+<p>所以账本的内容要取得分布式的共识（distribued consensus），比如distributed hash table,有很多机器共同维护一个全局的哈希表,需要取得的共识的内容是</p>
+<p>在分布式账本系统中，通过分布式共识（distributed consensus）来维护一个全局的哈希表时，需要取得的共识内容主要包括pwk（准入型密钥）。</p>
+<h3 id="impossibiliyu-result"><a href="#impossibiliyu-result" class="headerlink" title="impossibiliyu result"></a>impossibiliyu result</h3><p>FLP impossibiliyu result<br>asynchronous(异步系统：网络传输时延没有上限)，即使一个成员传输是有问题的（faulty），那么也不可能取得共识。</p>
+<p>CAP theorem</p>
+<p>C： Consistency<br>A：Availability<br>P:partition tolerance</p>
+<p>任何一个分布式系统，这三个性质当中最多满足两个，不可能满足三个。</p>
+<p>分布式共识一个比较著名的协议：Paxos<br>可以保证consistency，但是某些情况下可能一直没有办法达成共识。可能性比较小，但是客观存在。</p>
+<h2 id="比特币中的共识协议（Consensus-in-bitcoin）"><a href="#比特币中的共识协议（Consensus-in-bitcoin）" class="headerlink" title="比特币中的共识协议（Consensus in bitcoin）"></a>比特币中的共识协议（Consensus in bitcoin）</h2><p>假设系统中大部分节点是好的无恶意的</p>
+<p>构造共识协议</p>
+<p>1.投票，半数赞成则区块接受，问题：membership，决定投票权，恶意节点超过一半则具有控制权（即sybil attack）女巫攻击</p>
+<p>bitcoin实际解决方法：根据计算力投票而不是通过账户数目投票。每个节点都可以在本地组装一个候选区块，把合法交易放在区块中，然后尝试各种nonse值。<br>computational puddle。nonse：4 bytes。</p>
+<h3 id="分叉攻击（forking-attack）"><a href="#分叉攻击（forking-attack）" class="headerlink" title="分叉攻击（forking attack）"></a>分叉攻击（forking attack）</h3><p>某个节点找到了符合要求的nonse，那么获得了记账权，可以往比特币这个去中心化账本里写入下一个区块的权力。其他节点验证这个区块的合法性。n Bits：目标阈值（targets）的编码,blocker header and blocker body(交易列表中)符合要求，但插在区块链中间则不符合要求，hash of previous block.这样区块就有两个分支，一个交易者就可以把钱转给2个人，而这两者分别在不同的分支里，两个交易都是合法的，因为交易不会查询到另一个分支里的内容。所以虽然交易合法，但不在最长合法链上，longest valid chain，即比特币协议中规定接受的区块应该是在扩展最长合法链。</p>
+<p>区块链在正常情况下也可能获得分叉，两个节点同时获得记账权，会出现两个等长的分叉。每个节点接受他最早收到的那一个，不同节点根据在网络上位置的不同，不同节点接受的区块不同。</p>
+<h3 id="判断是否接收一个区块"><a href="#判断是否接收一个区块" class="headerlink" title="判断是否接收一个区块"></a>判断是否接收一个区块</h3><p>implicit concern,沿着这个区块往下继续扩展，则是认可这个区块。所以这两种等长的临时性的分叉会维持一段时间，直到其中某一个分叉胜出。而另一个链则叫orphan block（舍弃）</p>
+<h3 id="所以为什么争夺记账权"><a href="#所以为什么争夺记账权" class="headerlink" title="所以为什么争夺记账权"></a>所以为什么争夺记账权</h3><p>获得记账权的节点可以选择接受哪些交易被写到下一个区块里，但是设置协议时不应该让这个成为争夺记账权的主要动力，因为我们希望凡是合法的交易都应该被写入区块链中。</p>
+<p><strong>比特币解决办法：出块奖励（block reward</strong>）<br>即获得记账权的节点，在发布的区块里可以有一个特殊的交易：铸币交易（coinbase transaction），在这个交易里可以发布一定数量的比特币，比特币系统中发布新的货币的唯一方法，其他所有的交易只是把比特币从一个账户转移到另一个账户。</p>
+<p>比特币刚上线时每一个发布的区块可以产生50个比特币，21万个区块以后，出块奖励少一半（截至2024 年7 月5 日，流通中的比特币数量为1972 万。 随着新区块的开采和新比特币的产生，这一数字大约每10 分钟就会发生变化。目前，比特币已经进行了三次减半，分别发生在2012年11月、2016年7月和2020年5月。第四次比特币减半时间预计将发生在2024年5月。届时，比特币产量将会由现在的6.25个减半到3.125个。）</p>
+<h3 id="共识机制要取得的共识是什么"><a href="#共识机制要取得的共识是什么" class="headerlink" title="共识机制要取得的共识是什么"></a>共识机制要取得的共识是什么</h3><p>之前例子中哈希表的内容，包含哪些pwk【PermissionWithKey（准入型公钥）】。</p>
+<p>比特币中的共识是这个去中心化账本中所取得的共识，获得记账权的节点决定账本内容，而取得记账权则是解得H（block header） &lt;&#x3D; target 这个power。所以比特币的共识机制是靠算力来投票的。</p>
+<p>puzzle friendly决定求解puzzle的过程没有捷径，只能一个一个试nonse。（hash rate越高，获得记账权的概率越大）</p>
+<p>怎么防范sybil attack（女巫攻击），不管创建多少个账户，投票的权重没有改变。</p>
+<h3 id="挖矿（mining）"><a href="#挖矿（mining）" class="headerlink" title="挖矿（mining）"></a>挖矿（mining）</h3><p>争夺记账权的过程</p>
+<p>比特币： digital gold</p>
+<p>争夺记账权的节点：miner</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/09/24/%E8%82%96%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B04/" data-id="cm477y2o2001dc4u76n6lg6du" data-title="北大肖臻老师《区块链技术与应用》笔记4" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-web3肖老师课程1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/09/24/web3%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B1/" class="article-date">
@@ -354,7 +806,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
     </div>
   </div>
 
@@ -367,23 +819,23 @@
       <ul>
         
           <li>
+            <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/">solana流动性质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
+          </li>
+        
+          <li>
             <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/01/SPLtoken%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA/">SPLtoken合约创建</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
           </li>
         
       </ul>
@@ -398,7 +850,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
     </div>
   </div>
 
@@ -409,7 +861,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2024 By Autoload<br>
+      &copy; 2025 By Autoload<br>
       Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
     </div>
   </div>
