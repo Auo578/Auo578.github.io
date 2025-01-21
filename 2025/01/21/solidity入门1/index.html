@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>solidity入门1 | Auodesy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Auodesy</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-solidity入门1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/" class="article-date">
+  <time class="dt-published" datetime="2025-01-21T12:54:35.000Z" itemprop="datePublished">2025-01-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      solidity入门1
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="solidity入门1"><a href="#solidity入门1" class="headerlink" title="solidity入门1"></a>solidity入门1</h1><p>面向对象的，静态类型，支持继承、库和复杂的用户定义类型，以及其他功能。</p>
+<p>面向以太坊虚拟机EVM</p>
+<h2 id="了解智能合约基础"><a href="#了解智能合约基础" class="headerlink" title="了解智能合约基础"></a>了解智能合约基础</h2><p>存储</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: GPL-3.0</span><br><span class="line">pragma solidity &gt;=0.4.16 &lt;0.9.0;</span><br><span class="line"></span><br><span class="line">contract SimpleStorage &#123;</span><br><span class="line">    uint storedData;</span><br><span class="line"></span><br><span class="line">    function set(uint x) public &#123;</span><br><span class="line">        storedData = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get() public view returns (uint) &#123;</span><br><span class="line">        return storedData;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>源代码根据GPL3.0版本授权</p>
+<p>此处是版本编译指示，</p>
+<p>大于0.4.16小于0.9.0版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.5.2;</span><br></pre></td></tr></table></figure>
+
+<p>该代码的源文件在0.5.2版本之前的编译器不能编译，在0.6.0版本之后的编译器上也不能编译</p>
+<p>这些规则与 <a target="_blank" rel="noopener" href="https://docs.npmjs.com/cli/v6/using-npm/semver">npm</a> 使用相同的语法</p>
+<p>Solidity意义上的合约是代码（其 <em>函数</em>）和数据（其 <em>状态</em>）的集合， 驻留在以太坊区块链的一个特定地址。</p>
+<p><code>uint storedData;</code> 声明了一个名为 <code>storedData</code> 的状态变量， 类型为 <code>uint</code> （ <em>u</em>nsigned <em>int</em>eger，共 <em>256</em> 位）</p>
+<p>（type）：unix</p>
+<p>（）：该函数不接受任何参数</p>
+<p>**<code>public</code>**：这是函数的可见性修饰符，表示该函数可以被任何外部账户或合约调用，也可以被合约内的其他函数调用。</p>
+<p>**<code>view</code>**：这个修饰符表明该函数不会修改合约的状态（即不会改变任何状态变量的值），它只会读取存储在区块链上的数据。</p>
+<h2 id="solidity源文件结构"><a href="#solidity源文件结构" class="headerlink" title="solidity源文件结构"></a>solidity源文件结构</h2><p>contract ,import,pragma,</p>
+<p>using for,struct,enum,function,error,constant</p>
+<h3 id="SPDX-许可标识符"><a href="#SPDX-许可标识符" class="headerlink" title="SPDX 许可标识符"></a>SPDX 许可标识符</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br></pre></td></tr></table></figure>
+
+<p>如果您不想指定一个许可，或者源代码不是开源的， 请使用特殊值 <code>UNLICENSED</code>。请注意， <code>UNLICENSED</code> （不允许使用， 不存在于SPDX许可证列表中）与 <code>UNLICENSE</code> （授予所有人所有权利）不同。</p>
+<h3 id="pragma"><a href="#pragma" class="headerlink" title="pragma"></a>pragma</h3><p>：启用某些编译器特性或检查。始终是源文件的本地指令。import另一个文件，该文件的pragma指令不会自动应用于导入文件。</p>
+<h3 id="contract"><a href="#contract" class="headerlink" title="contract"></a>contract</h3><p>modifier:函数修饰器</p>
+<p>event：方便调用EVM日志功能的接口</p>
+<h3 id="导入其他源文件"><a href="#导入其他源文件" class="headerlink" title="导入其他源文件"></a>导入其他源文件</h3><p>Solidity 支持导入语句，以帮助模块化您的代码， 这些语句与 JavaScript 中可用的语句相似(从ES6开始)。 然而，Solidity 并不支持 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#description">默认导出</a> 的概念。</p>
+<h3 id="诠释"><a href="#诠释" class="headerlink" title="诠释"></a>诠释</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 这是一个单行注释。</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">这是一个</span><br><span class="line">多行注释。</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<p>Solidity合约也可以包含NatSpec注释。 它们用三重斜线（ &#x2F;&#x2F;&#x2F;）或双星号块（ &#x2F;** … *&#x2F;）来写， 它们应该直接用在函数声明或语句之上。<br>建议 Solidity 合约使用 NatSpec 对所有公共接口（ABI 中的一切）进行完全注释。</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th></th>
+<th>应用于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@title</code></td>
+<td>一个应该描述合约&#x2F;接口的标题</td>
+<td>contract, library, interface</td>
+</tr>
+<tr>
+<td><code>@author</code></td>
+<td>作者的名字</td>
+<td>contract, library, interface</td>
+</tr>
+<tr>
+<td><code>@notice</code></td>
+<td>向终端用户解释这个东西的作用</td>
+<td>contract, library, interface, function, public state variable, event</td>
+</tr>
+<tr>
+<td><code>@dev</code></td>
+<td>向开发人员解释任何额外的细节</td>
+<td>contract, library, interface, function, state variable, event</td>
+</tr>
+<tr>
+<td><code>@param</code></td>
+<td>就像在Doxygen中一样记录一个参数（必须在参数名之后）</td>
+<td>function, event</td>
+</tr>
+<tr>
+<td><code>@return</code></td>
+<td>记录一个合约的函数的返回变量</td>
+<td>function, public state variable</td>
+</tr>
+<tr>
+<td><code>@inheritdoc</code></td>
+<td>从基本函数中复制所有缺失的标签（必须在合约名称之后）</td>
+<td>function, public state variable</td>
+</tr>
+<tr>
+<td><code>@custom:...</code></td>
+<td>自定义标签，语义由应用程序定义</td>
+<td>everywhere</td>
+</tr>
+</tbody></table>
+<h2 id="子货币（Subcurrency）例子"><a href="#子货币（Subcurrency）例子" class="headerlink" title="子货币（Subcurrency）例子"></a>子货币（Subcurrency）例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: GPL-3.0</span><br><span class="line">pragma solidity ^0.8.4;</span><br><span class="line"></span><br><span class="line">contract Coin &#123;</span><br><span class="line">    // 关键字 &quot;public&quot; 使变量可以从其他合约中访问。</span><br><span class="line">    address public minter;</span><br><span class="line">    mapping(address =&gt; uint) public balances;</span><br><span class="line"></span><br><span class="line">    // 事件允许客户端对您声明的特定合约变化做出反应</span><br><span class="line">    event Sent(address from, address to, uint amount);</span><br><span class="line"></span><br><span class="line">    // 构造函数代码只有在合约创建时运行</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        minter = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 向一个地址发送一定数量的新创建的代币</span><br><span class="line">    // 但只能由合约创建者调用</span><br><span class="line">    function mint(address receiver, uint amount) public &#123;</span><br><span class="line">        require(msg.sender == minter);</span><br><span class="line">        balances[receiver] += amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 错误类型变量允许您提供关于操作失败原因的信息。</span><br><span class="line">    // 它们会返回给函数的调用者。</span><br><span class="line">    error InsufficientBalance(uint requested, uint available);</span><br><span class="line"></span><br><span class="line">    // 从任何调用者那里发送一定数量的代币到一个地址</span><br><span class="line">    function send(address receiver, uint amount) public &#123;</span><br><span class="line">        if (amount &gt; balances[msg.sender])</span><br><span class="line">            revert InsufficientBalance(&#123;</span><br><span class="line">                requested: amount,</span><br><span class="line">                available: balances[msg.sender]</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        balances[msg.sender] -= amount;</span><br><span class="line">        balances[receiver] += amount;</span><br><span class="line">        emit Sent(msg.sender, receiver, amount);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <code>address</code> 类型是一个160位的值，且不允许任何算数操作。 这种类型适合存储合约地址或 <a target="_blank" rel="noopener" href="https://docs.soliditylang.org/zh-cn/latest/introduction-to-smart-contracts.html#accounts">外部账户</a> 的密钥对</p>
+<h2 id="Solidity-的两种主要存储类型"><a href="#Solidity-的两种主要存储类型" class="headerlink" title="Solidity 的两种主要存储类型"></a>Solidity 的两种主要存储类型</h2><p><strong>内存 (Memory)</strong> 和 **存储 (Storage)**。</p>
+<h1 id="class1"><a href="#class1" class="headerlink" title="class1"></a>class1</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir firstcontract</span><br><span class="line"></span><br><span class="line">cd firstcontract</span><br><span class="line"></span><br><span class="line">yarn init -y</span><br><span class="line"></span><br><span class="line">yarn add -D hardhat</span><br><span class="line"></span><br><span class="line">npx hardhat</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>yarn init -y</code></strong>:<br>这个命令会初始化一个新的Node.js项目，创建一个<code>package.json</code>文件。<code>-y</code>选项意味着自动接受所有默认配置，而不需要用户交互。</p>
+<p><strong><code>yarn add -D hardhat</code></strong>:<br>这个命令将Hardhat作为开发依赖（<code>-D</code>等同于<code>--dev</code>）添加到项目中。Hardhat是一个用于智能合约开发、测试和部署的开发框架，通常用于以太坊相关的项目。</p>
+<p><strong><code>npx hardhat</code></strong>:<br>这个命令用于运行Hardhat的命令行工具。<code>npx</code>是一个包管理器工具，它会自动找到项目中安装的<code>hardhat</code>并执行。常用于运行Hardhat脚本或启动开发环境。如果你运行<code>npx hardhat</code>，通常会看到Hardhat的帮助信息，或者它会启动一个新的Hardhat项目。</p>
+<p>Hardhat：合约审计机构，编译部署合约到任意以太坊网络的框架</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx hardhat compile</span><br></pre></td></tr></table></figure>
+
+
+
+<p>内部的版本需要改在内部的那个合约版本之上hardhat.config.js,版本需要一样pragma</p>
+<h2 id="项目结构介绍"><a href="#项目结构介绍" class="headerlink" title="项目结构介绍"></a>项目结构介绍</h2><p>contracts:合约，solidity文件编写</p>
+<p>scripts:部署的脚本</p>
+<p>ignition: module,lock.js:部署合约的官方的脚本，合约失败的时候回滚</p>
+<p>test文件夹，生成test脚本</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2025/01/21/solidity%E5%85%A5%E9%97%A81/" data-id="cm66hbvzd0000fou78idz9ofc" data-title="solidity入门1" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solidity%E5%85%A5%E9%97%A8/" rel="tag">solidity入门</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">solana流动性质押</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity%E5%85%A5%E9%97%A8/" rel="tag">solidity入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/">solidity入门1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/">solana流动性质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 By Autoload<br>
+      Driven - <a href="https://hexo.io/" target="_blank">Hexo</a>|Theme - <a href="https://github.com/autoload/hexo-theme-auto" target="_blank">Auto</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

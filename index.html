@@ -47,6 +47,144 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-solidity入门1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/" class="article-date">
+  <time class="dt-published" datetime="2025-01-21T12:54:35.000Z" itemprop="datePublished">2025-01-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/">solidity入门1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="solidity入门1"><a href="#solidity入门1" class="headerlink" title="solidity入门1"></a>solidity入门1</h1><p>面向对象的，静态类型，支持继承、库和复杂的用户定义类型，以及其他功能。</p>
+<p>面向以太坊虚拟机EVM</p>
+<h2 id="了解智能合约基础"><a href="#了解智能合约基础" class="headerlink" title="了解智能合约基础"></a>了解智能合约基础</h2><p>存储</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: GPL-3.0</span><br><span class="line">pragma solidity &gt;=0.4.16 &lt;0.9.0;</span><br><span class="line"></span><br><span class="line">contract SimpleStorage &#123;</span><br><span class="line">    uint storedData;</span><br><span class="line"></span><br><span class="line">    function set(uint x) public &#123;</span><br><span class="line">        storedData = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function get() public view returns (uint) &#123;</span><br><span class="line">        return storedData;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>源代码根据GPL3.0版本授权</p>
+<p>此处是版本编译指示，</p>
+<p>大于0.4.16小于0.9.0版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.5.2;</span><br></pre></td></tr></table></figure>
+
+<p>该代码的源文件在0.5.2版本之前的编译器不能编译，在0.6.0版本之后的编译器上也不能编译</p>
+<p>这些规则与 <a target="_blank" rel="noopener" href="https://docs.npmjs.com/cli/v6/using-npm/semver">npm</a> 使用相同的语法</p>
+<p>Solidity意义上的合约是代码（其 <em>函数</em>）和数据（其 <em>状态</em>）的集合， 驻留在以太坊区块链的一个特定地址。</p>
+<p><code>uint storedData;</code> 声明了一个名为 <code>storedData</code> 的状态变量， 类型为 <code>uint</code> （ <em>u</em>nsigned <em>int</em>eger，共 <em>256</em> 位）</p>
+<p>（type）：unix</p>
+<p>（）：该函数不接受任何参数</p>
+<p>**<code>public</code>**：这是函数的可见性修饰符，表示该函数可以被任何外部账户或合约调用，也可以被合约内的其他函数调用。</p>
+<p>**<code>view</code>**：这个修饰符表明该函数不会修改合约的状态（即不会改变任何状态变量的值），它只会读取存储在区块链上的数据。</p>
+<h2 id="solidity源文件结构"><a href="#solidity源文件结构" class="headerlink" title="solidity源文件结构"></a>solidity源文件结构</h2><p>contract ,import,pragma,</p>
+<p>using for,struct,enum,function,error,constant</p>
+<h3 id="SPDX-许可标识符"><a href="#SPDX-许可标识符" class="headerlink" title="SPDX 许可标识符"></a>SPDX 许可标识符</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br></pre></td></tr></table></figure>
+
+<p>如果您不想指定一个许可，或者源代码不是开源的， 请使用特殊值 <code>UNLICENSED</code>。请注意， <code>UNLICENSED</code> （不允许使用， 不存在于SPDX许可证列表中）与 <code>UNLICENSE</code> （授予所有人所有权利）不同。</p>
+<h3 id="pragma"><a href="#pragma" class="headerlink" title="pragma"></a>pragma</h3><p>：启用某些编译器特性或检查。始终是源文件的本地指令。import另一个文件，该文件的pragma指令不会自动应用于导入文件。</p>
+<h3 id="contract"><a href="#contract" class="headerlink" title="contract"></a>contract</h3><p>modifier:函数修饰器</p>
+<p>event：方便调用EVM日志功能的接口</p>
+<h3 id="导入其他源文件"><a href="#导入其他源文件" class="headerlink" title="导入其他源文件"></a>导入其他源文件</h3><p>Solidity 支持导入语句，以帮助模块化您的代码， 这些语句与 JavaScript 中可用的语句相似(从ES6开始)。 然而，Solidity 并不支持 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#description">默认导出</a> 的概念。</p>
+<h3 id="诠释"><a href="#诠释" class="headerlink" title="诠释"></a>诠释</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 这是一个单行注释。</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">这是一个</span><br><span class="line">多行注释。</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<p>Solidity合约也可以包含NatSpec注释。 它们用三重斜线（ &#x2F;&#x2F;&#x2F;）或双星号块（ &#x2F;** … *&#x2F;）来写， 它们应该直接用在函数声明或语句之上。<br>建议 Solidity 合约使用 NatSpec 对所有公共接口（ABI 中的一切）进行完全注释。</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th></th>
+<th>应用于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@title</code></td>
+<td>一个应该描述合约&#x2F;接口的标题</td>
+<td>contract, library, interface</td>
+</tr>
+<tr>
+<td><code>@author</code></td>
+<td>作者的名字</td>
+<td>contract, library, interface</td>
+</tr>
+<tr>
+<td><code>@notice</code></td>
+<td>向终端用户解释这个东西的作用</td>
+<td>contract, library, interface, function, public state variable, event</td>
+</tr>
+<tr>
+<td><code>@dev</code></td>
+<td>向开发人员解释任何额外的细节</td>
+<td>contract, library, interface, function, state variable, event</td>
+</tr>
+<tr>
+<td><code>@param</code></td>
+<td>就像在Doxygen中一样记录一个参数（必须在参数名之后）</td>
+<td>function, event</td>
+</tr>
+<tr>
+<td><code>@return</code></td>
+<td>记录一个合约的函数的返回变量</td>
+<td>function, public state variable</td>
+</tr>
+<tr>
+<td><code>@inheritdoc</code></td>
+<td>从基本函数中复制所有缺失的标签（必须在合约名称之后）</td>
+<td>function, public state variable</td>
+</tr>
+<tr>
+<td><code>@custom:...</code></td>
+<td>自定义标签，语义由应用程序定义</td>
+<td>everywhere</td>
+</tr>
+</tbody></table>
+<h2 id="子货币（Subcurrency）例子"><a href="#子货币（Subcurrency）例子" class="headerlink" title="子货币（Subcurrency）例子"></a>子货币（Subcurrency）例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: GPL-3.0</span><br><span class="line">pragma solidity ^0.8.4;</span><br><span class="line"></span><br><span class="line">contract Coin &#123;</span><br><span class="line">    // 关键字 &quot;public&quot; 使变量可以从其他合约中访问。</span><br><span class="line">    address public minter;</span><br><span class="line">    mapping(address =&gt; uint) public balances;</span><br><span class="line"></span><br><span class="line">    // 事件允许客户端对您声明的特定合约变化做出反应</span><br><span class="line">    event Sent(address from, address to, uint amount);</span><br><span class="line"></span><br><span class="line">    // 构造函数代码只有在合约创建时运行</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        minter = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 向一个地址发送一定数量的新创建的代币</span><br><span class="line">    // 但只能由合约创建者调用</span><br><span class="line">    function mint(address receiver, uint amount) public &#123;</span><br><span class="line">        require(msg.sender == minter);</span><br><span class="line">        balances[receiver] += amount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 错误类型变量允许您提供关于操作失败原因的信息。</span><br><span class="line">    // 它们会返回给函数的调用者。</span><br><span class="line">    error InsufficientBalance(uint requested, uint available);</span><br><span class="line"></span><br><span class="line">    // 从任何调用者那里发送一定数量的代币到一个地址</span><br><span class="line">    function send(address receiver, uint amount) public &#123;</span><br><span class="line">        if (amount &gt; balances[msg.sender])</span><br><span class="line">            revert InsufficientBalance(&#123;</span><br><span class="line">                requested: amount,</span><br><span class="line">                available: balances[msg.sender]</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        balances[msg.sender] -= amount;</span><br><span class="line">        balances[receiver] += amount;</span><br><span class="line">        emit Sent(msg.sender, receiver, amount);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <code>address</code> 类型是一个160位的值，且不允许任何算数操作。 这种类型适合存储合约地址或 <a target="_blank" rel="noopener" href="https://docs.soliditylang.org/zh-cn/latest/introduction-to-smart-contracts.html#accounts">外部账户</a> 的密钥对</p>
+<h2 id="Solidity-的两种主要存储类型"><a href="#Solidity-的两种主要存储类型" class="headerlink" title="Solidity 的两种主要存储类型"></a>Solidity 的两种主要存储类型</h2><p><strong>内存 (Memory)</strong> 和 **存储 (Storage)**。</p>
+<h1 id="class1"><a href="#class1" class="headerlink" title="class1"></a>class1</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mkdir firstcontract</span><br><span class="line"></span><br><span class="line">cd firstcontract</span><br><span class="line"></span><br><span class="line">yarn init -y</span><br><span class="line"></span><br><span class="line">yarn add -D hardhat</span><br><span class="line"></span><br><span class="line">npx hardhat</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>yarn init -y</code></strong>:<br>这个命令会初始化一个新的Node.js项目，创建一个<code>package.json</code>文件。<code>-y</code>选项意味着自动接受所有默认配置，而不需要用户交互。</p>
+<p><strong><code>yarn add -D hardhat</code></strong>:<br>这个命令将Hardhat作为开发依赖（<code>-D</code>等同于<code>--dev</code>）添加到项目中。Hardhat是一个用于智能合约开发、测试和部署的开发框架，通常用于以太坊相关的项目。</p>
+<p><strong><code>npx hardhat</code></strong>:<br>这个命令用于运行Hardhat的命令行工具。<code>npx</code>是一个包管理器工具，它会自动找到项目中安装的<code>hardhat</code>并执行。常用于运行Hardhat脚本或启动开发环境。如果你运行<code>npx hardhat</code>，通常会看到Hardhat的帮助信息，或者它会启动一个新的Hardhat项目。</p>
+<p>Hardhat：合约审计机构，编译部署合约到任意以太坊网络的框架</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx hardhat compile</span><br></pre></td></tr></table></figure>
+
+
+
+<p>内部的版本需要改在内部的那个合约版本之上hardhat.config.js,版本需要一样pragma</p>
+<h2 id="项目结构介绍"><a href="#项目结构介绍" class="headerlink" title="项目结构介绍"></a>项目结构介绍</h2><p>contracts:合约，solidity文件编写</p>
+<p>scripts:部署的脚本</p>
+<p>ignition: module,lock.js:部署合约的官方的脚本，合约失败的时候回滚</p>
+<p>test文件夹，生成test脚本</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2025/01/21/solidity%E5%85%A5%E9%97%A81/" data-id="cm66hbvzd0000fou78idz9ofc" data-title="solidity入门1" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solidity%E5%85%A5%E9%97%A8/" rel="tag">solidity入门</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2024126-solana流动性质押" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/" class="article-date">
@@ -1254,291 +1392,6 @@
 
 
   
-    <article id="post-solana入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/01/solana%E5%85%A5%E9%97%A8/" class="article-date">
-  <time class="dt-published" datetime="2024-11-30T16:29:40.000Z" itemprop="datePublished">2024-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/01/solana%E5%85%A5%E9%97%A8/">Sol的架构和名词概念</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Sol的架构和名词概念"><a href="#Sol的架构和名词概念" class="headerlink" title="Sol的架构和名词概念"></a>Sol的架构和名词概念</h2><p>solana官方网站词汇表，之前都了解过，但可以在官方网站再理解一些</p>
-<h5 id="1-account"><a href="#1-account" class="headerlink" title="1.account"></a>1.account</h5><p>钱包的地址：phantom,solflare,backpack</p>
-<h5 id="2-合约、验证器"><a href="#2-合约、验证器" class="headerlink" title="2.合约、验证器"></a>2.合约、验证器</h5><p>生成之后会有交互的接口，然后进行调用</p>
-<p>验证器更多用在节点搭建时，validators，轻节点和全节点</p>
-<h5 id="3-区块浏览器"><a href="#3-区块浏览器" class="headerlink" title="3.区块浏览器"></a>3.区块浏览器</h5><p>可做资产的索引，追踪账户。solscan</p>
-<h5 id="4-address"><a href="#4-address" class="headerlink" title="4.address"></a>4.address</h5><p>地址下的操作</p>
-<h5 id="5-transfer"><a href="#5-transfer" class="headerlink" title="5.transfer"></a>5.transfer</h5><p>发送和接受</p>
-<h6 id="6-dapp"><a href="#6-dapp" class="headerlink" title="6.dapp"></a>6.dapp</h6><p>第三方提供的数据，活动或者项目的生态</p>
-<h5 id="7-token：代币"><a href="#7-token：代币" class="headerlink" title="7.token：代币"></a>7.token：代币</h5><h5 id="8-fee：交易费"><a href="#8-fee：交易费" class="headerlink" title="8.fee：交易费"></a>8.fee：交易费</h5><h5 id="9-block：区块，第多少个区块"><a href="#9-block：区块，第多少个区块" class="headerlink" title="9.block：区块，第多少个区块"></a>9.block：区块，第多少个区块</h5><h5 id="10-租约：账户生成之后需要租聘费用，托管费用"><a href="#10-租约：账户生成之后需要租聘费用，托管费用" class="headerlink" title="10.租约：账户生成之后需要租聘费用，托管费用"></a>10.租约：账户生成之后需要租聘费用，托管费用</h5><h5 id="11-签名：用于授权交易（私钥）"><a href="#11-签名：用于授权交易（私钥）" class="headerlink" title="11.签名：用于授权交易（私钥）"></a>11.签名：用于授权交易（私钥）</h5><h2 id="solana核心技术"><a href="#solana核心技术" class="headerlink" title="solana核心技术"></a>solana核心技术</h2><p>1.POH</p>
-<p>VDF是“<em>Verifiable Delay Function</em>”的缩写，即“可验证延迟函数”。VDF是一种密码学算法，用于在不依赖可信方的情况下产生延迟证明。Solana的共识算法称为“<em>Proof of History</em>”（PoH），它使用VDF的原理来建立每个节点的事件顺序，确保整个网络的时间同步性。</p>
-<p>Solana使用一种被称为<em>Turbine</em>的快速区块传播协议以及<em>Tower BFT</em>共识机制来处理分叉，确保网络快速达成共识并解决分叉。</p>
-<p>Solana引入了一种基于Practical Byzantine Fault Tolerance (PBFT)改进的Tower BFT算法，以处理分叉。Tower BFT利用PoH的时间序列，使节点在不同步的情况下也可以达成共识：</p>
-<ul>
-<li><strong>投票和锁定</strong>：每个验证节点会对区块投票，并在特定的高度“锁定”投票。节点一旦在某个高度对特定的区块链进行投票锁定，就不能随意改变投票，除非在后续有足够多的节点达成共识。这种机制限制了分叉的持续时间，节点会在多数共识的引导下放弃较小的分叉。</li>
-<li><strong>投票权重和优先级</strong>：Tower BFT通过计票权重来决定区块的“合法性”。如果有一个区块得到多数节点的投票支持，那么其他节点会自动选择该区块，抛弃较小的分叉。</li>
-</ul>
-<p><em>Turbine</em>协议是Solana用来快速传播区块的一种分片广播协议。它将区块拆分成更小的数据包，通过分片将数据分散传输给邻近节点。这样做有助于区块更快地到达整个网络的节点，提高了共识达成的速度，也减少了通信延迟，进而降低了因延迟导致的分叉概率。</p>
-<p>理解Turbine协议和Finality机制在Solana中的实现过程，的确需要一些背景知识。我们可以分开详细说明它们的设计原理和实现方法。</p>
-<h3 id="Turbine协议的实现原理"><a href="#Turbine协议的实现原理" class="headerlink" title="Turbine协议的实现原理"></a>Turbine协议的实现原理</h3><p>Turbine协议通过分片和分布式数据传输来加速区块传播，解决了区块链中节点之间数据同步的延迟问题。其核心思路是：将区块数据拆分为多个小数据包（数据片），然后以类似“<em>树状结构</em>”的方式分层传播。具体实现流程如下：</p>
-<ol>
-<li><p><strong>数据拆分</strong>：当一个节点生成新的区块时，它会将区块数据拆分成更小的子数据包，每个包称为“<em>数据片</em>”。</p>
-</li>
-<li><p><strong>分层传播</strong>：节点按树状层次结构进行传播，形成一个多级分层网络：</p>
-<ul>
-<li>最初的节点会将数据片分发给相邻的节点。</li>
-<li>每个接收到数据片的节点会进一步向下传播它们收到的数据片。这个过程类似于“分布式树”——每个节点都成为下一层的“父节点”，将数据分发给它们的“子节点”。</li>
-<li>这种树状结构允许所有节点仅需与少量相邻节点通信，就可以将数据快速传递到整个网络。</li>
-</ul>
-</li>
-<li><p><strong>带宽优化</strong>：这种树形分发将原本逐一传播的通信量拆分成多层级的传播，因此显著降低了每个节点的带宽需求，提高了数据传播的效率。</p>
-</li>
-<li><p><strong>数据冗余和恢复</strong>：为了避免网络传输失败，Turbine协议会设计一定的冗余机制。即使部分数据包丢失或延迟，其他节点也可以从不同的路径重新获取该数据，确保区块数据能够完整传播到网络中的所有节点。</p>
-</li>
-</ol>
-<p>通过这种树状、分片的传播方式，Turbine协议能大幅降低因数据延迟导致的分叉发生概率，提高了Solana网络的整体同步速度。</p>
-<hr>
-<h3 id="Finality和Tower-BFT的实现原理"><a href="#Finality和Tower-BFT的实现原理" class="headerlink" title="Finality和Tower BFT的实现原理"></a>Finality和Tower BFT的实现原理</h3><p>Finality机制是区块链中用于确保交易不可逆的重要方法。Solana使用Tower BFT算法来实现区块的最终确认（Finality），确保区块一旦得到确认便不可被回滚。Tower BFT的具体实现原理如下：</p>
-<ol>
-<li><p><strong>投票机制</strong>：在Tower BFT中，每个验证节点对区块进行投票。每个节点会对已知的最新区块链状态进行确认，表明它认为该状态是正确的，并且希望该区块成为主链的一部分。</p>
-</li>
-<li><p><strong>投票锁定（Vote Locking）</strong>：Tower BFT中的独特之处在于，节点对某个区块投票后，会逐步增加对后续区块的“锁定深度”（也就是高度）。一旦节点对一个区块投票，它在该高度之上进行的每次投票会增加锁定的深度——比如最初是1区块的锁定、随后是2区块，依次递增。这个机制使得节点不能轻易撤回投票，避免了分叉链的反复切换。</p>
-</li>
-<li><p><strong>达成Finality</strong>：当大多数节点在同一链上锁定了某一高度的区块时，即该区块达到了“Finality”状态，成为最终确认的区块，不能回滚。</p>
-<ul>
-<li><strong>不可逆性</strong>：由于锁定的深度逐步增加，节点会发现更改链条的代价越来越高，逐渐放弃较小的分叉链，选择与主链一致。</li>
-</ul>
-</li>
-<li><p><strong>容错能力</strong>：Tower BFT允许一定比例的节点不一致（通常是三分之一以下），这意味着即便部分节点因网络延迟等原因不同步，也不影响Finality的达成。整个网络依然可以在剩余节点的共识下确认区块，形成不可逆的链条。</p>
-</li>
-<li><p><strong>快速响应</strong>：Tower BFT结合了PoH的时间记录，使得节点可以在短时间内快速决策并达成共识，避免了分叉链过多积累。</p>
-</li>
-</ol>
-<p>通过Tower BFT的投票锁定和Finality机制，Solana能够快速解决分叉问题，并确保链的最终性。Finality的达成可以让网络中的所有节点确信已经确认的区块不会被回滚，从而保证网络的一致性和安全性。</p>
-<h2 id="开发入门环境调试"><a href="#开发入门环境调试" class="headerlink" title="开发入门环境调试"></a>开发入门环境调试</h2><p>solana-test-validator 本地部署</p>
-<h3 id="合约交互调用"><a href="#合约交互调用" class="headerlink" title="合约交互调用"></a>合约交互调用</h3><p>cdylib,动态内存库</p>
-<p>typescript文件</p>
-<p>获取ID</p>
-<p>智能合约交互，所有的交互都是通过transaction实现。</p>
-<p>获取blockhash，获取到区块信息</p>
-<p>创建transaction</p>
-<p>在transaction里添加调用</p>
-<p>用私钥进行签名</p>
-<p>获取哈希值</p>
-<p>进行确认传入哈希值</p>
-<h5 id="如何通过anchor框架创建项目"><a href="#如何通过anchor框架创建项目" class="headerlink" title="如何通过anchor框架创建项目"></a>如何通过anchor框架创建项目</h5><p>anchor init &lt;&gt;</p>
-<p>anchor test</p>
-<p>anchor deploy</p>
-<p>solana program show –buffers</p>
-<p>solana pprogram close –buffers</p>
-<h5 id="anchor"><a href="#anchor" class="headerlink" title="anchor"></a>anchor</h5><p>声明program id，program的模块，声明数据账户</p>
-<p>target存放编译的一些文件</p>
-<p>testce’s</p>
-<p>solana config set</p>
-<p>solana config set –url localhost</p>
-<p>solana config set –url testnet</p>
-<p>solana config set –url <net></p>
-<p>solana -keygen new</p>
-<p>solana address</p>
-<p>solana balance <pub_key></p>
-<p>solana transfer <recipient_public_key> –from <sender_keypair_path></p>
-<h2 id="实际solana练习"><a href="#实际solana练习" class="headerlink" title="实际solana练习"></a>实际solana练习</h2><h5 id="1-切换RPC地址和端点"><a href="#1-切换RPC地址和端点" class="headerlink" title="1.切换RPC地址和端点"></a>1.切换RPC地址和端点</h5><p>切换网络环境<code>RPC URL</code></p>
-<p>切换到开发网</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana config set --url https://api.devnet.solana.com</span><br></pre></td></tr></table></figure>
-
-<p>切换到测试网</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana config set --url https://api.testnet.solana.com</span><br></pre></td></tr></table></figure>
-
-<p>切换到主网是mainnet</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana config set --url https://api.mainnet-beta.solana.com</span><br></pre></td></tr></table></figure>
-
-<p>确认配置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana config get</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-查询钱包"><a href="#2-查询钱包" class="headerlink" title="2.查询钱包"></a>2.查询钱包</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查询钱包地址</span><br><span class="line">solana address</span><br><span class="line">#查询钱包余额</span><br><span class="line">solana balance &lt;钱包地址&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-领取空投"><a href="#3-领取空投" class="headerlink" title="3.领取空投"></a>3.领取空投</h5><h4 id="在vscode上进行solana开发"><a href="#在vscode上进行solana开发" class="headerlink" title="在vscode上进行solana开发"></a>在vscode上进行solana开发</h4><h5 id="本地环境搭建"><a href="#本地环境搭建" class="headerlink" title="本地环境搭建"></a>本地环境搭建</h5><h6 id="rust开发环境安装"><a href="#rust开发环境安装" class="headerlink" title="rust开发环境安装"></a>rust开发环境安装</h6><p>安装rust</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --proto &#x27;=https&#x27; --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y</span><br></pre></td></tr></table></figure>
-
-<p>使用<code>rustc -V</code>检查</p>
-<p><code>rustup update nightly</code>更新nightly版本</p>
-<p><code>rustup update</code>更新</p>
-<h6 id="solana-cli安装"><a href="#solana-cli安装" class="headerlink" title="solana-cli安装"></a>solana-cli安装</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &quot;$(curl -sSfL https://release.anza.xyz/stable/install)&quot;</span><br></pre></td></tr></table></figure>
-
-<p>anchor</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo install --git https://github.com/coral-xyz/anchor avm --locked --force</span><br></pre></td></tr></table></figure>
-
-<p>本地验证节点</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">solana config get # get config</span><br><span class="line"></span><br><span class="line">solana config set --url localhost # 配置 本地主机验证器</span><br><span class="line"></span><br><span class="line">solana config set --url testnet # 配置 test net</span><br></pre></td></tr></table></figure>
-
-<p>创建钱包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new # --force overwrite</span><br><span class="line"></span><br><span class="line">solana config set -k ~/.config/solana/id.json #设置为默认钱包</span><br></pre></td></tr></table></figure>
-
-<h5 id="空投"><a href="#空投" class="headerlink" title="空投"></a>空投</h5><ol>
-<li></li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana airdrop 5</span><br></pre></td></tr></table></figure>
-
-<p>solana airdrop 5 –url devnet</p>
-<p>2.通过faucet领取</p>
-<p>faucet.solana.com</p>
-<h5 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">solana config get</span><br><span class="line"></span><br><span class="line">solana config set --url &lt;net&gt;</span><br><span class="line"></span><br><span class="line">solana-keygen new</span><br><span class="line"></span><br><span class="line">solana address</span><br><span class="line"></span><br><span class="line">solana balance &lt;pub_key&gt;</span><br><span class="line"></span><br><span class="line">solana transfer &lt;recipient_public_key&gt; &lt;amount&gt; --from &lt;sender_keypair_path&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="开发入门"><a href="#开发入门" class="headerlink" title="开发入门"></a>开发入门</h3><h5 id="rust创建项目"><a href="#rust创建项目" class="headerlink" title="rust创建项目"></a>rust创建项目</h5><p>cargo new –lib &lt;&gt;</p>
-<p>cargo add solana-program</p>
-<p>修改编译配置</p>
-<p>[lib]</p>
-<p>crate-type &#x3D; [“cdylib”,”lib”]</p>
-<p>如果说要扩展智能合约的话，通过instructiondata匹配不同的指令，进行不同的操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">solana config get</span><br><span class="line"></span><br><span class="line">cargo build-sbf</span><br><span class="line"></span><br><span class="line">solana program deploy &lt;xxx.so&gt;</span><br><span class="line"></span><br><span class="line">solana program close &lt;program_id&gt;</span><br><span class="line"></span><br><span class="line">rustup update //升级rust</span><br><span class="line"></span><br><span class="line">solana-install update</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">solana program deploy target/sbf-solana-solana/release/todo2.so</span><br><span class="line"></span><br><span class="line">rustup update //升级rust&#x27;</span><br><span class="line"></span><br><span class="line">cargo build</span><br></pre></td></tr></table></figure>
-
-<p>任何一个和线上交互的代码都要通过transaction实现</p>
-<p>解析instruction_data指令执行不同的操作</p>
-<p>编译并部署到环境中.代码编译之后会生成动态链接库，动态链接库部署在合约，合约通过虚拟机运行这块代码。solana的虚拟机是基于BPF扩展指令集。</p>
-<p>进行cargo build-sbf</p>
-<p>在target生成一个.so的动态链接库文件，部署就是部署这个.so的文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">solana config get</span><br><span class="line">cargo build-sbf</span><br><span class="line">solana program deploy &lt;xxx.so&gt;</span><br><span class="line">solana program close &lt;program_id&gt;</span><br></pre></td></tr></table></figure>
-
-<p>网页开发软件</p>
-<p><a target="_blank" rel="noopener" href="https://beta.solpg.io/tutorials">https://beta.solpg.io/tutorials</a></p>
-<p>合约的调用就是通过client.ts文件</p>
-<h5 id="anchor创建项目"><a href="#anchor创建项目" class="headerlink" title="anchor创建项目"></a>anchor创建项目</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">anchor init &lt;program_name&gt;</span><br><span class="line">anchor test</span><br><span class="line">anchor deploy</span><br><span class="line"></span><br><span class="line">deploy failed</span><br><span class="line"></span><br><span class="line">solana program show --buffers</span><br><span class="line">solana program close --buffers</span><br></pre></td></tr></table></figure>
-
-<h5 id="anchor文件解释"><a href="#anchor文件解释" class="headerlink" title="anchor文件解释"></a>anchor文件解释</h5><p>app文件一般是用来存储一些dapp和前端的一些代码</p>
-<p>migrations：部署一些升级的代码</p>
-<p>node-modules：测试和前端项目的一些依赖</p>
-<p>programs:智能合约和solana programs</p>
-<p>anchor的框架是基于rust的一个dsl，其实也是一个crate</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare_id!(&quot;5zpafbsuiEUrBd97Hca36q9uLkyu8Y47U55qmupuTzvt&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>其实也是program_id,然后通过属性宏标记program，然后这个属性宏是一个模块，这个模块就可以处理我们的业务逻辑。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct Initialize &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>声明了一个账户，数据账户，用来存储智能合约里面的一些数据</p>
-<p>program主要由3部分</p>
-<p>1.声明id</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare_id!(&quot;5zpafbsuiEUrBd97Hca36q9uLkyu8Y47U55qmupuTzvt&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>2.声明program，里面的模块</p>
-<p>3.声明数据账户</p>
-<p>target存放编译的一些文件，和普通的cargo项目一致</p>
-<p>test_ledger:测试文件</p>
-<p>tests：编写的一些测试</p>
-<p>anchor.toml:anchor项目的项目配置文件，可以通过</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[programs.localnet]</span><br><span class="line">//配置我们的本地环境</span><br><span class="line">anchorlesson1 = &quot;5zpafbsuiEUrBd97Hca36q9uLkyu8Y47U55qmupuTzvt&quot;</span><br><span class="line">[programs.devnet]</span><br><span class="line">//配置测试环境</span><br><span class="line">[provider]</span><br><span class="line">cluster = &quot;Localnet&quot;</span><br><span class="line">wallet = &quot;~/.config/solana/id.json&quot;</span><br><span class="line">//在provider里看或者修改使用的哪一个网络</span><br><span class="line">[scripts]</span><br><span class="line">test = &quot;yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts&quot;</span><br><span class="line">// cargo test的一些脚本</span><br></pre></td></tr></table></figure>
-
-<p>node env, yarn package manager</p>
-<p>外层的cargo.toml，声明了一个workspace</p>
-<p>anchor test会在本地启动一个solana-test-validator然后再去本地执行那个测试</p>
-<h4 id="错误package-solana-program-v2-1-1-cannot-be-built-because-it-requires-rustc-1-79-0-or-newer"><a href="#错误package-solana-program-v2-1-1-cannot-be-built-because-it-requires-rustc-1-79-0-or-newer" class="headerlink" title="错误package solana-program v2.1.1 cannot be built because it requires rustc 1.79.0 or newer"></a>错误package <code>solana-program v2.1.1</code> cannot be built because it requires rustc 1.79.0 or newer</h4><p>package <code>solana-program v2.1.1</code> cannot be built because it requires rustc 1.79.0 or newer, while the currently active rustc version is 1.75.0-dev<br>Either upgrade to rustc 1.79.0 or newer, or use<br>cargo update <a href="mailto:&#x73;&#111;&#108;&#x61;&#x6e;&#x61;&#x2d;&#112;&#114;&#111;&#103;&#114;&#x61;&#x6d;&#64;&#50;&#46;&#x31;&#x2e;&#49;">&#x73;&#111;&#108;&#x61;&#x6e;&#x61;&#x2d;&#112;&#114;&#111;&#103;&#114;&#x61;&#x6d;&#64;&#50;&#46;&#x31;&#x2e;&#49;</a> –precise ver<br>where <code>ver</code> is the latest version of <code>solana-program</code> supporting rustc 1.75.0-dev<br>root@LAPTOP-6M4RE4LA:&#x2F;mnt&#x2F;e&#x2F;git&#x2F;rust&#x2F;入门&#x2F;class_pracroot@LAPTOP-6M4RE4LA:&#x2F;mnt&#x2F;e&#x2F;git&#x2F;rust&#x2F;入门&#x2F;class_practice&#x2F;todo2# a<br>root@LAPTOP-6M4RE4LA:&#x2F;mnt&#x2F;e&#x2F;git&#x2F;rust&#x2F;入门&#x2F;class_prac<br>tice&#x2F;todo2# agave-install init 2.0.17<br>Error: “Unknown release: 2.0.17”<br>root@LAPTOP-6M4RE4LA:&#x2F;mnt&#x2F;e&#x2F;git&#x2F;rust&#x2F;入门&#x2F;class_prac<br>tice&#x2F;todo2# solana -version</p>
-<p>网站解决<a target="_blank" rel="noopener" href="https://solana.stackexchange.com/questions/11806/cargo-build-bpf-error-with-rustc-version?noredirect=1&lq=1">https://solana.stackexchange.com/questions/11806/cargo-build-bpf-error-with-rustc-version?noredirect=1&amp;lq=1</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`agave-install list`</span><br></pre></td></tr></table></figure>
-
-<p>This solution Solves Everything!:</p>
-<p>Type these in the terminal:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//solana-install init 1.18.18(or latest version/version/version you’re using, mine worked with 1.18.18)</span><br><span class="line">agave-install init</span><br><span class="line">cargo add solana-program@=1.18.18</span><br><span class="line"></span><br><span class="line">cargo update -p solana-program@1.18.18</span><br><span class="line"></span><br><span class="line">cargo clean</span><br><span class="line"></span><br><span class="line">anchor clean</span><br><span class="line"></span><br><span class="line">Anchor build</span><br></pre></td></tr></table></figure>
-
-<p>This works because using the Solana init command above FIRST makes sure that the build tools are properly initialized.</p>
-<h4 id="error-no-such-command-build-sbf"><a href="#error-no-such-command-build-sbf" class="headerlink" title="error: no such command: build-sbf"></a>error: no such command: <code>build-sbf</code></h4><pre><code>    View all installed commands with `cargo --list`
-    Find a package to install `build-sbf` with `cargo search cargo-build-sbf`
-</code></pre>
-<p>LAPTOP-6M4RE4LA# sh -c “$(curl -sSfL <a target="_blank" rel="noopener" href="https://release.solana.com/beta/install">https://release.solana.com/beta/install</a>)”</p>
-<p>solana官网上进行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo build-sbf --force-tools-install</span><br></pre></td></tr></table></figure>
-
-<h4 id="wsl代理网速等问题"><a href="#wsl代理网速等问题" class="headerlink" title="wsl代理网速等问题"></a>wsl代理网速等问题</h4><p>VPN开启ton模式</p>
-<p>测试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -I https://www.google.com</span><br><span class="line">ping google.com</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="DEX项目练习"><a href="#DEX项目练习" class="headerlink" title="DEX项目练习"></a>DEX项目练习</h2><p>notion文档</p>
-<p>竞品对标，dsci，pmp发射平台</p>
-<p>当前市场存在的项目，solana</p>
-<p>dex项目，借贷稳定币，depin，rwn。</p>
-<p>富士山的一个别称</p>
-<p>产品的生命周期，技术架构，实现，生态，技术路线图，etf</p>
-<p>区块市场和推广的优势会比较高</p>
-<p>创建自己的etf指数，通过链上进行交易</p>
-<p>前端数据库go语言，中心化的服务器，以太坊和一些base的链。涵盖多数的token，跨链和全链的生态。</p>
-<p>页面，展示基本的概览</p>
-<p>功能swap，进行交互，solana在左上角的设置，费率滑点，io和drift有现成的代码，</p>
-<p>交换的价格和路径</p>
-<p>LP</p>
-<p>提供流动性，有固定的模式和接口提供流动性。流动性越好滑点越低</p>
-<p>apr的概念。提供流动性的人会获得一些奖励，最早都是由项目或者社区去提供这些</p>
-<p>swap和流动性挖矿和</p>
-<h5 id="etf参考"><a href="#etf参考" class="headerlink" title="etf参考"></a>etf参考</h5><p>etf：gmgn（参考），资产的份额和token</p>
-<p>binance：index50，指数，说明，购买</p>
-<p>neutral：做组合资产，类似对冲，可能做一些合约的交易</p>
-<p>raydium</p>
-<p>jup</p>
-<h5 id="portfolio"><a href="#portfolio" class="headerlink" title="portfolio"></a>portfolio</h5><p>用户自己资产查看</p>
-<p>接入成熟的产品，交易所的</p>
-<p>swap，lp（流动性池）</p>
-<p>无许可流动性池：DEX，钱包链接swap进行交易，平台必须要一定的资产或者其他条件，但是创建无许可不需要。只要在solana链上，所有人都可以去创建这个接口</p>
-<p>AMM在形成之后，AI算法模型看回次怎么样。a代币创建之后，创建流动性，与b，进行交易</p>
-<p>混合做市商</p>
-<p>产品的优势把代币转化成ETF。有更灵活的投资组合。AMM和恒定做市商都已经非常成熟，甚至出现了期货。</p>
-<p>getup：代币</p>
-<p>有多少交易，前期有多少交易</p>
-<p>目的做SWAP和LP（io），后期可能还会做一些ETF。</p>
-<p>流动性，创建新池子时有一个价格的选择，和费率，初始化。进入池子相对会严格一点。有接口。流入大于流出就是挣钱，</p>
-<p>v3和v4和根据协议升级。跨链桥，跨生态兑换代币wormhole，直接抄就可以。有一套固定的url或者有一个接口接入就可以了。</p>
-<p>现在支持的链只有solana，solana和其他币的范围，一般会找。项目方会自己去做</p>
-<p>明天或者后天分配。</p>
-<h3 id="git文件过大上传攻略"><a href="#git文件过大上传攻略" class="headerlink" title="git文件过大上传攻略"></a>git文件过大上传攻略</h3><p>1.查找大于 50MB 的文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f -size +50M</span><br></pre></td></tr></table></figure>
-
-<p>清空缓存：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
-
-<p>这会移除所有暂存的文件，但保留文件在工作区。</p>
-<p>从git的缓存移除target文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached 入门/class_practice/solanacli/target/debug/deps/*.rlib</span><br><span class="line">bash: /mingw64/bin/git: Argument list too long</span><br><span class="line">//it rm --cached 命令尝试一次性处理过多的文件，而文件路径过长导致命令失败。</span><br><span class="line"></span><br><span class="line">xiang@LAPTOP-6M4RE4LA MINGW64 /e/git/rust (main)</span><br><span class="line">$ find 入门/class_practice/solanacli/target/debug/deps/ -name &quot;*.rlib&quot; -exec git rm --cached &#123;&#125; \;</span><br><span class="line">rm &#x27;入门/class_practice/solanacli/target/debug/deps/libadler2-35b04470ecd9d447.rlib&#x27;</span><br><span class="line">rm &#x27;入门/class_practice/solanacli/target/debug/deps/libaead-12d6f0a502c19146.rlib&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>提交更改</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;Remove compiled .rlib files from Git tracking&quot;</span><br></pre></td></tr></table></figure>
-
-<p>推送到远程仓库</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://auo578.github.io/2024/12/01/solana%E5%85%A5%E9%97%A8/" data-id="cm477y2mh000mc4u7e0lk1x0e" data-title="Sol的架构和名词概念" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1552,7 +1405,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity%E5%85%A5%E9%97%A8/" rel="tag">solidity入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
     </div>
   </div>
 
@@ -1563,6 +1416,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/">solidity入门1</a>
+          </li>
         
           <li>
             <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/">solana流动性质押</a>
@@ -1578,10 +1435,6 @@
         
           <li>
             <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
-          </li>
-        
-          <li>
-            <a href="/2024/12/02/2024121-SOLANA%E7%A4%BE%E4%BA%A4%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B51/">SOLANA社交项目实践1</a>
           </li>
         
       </ul>
