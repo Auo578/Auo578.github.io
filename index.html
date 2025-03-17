@@ -47,6 +47,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2025317-相关系统账户对不上" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/17/2025317-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7%E5%AF%B9%E4%B8%8D%E4%B8%8A/" class="article-date">
+  <time class="dt-published" datetime="2025-03-16T16:31:30.000Z" itemprop="datePublished">2025-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/17/2025317-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7%E5%AF%B9%E4%B8%8D%E4%B8%8A/">相关系统账户对不上</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="顺序问题导致相关系统账户对不上"><a href="#顺序问题导致相关系统账户对不上" class="headerlink" title="顺序问题导致相关系统账户对不上"></a>顺序问题导致相关系统账户对不上</h1><p>源程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct NftStake&lt;&#x27;info&gt; &#123;</span><br><span class="line">    ///// 要接受NFT的账户 ////</span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        space = 8 + IbuidlStake::INIT_SPACE,</span><br><span class="line">        seeds = [</span><br><span class="line">            IbuidlStake::SEED_PREFIX.as_bytes(),</span><br><span class="line">            nft_mint_account.key().as_ref(),</span><br><span class="line">        ],</span><br><span class="line">        bump,</span><br><span class="line">    )]</span><br><span class="line">    pub stake_info: Box&lt;Account&lt;&#x27;info, IbuidlStake&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        associated_token::mint = nft_mint_account,</span><br><span class="line">        associated_token::authority = stake_info,</span><br><span class="line">    )]</span><br><span class="line">    pub program_receipt_nft_ata: Box&lt;Account&lt;&#x27;info, TokenAccount&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    ///// 流动性token ////</span><br><span class="line">    // 检查token是不是合约的派生pda</span><br><span class="line">    #[account(</span><br><span class="line">        mut,</span><br><span class="line">        seeds = [</span><br><span class="line">            IbuidlToken::SEED_PREFIX.as_bytes()</span><br><span class="line">        ],</span><br><span class="line">        bump,</span><br><span class="line">    )]</span><br><span class="line">    pub token_mint_account: Box&lt;Account&lt;&#x27;info, Mint&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        associated_token::mint = token_mint_account,</span><br><span class="line">        associated_token::authority = authority,</span><br><span class="line">    )]</span><br><span class="line">    pub associated_token_account: Box&lt;Account&lt;&#x27;info, TokenAccount&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    ///// 质押的NFT ////</span><br><span class="line">    /// 声明一些额外的约束</span><br><span class="line">    #[account(mut)]</span><br><span class="line">    pub nft_mint_account: Box&lt;Account&lt;&#x27;info, Mint&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(</span><br><span class="line">        mut,</span><br><span class="line">        associated_token::mint = nft_mint_account,</span><br><span class="line">        associated_token::authority = authority,</span><br><span class="line">    )]</span><br><span class="line">    pub nft_associated_token_account: Box&lt;Account&lt;&#x27;info, TokenAccount&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(mut)]</span><br><span class="line">    authority: Signer&lt;&#x27;info&gt;,</span><br><span class="line"></span><br><span class="line">    pub system_program: Program&lt;&#x27;info, System&gt;,</span><br><span class="line">    pub token_program: Program&lt;&#x27;info, Token&gt;,</span><br><span class="line">    pub associated_token_program: Program&lt;&#x27;info, AssociatedToken&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct NftStake&lt;&#x27;info&gt;&#123;</span><br><span class="line">      // 质押nft，所以肯定需要和nft相关的账户</span><br><span class="line">      #[account(</span><br><span class="line">        mut,</span><br><span class="line">    )]</span><br><span class="line">    pub nft_mint_account: Box&lt;Account&lt;&#x27;info, Mint&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(</span><br><span class="line">        mut,</span><br><span class="line">        associated_token::mint = nft_mint_account,</span><br><span class="line">        associated_token::authority = authority,</span><br><span class="line">    )]</span><br><span class="line">    pub nft_associated_token_account:Box&lt;Account&lt;&#x27;info, TokenAccount&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(mut)]</span><br><span class="line">    authority: Signer&lt;&#x27;info&gt;,</span><br><span class="line">    //检查token是不是合约的派生pda</span><br><span class="line">    #[account(  </span><br><span class="line">        mut,  </span><br><span class="line">        seeds = [</span><br><span class="line">            IbuidlToken::SEED_PREFIX.as_bytes(),</span><br><span class="line">        ],</span><br><span class="line">        bump,</span><br><span class="line">    )]</span><br><span class="line">    pub token_mint_account:Box&lt;Account&lt;&#x27;info, Mint&gt;&gt;,</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        associated_token::mint = token_mint_account,</span><br><span class="line">        associated_token::authority = authority,</span><br><span class="line">    )]</span><br><span class="line">    pub associated_token_account:Box&lt;Account&lt;&#x27;info, TokenAccount&gt;&gt;,</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    //接收nft的账户，是谁质押了哪个NFT？</span><br><span class="line">    //每一个NFT的质押都会有一个stake info，这样保证存储质押的信息很少</span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        space = 8 + IbuidlStake::INIT_SPACE,</span><br><span class="line">        seeds = [</span><br><span class="line">            IbuidlStake::SEED_PREFIX.as_bytes(),</span><br><span class="line">            nft_mint_account.key().as_ref(),</span><br><span class="line">        ],</span><br><span class="line">        bump,</span><br><span class="line">    )]</span><br><span class="line">    pub stake_info:Box&lt;Account&lt;&#x27;info, IbuidlStake&gt;&gt;,</span><br><span class="line"></span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        associated_token::mint = nft_mint_account,</span><br><span class="line">        associated_token::authority = stake_info,</span><br><span class="line">    )]</span><br><span class="line"></span><br><span class="line">    pub program_receipt_nft_ata:Box&lt;Account&lt;&#x27;info,TokenAccount&gt;&gt;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //质押后得到流动性token，所以需要和token有关的账户</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    pub associated_token_program: Program&lt;&#x27;info,AssociatedToken&gt;,</span><br><span class="line">    pub system_program: Program&lt;&#x27;info, System&gt;,</span><br><span class="line">    pub token_program: Program&lt;&#x27;info,Token&gt;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改后运行成功，但代码没有改动，只修改了顺序。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2025/03/17/2025317-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7%E5%AF%B9%E4%B8%8D%E4%B8%8A/" data-id="cm8d3ndws00007ou7eml3bb54" data-title="相关系统账户对不上" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-solidity入门1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/" class="article-date">
@@ -1351,47 +1398,6 @@
 
 
   
-    <article id="post-思维导图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" class="article-date">
-  <time class="dt-published" datetime="2024-11-30T16:30:10.000Z" itemprop="datePublished">2024-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/">思维导图</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Rust思维导图"><a href="#Rust思维导图" class="headerlink" title="Rust思维导图"></a>Rust思维导图</h2><p>![](E:\hexo\blog\source_posts\mindmaps\常见编程概念.png <img src=""  style="width: 50%;"> )</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://auo578.github.io/2024/12/01/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/" data-id="cm477y2n5000wc4u79c1202qf" data-title="思维导图" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1418,6 +1424,10 @@
       <ul>
         
           <li>
+            <a href="/2025/03/17/2025317-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7%E5%AF%B9%E4%B8%8D%E4%B8%8A/">相关系统账户对不上</a>
+          </li>
+        
+          <li>
             <a href="/2025/01/21/solidity%E5%85%A5%E9%97%A81/">solidity入门1</a>
           </li>
         
@@ -1433,10 +1443,6 @@
             <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
           </li>
         
-          <li>
-            <a href="/2024/12/05/2024125-%E8%B4%A6%E6%88%B7%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E7%94%A8%E6%B3%95/">账户的概念和用法</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1449,7 +1455,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
     </div>
   </div>
 
