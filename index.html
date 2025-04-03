@@ -416,6 +416,77 @@
 
 
   
+    <article id="post-编写一个应用级别的质押合约" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/" class="article-date">
+  <time class="dt-published" datetime="2024-12-09T16:31:30.000Z" itemprop="datePublished">2024-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/">SPLtoken合约创建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="编写一个应用级别的质押合约"><a href="#编写一个应用级别的质押合约" class="headerlink" title="编写一个应用级别的质押合约"></a>编写一个应用级别的质押合约</h1><p>控制代币的流动性，控制代币的NFT价值，为用户提供质押的功能，进一步维护NFT或者token的价格。</p>
+<p>往本地加载metadata合约</p>
+<ol>
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana program dump --url mainnet-beta metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+<p>2.在anchor.toml上加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[test.validator]</span><br><span class="line">bind_address = &quot;0.0.0.0&quot;</span><br><span class="line">url = &quot;https://mainnet.helius-rpc.com/?api-key=fb252456-993c-4a77-9a32-3c7456029875&quot;</span><br><span class="line">ledger = &quot;.anchor/test-ledger&quot;</span><br><span class="line">rpc_port = 8899</span><br></pre></td></tr></table></figure>
+
+<p>重新编写一下token合约</p>
+<h1 id="重新写一遍app（复习）"><a href="#重新写一遍app（复习）" class="headerlink" title="重新写一遍app（复习）"></a>重新写一遍app（复习）</h1><p>用户发帖&amp;点赞</p>
+<p>spl token&amp;mint账户的创建</p>
+<p>为用户mint spl token</p>
+<p>native质押和流动性质押</p>
+<p>应用级别的质押合约（质押，解质押）</p>
+<p>前端单元测试与合约接入</p>
+<p>ETF</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor init appstake</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>编写合约，设计账户</p>
+<p><strong>profile account</strong>:(seed ‘profile’ + payer)</p>
+<p>display_name: String    tweet_count: u32</p>
+<p><strong>Tweet Account:</strong> seed ‘tweet’ + payer + count</p>
+<p>body: String     like_count: u32</p>
+<p><strong>Like Account:</strong> seed ‘tweet’ + payer + tweet</p>
+<p>payer:  Pubkey     tweet: Pubkey</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new</span><br><span class="line">//钱包设置成默认钱包</span><br><span class="line">solana config set -k ~/.config/solana/id.json</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/" data-id="cm91nrz3y0002ugu7guagep5a" data-title="SPLtoken合约创建" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2024129-github的使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
@@ -1355,49 +1426,6 @@
 
 
   
-    <article id="post-Solona介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/" class="article-date">
-  <time class="dt-published" datetime="2024-11-30T16:30:30.000Z" itemprop="datePublished">2024-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/">Sol基础介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="SOL中的rust源码概览及应用"><a href="#SOL中的rust源码概览及应用" class="headerlink" title="SOL中的rust源码概览及应用"></a>SOL中的rust源码概览及应用</h1><p>不可能三角：</p>
-<h2 id="Solana区块链的工作原理"><a href="#Solana区块链的工作原理" class="headerlink" title="Solana区块链的工作原理"></a>Solana区块链的工作原理</h2><h3 id="共识协议"><a href="#共识协议" class="headerlink" title="共识协议"></a>共识协议</h3><h3 id="高性能架构"><a href="#高性能架构" class="headerlink" title="高性能架构"></a>高性能架构</h3><h3 id="高并发处理"><a href="#高并发处理" class="headerlink" title="高并发处理"></a>高并发处理</h3><h3 id="低延迟"><a href="#低延迟" class="headerlink" title="低延迟"></a>低延迟</h3><h2 id="Runtime板块"><a href="#Runtime板块" class="headerlink" title="Runtime板块"></a>Runtime板块</h2><h3 id="管理账户状态"><a href="#管理账户状态" class="headerlink" title="管理账户状态"></a>管理账户状态</h3><h3 id="智能合约执行"><a href="#智能合约执行" class="headerlink" title="智能合约执行"></a>智能合约执行</h3><h2 id="Program模块"><a href="#Program模块" class="headerlink" title="Program模块"></a>Program模块</h2><h3 id="Token-Program-stake-Program"><a href="#Token-Program-stake-Program" class="headerlink" title="Token Program stake Program"></a>Token Program stake Program</h3><h2 id="Rust和区块链"><a href="#Rust和区块链" class="headerlink" title="Rust和区块链"></a>Rust和区块链</h2><h1 id="Sol基础以及在区块链生态中的地位"><a href="#Sol基础以及在区块链生态中的地位" class="headerlink" title="Sol基础以及在区块链生态中的地位"></a>Sol基础以及在区块链生态中的地位</h1><h2 id="掌握Sol的基础"><a href="#掌握Sol的基础" class="headerlink" title="掌握Sol的基础"></a>掌握Sol的基础</h2><h2 id="Sol开发的8大核心概念"><a href="#Sol开发的8大核心概念" class="headerlink" title="Sol开发的8大核心概念"></a>Sol开发的8大核心概念</h2><h2 id="Sol的原生开发、Anchor框架"><a href="#Sol的原生开发、Anchor框架" class="headerlink" title="Sol的原生开发、Anchor框架"></a>Sol的原生开发、Anchor框架</h2><h2 id="Sol的优势"><a href="#Sol的优势" class="headerlink" title="Sol的优势"></a>Sol的优势</h2><h2 id="开发者优势"><a href="#开发者优势" class="headerlink" title="开发者优势"></a>开发者优势</h2><h1 id="Sol-历史、未来及发展"><a href="#Sol-历史、未来及发展" class="headerlink" title="Sol-历史、未来及发展"></a>Sol-历史、未来及发展</h1><p>##公链核心问题<br>用户、开发者、资本</p>
-<h2 id="Solana叙事"><a href="#Solana叙事" class="headerlink" title="Solana叙事"></a>Solana叙事</h2><p>SDK</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://auo578.github.io/2024/12/01/Solona%E4%BB%8B%E7%BB%8D/" data-id="cm477y2m1000cc4u7d443h19f" data-title="Sol基础介绍" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1436,11 +1464,11 @@
           </li>
         
           <li>
-            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
+            <a href="/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/">SPLtoken合约创建</a>
           </li>
         
           <li>
-            <a href="/2024/12/06/2024126-social%E8%B4%A8%E6%8A%BC/">solana质押</a>
+            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
           </li>
         
       </ul>
@@ -1455,7 +1483,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li></ul>
     </div>
   </div>
 

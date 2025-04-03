@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tags | Auodesy</title>
+  <title>SPLtoken合约创建 | Auodesy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -45,10 +45,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-编写一个应用级别的质押合约" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/tags/index.html" class="article-date">
-  <time class="dt-published" datetime="2024-09-11T16:00:00.000Z" itemprop="datePublished">2024-09-12</time>
+    <a href="/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/" class="article-date">
+  <time class="dt-published" datetime="2024-12-09T16:31:30.000Z" itemprop="datePublished">2024-12-10</time>
 </a>
     
   </div>
@@ -59,7 +59,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Tags
+      SPLtoken合约创建
     </h1>
   
 
@@ -67,18 +67,70 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <h1 id="编写一个应用级别的质押合约"><a href="#编写一个应用级别的质押合约" class="headerlink" title="编写一个应用级别的质押合约"></a>编写一个应用级别的质押合约</h1><p>控制代币的流动性，控制代币的NFT价值，为用户提供质押的功能，进一步维护NFT或者token的价格。</p>
+<p>往本地加载metadata合约</p>
+<ol>
+<li></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana program dump --url mainnet-beta metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+<p>2.在anchor.toml上加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[test.validator]</span><br><span class="line">bind_address = &quot;0.0.0.0&quot;</span><br><span class="line">url = &quot;https://mainnet.helius-rpc.com/?api-key=fb252456-993c-4a77-9a32-3c7456029875&quot;</span><br><span class="line">ledger = &quot;.anchor/test-ledger&quot;</span><br><span class="line">rpc_port = 8899</span><br></pre></td></tr></table></figure>
+
+<p>重新编写一下token合约</p>
+<h1 id="重新写一遍app（复习）"><a href="#重新写一遍app（复习）" class="headerlink" title="重新写一遍app（复习）"></a>重新写一遍app（复习）</h1><p>用户发帖&amp;点赞</p>
+<p>spl token&amp;mint账户的创建</p>
+<p>为用户mint spl token</p>
+<p>native质押和流动性质押</p>
+<p>应用级别的质押合约（质押，解质押）</p>
+<p>前端单元测试与合约接入</p>
+<p>ETF</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor init appstake</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>编写合约，设计账户</p>
+<p><strong>profile account</strong>:(seed ‘profile’ + payer)</p>
+<p>display_name: String    tweet_count: u32</p>
+<p><strong>Tweet Account:</strong> seed ‘tweet’ + payer + count</p>
+<p>body: String     like_count: u32</p>
+<p><strong>Like Account:</strong> seed ‘tweet’ + payer + tweet</p>
+<p>payer:  Pubkey     tweet: Pubkey</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new</span><br><span class="line">//钱包设置成默认钱包</span><br><span class="line">solana config set -k ~/.config/solana/id.json</span><br></pre></td></tr></table></figure>
+
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://auo578.github.io/tags/index.html" data-id="cm477y2ln0005c4u7c5rxg3pi" data-title="Tags" class="article-share-link">分享</a>
+      <a data-url="https://auo578.github.io/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/" data-id="cm91nrz3y0002ugu7guagep5a" data-title="SPLtoken合约创建" class="article-share-link">分享</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li></ul>
+
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/2025/01/06/2024126-solana%E6%B5%81%E5%8A%A8%E6%80%A7%E8%B4%A8%E6%8A%BC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          solana流动性质押
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">github的使用</div>
+    </a>
+  
+</nav>
+
   
 </article>
 
