@@ -47,6 +47,950 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-复习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/04/01/%E5%A4%8D%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2025-03-31T16:29:40.000Z" itemprop="datePublished">2025-04-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/04/01/%E5%A4%8D%E4%B9%A0/">anchor相关及defi，社交项目拆解重写</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="solwen"><a href="#solwen" class="headerlink" title="solwen"></a>solwen</h1><p>账户分类：</p>
+<p>数据账户：系统所有账户、程序派生账户（PDA）</p>
+<p>程序账户：用来存储可执行程序</p>
+<p>原生账户：指Solana上的原生程序</p>
+<p>Solana 中的数据账户 <strong>主要分为三大类</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><strong>账户类别</strong></th>
+<th><strong>子类别</strong></th>
+<th><strong>主要作用</strong></th>
+<th><strong>是否可执行？</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>系统账户（System Account）</strong></td>
+<td>✅ <strong>钱包账户</strong></td>
+<td>存储 SOL、签名交易、支付 Gas 费</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td><strong>代币账户（Token Account）</strong></td>
+<td>✅ <strong>普通 Token Account</strong></td>
+<td>存储 SPL 代币，如 USDC、RAY</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td></td>
+<td>✅ <strong>ATA（关联 Token 账户）</strong></td>
+<td>PDA 地址的 Token Account，钱包默认使用</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td><strong>程序派生地址（PDA）</strong></td>
+<td>✅ <strong>智能合约 PDA</strong></td>
+<td>由合约派生出的存储地址</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td></td>
+<td>✅ <strong>状态存储 PDA</strong></td>
+<td>由合约派生的状态存储</td>
+<td>❌ 否</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">account（不使用引用）</span><br><span class="line">rent_epoch,lamports,owner,executable,data</span><br><span class="line">accountinfo(使用引用和内部可变性)</span><br><span class="line">多了key,is_signer,is_writable</span><br></pre></td></tr></table></figure>
+
+<p>key:标识用户ID，区分不同的存储数据。账户本身不直接存储key，由info引用，key存储在状态数据库（stateDB）里</p>
+<p>data只存储程序可以修改的部分，比如SPL Token 账户的数据格式、NFT 元数据、质押（Staking）信息</p>
+<p>账户都有独一无二的地址且用来存放数据，大小不超过10M且静态，存储需要付租金，默认账户所有者是系统账户</p>
+<h2 id="程序派生账户PDA"><a href="#程序派生账户PDA" class="headerlink" title="程序派生账户PDA"></a>程序派生账户PDA</h2><p>必须使用专用指令创建，findProgramAddress（seeds,programid）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cargo new sol</span><br><span class="line">cargo add solana_client</span><br><span class="line">solana_sdk</span><br><span class="line">solana_program</span><br></pre></td></tr></table></figure>
+
+<p>使用SDK获取账户信息，获取空投，转移solana</p>
+<p>创建转账指令。创建交易，发送交易</p>
+<p>通过JsonRpc获取账户信息</p>
+<p>solana Rpc API然后在uabntu上运行</p>
+<h1 id="token"><a href="#token" class="headerlink" title="token"></a>token</h1><p>SPL（solana progran library）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">token program</span><br><span class="line"></span><br><span class="line">mint account</span><br><span class="line"></span><br><span class="line">token account</span><br><span class="line"></span><br><span class="line">associated token account</span><br><span class="line">（Pda账户、token account的其中一种）</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mint-account"><a href="#Mint-account" class="headerlink" title="Mint account"></a>Mint account</h2><p>代币的定义和管理</p>
+<p>属性：decimals(小数位数)：定义代币的最小单位，通常是0到9，</p>
+<p>例如，假设某个代币的 <code>decimals = 18</code>，那么 1 个代币实际上在区块链上表示为 <code>10^18</code> 个最小单位（也称“最小分割单位”）</p>
+<p>supply（供应量）：代币的当前总供应量，mint authority（铸币权限），freeze authority(冻结权限）</p>
+<p>功能：铸造代币，销毁代币</p>
+<h2 id="Token-account"><a href="#Token-account" class="headerlink" title="Token account"></a>Token account</h2><p>用于持有特定SPL token的账户，不同的代币有不同的token account，账户之间无法混用</p>
+<p>属性</p>
+<p>Amount（余额）</p>
+<p>owner（控制该账户的用户或合约地址）</p>
+<p>mint：该账户与哪个MInt account相关联</p>
+<p>delegate可选（代理账户）：可以被授权管理该账户的其他账户</p>
+<p>state（状态）：账户是否处于冻结状态</p>
+<p>功能：</p>
+<p>接收和发送代币</p>
+<p>代理权限管理：可以设置delegate来授权第三方管理该账户的代币</p>
+<h2 id="ATA"><a href="#ATA" class="headerlink" title="ATA"></a>ATA</h2><p>是token account的一种特殊类型，简化了spl token的账户管理。ATA是自动与一个钱包地址绑定的账户，每个钱包地址和每个代币的mint对应一个唯一的token account</p>
+<p>特点：每个钱包地址只能有一个和某个mint关联的ata且solana提供了工具来自动生成ATA，开发者不需要手动管理账户。</p>
+<p>功能：自动处理钱包地址与代币账户之间的关联，方便用户管理不同的SPL token</p>
+<p>在 <strong>Solana</strong>，每种 SPL 代币都需要一个 <strong>独立的 ATA</strong> 账户来存储该代币。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ATA = findProgramAddress([钱包地址, Token Mint 地址, TOKEN_PROGRAM_ID])</span><br></pre></td></tr></table></figure>
+
+<p><code>spl-token create-account</code> <strong>不会自动创建 ATA</strong>，而是创建一个普通的 Token Account。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-associated-token-account`</span><br></pre></td></tr></table></figure>
+
+<p> <strong>才会创建符合 ATA 规则的 Token Account</strong>。</p>
+<h3 id="✅-理解总结（简洁版）"><a href="#✅-理解总结（简洁版）" class="headerlink" title="✅ 理解总结（简洁版）"></a><strong>✅ 理解总结（简洁版）</strong></h3><ul>
+<li><strong>ATA（关联 Token Account）</strong> 是 <strong>Token Account 的子集</strong>，专门用于 <strong>用户存储代币</strong>，每个钱包 <strong>每种代币只能有一个 ATA</strong>，自动绑定到钱包。</li>
+<li><strong>Token Account（普通 Token Account）</strong> 更灵活，<strong>开发者可以创建多个 Token Account</strong>，用于 <strong>智能合约、流动性池、DAO 资金池等</strong>，不受钱包绑定限制。</li>
+<li><strong>所有 Token Account（包括 ATA）每个账户只能存储一种代币</strong>。</li>
+<li><strong>ATA 之间可以直接转账</strong>，但 <strong>Token Account 可以转账到任何 Token Account</strong>，而 ATA 只能和绑定的钱包匹配。</li>
+</ul>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator</span><br><span class="line"></span><br><span class="line">solana config set --keygen </span><br></pre></td></tr></table></figure>
+
+
+
+<p>当你使用 <code>cargo init</code> 创建一个新的 Rust 项目时，默认情况下，它不会自动生成 <code>.gitignore</code> 文件。这是因为 <code>cargo init</code> 命令并不会自动假设你会使用 Git，也没有为 Git 配置默认的 <code>.gitignore</code> 文件。</p>
+<p>通过 <code>cargo init</code> 的 <code>--vcs</code> 标志来指定版本控制系统（Git）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo init --vcs git solana1</span><br></pre></td></tr></table></figure>
+
+<p>在cargo toml上加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[workspace]</span><br><span class="line"></span><br><span class="line">members = [</span><br><span class="line"></span><br><span class="line">  &quot;lib&quot;,</span><br><span class="line"></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>在ubantu</p>
+<p>创建token</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-token</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token create-token</span><br><span class="line">Creating token H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 under program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line"></span><br><span class="line">Address:  H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98</span><br><span class="line">Decimals:  9</span><br><span class="line"></span><br><span class="line">Signature: 61NeuvthTqM77sPMk5ukfacz2rQUDfTLwgFz8qA5RmaNKCBf54M3LDfnhasYzzmwaHBDBRVpHK4iAQwXdky7UtVm</span><br></pre></td></tr></table></figure>
+
+<p>查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token account-info --address H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98</span><br></pre></td></tr></table></figure>
+
+<p>输出内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token account-info --address H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98</span><br><span class="line"></span><br><span class="line">SPL Token Mint</span><br><span class="line">  Address: H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98</span><br><span class="line">  Program: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line">  Supply: 0</span><br><span class="line">  Decimals: 9</span><br><span class="line">  Mint authority: CpikJSEGPJruz1Fhob68xsBZDhPUx7UFc1v1R97rxAC8</span><br><span class="line">  Freeze authority: (not set)</span><br></pre></td></tr></table></figure>
+
+<p>其中mint authority就是solana config get里的地址</p>
+<p>创建token account</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account [FLAGS] [OPTIONS] &lt;TOKEN_MINT_ADDRESS&gt; [ACCOUNT_KEYPAIR]</span><br></pre></td></tr></table></figure>
+
+<p>运行得到</p>
+<p>15分44秒</p>
+<p>为什么是ATA而不是token account</p>
+<p>为什么创建了在solanafm上看不见signature了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA#  spl-token create-account H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98</span><br><span class="line">Creating account DxXyadRzEV8mNPPBBynCFfXkjHTbcGcG4XsUWW2EMPef</span><br><span class="line"></span><br><span class="line">Signature: 2TaHg28yhvmFLxJYbuGC5vVNN2y6aRR22fDCqZj4gzrq8h9o4de8zbGycqWBzw9eWWUztN8kVjDnayFNZgyUntiP</span><br></pre></td></tr></table></figure>
+
+<p>为指定地址创建token account</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token create-account H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 --owner /root/account/a2.json</span><br><span class="line">Creating account 8E6xNTBjL9imZY7JZUCY9eGYym57zANG6VGEUk5r81PM</span><br><span class="line"></span><br><span class="line">Signature: 3JLsR743ayqikzfGhwkxvvw1P5hDSgqeBRGBHD4N233nKchCKs2M3Hd9frUwvfR9wWHf9T28AidvmET2Hts4WiGa</span><br></pre></td></tr></table></figure>
+
+<p>但是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token create-account H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 /root/account/a2.json</span><br><span class="line">Creating account CxiaNAtETLteM373cgSCsHDTRCjzpX6jWootea8yKJ8T</span><br><span class="line">Error: &quot;Error: Account already exists: CxiaNAtETLteM373cgSCsHDTRCjzpX6jWootea8yKJ8T&quot;</span><br></pre></td></tr></table></figure>
+
+<p>失败</p>
+<p>该命令的意思是<strong>让这个 Keypair 作为 Token Account，而不是 Token Account 的所有者</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token account-info --address 8E6xNTBjL9imZY7JZUCY9eGYym57zANG6VGEUk5r81PM</span><br><span class="line"></span><br><span class="line">SPL Token Account</span><br><span class="line">  Address: 8E6xNTBjL9imZY7JZUCY9eGYym57zANG6VGEUk5r81PM</span><br><span class="line">  Program: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line">  Balance: 0</span><br><span class="line">  Decimals: 9</span><br><span class="line">  Mint: H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98</span><br><span class="line">  Owner: CxiaNAtETLteM373cgSCsHDTRCjzpX6jWootea8yKJ8T</span><br><span class="line">  State: Initialized</span><br><span class="line">  Delegation: (not set)</span><br><span class="line">  Close authority: (not set)</span><br></pre></td></tr></table></figure>
+
+<p>为什么使用原有的账户没成功，但是使用spl-token create-account H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 </p>
+<p>因为新生成的地址，转账或者空投后就变成solana的钱包地址了，不能成为token account了。 <strong>Token 账户只能存指定的 SPL Token，不能存 SOL</strong>，所以 SOL 钱包和 Token 账户是 <strong>两种不同的账户</strong>。</p>
+<p>在 Solana 生态系统中，<strong>钱包账户</strong>（Wallet Account）通常指的是 <strong>系统账户（System Account）</strong>，即 <strong>一个持有 SOL 并能进行交易的账户</strong>系统账户（System Account &#x2F; Wallet Account）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 </span><br></pre></td></tr></table></figure>
+
+<p>这样直接创建的是ATA账户</p>
+<table>
+<thead>
+<tr>
+<th>账户类型</th>
+<th>作用</th>
+<th>主要用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>System Account（系统账户&#x2F;钱包账户）</strong></td>
+<td>持有 SOL</td>
+<td>支付 Gas 费、签名交易、创建 Token 账户</td>
+</tr>
+<tr>
+<td><strong>SPL Token Account（Token 账户）</strong></td>
+<td>存储 SPL 代币（如 USDC, RAY, 自定义 Token）</td>
+<td>存储和转移 SPL Token</td>
+</tr>
+<tr>
+<td><strong>Program Account（程序账户）</strong></td>
+<td>存储智能合约</td>
+<td>Solana 智能合约（类似 EVM 合约）</td>
+</tr>
+<tr>
+<td><strong>PDA（Program Derived Address）</strong></td>
+<td>由智能合约派生的地址</td>
+<td>DApp 账户，如 DEX、游戏存储等</td>
+</tr>
+</tbody></table>
+<h3 id="给账户mint"><a href="#给账户mint" class="headerlink" title="给账户mint"></a>给账户mint</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 100</span><br></pre></td></tr></table></figure>
+
+<p>直接给程序的关联账户（ATA账户）mint100</p>
+<p>给别的账户mint</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 100 qqM36aXVHFWd9Gke9oA9NEdxqE2DjPDmQbGgfRd6EAc</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint H2JdwGdc45rwhW6gPr2ssceK7JtCAb8MEHJFW4MjEt98 100  --help</span><br></pre></td></tr></table></figure>
+
+<h1 id="SPLtoken实现"><a href="#SPLtoken实现" class="headerlink" title="SPLtoken实现"></a>SPLtoken实现</h1><p>solana项目结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">processor.rs:核心业务逻辑，处理指令</span><br><span class="line">state.rs：定义账户的状态和扩展字段</span><br><span class="line">instruction.rs:定义各种代币操作的指令</span><br><span class="line">error.rs:定义了程序可能抛出的错误</span><br><span class="line">lib.rs:程序入口点，汇总各个模块</span><br></pre></td></tr></table></figure>
+
+<p>步骤token交互合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">创建mint账户</span><br><span class="line">创建ATA后mint代币</span><br></pre></td></tr></table></figure>
+
+<p>给项目加上各个rs结构。加依赖包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[dependencies]</span><br><span class="line">solana-program = &quot;2.1.13&quot;</span><br><span class="line">spl-associated-token-account = &quot;6.0.0&quot;</span><br><span class="line">spl-token = &quot;7.0.0&quot;</span><br><span class="line"></span><br><span class="line">[lib]</span><br><span class="line">crate-type = [&quot;cdylib&quot;, &quot;lib&quot;]</span><br></pre></td></tr></table></figure>
+
+<p><code>crate-type = [&quot;cdylib&quot;, &quot;lib&quot;]</code> 让 <strong>同一个 Rust crate 既可以作为 Rust 库（lib），也可以作为 C 动态库（cdylib）</strong>。</p>
+<p><strong>支持 FFI 绑定</strong>（例如给 Python、C 或 Java 使用）</p>
+<ul>
+<li>作为 <code>cdylib</code>，可以生成 <code>.so/.dll/.dylib</code>，供 <strong>C 语言、Python、Java 通过 FFI 调用</strong>。</li>
+</ul>
+<p>solana合约依赖很多包，忽略入口文件</p>
+<p>在 <code>Cargo.toml</code> 中，<code>[features]</code> 部分用于定义 <strong>可选功能（features）</strong>，<code>no-entrypoint = []</code> 表示一个名为 <strong>“no-entrypoint”</strong> 的 feature，但它 <strong>没有依赖任何其他 feature</strong>。</p>
+<p>在 Solana 程序中，<code>no-entrypoint</code> **用于控制是否包含 <code>entrypoint.rs</code>**，通常用于区分 <strong>on-chain 部署</strong> 和 <strong>off-chain 调试</strong>。</p>
+<p>使用 <code>cargo build --features no-entrypoint</code> 可以<strong>排除 <code>entrypoint.rs</code>，让代码更灵活</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[package]</span><br><span class="line">name = &quot;token&quot;</span><br><span class="line">version = &quot;0.1.0&quot;</span><br><span class="line">edition = &quot;2021&quot;</span><br><span class="line"></span><br><span class="line">[dependencies]</span><br><span class="line">borsh = &quot;1.5.5&quot;</span><br><span class="line">solana-program = &quot;2.1.13&quot;</span><br><span class="line">spl-associated-token-account = &#123;version = &quot;6.0.0&quot;, features = [&quot;no-entrypoint&quot;]&#125;</span><br><span class="line">spl-token = &#123;version = &quot;7.0.0&quot;, features = [&quot;no-entrypoint&quot;]&#125;</span><br><span class="line"></span><br><span class="line">[lib]</span><br><span class="line">crate-type = [&quot;cdylib&quot;, &quot;lib&quot;]</span><br><span class="line"></span><br><span class="line">[features]</span><br><span class="line">no-entrypoint = []</span><br></pre></td></tr></table></figure>
+
+<p>继续</p>
+<ul>
+<li><code>#[derive(BorshSerialize, BorshDeserialize)]</code> <strong>让 Rust 结构体可以自动序列化&#x2F;反序列化为 Solana&#x2F;NEAR 兼容的二进制格式</strong>。</li>
+<li><strong>Solana 智能合约</strong> 通常使用 BORSH 处理 <strong>账户数据存储</strong> 和 <strong>智能合约调用参数</strong>。</li>
+<li><code>try_to_vec()</code> <strong>序列化</strong>，<code>try_from_slice()</code> <strong>反序列化</strong>。</li>
+</ul>
+<hr>
+<p>🚀 <strong>在 Solana 生态中，如果你要存储和读取账户数据，必须使用 <code>borsh</code></strong></p>
+<p><code>msg!</code> 是 Solana 里专门用于 <strong>打印日志</strong> 的宏，相当于 Rust 标准库的 <code>println!</code>，但适用于 Solana 智能合约环境。</p>
+<p>日志可以在 <code>solana logs</code> 命令中查看</p>
+<ol>
+<li><strong>不能在本地 Rust 代码里运行</strong>，因为它是 Solana 运行时的一部分。</li>
+<li><strong>日志输出性能开销较大</strong>，不适合频繁调用，否则会增加合约执行成本。</li>
+<li><strong>不能格式化参数</strong>，不像 <code>println!</code> 那样支持 <code>format!</code>。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">invoke(</span><br><span class="line">    &amp;system_instruction::create_account(</span><br><span class="line">        from_pubkey,  // 资金来源（支付新账户租金）</span><br><span class="line">        to_pubkey,    // 新创建的账户</span><br><span class="line">        lamports,     // 要转入的新账户的 SOL 余额（支付租金）</span><br><span class="line">        space,        // 新账户的数据大小（字节）</span><br><span class="line">        owner         // 账户的所有者（控制它的程序）</span><br><span class="line">    ), </span><br><span class="line">    account_infos,   // 交易涉及的账户信息</span><br><span class="line">)?;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>from_pubkey</code></td>
+<td>资金来源（通常是创建账户的用户）</td>
+</tr>
+<tr>
+<td><code>to_pubkey</code></td>
+<td>新创建的账户的公钥</td>
+</tr>
+<tr>
+<td><code>lamports</code></td>
+<td>创建账户时转入的 SOL（支付租金）</td>
+</tr>
+<tr>
+<td><code>space</code></td>
+<td>该账户需要的存储空间大小（字节）</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td>该账户的所有者（即控制这个账户的智能合约）</td>
+</tr>
+</tbody></table>
+<h2 id="创建账户和初始化账户不同的invoke情况"><a href="#创建账户和初始化账户不同的invoke情况" class="headerlink" title="创建账户和初始化账户不同的invoke情况"></a>创建账户和初始化账户不同的invoke情况</h2><p>简单来说，**<code>invoke</code> 与 <code>invoke_signed</code> 的区别在于后者允许程序“代签”一些账户（通常是 PDA），而前者则直接使用传入账户已有的签名**。</p>
+<p>在你的代码中：</p>
+<ol>
+<li><strong>创建账户阶段（<code>create_account</code> 指令）</strong><ul>
+<li>这里只需要付款账户（payer）提供签名，新账户（mint_account）的私钥通常由调用方拥有或不需要签名。</li>
+<li>因此使用 <code>invoke</code> 即可，因为系统程序只要求付款账户签名，而新账户还没初始化，不需要它“签名”这条指令。</li>
+</ul>
+</li>
+<li><strong>初始化 Mint 阶段（<code>initialize_mint</code> 指令）</strong><ul>
+<li>初始化一个 Mint 账户时，SPL Token 程序要求该账户作为 Mint 账户“签名”这条指令，以证明它被正确初始化。</li>
+<li>如果新创建的 mint_account 是由一个 PDA（Program Derived Address）生成的（或者程序本身没有这个账户的私钥），那么它无法以常规方式签名。这时，你需要使用 <code>invoke_signed</code> 来“模拟”该账户的签名，方法是传入正确的种子（seeds）和 bump 值，以证明你有权代表该账户签名。</li>
+<li>即使在你的例子中种子数组是空的（可能 mint_account 不是 PDA，或者只是为了满足接口要求），你仍然用 <code>invoke_signed</code> 告诉运行时“这里需要一个‘代签’调用”，这种调用方式可以允许程序为某个账户提供签名权限（通常用于 PDA）。</li>
+</ul>
+</li>
+</ol>
+<p>总结：</p>
+<ul>
+<li><strong>第一个 <code>invoke</code> 调用（创建账户）</strong>：只需要付款账户签名，新账户还不需要签名，所以直接调用 <code>invoke</code> 就行。</li>
+<li><strong>第二个 <code>invoke_signed</code> 调用（初始化 Mint）</strong>：需要 mint_account 作为签名方，但程序通常没有它的私钥（例如 mint_account 可能是 PDA），因此使用 <code>invoke_signed</code> 来提供“伪签名”（使用种子），满足 SPL Token 程序的要求。</li>
+</ul>
+<p>这种做法确保在初始化 Mint 账户时，运行时能够验证并允许 mint_account 的“签名”，从而正确初始化该账户。</p>
+<h2 id="运行验证"><a href="#运行验证" class="headerlink" title="运行验证"></a>运行验证</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator</span><br><span class="line">solana logs</span><br></pre></td></tr></table></figure>
+
+<p>调用合约先部署合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cargo build-bpf(我使用</span><br><span class="line">cargo build-sbf</span><br><span class="line">才能成功)</span><br><span class="line">solana program deploy </span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# solana program deploy /home/class/solanapractical/solana1/target/sbf-solana-solana/release/token.so</span><br><span class="line">Program Id: 8tKktQFVgGKkjhxmqo3E8CMvFSjhEmE3KwFkkjqYPVv8</span><br><span class="line"></span><br><span class="line">Signature: 4g9mi4cg9N5XbhZnQm3yDwpBrhL7opCtpANkExGuBiGT1QkdH9Cuikf4y3nrtYxoqGSZyovhUZkZUJ5NSwyG3ejF</span><br></pre></td></tr></table></figure>
+
+<p>运行test</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Transaction executed in slot 96107:</span><br><span class="line">  Signature: 3NWo1iVWQSARR8TKMVyERCgTNDt3kczzJCS8sNnq6zLAFELbBjLMf9NLtaGSJw91a2r638AVh3EHp2NaWhXx6r43</span><br><span class="line">  Status: Ok</span><br><span class="line">  Log Messages:</span><br><span class="line">    Program 8tKktQFVgGKkjhxmqo3E8CMvFSjhEmE3KwFkkjqYPVv8 invoke [1]</span><br><span class="line">    Program log: Creating mint account...</span><br><span class="line">    Program log: Mint account is EyMbjz6bD4Hv1ehitkC8oMyrfN3Nf13PpJtGqjSMMpQo</span><br><span class="line">    Program 11111111111111111111111111111111 invoke [2]</span><br><span class="line">    Program 11111111111111111111111111111111 success</span><br><span class="line">    Program log: initialize_mint account...</span><br><span class="line">    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]</span><br><span class="line">    Program log: Instruction: InitializeMint</span><br><span class="line">    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 2920 of 182259 compute units</span><br><span class="line">    Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success</span><br><span class="line">    Program log: SPL Token Mint  create success</span><br><span class="line">    Program 8tKktQFVgGKkjhxmqo3E8CMvFSjhEmE3KwFkkjqYPVv8 consumed 20954 of 200000 compute units</span><br><span class="line">    Program 8tKktQFVgGKkjhxmqo3E8CMvFSjhEmE3KwFkkjqYPVv8 success</span><br></pre></td></tr></table></figure>
+
+<p>去浏览器看是否完全成功</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>sysvar::{Sysvar,rent::Rent}</p>
+<p>use spl_token::state::Mint;</p>
+<p>invoke中传入账户顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">invoke(</span><br><span class="line">    &amp;system_instruction::create_account(</span><br><span class="line">        payer.key, </span><br><span class="line">        mint_account.key, </span><br><span class="line">        (Rent::get()?).minimum_balance(Mint::LEN), </span><br><span class="line">        Mint::LEN as u64, </span><br><span class="line">        token_program.key,</span><br><span class="line">    ), </span><br><span class="line">    &amp;[</span><br><span class="line">        //换了顺序</span><br><span class="line">        payer.clone(),</span><br><span class="line">        mint_account.clone(),</span><br><span class="line">    </span><br><span class="line">        system_program.clone(),</span><br><span class="line">        token_program.clone(),</span><br><span class="line">    ],</span><br><span class="line">)?; </span><br></pre></td></tr></table></figure>
+
+<p>每次重新部署后都要把新的合约地址填上</p>
+<h3 id="accountinfo"><a href="#accountinfo" class="headerlink" title="accountinfo"></a>accountinfo</h3><p>需要的账户一个个看指令咯，要不就熟悉</p>
+<h1 id="社交项目"><a href="#社交项目" class="headerlink" title="社交项目"></a>社交项目</h1><p>功能实现</p>
+<p>关注，取消关注，查询关注列表，发帖，查询发帖</p>
+<p>cli客户端访问合约</p>
+<p>friend是后端写合约</p>
+<h1 id="Solana协议和标准库"><a href="#Solana协议和标准库" class="headerlink" title="Solana协议和标准库"></a>Solana协议和标准库</h1><p>协议是在公链或者某个dapp在初始化的时候有一套自己的规则，是已经既定好的标准库，给公链和开发者通过标准的模式进行接口和SDK的对接</p>
+<p>中本聪协议，比特币创世发行的时候得有一套基础的规则，在主网上线后不能进行修改</p>
+<p>基本的标准库，以太坊的ERC-20,ERC-721,-1599.</p>
+<p>SPL-token，spl-associated-token,memo,name service,swap,staking,govermance,flash loans,spl-token-2022代币冻结和锁定</p>
+<h1 id="DEFI项目拆解"><a href="#DEFI项目拆解" class="headerlink" title="DEFI项目拆解"></a>DEFI项目拆解</h1><p>基础概念，raydium代码解析</p>
+<h1 id="anchor入门"><a href="#anchor入门" class="headerlink" title="anchor入门"></a>anchor入门</h1><p>创建anchor项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor init &lt;new-workspace-name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>app:默认为空，放前端代码</p>
+<p>programs：合约代码。默认有一个项目同名文件夹，内有lib.rs文件</p>
+<p>tests：测试，默认有一个项目同名测试</p>
+<p>migration是：合约的部署，迁移脚本</p>
+<p>anchor.toml:<br>    programs.localnet本地合约地址</p>
+<p>​	registry合约仓库</p>
+<p>​	provider solana网络</p>
+<p>​	scripts 脚本</p>
+<p>​	使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor run &lt;script_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>默认是test脚本</p>
+<h2 id="program代码"><a href="#program代码" class="headerlink" title="program代码"></a>program代码</h2><p><strong>声明合约地址</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare_id!(&quot;4xRbvTamCW228GL1ScL99LZFzpJfkQqEEVf6QviWmSFK&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>和anchor.toml里的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[programs.localnet]</span><br><span class="line">counter = &quot;4xRbvTamCW228GL1ScL99LZFzpJfkQqEEVf6QviWmSFK&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>声明合约需要的账户</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct Initialize &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pub struct Initialize &lt;&#x27;info&gt;&#123;</span><br><span class="line">    pub payer: Signer&lt;&#x27;info&gt;,</span><br><span class="line">&#125;交易需要一个签名者：谁调用了这个指令</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义合约</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct Initialize &lt;&#x27;info&gt;&#123;</span><br><span class="line">    #[account(mut)]</span><br><span class="line">    pub payer: Signer&lt;&#x27;info&gt;,</span><br><span class="line">    #[</span><br><span class="line">        account(</span><br><span class="line">            init,</span><br><span class="line">            payer = payer,</span><br><span class="line">            space = 8 + 8,</span><br><span class="line">        )</span><br><span class="line">    ]</span><br><span class="line">    pub counter: Account&lt;&#x27;info,Counter&gt;,</span><br><span class="line">    pub system_program: Program&lt;&#x27;info, System&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>里的space中，先8+是 <strong>Anchor 自动分配的 8 字节账户头部</strong>（用于存储账户的 <code>discriminator</code>）。至少需要8个字节，由因为Counter需要存储一个u64的数，需要8个字节</p>
+<p><strong>编译</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor build</span><br></pre></td></tr></table></figure>
+
+<p><strong>部署</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor deploy</span><br></pre></td></tr></table></figure>
+
+<p>得到target里的.so可执行文件在deploy，其中idl描述合约的指令，利用idl可以进行tests的编写</p>
+<p><strong>在tests中</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const program = anchor.workspace.Counter as Program&lt;Counter&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>拿到合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const counterKeypair = new anchor.web3.Keypair();</span><br></pre></td></tr></table></figure>
+
+<p>创建一个新地址，传过来的地址，anchor程序的框架都会帮我们初始化好，依据lib.rs里已经写好的程序</p>
+<p><strong>运行</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor run test</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="pda的概念"><a href="#pda的概念" class="headerlink" title="pda的概念"></a>pda的概念</h2><p>pda：程序派生账户</p>
+<p>pda的使用场景：每个人有一个不同的计时器</p>
+<p>1.web2中常用，使用hashmap&lt;pubkey, 0&gt;;</p>
+<p>缺点：账户有10mb大小的限制</p>
+<p>dapp当查询某一个人的计时器需要拉取全部数据</p>
+<p>2.独立账户</p>
+<p>需要记录钱包和账户的映射关系</p>
+<p>3.pda</p>
+<p>不需要记录钱包和账户的映射关系，每个账户独立且不会冲突</p>
+<p>CPI</p>
+<h2 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h2><h3 id="1-account-data-too-small"><a href="#1-account-data-too-small" class="headerlink" title="1.account data too small"></a>1.account data too small</h3><p>solana部署中会按照两倍的容量预留，程序扩大的话空间可能会不够大，可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana program extend &lt;合约地址&gt; &lt;扩充字节数&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Error-unknown-signer"><a href="#2-Error-unknown-signer" class="headerlink" title="2.Error: unknown signer:"></a>2.Error: unknown signer:</h3><p>E8sCqmMYGqwF3KsP9UNFwMmexMBTHhju6Ha3yTXQ9FBP</p>
+<p>这种情况一般都是因为存入的账号不够</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">export async function craeteLike( </span><br><span class="line">    wallet:anchor.Wallet,</span><br><span class="line">    tweetPda: anchor.web3.PublicKey,</span><br><span class="line">) &#123;</span><br><span class="line">    return await program.methods.creatLike().accounts(&#123;</span><br><span class="line">        tweet:tweetPda,</span><br><span class="line">    &#125;).signers([wallet.payer])</span><br><span class="line">    .rpc();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>里的accounts不够</p>
+<h3 id="3-accountnotdeserialize"><a href="#3-accountnotdeserialize" class="headerlink" title="3.accountnotdeserialize"></a>3.accountnotdeserialize</h3><p>space里不要忘记加8字节</p>
+<h2 id="4-tokenmetadata合约不是可执行的账户"><a href="#4-tokenmetadata合约不是可执行的账户" class="headerlink" title="4.tokenmetadata合约不是可执行的账户"></a>4.tokenmetadata合约不是可执行的账户</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: AnchorError caused by account: token_metadata_program. Error Code: InvalidProgramExecutable. Error Number: 3009. Error Message: Program account is not executable.</span><br></pre></td></tr></table></figure>
+
+<p>因为tokenmetadata不是官方部署的，在开发环境是没有合约，在测试网络上</p>
+<p>可以把测试网络的合约复制到本地网络</p>
+<h2 id="账户的概念"><a href="#账户的概念" class="headerlink" title="账户的概念"></a>账户的概念</h2><p>solana中一切的数据都可以被称为账户</p>
+<p>accountinfo:data,executable,lamports,owner</p>
+<p>原生合约</p>
+<p>1：BPF Loader(自定义合约)：合约数据，owner都会设置成BPF Loader。对于自定义合约来说，data目标执行的文件和代码，executable is true。存储数据可以创建账户，来存储合约需要的数据，该账户的owner指向自定义合约。</p>
+<p>2.：system program系统合约:钱包账户，owner设置成系统合约</p>
+<h1 id="小的anchor项目Social项目"><a href="#小的anchor项目Social项目" class="headerlink" title="小的anchor项目Social项目"></a>小的anchor项目Social项目</h1><p>类似于推特的功能，可以注册用户，发布帖子，给帖子点赞，spl-token，点赞的时候作者会收到一个token</p>
+<p>profile:”profile” + payer </p>
+<p>content: display_name:String  , tweet_count:u32</p>
+<p>tweet:”tweet” + payer + count  </p>
+<p>content: body:string , like_count:u32</p>
+<p>like : tweet + payer +tweet</p>
+<p>content: payer,  tweet</p>
+<p>给文件分类</p>
+<p>前端app文件要加入anchor.toml里的[script]里运行</p>
+<p>点赞之后mint一些spl token 给原来的作者</p>
+<h2 id="spl-token"><a href="#spl-token" class="headerlink" title="spl token"></a>spl token</h2><p>在以太坊，本身的合约是有状态的，所以可以在本身的合约中存储信息，包括token的所有人以及token每人的余额，所以要编写的就是一个token的合约。其中需要按照各个区块链，ICRC1，ICRC2的标准来提供标准化的接口，需要实现约定好的接口。mint,approve,transfer</p>
+<p>在solana的合约中是不能存储状态的，存储状态需要借助一个账户的概念。我们需要提供的是一个token的账户</p>
+<p>mint account：decimals， mint_authority</p>
+<p>token account: mint, authority&#x2F;owner a(j记录token的余额)</p>
+<p>solana中SPL TOKEN的账户</p>
+<p>authority: cpi</p>
+<p>1.token program</p>
+<p>是owner</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Token Account: </span><br><span class="line">mint,authority/owner</span><br><span class="line"></span><br><span class="line">Mint Account:</span><br><span class="line">decimals,mint_authority</span><br></pre></td></tr></table></figure>
+
+<p>2.TokenMetadata Program</p>
+<p>是owner:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Metadata Account:</span><br><span class="line">name,symbool,url,mint_authority --</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>system program</strong></p>
+<p>是wallet account的owner</p>
+<h2 id="实际Spl步骤"><a href="#实际Spl步骤" class="headerlink" title="实际Spl步骤"></a>实际Spl步骤</h2><p>先创建mint account,再把owner转给token program。</p>
+<p>使用pda创建一个metadata account，同时把owner转给tokenmetadata program。</p>
+<p>拥有mint account之后可以进行mint 操作，调用的是token program，同时为其提供一个token account，其owner也是token program。同时token account也是根据mint account和wallet account生成的pda，所以其对于账户a的某个代币账户来说是唯一的</p>
+<p><strong>生成spl-token</strong></p>
+<p>1.通过命令行</p>
+<p>2.rust原生库</p>
+<p>3.anchor</p>
+<p>MINT需要引入anchor-spl的库，在build的时候需要build出spl的build</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">idl-build = [&quot;anchor-lang/idl-build&quot;,&quot;anchor-spl/idl-build&quot;]</span><br><span class="line">这样才能编译出spl的代码</span><br><span class="line">[dependencies]</span><br><span class="line">anchor-lang = &quot;0.30.1&quot;</span><br><span class="line">anchor-spl = &#123;version = &quot;0.30.1&quot;,features = [&quot;metadata&quot;]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>anchor-spl 0.31.1</p>
+<p>metadata的seeds必须是metadata。。引入还没搞，奇怪，上面没有</p>
+<p>创建token账户的方式叫关联账户</p>
+<p>看token</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token accounts</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="质押"><a href="#质押" class="headerlink" title="质押"></a>质押</h1><p><strong>1.网络级别的质押（Staking for netwrok security）</strong></p>
+<p>solana官方开发的合约</p>
+<p><strong>(1)Native Staking on solana:</strong></p>
+<p>原生的合约已经部署在了solana的网络中</p>
+<p>stake account, validator</p>
+<p><strong>(2)Liquid Staking:Stake Pools</strong></p>
+<p>Validator list account:验证节点列表</p>
+<p>Stake Pool: </p>
+<p>Mint Account (liquidity token 是质押的凭证)</p>
+<p>Reserve stake account: 用于持有未授权的质押</p>
+<p><strong>2.应用级别的质押（Application-Level Staking）</strong></p>
+<h3 id="质押收益模型"><a href="#质押收益模型" class="headerlink" title="质押收益模型"></a><strong>质押收益模型</strong></h3><p>这两个公式用于计算 <strong>Solana 质押（Staking）收益率</strong>，其中涉及通胀、验证者在线率、验证者费用以及已质押的SOL比例。下面是详细解释：</p>
+<p><strong>公式1：Staking Yield（质押收益率）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Staking Yield=Inflation×Validator Uptime×(1−Validator Fee)%SOL Staked\text&#123;Staking Yield&#125; = \frac&#123;\text&#123;Inflation&#125; \times \text&#123;Validator Uptime&#125; \times (1 - \text&#123;Validator Fee&#125;)&#125;&#123;\% \text&#123;SOL Staked&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该公式计算 <strong>质押SOL的年化收益率</strong>，其中：</p>
+<ul>
+<li><strong>Staking Yield（质押收益率）</strong>：指持有者质押SOL后，每年能获得的收益率（通常以百分比表示）。</li>
+<li><strong>Inflation（通胀率）</strong>：Solana 网络每年的 <strong>SOL 增发率</strong>，这决定了可分配给验证者和质押者的奖励总量。</li>
+<li><strong>Validator Uptime（验证者在线率）</strong>：验证者（Validator）的 <strong>运行时间占比</strong>，如果验证者经常掉线，其质押者的奖励也会减少。</li>
+<li><strong>Validator Fee（验证者费用）</strong>：验证者会收取一部分奖励作为 <strong>运营费用</strong>，这部分不会分配给质押者。例如，如果Fee&#x3D;5%，则只有 95% 的奖励会分配给委托者（Staker）。</li>
+<li><strong>% SOL Staked（已质押的SOL比例）</strong>：整个Solana网络中被质押的SOL占总供应量的比例。如果更多SOL被质押，每个质押者获得的份额就会减少。</li>
+</ul>
+<p>该公式表明，<strong>SOL质押收益率受以下因素影响</strong>：</p>
+<ol>
+<li><strong>通胀率（Inflation）越高</strong>，收益率越高。</li>
+<li><strong>验证者在线率（Validator Uptime）越高</strong>，收益率越高。</li>
+<li><strong>验证者费用（Validator Fee）越低</strong>，收益率越高。</li>
+<li><strong>网络上质押的SOL比例（% SOL Staked）越高</strong>，收益率越低（因为奖励要分给更多的质押者）。</li>
+</ol>
+<hr>
+<p><strong>公式2：% SOL Staked（已质押的SOL比例）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%SOL Staked=Total SOL StakedTotal Current Supply\% \text&#123;SOL Staked&#125; = \frac&#123;\text&#123;Total SOL Staked&#125;&#125;&#123;\text&#123;Total Current Supply&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该公式计算网络中<strong>当前有多少SOL被质押</strong>，其中：</p>
+<ul>
+<li><strong>% SOL Staked（已质押SOL比例）</strong>：网络中被质押的SOL占 <strong>总供应量</strong> 的比例（以百分比表示）。</li>
+<li><strong>Total SOL Staked（已质押的SOL总量）</strong>：所有用户质押到验证者的SOL总数。</li>
+<li><strong>Total Current Supply（当前SOL总供应量）</strong>：Solana网络的 <strong>当前总供应量</strong>，包括未质押和已质押的SOL。</li>
+</ul>
+<p>这个公式反映了<strong>网络中SOL的质押率</strong>，质押率高会影响质押收益（<strong>更多人分享奖励，单个质押者收益降低</strong>）。</p>
+<hr>
+<p><strong>总结</strong></p>
+<ol>
+<li><strong>Staking Yield 计算的是每年能赚多少</strong>，它由通胀、验证者表现、费用和网络中已质押的比例决定。</li>
+<li><strong>% SOL Staked 计算的是SOL网络中的质押比例</strong>，影响了奖励的分配。</li>
+<li><strong>当更多人质押SOL时，每个人的收益率会降低（稀释效应）</strong>。</li>
+<li><strong>验证者的在线率和费用也会影响你的实际收益</strong>。</li>
+</ol>
+<p>如果你想在 Solana 质押中获得<strong>更高收益</strong>，可以：</p>
+<ul>
+<li><strong>选择高在线率、低费用的验证者</strong>。</li>
+<li><strong>在SOL质押率较低时进入</strong>，以获得更高收益。</li>
+</ul>
+<p><strong>APY（年利率）</strong></p>
+<p><strong>staking yield(质押收益率，通常以百分比的形式表示) &#x3D; inflation（通胀率） * validator Uptime（验证者在线率） * (1 - validator Fee（验证者费用）)&#x2F;(% sol staked),（已质押的SOL比例）</strong></p>
+<p><strong>% sol staked（已质押SOL比例） &#x3D; total sol staked（已质押的SOL总量） &#x2F; total current supply（当前SOL总供应量）</strong></p>
+<h2 id="Staking-for-netwrok-security"><a href="#Staking-for-netwrok-security" class="headerlink" title="Staking for netwrok security"></a>Staking for netwrok security</h2><p>使用流动性质押的方式</p>
+<h3 id="1-Native-Staking-on-solana"><a href="#1-Native-Staking-on-solana" class="headerlink" title="(1)Native Staking on solana:"></a><strong>(1)Native Staking on solana:</strong></h3><p>原生的合约</p>
+<p>角色：<br>User Wallet: 用户通过质押账户进行质押</p>
+<p>Validator： validator 通过vote account接收质押</p>
+<p><strong>步骤</strong></p>
+<p>user wallet account -&gt;</p>
+<p>(owner staking program)stake account</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stake authority address</span><br><span class="line">withdraw authority address</span><br><span class="line">lockup authority address</span><br><span class="line">delegated vote address</span><br></pre></td></tr></table></figure>
+
+<p>-&gt;vote account</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">validator identity</span><br><span class="line">vote authority</span><br><span class="line">withdraw authority</span><br><span class="line">owner</span><br></pre></td></tr></table></figure>
+
+<p>把sol转移到stake account,然后把质押账户质押给一个validator，validator通过vote account接收质押</p>
+<p>一是成为validator节点获取收益</p>
+<p>二是作为用户侧把sol进行质押</p>
+<h4 id="1-使用钱包"><a href="#1-使用钱包" class="headerlink" title="1.使用钱包"></a>1.使用钱包</h4><p>phantom 和 solflare都原生支持质押</p>
+<h4 id="2-使用solana-cli-通过命令行质押"><a href="#2-使用solana-cli-通过命令行质押" class="headerlink" title="2.使用solana cli 通过命令行质押"></a>2.使用solana cli 通过命令行质押</h4><p><strong>1.创建质押账户</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new --no-passphrase -s -o stake-account.json </span><br><span class="line"></span><br><span class="line">solana create-stake-account stake-account.json 100 </span><br><span class="line">    # --url localhost</span><br><span class="line">    # --stake-authority wallet.json --withdraw-authority wallet.json \</span><br><span class="line">    # --from wallet.json \</span><br><span class="line">    # --fee-payer wallet.json \</span><br><span class="line"></span><br><span class="line">solana stake-account stake-account.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>--stake-authority</code>: 有委托质押、拆分、合并质押账户权限的key pair</li>
+<li><code>--withdraw-authority</code>: 有提现权限的key pair</li>
+</ul>
+<p><strong>2.进行委托（delegate）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Vote Account </span><br><span class="line">solana validators -u localhost</span><br><span class="line"></span><br><span class="line">solana delegate-stake stake-account.json &lt;VOTE_ACCOUNT&gt;  </span><br><span class="line">    # --stake-authority wallet.json \ </span><br><span class="line">    # --fee-payer wallet.json \</span><br><span class="line">    # --url localhost</span><br><span class="line">    # --with-memo &quot;Delegating stake test.&quot;</span><br><span class="line"></span><br><span class="line">solana stake-account stake-account.json</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3.取消质押</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">solana deactivate-stake stake-account.json</span><br><span class="line">    # --stake-authority wallet.json \</span><br><span class="line">    # --fee-payer wallet.json \</span><br><span class="line">    # --url localhost \</span><br><span class="line"></span><br><span class="line">solana stake-account stake-account.json</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>4.提现（withdraw）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">solana withdraw-stake stake-account.json &lt;DESTINATION&gt; &lt;AMOUNT&gt;</span><br><span class="line">    # --withdraw-authority wallet.json  \</span><br><span class="line">    # --fee-payer wallet.json \</span><br><span class="line">    # --url localhost \</span><br><span class="line"></span><br><span class="line"># 全部提现后stake account即被销毁</span><br><span class="line">solana stake-account stake-account.json</span><br></pre></td></tr></table></figure>
+
+<h4 id="实际"><a href="#实际" class="headerlink" title="实际"></a>实际</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new --no-passphrase  -s -o ~/account/c1.json</span><br></pre></td></tr></table></figure>
+
+<p>没有密码，使用助记词，outfile, 地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> cat /root/account/c1.json</span><br><span class="line">[113,197,126,28,126,137,241,219,18,32,156,28,98,212,19,223,42,212,72,61,243,167,100,114,234,68,225,136,74,63,34,216,245,119,230,181,242,128,182,165,176,194,154,131,43,217,185,81,117,98,88,173,53,225,214,121,205,128,197,190,110,0,126,216]#     </span><br></pre></td></tr></table></figure>
+
+<p>公钥和私钥的数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">solana address -k ~/account/c1.json</span><br><span class="line">HXCvn5SjkYne2vtdkEFVqgFqGn8oqwpuCtPpQnqU6a9m</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建质押账户</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> solana create-stake-account [FLAGS] [OPTIONS] &lt;STAKE_ACCOUNT_KEYPAIR&gt; &lt;AMOUNT&gt;</span><br><span class="line"></span><br><span class="line">solana create-stake-account ~/account/c1.json 100 (--url localhost)</span><br></pre></td></tr></table></figure>
+
+<p>创作的stake account 的stake authority 和 withdraw authority的owner都是当前用户，设置的账户&#x2F;root&#x2F;.config&#x2F;solana&#x2F;id.json</p>
+<p><strong>查看质押账户</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana stake-account ~/account/c1.json</span><br></pre></td></tr></table></figure>
+
+<p>显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Balance: 100 SOL</span><br><span class="line">Rent Exempt Reserve: 0.00228288 SOL</span><br><span class="line">Stake account is undelegated（未委托、质押）</span><br><span class="line">Stake Authority: DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br><span class="line">Withdraw Authority: DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br></pre></td></tr></table></figure>
+
+<p><strong>把该账户质押给本地vote account</strong></p>
+<p>查看本地validators</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana validators -u localhost</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">字段	含义</span><br><span class="line">Identity（身份公钥）	验证者的 身份公钥，即该验证者的唯一标识。</span><br><span class="line">Vote Account（投票账户）	该验证者的 投票账户地址，用于参与共识（PoH 证明历史机制）。</span><br><span class="line">Commission（佣金）	该验证者对委托者的 收益抽成百分比（例如 0% 代表该验证者不收取佣金）。</span><br><span class="line">Last Vote（最后投票）	该验证者最近一次提交的 投票 slot（Solana 的 slot 类似于区块高度）。</span><br><span class="line">Root Slot（根 Slot）	该验证者已确认的 最稳定 slot，比 Last Vote 更稳定（通常指已最终确认的 slot）。</span><br><span class="line">Skip Rate（跳过率）	该验证者 未成功处理 slot 的比率，如果过高，说明其性能较差。</span><br><span class="line">Credits（积分）	该验证者 成功投票的累计奖励积分，积分越高，说明它处理的 slot 越多。</span><br><span class="line">Version（版本）	该验证者运行的 Solana 版本（如 2.1.14），版本越新，通常性能优化更好。</span><br><span class="line">Average Stake-Weighted Skip Rate	以 质押权重 计算的 全网平均跳过率（更精准衡量大验证者的影响）。</span><br><span class="line">Average Unweighted Skip Rate	直接平均所有验证者的 未加权跳过率，不考虑质押权重。</span><br><span class="line">Active Stake	当前所有 活跃验证者 的 总质押量（这里是 999999.99771712 SOL，代表接近 100 万 SOL 质押在本地网络）。</span><br><span class="line"></span><br><span class="line">Stake By Version:</span><br><span class="line">2.1.14  -    1 current validators (100.00%)</span><br><span class="line">2.1.14：运行 Solana 2.1.14 版本的验证者数量及其占比。</span><br><span class="line">1 current validators：表示当前网络上有 1 个验证者。</span><br><span class="line">100.00%：表示 所有验证者都在运行该版本（因为本地测试网络只有一个验证者）。</span><br></pre></td></tr></table></figure>
+
+<p><strong>本地测试网只有一个验证者</strong>（<code>bX9DbMJsWdvcjmm7irhLwZ9kXs5sTGtpNHZSyMwVRB7</code>）（identify）。</p>
+<p>得到vote account <code>3ZBeiPTQuP7aAQJEzoDVbTLiRabYAbVayo6JvRQZc2yu</code></p>
+<p><strong>质押</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">solana delegate-stake [FLAGS] [OPTIONS] &lt;STAKE_ACCOUNT_ADDRESS&gt; &lt;VOTE_ACCOUNT_ADDRESS&gt;</span><br><span class="line"></span><br><span class="line">solana delegate-stake ~/account/c1.json</span><br><span class="line">3ZBeiPTQuP7aAQJEzoDVbTLiRabYAbVayo6JvRQZc2yu</span><br></pre></td></tr></table></figure>
+
+<p>然后质押账户显示delegated</p>
+<p><strong>取消质押</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana deactivate-stake [FLAGS] [OPTIONS] &lt;STAKE_ACCOUNT_ADDRESS&gt;</span><br><span class="line"></span><br><span class="line">solana deactivate-stake ~/account/c1.json</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>提现</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana withdraw-stake [FLAGS] [OPTIONS] &lt;STAKE_ACCOUNT_ADDRESS&gt; &lt;RECIPIENT_ADDRESS&gt; &lt;AMOUNT&gt;</span><br><span class="line"></span><br><span class="line">solana withdraw-stake ~/account/c1.json DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9 100</span><br></pre></td></tr></table></figure>
+
+<p>全部提现后stake account将销毁</p>
+<h4 id="3-Staking-SOL-with-Solana’s-JavaScript-API"><a href="#3-Staking-SOL-with-Solana’s-JavaScript-API" class="headerlink" title="3.Staking SOL with Solana’s JavaScript API"></a>3.Staking SOL with Solana’s JavaScript API</h4><p>可以看下文档</p>
+<p>stake program</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// #1. 创建质押账户</span><br><span class="line">const transaction = StakeProgram.createAccount(&#123;</span><br><span class="line">    fromPubkey: wallet.publicKey,</span><br><span class="line">    stakePubkey: stakeAccount.publicKey,</span><br><span class="line">    authorized: new Authorized(wallet.publicKey, wallet.publicKey),</span><br><span class="line">    lamports: 10 * LAMPORTS_PER_SOL</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// #2. 进行委托</span><br><span class="line">const validatorVoteAccount = new PublicKey(&quot;YOUR_VALIDATOR_VOTE_ACCOUNT&quot;);</span><br><span class="line"></span><br><span class="line">const transaction = StakeProgram.delegate(&#123;</span><br><span class="line">    stakePubkey: stakeAccount.publicKey,</span><br><span class="line">    authorizedPubkey: wallet.publicKey,</span><br><span class="line">    votePubkey: validatorVoteAccount</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="（2）liquid-staking"><a href="#（2）liquid-staking" class="headerlink" title="（2）liquid staking"></a>（2）liquid staking</h2><p>native staking在质押后不能使用sol进行交易和流通了，所以诞生liquid staking。在质押后会获得proxy token(liquid stake pool token),这些token可以用来swap、traded、transferred。</p>
+<p>关于流动性质押，官方提供了官方合约 <code>Stake Pools</code></p>
+<p>Solana Stake Pool Program</p>
+<p>标准质押池，实现了validator分配策略，费用，从池中委托&#x2F;提取资金的指令</p>
+<p>ID：SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://spl.solana.com/stake-pool">Solana Stake Pool Program Documentation</a></p>
+<p>角色：</p>
+<ul>
+<li>Pool Manager：质押池的管理员及相关角色</li>
+<li>User Wallet：用户通过质押账户质押或者直接质押SOL</li>
+<li>Validator List：验证节点列表，validator通过vote account接收质押</li>
+</ul>
+<p><strong>步骤</strong></p>
+<p>user wallet account -&gt;</p>
+<p>(owner staking program)stake account</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stake authority address</span><br><span class="line">withdraw authority address</span><br><span class="line">lockup authority address</span><br><span class="line">delegated vote address</span><br></pre></td></tr></table></figure>
+
+<p>-&gt;Stake Pool (owner: Stake Pool Program, manager: Manager)</p>
+<p>-&gt;vote account</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">validator identity</span><br><span class="line">vote authority</span><br><span class="line">withdraw authority</span><br><span class="line">owner</span><br></pre></td></tr></table></figure>
+
+<h4 id="质押池介绍"><a href="#质押池介绍" class="headerlink" title="质押池介绍"></a>质押池介绍</h4><p><strong>费用（收益）</strong></p>
+<p>SOL Deposit, Stake Deposit, SOL Withdrawal, Stake Withdrawal,</p>
+<p>Epoch(stake reward): 质押池 <strong>在每个 Epoch 结束时</strong> 收取一部分 <strong>质押奖励</strong> 作为费用,按 <strong>总收益的百分比</strong> 收取，而不是按用户存款金额收取</p>
+<p>Referral: 当用户 <strong>通过合作伙伴（如钱包或 DApp）存入 SOL</strong> 时，合作方可能会收到一部分推荐奖励。按 <strong>存入费用的百分比</strong> 计算。</p>
+<p>其中SOL 和 Stake分别是直接质押，和已经有质押账户了交给质押池管理。</p>
+<h4 id="创建质押池"><a href="#创建质押池" class="headerlink" title="创建质押池"></a>创建质押池</h4><p><strong>1.使用命令行</strong>solana CLI</p>
+<p>启动本地环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator \</span><br><span class="line">  --clone-upgradeable-program SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy \</span><br><span class="line">  --clone-upgradeable-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s \</span><br><span class="line">  --url mainnet-beta \</span><br><span class="line">  --slots-per-epoch 32 \</span><br><span class="line">  --quiet --reset </span><br><span class="line"></span><br><span class="line">solana config set --url http://127.0.0.1:8899</span><br><span class="line">solana config set --commitment confirmed</span><br></pre></td></tr></table></figure>
+
+<p><strong>克隆主网的可升级程序</strong></p>
+<ul>
+<li><code>--clone-upgradeable-program SPoo1Ku8WFXoNDMHPsrGSTSG1Y47rzgn41SLUNakuHy</code><br>→ 这是 <strong>Stake Pool 程序</strong>，用于管理流动性质押池。</li>
+<li><code>--clone-upgradeable-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s</code><br>→ 这是 <strong>Metaplex Token Metadata Program</strong>，用于 NFT 和 SPL 代币的元数据管理。</li>
+<li><strong>作用</strong>：这样你的本地测试网络（test-validator）可以运行这些主网上的智能合约，而不用自己部署它们</li>
+</ul>
+<p><strong>使用 <code>--url mainnet-beta</code></strong></p>
+<ul>
+<li>你的 <code>solana-test-validator</code> <strong>从主网克隆这些程序和状态</strong>，使本地环境与主网数据更接近。</li>
+<li><strong>作用</strong>：你的本地环境会有主网类似的数据，适用于模拟测试，例如 <strong>验证流动性质押池逻辑</strong>、<strong>NFT 相关交互</strong>。</li>
+</ul>
+<p><strong>自定义 Epoch 长度 (<code>--slots-per-epoch 32</code>)</strong></p>
+<ul>
+<li>Solana 主网每个 Epoch 约 <strong>432,000 slots（2-3 天）</strong>，而你本地测试设置的 Epoch 只有 <code>32</code> 个 slot。</li>
+<li><strong>作用</strong>：在本地测试环境中，你的 <strong>Epoch 轮换速度更快</strong>，便于测试 <strong>质押奖励计算、提现等待时间</strong> 等。</li>
+</ul>
+<p><strong><code>--quiet --reset</code></strong></p>
+<ul>
+<li><code>--quiet</code>：减少日志输出，保持终端整洁。</li>
+<li><code>--reset</code>：清除之前的测试链状态，重新启动一个干净的本地链。</li>
+</ul>
+<p><strong>Commitment 级别对比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>processed</strong></td>
+<td>交易已被 Leader 处理，但可能未上链（最快，最不安全）。</td>
+</tr>
+<tr>
+<td><strong>confirmed</strong></td>
+<td>交易已确认至少 1 个区块，但可能会被回滚（较快，较安全）。</td>
+</tr>
+<tr>
+<td><strong>finalized</strong></td>
+<td>交易已被大多数验证者确认，基本不可回滚（最慢，最安全）。</td>
+</tr>
+</tbody></table>
+<p><strong>2.创建质押池</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool create-pool \</span><br><span class="line">	  --epoch-fee-denominator 100 \</span><br><span class="line">    --epoch-fee-numerator 2 \</span><br><span class="line">    --max-validators 10 \</span><br><span class="line">    --withdrawal-fee-denominator 1000 \</span><br><span class="line">    --withdrawal-fee-numerator 1 \</span><br><span class="line">    --deposit-fee-numerator 3 \</span><br><span class="line">    --deposit-fee-denominator 1000 \</span><br><span class="line">    --referral-fee 0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>--epoch-fee-denominator</code>: 分母，费用的底数。如果设置成100，所有费用都是百分数</li>
+<li><code>--epoch-fee-numerator</code>: 分子，管理的手续费。如果validator收8%，stake pool收2%，对于100SOL的奖励，用户到手90.16 SOL</li>
+<li><code>--max-validators</code>限制 stake pool 能够委托的最大 validator 数量。</li>
+</ul>
+<p><strong>其他参数</strong></p>
+<ul>
+<li><code>--withdrawal-fee-[denominator|numerator]</code>: 提现的手续费</li>
+<li><code>--deposit-fee-[denominator|numerator]</code>: 质押的手续费</li>
+<li><code>--referral-fee</code>：介绍费</li>
+<li><code>--manager &lt;KEYPAIR&gt;</code>: stake pool的管理员[default: cli config keypair]</li>
+</ul>
+<p><strong>所有的账户地址我们都可以指定，不指定的话会创建新的地址</strong></p>
+<ul>
+<li><code>--pool-keypair &lt;PATH&gt;</code>: stake pool</li>
+<li><code>--validator-list-keypair &lt;PATH&gt;</code>: validator list<strong>存储 validator 列表的 keypair</strong>。</li>
+<li><code>--mint-keypair &lt;PATH&gt;</code>: mint账户使用的keypair [default: new keypair]</li>
+<li><code>--reserve-keypair &lt;PATH&gt;</code>: pool reserve stake account</li>
+</ul>
+<p><strong>实践</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool create-pool [FLAGS] [OPTIONS] --epoch-fee-denominator &lt;DENOMINATOR&gt; --epoch-fee-numerator &lt;NUMERATOR&gt; --max-validators &lt;NUMBER&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool create-pool \</span><br><span class="line">	  --epoch-fee-denominator 100 \</span><br><span class="line">    --epoch-fee-numerator 2 \</span><br><span class="line">    --max-validators 10 \</span><br><span class="line">    --withdrawal-fee-denominator 1000 \</span><br><span class="line">    --withdrawal-fee-numerator 1 \</span><br><span class="line">    --deposit-fee-numerator 3 \</span><br><span class="line">    --deposit-fee-denominator 1000 \</span><br><span class="line">    --referral-fee 0</span><br></pre></td></tr></table></figure>
+
+<p>生成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Creating reserve stake B7tx4tHc1xtzjJCJww7ACwmMeFFqrAz5QSfLG5XXccRw</span><br><span class="line">Creating mint 2THtxSUcyofvJVFATsE3sh8BAT6PDRMtGaHb9aHTsgwr</span><br><span class="line">Creating associated token account 6owg51hRW2XDv9aKgS7VYuRTSMUM6cxt8BqseVUite4k to receive stake pool tokens of mint 2THtxSUcyofvJVFATsE3sh8BAT6PDRMtGaHb9aHTsgwr, owned by DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</span><br><span class="line">Creating pool fee collection account 6owg51hRW2XDv9aKgS7VYuRTSMUM6cxt8BqseVUite4k</span><br><span class="line">Setting up required accounts for stake pool: reserve stake B7tx4tHc1xtzjJCJww7ACwmMeFFqrAz5QSfLG5XXccRw and mint 2THtxSUcyofvJVFATsE3sh8BAT6PDRMtGaHb9aHTsgwr</span><br><span class="line">Signature: 3eXkFgzRgjoBHAej2KxDHpN9crMXkALUpL4puuPPaLkzihbzSUjHYNULXaKqMJL9Y2bGXKqJgdACNhpAqgTmDBzJ</span><br><span class="line">Creating stake pool FEuogfwYkFHJz9pXJXxP6RhTNq4m25U1wxxXWVyT6hCX with validator list HxoXoqx82j6C4LzPmZvjF2bfRB1zSXPC6RQK4bC11TVp</span><br><span class="line">Signature: 2dNuaT2dA3bfRK5xdY6cHg9gCDdq2JTLT81D9xiQywddyLHUs4KN4NmBBxt6aaqgwvcJ3zx5cVLSTSdNefkDWxcr</span><br></pre></td></tr></table></figure>
+
+<p><strong>Reserve Stake Account</strong>：这是 <code>Stake Pool</code> 的<strong>储备账户</strong>，用于存放尚未分配给 <code>validator</code> 的质押 <code>SOL</code>。当用户将 <code>SOL</code> 质押进 <code>Stake Pool</code> 时，<code>SOL</code> 会先进入 <code>Reserve Stake Account</code>，然后由 <code>stake pool</code> 进行管理和分配。</p>
+<p><strong>Associated Token Account（ATA，用户SPL代币账户）：</strong>这个账户是用户 <code>DJEniGyLz8DQCXQUshro9TwqGUWGgQ1PpYgMC9dCoNM9</code> 关联的 SPL 代币账户（ATA），用于接收 <code>Stake Pool</code> 代币。<code>Stake Pool</code> 运行时，用户存入 <code>SOL</code> 后，等值的 <code>Stake Pool</code> 代币（如 <code>stSOL</code>）会存入这个 <code>ATA</code>，用户可以使用该账户管理自己的 <code>stSOL</code> 资产</p>
+<p><strong>Pool Fee Collection Account（手续费收集账户）</strong>：<code>Stake Pool</code> 收取的管理费用（如 <code>epoch fee</code>、<code>withdrawal fee</code>）会存入这个账户。一般由 <code>Stake Pool</code> 管理员（<code>manager</code>）控制，可以定期提取用于运营 <code>Stake Pool</code>。</p>
+<p><strong>Validator List Account（验证者列表账户）：</strong><code>Stake Pool</code> 质押 <code>SOL</code> 时，会分配给多个 <code>Validator</code>，这个账户记录所有 <code>Stake Pool</code> 使用的 <code>Validator</code> 列表。其中包含每个 <code>Validator</code> 的 <code>stake account</code>、质押的 <code>SOL</code> 数量等信息。</p>
+<p><strong>Stake Pool Account（质押池账户）</strong>：Stake Pool<code>的**主账户**，用于管理整个</code>Stake Pool，这个账户会关联 <code>Reserve Stake Account</code>、<code>Mint Account</code>、<code>Validator List Account</code> 等核心账户。当用户存入 <code>SOL</code> 时，这个账户会记录 <code>Stake Pool</code> 代币的铸造情况，并处理 <code>Stake Pool</code> 的整体运作。</p>
+<h4 id="查看质押池状态"><a href="#查看质押池状态" class="headerlink" title="查看质押池状态"></a><strong>查看质押池状态</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool list -v &lt;stake pool address&gt;</span><br><span class="line"></span><br><span class="line">spl-stake-pool list -v FEuogfwYkFHJz9pXJXxP6RhTNq4m25U1wxxXWVyT6hCX</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="解释质押池相关账户"><a href="#解释质押池相关账户" class="headerlink" title="解释质押池相关账户"></a>解释质押池相关账户</h4><p><strong>Stake pool account:</strong><br>poolMint, validatorList, manager, staker, reserveStake</p>
+<p>连到3个账户</p>
+<p>1.<strong>Mint Account</strong>:</p>
+<p>decimals, mint_authority</p>
+<p>其中</p>
+<p>1.1<strong>user wallet account</strong>(owner system program) - &gt;</p>
+<p><strong>stake account:</strong></p>
+<p>stake authority address, withdraw authority address, lockup authority address</p>
+<p><strong>token account</strong>:</p>
+<p>mint, authority&#x2F;owner</p>
+<p>1.2<strong>manager wallet account</strong>(owner system program):</p>
+<p><strong>pool fee token account</strong>: mint, authority&#x2F;owner</p>
+<p><strong>2.reserve stake account:(owner stake program)</strong>:</p>
+<p>stake authority, withdraw authority -&gt;</p>
+<p><strong>Manager wallet account</strong></p>
+<p><strong>3.validator accounts:</strong><br>validators   </p>
+<p>-&gt; <strong>Vote account</strong>:</p>
+<p>validator identify(account 1), vote authority(account 1), withdraw authority(account 2), owner(vote program)</p>
+<p>-&gt; stake account: delegated vote address</p>
+<p>transient stake address: delegated vote address</p>
+<p>是一个临时账户，主要用于短期的质押操作。它通常不会持久存在，而是在某些操作后会被销毁或替换。这类地址用于临时存储质押的 <code>SOL</code>，通常在与 <code>Validator</code> 或 <code>Stake Pool</code> 进行质押时使用。</p>
+<p>直接质押sol就会先进 reserve stake account,reverse account再分配给对应的vote account</p>
+<h4 id="修改质押池"><a href="#修改质押池" class="headerlink" title="修改质押池"></a>修改质押池</h4><p><strong>修改manager</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool set-manager [FLAGS] [OPTIONS] &lt;POOL_ADDRESS&gt; &lt;--new-manager &lt;KEYPAIR&gt;|--new-fee-receiver &lt;ADDRESS&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改费用</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool set-fee [FLAGS] [OPTIONS] &lt;POOL_ADDRESS&gt; &lt;FEE_TYPE&gt; &lt;NUMERATOR&gt; &lt;DENOMINATOR&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改staker</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool set-staker [FLAGS] [OPTIONS] &lt;POOL_ADDRESS&gt; [ADDRESS]</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加validator"><a href="#添加validator" class="headerlink" title="添加validator"></a>添加validator</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">solana validators -u localhost</span><br><span class="line">查看本地的验证器和vote账户</span><br><span class="line"></span><br><span class="line">先质押给reverse account一些</span><br><span class="line"></span><br><span class="line">spl-stake-pool deposit-sol &lt;质押池地址&gt; 数量</span><br><span class="line"></span><br><span class="line">spl-stake-pool add-validator &lt;YOUR_STAKE_POOL_ADDRESS&gt; &lt;VOTE_ACCOUNT_ADDRESS&gt;</span><br><span class="line"></span><br><span class="line">spl-stake-pool list -v &lt;YOUR_STAKE_POOL_ADDRESS&gt;</span><br></pre></td></tr></table></figure>
+
+<p>把vote 账户添加进 validator list</p>
+<h3 id="对于用户的质押"><a href="#对于用户的质押" class="headerlink" title="对于用户的质押"></a>对于用户的质押</h3><p>1.web界面</p>
+<p>2.使用质押账户进行流动性质押</p>
+<p><strong>切换下身份</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana config set -k ./user.json</span><br><span class="line">solana address -k user.json</span><br><span class="line">solana airdrop 100 &lt;ADDRESS&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用新身份进行质押质押stake account</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">solana create-stake-account stake-account.json 100 </span><br><span class="line"></span><br><span class="line">solana delegate-stake stake-account.json &lt;VOTE_ACCOUNT&gt;  </span><br><span class="line"></span><br><span class="line">//把质押账户再质押给质押池</span><br><span class="line">spl-stake-pool deposit-stake &lt;POOL_ADDRESS&gt; &lt;STAKE_ACCOUNT_ADDRESS&gt; [ADDRESS]</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana delegate-stake ~/account/c2stake.json BMfiMP5LEmtJoGWpLajdUpBNaCtDwBeG1RHXVWcJBUkp</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用质押账户提现"><a href="#使用质押账户提现" class="headerlink" title="使用质押账户提现"></a>使用质押账户提现</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool withdraw-stake &lt;YOUR_STAKE_POOL_ADDRESS&gt; （这里可以指定质押账户，不指定就会新建一个新的） &lt;AMOUNT&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="直接往质押中质押sol"><a href="#直接往质押中质押sol" class="headerlink" title="直接往质押中质押sol"></a>直接往质押中质押sol</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool deposit-sol</span><br><span class="line">spl-stake-pool deposit-sol [FLAGS] [OPTIONS] &lt;POOL_ADDRESS&gt; [AMOUNT]</span><br></pre></td></tr></table></figure>
+
+<h4 id="分配reverse"><a href="#分配reverse" class="headerlink" title="分配reverse"></a>分配reverse</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">solana config set -k ~/.config/solana/id.json</span><br><span class="line"></span><br><span class="line">spl-stake-pool (decrease)increase-validator-stake &lt;YOUR_STAKE_POOL_ADDRESS&gt; &lt;VOTE_ACCOUNT_ADDRESS&gt; [AMOUNT]</span><br><span class="line">进入了transient account(因为还没进入下一周期，更新)</span><br><span class="line"></span><br><span class="line">spl-stake-pool list -v &lt;YOUR_STAKE_POOL_ADDRESS&gt;</span><br></pre></td></tr></table></figure>
+
+<p>更新</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">solana epoch-info</span><br><span class="line">spl-stake-pool update &lt;YOUR_STAKE_POOL_ADDRESS&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="提现"><a href="#提现" class="headerlink" title="提现"></a>提现</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool withdraw-sol &lt;YOUR_STAKE_POOL_ADDRESS&gt; ./user.json &lt;AMOUNT&gt;</span><br><span class="line"></span><br><span class="line">spl-stake-pool withdraw-sol [FLAGS] [OPTIONS] &lt;POOL_ADDRESS&gt; &lt;SYSTEM_ACCOUNT_ADDRESS_OR_KEYPAIR&gt; &lt;AMOUNT&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-stake-pool withdraw-sol </span><br></pre></td></tr></table></figure>
+
+<p>直接提现提现的是reverse account中的余额</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">solana config set -k ~/.config/solana/id.json</span><br><span class="line">spl-stake-pool decrease-validator-stake &lt;YOUR_STAKE_POOL_ADDRESS&gt; &lt;VOTE_ACCOUNT_ADDRESS&gt; [AMOUNT]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Application-Level-Staking"><a href="#Application-Level-Staking" class="headerlink" title="Application-Level Staking"></a>Application-Level Staking</h2><h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><p>1.User wallet account -&gt; token account: mint, authority&#x2F;owner  &lt;- Token mint account: decimals, mint_authority -&gt; stake program: stake_info -&gt;stake info account: NFT Mint account, staker</p>
+<p>​	</p>
+<p>2.User wallet account -&gt; token account: mint, authority&#x2F;owner  &lt;- NFT Mint account: decimals, mint_authority -&gt;stake info account: NFT Mint account, staker</p>
+<p><strong>Stake info account</strong>（质押信息账户）<br>↳ 记录 <strong>NFT Mint account</strong>（被质押的 NFT） 和 <strong>staker</strong>（即 NFT 的质押者）。</p>
+<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana program dump --url mainnet-beta metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br><span class="line"></span><br><span class="line">solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="质押-1"><a href="#质押-1" class="headerlink" title="质押"></a>质押</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#[derive(Accounts)]</span><br><span class="line">pub struct NftStake&lt;&#x27;info&gt;&#123;</span><br><span class="line">    //接收nft的账户，是谁质押了哪个NFT？</span><br><span class="line">    #[account(</span><br><span class="line">        init_if_needed,</span><br><span class="line">        payer = authority,</span><br><span class="line">        space = 8 + IbuildStake::INIT_SPACE,</span><br><span class="line">        seeds = [</span><br><span class="line">            IbuildStake::SEED_PREFIX.as_bytes(),</span><br><span class="line">            nft_mint_account.key().as_ref(),</span><br><span class="line">        ],</span><br><span class="line">        bump,</span><br><span class="line">    )]</span><br><span class="line">    pub stake_info:Box&lt;Account&lt;&#x27;info, IbuildStake&gt;&gt;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">use anchor_lang::prelude::*;</span><br><span class="line"></span><br><span class="line">#[account]</span><br><span class="line">#[derive(InitSpace)]</span><br><span class="line">pub struct IbuildStake&#123;</span><br><span class="line">    pub staker: Pubkey,</span><br><span class="line">    pub nft_mint_account:Pubkey,</span><br><span class="line">    pub staked_clock:u64,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">impl IbuildStake &#123;</span><br><span class="line">    pub const SEED_PREFIX: &amp;&#x27;static str = &quot;stake_v1&quot;; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样保&#x2F;每一个NFT的质押都会有一个stake info，存储质押的信息很少，只需要存储3个字段，每一个质押的NFT都会有一个关联的质押的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#[account(</span><br><span class="line">    init_if_needed,</span><br><span class="line">    payer = authority,</span><br><span class="line">    space = 8 + IbuildStake::INIT_SPACE,</span><br><span class="line">    seeds = [</span><br><span class="line">        IbuildStake::SEED_PREFIX.as_bytes(),</span><br><span class="line">        nft_mint_account.key().as_ref(),</span><br><span class="line">    ],</span><br><span class="line">    bump,</span><br><span class="line">)]</span><br><span class="line">pub stake_info:Box&lt;Account&lt;&#x27;info, IbuildStake&gt;&gt;,</span><br><span class="line"></span><br><span class="line">#[account(</span><br><span class="line">    init_if_needed,</span><br><span class="line">    payer = authority,</span><br><span class="line">    associated_token::mint = nft_mint_account,</span><br><span class="line">    associated_token::authority = stake_info,</span><br><span class="line">)]</span><br><span class="line"></span><br><span class="line">pub program_receipt_nft_ata:Box&lt;Account&lt;&#x27;info,TokenAccount&gt;&gt;,</span><br></pre></td></tr></table></figure>
+
+<p>这样对于NFT来说，不仅会关联一个stake_info，该stake_info还会拥有NFT</p>
+<h1 id="编写一个全栈项目"><a href="#编写一个全栈项目" class="headerlink" title="编写一个全栈项目"></a>编写一个全栈项目</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana program dump --url mainnet-beta metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br><span class="line"></span><br><span class="line">solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在合约里如何编写我们的测试文件，以及如何接入我们的合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-solana-dapp@latest</span><br></pre></td></tr></table></figure>
+
+<p>创建一个全栈的项目</p>
+<p>anchor下放的是合约代码，相当于anchor init 创建的项目</p>
+<p>anchor下src:前端接入一些模块，下test前端的一些测试文件，关于合约测试脚本。</p>
+<p>src目录实际上就是一个next的项目对应的目录，api对应后端路由，account对应路由，clusters和counter对应前端路由</p>
+<p>测试的话需要cd到anchor目录下,然后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">anchor run test 或者 </span><br><span class="line">anchor test 因为这个简化了的</span><br><span class="line"></span><br><span class="line">npm run anchor-test</span><br></pre></td></tr></table></figure>
+
+<p>anchor test的时候会启动一个validator</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor test --skip-local-validator</span><br></pre></td></tr></table></figure>
+
+<p>执行anchor test文件可以看到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tests/a.spec.ts</span><br></pre></td></tr></table></figure>
+
+<p>对应我们的这个脚本</p>
+<h3 id="遇到test问题情况"><a href="#遇到test问题情况" class="headerlink" title="遇到test问题情况"></a>遇到test问题情况</h3><p>1.先启动validator可以加 -r，就可以通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor test --skip-local-validator</span><br></pre></td></tr></table></figure>
+
+
+
+<p>打印</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(&#x27;RPC URL:&#x27;,provider.connection.rpcEndpoint);</span><br><span class="line"> console.log(&#x27;Wallet Pubkey:&#x27;, provider.wallet.publicKey.toBase58());</span><br></pre></td></tr></table></figure>
+
+<p>跑前端项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<p>一个钱包接入主要有2部分，第一部分是一个connection,这一部分主要包括anchor point,第二部分就是一个wallet</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src/components/solana/solana-provider.tsx连接钱包授权的相关操作</span><br></pre></td></tr></table></figure>
+
+<p>怎么样接入创建的比如“A”这一个合约</p>
+<p>如何调用Initialize的合约指令，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在src/components/a/a-ui.tsx</span><br><span class="line">首先要初始化program</span><br><span class="line">const &#123; initialize &#125; = useAProgram()</span><br><span class="line">其点开在</span><br><span class="line">src/components/a/a-data-access.tsx</span><br></pre></td></tr></table></figure>
+
+<p>其中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">export function useAProgram() &#123;</span><br><span class="line">包里面提供了</span><br><span class="line">  const &#123; connection &#125; = useConnection()</span><br><span class="line">  const &#123; cluster &#125; = useCluster()</span><br><span class="line">  const transactionToast = useTransactionToast()</span><br><span class="line">  const provider = useAnchorProvider()</span><br><span class="line">  const programId = useMemo(() =&gt; getAProgramId(cluster.network as Cluster), [cluster])</span><br><span class="line">  const program = useMemo(() =&gt; getAProgram(provider, programId), [provider, programId])</span><br><span class="line"></span><br><span class="line">  const accounts = useQuery(&#123;</span><br><span class="line">    queryKey: [&#x27;a&#x27;, &#x27;all&#x27;, &#123; cluster &#125;],</span><br><span class="line">    queryFn: () =&gt; program.account.a.all(),</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  const getProgramAccount = useQuery(&#123;</span><br><span class="line">    queryKey: [&#x27;get-program-account&#x27;, &#123; cluster &#125;],</span><br><span class="line">    queryFn: () =&gt; connection.getParsedAccountInfo(programId),</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  const initialize = useMutation(&#123;</span><br><span class="line">    mutationKey: [&#x27;a&#x27;, &#x27;initialize&#x27;, &#123; cluster &#125;],</span><br><span class="line">    </span><br><span class="line">    //此处要拿到program，初始化program</span><br><span class="line">    mutationFn: (keypair: Keypair) =&gt;</span><br><span class="line">      program.methods.initialize().accounts(&#123; a: keypair.publicKey &#125;).signers([keypair]).rpc(),</span><br><span class="line">    onSuccess: (signature) =&gt; &#123;</span><br><span class="line">      transactionToast(signature)</span><br><span class="line">      return accounts.refetch()</span><br><span class="line">    &#125;,</span><br><span class="line">    onError: () =&gt; toast.error(&#x27;Failed to initialize account&#x27;),</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在单元测试上差异</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> const program = anchor.workspace.A as Program&lt;A&gt;</span><br><span class="line">很简单</span><br></pre></td></tr></table></figure>
+
+<p>在前端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">先手动显示实例化program</span><br><span class="line">  const program = useMemo(() =&gt; getAProgram(provider, programId), [provider, programId])</span><br><span class="line">  </span><br><span class="line">provier又要</span><br><span class="line">  const provider = useAnchorProvider()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>点开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">export function useAnchorProvider() &#123;</span><br><span class="line">  const &#123; connection &#125; = useConnection()</span><br><span class="line">  const wallet = useWallet()</span><br><span class="line"></span><br><span class="line">  return new AnchorProvider(connection, wallet as AnchorWallet, &#123; commitment: &#x27;confirmed&#x27; &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中和test的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const provider = anchor.AnchorProvider.env()</span><br></pre></td></tr></table></figure>
+
+<p>一致，都是调用new AnchorProvider的构造函数</p>
+<p>provider后通过new Program</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export function getAProgram(provider: AnchorProvider, address?: PublicKey) &#123;</span><br><span class="line">  return new Program(&#123; ...AIDL, address: address ? address.toBase58() : AIDL.address &#125; as A, provider)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再传入对应的idl文件，address在新版本应该是不需要传的，因为在idl中已经拿到了address，不需要手动显示传入了</p>
+<p>实例化programs之后就可以通过program.methods.initialize().accounts调用对应的合约指令，其中只需要</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accounts(&#123; a: keypair.publicKey &#125;).signers([keypair]).rpc(),</span><br></pre></td></tr></table></figure>
+
+<p>其中有payer和a两个字段，但是这里只需要a这个账户，因为默认连接的钱包账户会加入因为，就不需要显式得传入这个字段</p>
+<p>包装完成后可以通过，获取到所有账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const accounts = useQuery(&#123;</span><br><span class="line">  queryKey: [&#x27;a&#x27;, &#x27;all&#x27;, &#123; cluster &#125;],</span><br><span class="line">  queryFn: () =&gt; program.account.a.all(),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在测试文件可以通过fetch获取到对应的账户</p>
+<p>其中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123; getAProgram, getAProgramId &#125; from &#x27;@project/anchor&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>是通过此处调用的在tsconfig,json可以看到是别名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;paths&quot;: &#123;</span><br><span class="line">    &quot;@project/anchor&quot;: [&quot;anchor/src&quot;],</span><br><span class="line">    &quot;@/*&quot;: [&quot;./src/*&quot;]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>版本最好是别改，版本号和依赖包改了会导致很多异常</p>
+<h1 id="ETF和创造指令实现"><a href="#ETF和创造指令实现" class="headerlink" title="ETF和创造指令实现"></a>ETF和创造指令实现</h1><p>对于ETF来说也是一个ETF token</p>
+<p>token program</p>
+<p>第一步</p>
+<p>-&gt; token account,: mint(token),authority&#x2F;owner A</p>
+<p>-&gt;mint account:decimals, mint_authority</p>
+<p>-&gt;mint account etf: authority, decimals</p>
+<p>第二步</p>
+<p>user -&gt; program -&gt;</p>
+<p>taken_info: name, symbol, consititunent</p>
+<h2 id="创建ETF"><a href="#创建ETF" class="headerlink" title="创建ETF"></a>创建ETF</h2><p>1.将ETF包含的资产从指令参数传入</p>
+<p>实现简单，但无法校验spl-token的约束，同时合约无法同步创建各token的associated address</p>
+<p>可以在调用前端代码时完成校验，以及同步同时创建ATA账户</p>
+<h2 id="实践-1"><a href="#实践-1" class="headerlink" title="实践"></a>实践</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">solana deactivate-stake stake-account.json -u localhost</span><br><span class="line"></span><br><span class="line">solana program dump -h</span><br><span class="line"></span><br><span class="line">solana program dump --url mainnet-beta metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br><span class="line"></span><br><span class="line">solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s metadata.so</span><br></pre></td></tr></table></figure>
+
+<p>描述成#[account]，能够自动实现序列化和反序列化</p>
+<p>对合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchor keys sync</span><br></pre></td></tr></table></figure>
+
+<p>同步创建ATA账户，ATA账户能够创建出来则一定是一个合法的mint——token</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-token</span><br></pre></td></tr></table></figure>
+
+<p>1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-token</span><br><span class="line">Creating token Hxg8q5eyeXETVKV7ZTq26x21TLdYXZE73Xd42vxyAiJ1 under program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line"></span><br><span class="line">Address:  Hxg8q5eyeXETVKV7ZTq26x21TLdYXZE73Xd42vxyAiJ1</span><br><span class="line">Decimals:  9</span><br><span class="line"></span><br><span class="line">Signature: 4ZuivgQP5vJt8CexPhdDsvX5Yrco2zZrZe4iFku6b4VXYr64gCQTxNjuUzCC9mg2p2tpS3gjv7hZsjHPqirQrVhD</span><br></pre></td></tr></table></figure>
+
+<p>2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-token</span><br><span class="line">Creating token FStgXqadQSJKMgMAhsv1beFxA54kfLpUNXs1GFfEvjif under program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line"></span><br><span class="line">Address:  FStgXqadQSJKMgMAhsv1beFxA54kfLpUNXs1GFfEvjif</span><br><span class="line">Decimals:  9</span><br><span class="line"></span><br><span class="line">Signature: 3LTquZ1SaySGRgtxAwaipnv7TvT67Hh5tTA8wjvjJ74jeiNkEYDUxTDACKaRWzyVu9nBAobvXzhAqHfcELAd6qnv</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="ETF的购买、赎回、扩展"><a href="#ETF的购买、赎回、扩展" class="headerlink" title="ETF的购买、赎回、扩展"></a>ETF的购买、赎回、扩展</h1><p>购买方案1：前端</p>
+<ol>
+<li>用户：通过ray或okx等平台将Sol换成其他Token</li>
+<li>用户 transfer jsol和msol到合约</li>
+<li>合约: mint100份ETF给用户</li>
+</ol>
+<p>方案2： 合约swap</p>
+<ol>
+<li>用户：transfer 对应sol到合约</li>
+<li>合约：通过ray或okx等平台将Sol换成对应token</li>
+<li>合约：mint100份ETF给用户</li>
+</ol>
+<h2 id="实践-2"><a href="#实践-2" class="headerlink" title="实践"></a>实践</h2><h3 id="错误1"><a href="#错误1" class="headerlink" title="错误1"></a>错误1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x27;Program Dk1ARiDNBqsoPC3D1n5kzFZpr9u5XU2AhPsrPw71rKxW invoke [1]&#x27;,</span><br><span class="line">   &#x27;Program log: Instruction: EtfMint&#x27;,</span><br><span class="line">   &#x27;Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]&#x27;,</span><br><span class="line">   &#x27;Program log: Instruction: Transfer&#x27;,</span><br><span class="line">   &#x27;Program log: Error: InvalidAccountData&#x27;,</span><br><span class="line">   &#x27;Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 1271 of 176596 compute units&#x27;,</span><br><span class="line">   &#x27;Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA failed: invalid account data for instruction&#x27;,</span><br><span class="line">   &#x27;Program Dk1ARiDNBqsoPC3D1n5kzFZpr9u5XU2AhPsrPw71rKxW consumed 24675 of 200000 compute units&#x27;,</span><br><span class="line">   &#x27;Program Dk1ARiDNBqsoPC3D1n5kzFZpr9u5XU2AhPsrPw71rKxW failed: invalid account data for instruction&#x27;</span><br><span class="line"> ],</span><br></pre></td></tr></table></figure>
+
+<p>因为ata地址没有余额</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> spl-token create-account 6GwhqGDHvk9ibe1KkTVFLru65VgUkRoYfMfr1W14UWeU</span><br><span class="line">Creating account 3GNWWyEqDQ5omzSKZpWqAtb2YzXGFKzXnTKumWLgorb3</span><br><span class="line"></span><br><span class="line">Signature: CktcwKJsUn3TdJHvgDNc3RZikyRdZaYmgzFrGw9qvK4uM72JPLCVC4zxVBxkfyhaMdKaZLjbpaMZgxfhs29Mywf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint 6GwhqGDHvk9ibe1KkTVFLru65VgUkRoYfMfr1W14UWeU 100</span><br><span class="line">Minting 100 tokens</span><br><span class="line">  Token: 6GwhqGDHvk9ibe1KkTVFLru65VgUkRoYfMfr1W14UWeU</span><br><span class="line">  Recipient: 3GNWWyEqDQ5omzSKZpWqAtb2YzXGFKzXnTKumWLgorb3</span><br><span class="line"></span><br><span class="line">Signature: 2KiPEribVRMopPqiCKzgWNJNZu6oJRfdKBRv8LVobYcgR8ovxwWMBgfDYrsrUxDr1wQC3YsGK1DmjiS3ZAqw8rVP</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint ByuipWwhbTvYAD3kvfhVpeZfz7EofkkYfrfaoahRigXi 100</span><br><span class="line">Error: &quot;Account AMqHRcAwjNggjij3rReMEFxXWqzDSczGs5VPLBqBarN not found&quot;</span><br></pre></td></tr></table></figure>
+
+<p>3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account ByuipWwhbTvYAD3kvfhVpeZfz7EofkkYfrfaoahRigXi</span><br><span class="line"></span><br><span class="line">Creating account AMqHRcAwjNggjij3rReMEFxXWqzDSczGs5VPLBqBarN</span><br><span class="line"></span><br><span class="line">Signature: 2jdzqaVcL73Y68YpLEPnmuJ8b4Lq4bsE4m9PHgq2LdP4Hs3TmjMiMCxdHSw2uDm7DCDst6DGpYaERDrxjTAqwMfJ</span><br></pre></td></tr></table></figure>
+
+<p>4</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token mint ByuipWwhbTvYAD3kvfhVpeZfz7EofkkYfrfaoahRigXi 100</span><br><span class="line">Minting 100 tokens</span><br><span class="line">  Token: ByuipWwhbTvYAD3kvfhVpeZfz7EofkkYfrfaoahRigXi</span><br><span class="line">  Recipient: AMqHRcAwjNggjij3rReMEFxXWqzDSczGs5VPLBqBarN</span><br><span class="line"></span><br><span class="line">Signature: 292pddjwNdgAKPswwk1a3rX65KDZicmCEdb7snESkKFR5iz3zrSpdAuBaAUQ7qwJNPbikKnnaAX5PhUs6nUjJX4t</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">spl-token accounts</span><br><span class="line"></span><br><span class="line">LAPTOP-6M4RE4LA# spl-token accounts</span><br><span class="line">Token                                         Balance</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">6GwhqGDHvk9ibe1KkTVFLru65VgUkRoYfMfr1W14UWeU  100</span><br><span class="line">Aq8NzyHt1FPVfStH9dFJKTMRwsccHn7eANdgzVdoQFcQ  0  </span><br><span class="line">ByuipWwhbTvYAD3kvfhVpeZfz7EofkkYfrfaoahRigXi  100</span><br></pre></td></tr></table></figure>
+
+<p>6</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# anchor run example</span><br><span class="line">bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)</span><br><span class="line">Aq8NzyHt1FPVfStH9dFJKTMRwsccHn7eANdgzVdoQFcQ</span><br><span class="line">(node:31225) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.</span><br><span class="line">(Use `node --trace-deprecation ...` to show where the warning was created)</span><br><span class="line">3aDxoQD4AEr4xVeyxCXWhn3gdMPjxzxt7TxBkgYjpH4dims5wZFhZtSTWLf8PKPs74rYa3VgfQKxPALbgH85wsBg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">LAPTOP-6M4RE4LA# spl-token accounts</span><br><span class="line">Token                                         Balance</span><br><span class="line">-----------------------------------------------------</span><br><span class="line">6GwhqGDHvk9ibe1KkTVFLru65VgUkRoYfMfr1W14UWeU  91</span><br><span class="line">Aq8NzyHt1FPVfStH9dFJKTMRwsccHn7eANdgzVdoQFcQ  10</span><br><span class="line">ByuipWwhbTvYAD3kvfhVpeZfz7EofkkYfrfaoahRigXi  99</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在没有mint相应的token之前，即使运行run example相应的etf也是0</p>
+<h2 id="赎回"><a href="#赎回" class="headerlink" title="赎回"></a>赎回</h2><p>方案：</p>
+<p>用户： burn 100份ETF</p>
+<p>合约： transfer对应份额的token给用户</p>
+<p>用户：通过各平台将各token换成sol</p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>将etf包含的资产从账户传入，分散在多个合约中</p>
+<p>获取etf列表</p>
+<p>umi库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pnpm install @metaplex-foundation/umi-bundle-defaults</span><br><span class="line"></span><br><span class="line">npm install @metaplex-foundation/umi-bundle-defaults</span><br><span class="line"></span><br><span class="line">npm install @metaplex-foundation/umi</span><br><span class="line"></span><br><span class="line">npm install @metaplex-foundation/mpl-token-metadata</span><br><span class="line">npm install @metaplex-foundation/umi-web3js-adapters</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://auo578.github.io/2025/04/01/%E5%A4%8D%E4%B9%A0/" data-id="cm91nrz3t0000ugu77o2i870x" data-title="anchor相关及defi，社交项目拆解重写" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A8/" rel="tag">SOLANA项目入门</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2025317-相关系统账户对不上" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/03/17/2025317-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7%E5%AF%B9%E4%B8%8D%E4%B8%8A/" class="article-date">
@@ -1238,194 +2182,6 @@
 
 
   
-    <article id="post-solana基础-账户和简单的交互" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/" class="article-date">
-  <time class="dt-published" datetime="2024-11-30T16:30:35.000Z" itemprop="datePublished">2024-12-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/">Sol账户和交互、token创建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="solana基础-账户和简单的交互"><a href="#solana基础-账户和简单的交互" class="headerlink" title="solana基础-账户和简单的交互"></a>solana基础-账户和简单的交互</h2><p>账户分类：</p>
-<p>数据账户（系统所有账户，程序派生账户PDA）、程序账户（智能合约）、原生账户</p>
-<p>账户结构体</p>
-<p>account：</p>
-<p>1.lamports余额 </p>
-<p>2.data存储数据，可能和合约相关也可能和数据相关Vec<u8></p>
-<p>3.owner：程序的公钥，所有者的数据和权限Pubkey</p>
-<p>4.executable：数据是否可执行bool</p>
-<p>5.rent_epoch:租金Epoch</p>
-<p>accountinfo:</p>
-<p>包含account,但lamports和data的数据类型不一样</p>
-<p>1.key：Pubkey，公钥，标识</p>
-<p>2.is_signer</p>
-<p>3.is_writable：该账户的数据是否可以在当前事务中被修改</p>
-<h5 id="PDA"><a href="#PDA" class="headerlink" title="PDA"></a>PDA</h5><p>PDA是通过程序ID和seed派生出来的地址，没有私钥，所以不能主动签名。所以SOlana允许程序以程序ID为基础代表PDA执行操作（程序能够代替PDA进行签名），solana使用signer来表示一个PDA地址，实现“代签”。增强了安全性。</p>
-<p>wallet publickey -&gt; seeds</p>
-<p>programid -&gt; programid</p>
-<ul>
-<li><p>使用 PDA 作为地址的账户必须通过 Solana 程序中的专用指令显式创建。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">findProgramAddress(seeds,programid)</span><br><span class="line">createProgramAddress(optional seeds + bump, programid)</span><br></pre></td></tr></table></figure>
-
-<p>PDA种子不能超过32字节</p>
-<p>多个程序可以通过 BFF（Backend for Frontend）模型访问和操作一个 PDA（Program Derived Address）账户。或者数据复制。</p>
-<p>如果PDA被用作Solana删的内存账户，则这些账户的大小是有限制的，超过一定大小需要支付更高的费用来增加内存租金</p>
-</li>
-</ul>
-<h5 id="solana开发使用的rust库"><a href="#solana开发使用的rust库" class="headerlink" title="solana开发使用的rust库"></a>solana开发使用的rust库</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">solana_client</span><br><span class="line"></span><br><span class="line">solana_sdk</span><br><span class="line"></span><br><span class="line">solana_program</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h5><h6 id="1-启动本地环境"><a href="#1-启动本地环境" class="headerlink" title="1.启动本地环境"></a>1.启动本地环境</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana-test-validator</span><br><span class="line">solana-test-validator --reset(重置)</span><br><span class="line">solana config get（看配置）</span><br></pre></td></tr></table></figure>
-
-
-
-<h6 id="2-更改solana配置，链接到本地开发环境"><a href="#2-更改solana配置，链接到本地开发环境" class="headerlink" title="2.更改solana配置，链接到本地开发环境"></a>2.更改solana配置，链接到本地开发环境</h6><p>如果RPC url是 <a target="_blank" rel="noopener" href="https://api.devnet.solana.com/">https://api.devnet.solana.com</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana config set --url http://127.0.0.1:8899</span><br></pre></td></tr></table></figure>
-
-<p><a href="http://127.0.0.1:8899是JSON">http://127.0.0.1:8899是JSON</a> RPC URL</p>
-<h6 id="3-创建本地账户"><a href="#3-创建本地账户" class="headerlink" title="3.创建本地账户"></a>3.创建本地账户</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new -o ~/.config/solana/ad1.json</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Wrote new keypair to /root/.config/solana/ad1.json</span><br><span class="line">=========================================================================</span><br><span class="line">pubkey: EEgNrcge5wjgGvqmtH1xvsGC6a3pTARfP2q5nmQAyFNk</span><br><span class="line">=========================================================================</span><br><span class="line">Save this seed phrase and your BIP39 passphrase to recover your new keypair:</span><br><span class="line">ship train venture jungle coyote rebel world mask pretty nose entry river</span><br></pre></td></tr></table></figure>
-
-<p>私钥在</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /root/.config/solana/ad1.json</span><br></pre></td></tr></table></figure>
-
-<p>u8的slice</p>
-<p>solana钱包 地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">solana address</span><br><span class="line">//切换钱包地址</span><br><span class="line">solana config set --keypair /root/.config/solana/ad1.json</span><br></pre></td></tr></table></figure>
-
-<p>可以看到Keypair Path:设置成ad1了</p>
-<h6 id="4-给新建账户空投sol"><a href="#4-给新建账户空投sol" class="headerlink" title="4.给新建账户空投sol"></a>4.给新建账户空投sol</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//查看余额</span><br><span class="line">solana balance</span><br><span class="line">// 空投</span><br><span class="line">solana airdrop 10</span><br></pre></td></tr></table></figure>
-
-<p>​	使用SDK（空投sol，获取账户信息，转移sol）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cargo new sol</span><br><span class="line">cd sol</span><br><span class="line">code ./</span><br></pre></td></tr></table></figure>
-
-<p>这次先安装包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cargo add solana_client</span><br><span class="line">cargo add solana_sdk</span><br><span class="line">cargo add solana_program</span><br></pre></td></tr></table></figure>
-
-
-
-<h6 id="5-通过jsonRpc获取账户信息"><a href="#5-通过jsonRpc获取账户信息" class="headerlink" title="5.通过jsonRpc获取账户信息"></a>5.通过jsonRpc获取账户信息</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">curl http://127.0.0.1:8899 -s -X POST -H &quot;Content-Type: application/json&quot; -d &#x27;</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;jsonrpc&quot;: &quot;2.0&quot;,</span><br><span class="line">    &quot;id&quot;: 1,</span><br><span class="line">    &quot;method&quot;: &quot;getAccountInfo&quot;,</span><br><span class="line">    &quot;params&quot;: [</span><br><span class="line">      &quot;2hZD16YvwvNrR6EASsnP4buM3Ljyjo5wiGU3SAvTRf1x&quot;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;encoding&quot;: &quot;base58&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>其中curl后面是url网络</p>
-<p>params填写pubkey</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&#123;&quot;context&quot;:&#123;&quot;apiVersion&quot;:&quot;2.0.17&quot;,&quot;slot&quot;:2710&#125;,&quot;value&quot;:&#123;&quot;data&quot;:[&quot;&quot;,&quot;base58&quot;],&quot;executable&quot;:false,&quot;lamports&quot;:1000000000,&quot;owner&quot;:&quot;11111111111111111111111111111111&quot;,&quot;rentEpoch&quot;:18446744073709551615,&quot;space&quot;:0&#125;&#125;,&quot;id&quot;:1&#125;</span><br></pre></td></tr></table></figure>
-
-<p>json版本，返回的result，请求传入的id（通过id对应不同的响应）</p>
-<p>result里：solanaAPI版本，slot对应区块（第多少个区块）</p>
-<p>value是账户的具体信息：</p>
-<p>data里“”表示没有存储信息是普通账户，base58是编码形式</p>
-<p>executable是否是可执行账户，lamports余额lamports单位</p>
-<p>owner是系统账户的公钥，表示该账户是由 Solana 系统管理的，通常是一个普通账户或者空账户。</p>
-<p><code>rentEpoch</code> 表示 此帐户下次欠租金的时期。<code>18446744073709551615</code> 是一个非常大的数字，表示该账户没有过期或未设置过期时间。通常情况下，这个字段的值为 <code>MAX</code> 值，表示该账户是没有过期限制的。</p>
-<p>space是账户所占用的空间大小。Solana 账户的空间表示该账户是否存储自定义数据。<code>space</code> 为 0 表示该账户没有存储任何额外的数据，通常是一个空账户或普通账户。</p>
-<h4 id="问题：转账分不清sol和lamports"><a href="#问题：转账分不清sol和lamports" class="headerlink" title="问题：转账分不清sol和lamports"></a>问题：转账分不清sol和lamports</h4><h1 id="看Solana开发者者文档，很重要，要看完"><a href="#看Solana开发者者文档，很重要，要看完" class="headerlink" title="看Solana开发者者文档，很重要，要看完"></a>看Solana开发者者文档，很重要，要看完</h1><h2 id="Token解析和创建"><a href="#Token解析和创建" class="headerlink" title="Token解析和创建"></a>Token解析和创建</h2><p>Token:可替代代币如USDT，不可替代代币NFT、合同、投票等</p>
-<p>solana的token遵循的是SPL token的协议（solana program library），包含的账户</p>
-<p>1.token program代币程序：system的program，在solana上已经部署好的，如果要创建一个spl token的话，这个token program是不需要怎么管的，是token结尾的一个address</p>
-<p>2.mint account铸币账户，创建SPL时要创建一个mint account，token的发行和销毁</p>
-<p>3.token account代币账户，正常和ATA（关联代币账户），</p>
-<p>4.associated token account关联代币账户，PDA账户的其中一种体现形式</p>
-<h4 id="实战-1"><a href="#实战-1" class="headerlink" title="实战"></a>实战</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new --outfile /root/.config/solana/t1.json</span><br></pre></td></tr></table></figure>
-
-<p><code>--outfile</code> 是用来告诉命令输出文件的保存位置和文件名的。执行这个命令后，你可以在 <code>/root/.config/solana/t1.json</code> 文件中找到生成的 Solana 密钥对（通常包括私钥和公钥）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Wrote new keypair to /root/.config/solana/t1.json</span><br><span class="line">================================================================================</span><br><span class="line">pubkey: 8BhXNmChpjBxpu2KsLhBcnLuPVZMkt25zsDUupLghMEC</span><br><span class="line">================================================================================</span><br><span class="line">Save this seed phrase and your BIP39 passphrase to recover your new keypair:</span><br><span class="line">measure palace cloth ozone couple nature sea matrix october gym elephant opinion</span><br><span class="line">================================================================================</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new --outfile /root/.config/solana/t1.json</span><br><span class="line"></span><br><span class="line">solana config set --keypair /root/.config/solana/t1.json</span><br><span class="line"></span><br><span class="line">solana airdrop 10</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//创建SPL token</span><br><span class="line">spl-token create-token</span><br></pre></td></tr></table></figure>
-
-<p>结果显示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token create-token</span><br><span class="line">Creating token BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH under program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line"></span><br><span class="line">//mint account</span><br><span class="line">Address:  BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br><span class="line">Decimals:  9</span><br><span class="line"></span><br><span class="line">Signature: 4qr1mJeVKTPKY6JxmmkVWsvYGouWKVWPi8vjrPJ5vgQ4Lwa6kFf8pMfRSEDLqgmWf78UUEvcMDqGMaM8cgJeAcoK</span><br></pre></td></tr></table></figure>
-
-<p>看mint account地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token account-info --address BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br></pre></td></tr></table></figure>
-
-<p>结果（默认未设置）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SPL Token Mint</span><br><span class="line">  Address: BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br><span class="line">  //合约</span><br><span class="line">  Program: TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA</span><br><span class="line">  //供应量</span><br><span class="line">  Supply: 0</span><br><span class="line">  //小数位</span><br><span class="line">  Decimals: 9</span><br><span class="line">  //这个就是之前生成的公钥地址</span><br><span class="line">  Mint authority: 8BhXNmChpjBxpu2KsLhBcnLuPVZMkt25zsDUupLghMEC</span><br><span class="line">  Freeze authority: (not set)</span><br></pre></td></tr></table></figure>
-
-<p>solana设置网站有</p>
-<p>1.官方网站</p>
-<p><a target="_blank" rel="noopener" href="https://explorer.solana.com/?cluster=custom&customUrl=http://localhost:8899">https://explorer.solana.com/?cluster=custom&amp;customUrl=http%3A%2F%2Flocalhost%3A8899</a></p>
-<p>2.社区建造网站FM</p>
-<p><a target="_blank" rel="noopener" href="https://solana.fm/?cluster=mainnet-alpha">https://solana.fm/?cluster=mainnet-alpha</a></p>
-<p>可以用浏览器去看account</p>
-<p>创建token account</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account [FLAGS] [OPTIONS] &lt;TOKEN_MINT_ADDRESS&gt; [ACCOUNT_KEYPAIR]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br></pre></td></tr></table></figure>
-
-<p>创建出ATA账户</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token create-account BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br><span class="line">Creating account AUjHfSkUXqtb2fyM3cyK3umRXoVntcGEnnr15MCkUmXY</span><br><span class="line"></span><br><span class="line">Signature: 2ydY9p3FQnUGAcsb97q6CxJWe5TEa8tHwZTpECSY55i3vWtxRKoEYt2DJCQs8ZbXgjJJdrks21wYo9eePp9DN9mi</span><br></pre></td></tr></table></figure>
-
-<p>创建普通token账户，而不是ATA账户</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">solana-keygen new --outfile /root/.config/solana/t2.json</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Wrote new keypair to /root/.config/solana/t2.json</span><br><span class="line">==============================================================================</span><br><span class="line">pubkey: DST3zCqEgzmHXZU3fyksVuPeSdpzpjBfkds58KrbKtKC</span><br><span class="line">==============================================================================</span><br><span class="line">Save this seed phrase and your BIP39 passphrase to recover your new keypair:</span><br><span class="line">report effort original replace wasp fiscal funny hair hero cannon device brand</span><br><span class="line">==============================================================================</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token create-account BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH /root/.config/solana/t2.json</span><br></pre></td></tr></table></figure>
-
-<p>创建出token account</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token create-account BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH /root/.config/solana/t2.json</span><br><span class="line">Creating account DST3zCqEgzmHXZU3fyksVuPeSdpzpjBfkds58KrbKtKC</span><br><span class="line"></span><br><span class="line">Signature: 2gGsVMehZKXTFTsQ2jQrqqQ8tTCgCxnPQ2Mq1CCtzfqmUdnfWpSAB5divtZZCmhvLQuvtE3ScKognGigrQ7YqNaf</span><br></pre></td></tr></table></figure>
-
-<p>如果直接创建，不指定私钥，那么创建的是ATA账户，而ATA账户只有一个</p>
-<p>空投，给ATA账户空投钱</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH 100</span><br><span class="line"></span><br><span class="line">给mint account空投会自动到其关联账户上</span><br><span class="line">AUjHfSkUXqtb2fyM3cyK3umRXoVntcGEnnr15MCkUmXY</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token mint BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH 100</span><br><span class="line">Minting 100 tokens</span><br><span class="line">  Token: BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br><span class="line">  Recipient: AUjHfSkUXqtb2fyM3cyK3umRXoVntcGEnnr15MCkUmXY</span><br><span class="line"></span><br><span class="line">Signature: 5W1Ngt6UPybGaNRvYPyxvPdcmBmgNX2g9Yb3n7dNFJ9aLeDV7m3ibRUTZo2NExbmGwNJKpuU1Ncdf4zGB58P5HQy</span><br></pre></td></tr></table></figure>
-
-
-
-<p>给普通token account账户空投</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spl-token mint BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH 100 -- DST3zCqEgzmHXZU3fyksVuPeSdpzpjBfkds58KrbKtKC</span><br></pre></td></tr></table></figure>
-
-<p>结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LAPTOP-6M4RE4LA# spl-token mint BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH 100 -- DST3zCqEgzmHXZU3fyksVuPeSdpzpjBfkds58KrbKtKC</span><br><span class="line">Minting 100 tokens</span><br><span class="line">  Token: BDZHV4TVGUxGcp4soJZP4BZd976fJm5bv8aVfCTMXaoH</span><br><span class="line">  Recipient: DST3zCqEgzmHXZU3fyksVuPeSdpzpjBfkds58KrbKtKC</span><br><span class="line"></span><br><span class="line">Signature: 47uKtp3nVA1y4Y6ocMdKnUQFktdbbSekXDAxK5CNtRe2dV4VmyDT9pT2jNxvxrXWjuLkyanyMTXASUQJ2dMGgdNi</span><br></pre></td></tr></table></figure>
-
-<p>查看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spl-token account-info --address DST3zCqEgzmHXZU3fyksVuPeSdpzpjBfkds58KrbKtKC</span><br><span class="line"></span><br><span class="line">spl-token account-info --address AUjHfSkUXqtb2fyM3cyK3umRXoVntcGEnnr15MCkUmXY</span><br></pre></td></tr></table></figure>
-
-
-
-<p>因为使用的是本地开发环境JSON RPC URL: <a target="_blank" rel="noopener" href="http://127.0.0.1:8899/">http://127.0.0.1:8899</a></p>
-<p>所以token是直接发到本地上</p>
-<p>如果要在主网上发token，要把这些改成主网的地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JSON RPC URL: http://127.0.0.1:8899</span><br><span class="line">WebSocket PubSub URL: ws://127.0.0.1:8900</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://auo578.github.io/2024/12/01/solana%E5%9F%BA%E7%A1%80-%E8%B4%A6%E6%88%B7%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%A4%E4%BA%92/" data-id="cm477y2mg000kc4u71ee0e4q1" data-title="Sol账户和交互、token创建" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1439,7 +2195,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity%E5%85%A5%E9%97%A8/" rel="tag">solidity入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust%E5%9F%BA%E7%A1%80/" rel="tag">Rust基础</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A8/" rel="tag">SOLANA项目入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A81/" rel="tag">SOLANA项目入门1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SOLANA%E9%A1%B9%E7%9B%AE%E5%85%A5%E9%97%A82-anchor/" rel="tag">SOLANA项目入门2---anchor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/program%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="tag">program工具使用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/solidity%E5%85%A5%E9%97%A8/" rel="tag">solidity入门</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%82%96%E8%80%81%E5%B8%88%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">肖老师课程笔记</a></li></ul>
     </div>
   </div>
 
@@ -1450,6 +2206,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/04/01/%E5%A4%8D%E4%B9%A0/">anchor相关及defi，社交项目拆解重写</a>
+          </li>
         
           <li>
             <a href="/2025/03/17/2025317-%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E8%B4%A6%E6%88%B7%E5%AF%B9%E4%B8%8D%E4%B8%8A/">相关系统账户对不上</a>
@@ -1467,10 +2227,6 @@
             <a href="/2024/12/10/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%BA%A7%E5%88%AB%E7%9A%84%E8%B4%A8%E6%8A%BC%E5%90%88%E7%BA%A6/">SPLtoken合约创建</a>
           </li>
         
-          <li>
-            <a href="/2024/12/09/2024129-github%E7%9A%84%E4%BD%BF%E7%94%A8/">github的使用</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1483,7 +2239,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">四月 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li></ul>
     </div>
   </div>
 
